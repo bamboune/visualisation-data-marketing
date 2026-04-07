@@ -2,8 +2,8 @@ name: Mettre à jour le dashboard
 
 on:
   schedule:
-    - cron: '0 6 1 * *'
-  workflow_dispatch:
+    - cron: '0 6 * * *'   # tous les jours à 6h UTC (2h Montréal)
+  workflow_dispatch:       # permet le déclenchement manuel
 
 jobs:
   update:
@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          token: ${{ secrets.GH_PAT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Setup Python
         uses: actions/setup-python@v4
