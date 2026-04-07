@@ -80,7 +80,7 @@
             fullData = await response.json();
             console.log("Données chargées:", fullData.ventes.length, "jours");
             initFilters();
-            applyFilters();
+            updateUI();
         } catch (err) {
             console.error(err);
             document.body.innerHTML = `<div style="padding:2rem;text-align:center;color:red;">Erreur: ${err.message}</div>`;
@@ -158,7 +158,6 @@
         const year = document.getElementById('yearFilter').value;
         const month = document.getElementById('monthFilter').value;
         
-        // Déterminer si on doit afficher mensuel ou quotidien
         const isSingleMonth = (month !== 'all');
         const isYearOnly = (year !== 'all' && month === 'all');
         const isAllYears = (year === 'all' && month === 'all');
@@ -166,7 +165,6 @@
         
         if (ventes.length === 0) return;
         
-        // Calcul des totaux
         let total = 0, totalBel = 0, totalBoutique = 0, totalOrders = 0, cartSum = 0, cartCount = 0;
         ventes.forEach(v => {
             let bel = parseFloat(v.ventes_bel) || 0;
@@ -189,7 +187,6 @@
         document.getElementById('avgCart').innerHTML = avgCart.toLocaleString('fr-CA') + ' $';
         document.getElementById('totalOrders').innerHTML = totalOrders.toLocaleString('fr-CA');
         
-        // Comparaison intelligente
         let salesCompare = document.getElementById('salesCompare');
         let avgCompare = document.getElementById('avgCompare');
         
@@ -216,7 +213,6 @@
             }
         }
         
-        // Graphique
         const chartTitle = document.getElementById('chartTitle');
         if (useMonthlyView) {
             chartTitle.innerHTML = '📊 Ventes mensuelles';
@@ -249,7 +245,6 @@
             });
         }
         
-        // Tableau
         const tableTitle = document.getElementById('tableTitle');
         const tableHeader = document.getElementById('tableHeader');
         const tableBody = document.getElementById('tableBody');
