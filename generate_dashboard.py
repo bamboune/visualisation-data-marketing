@@ -10,7 +10,6 @@ SPREADSHEET_ID = "1vYqgbiiYDnJONtFCx11LkTdPUM14fCf0IG1L7P2O4ro"
 SERVICE_ACCOUNT_FILE = "service_account.json"
 
 def convert_to_serializable(obj):
-    """Convertit les objets non-sérialisables pour JSON"""
     if isinstance(obj, pd.Timestamp):
         return obj.strftime('%Y-%m-%d')
     if isinstance(obj, datetime):
@@ -42,7 +41,6 @@ def get_google_sheet(sheet_name, header_row=1):
     
     df = pd.DataFrame(data_rows, columns=clean_headers)
     
-    # Cherche la colonne date
     date_col = None
     for col in df.columns:
         if col.lower() in ['date', 'date_envoi']:
@@ -51,9 +49,6 @@ def get_google_sheet(sheet_name, header_row=1):
     
     if date_col:
         df['date'] = pd.to_datetime(df[date_col], errors='coerce')
-        print(f"   ✓ '{sheet_name}' : {len(df)} lignes")
-    else:
-        print(f"   ✓ '{sheet_name}' : {len(df)} lignes")
     
     return df
 
@@ -68,19 +63,14 @@ def get_weather_data(start_date, end_date, lat=45.5, lon=-73.6):
         "timezone": "America/Montreal"
     }
     try:
-        print(f"   🌐 Météo : {start_date} → {end_date}")
         response = requests.get(url, params=params, timeout=30)
         response.raise_for_status()
         data = response.json()
-        
         if 'daily' in data and 'time' in data['daily']:
-            print(f"   ✅ {len(data['daily']['time'])} jours")
             return data
-        else:
-            print(f"   ⚠️ Réponse inattendue")
-            return None
+        return None
     except Exception as e:
-        print(f"   ❌ Erreur : {e}")
+        print(f"   ❌ Erreur météo : {e}")
         return None
 
 def main():
@@ -92,12 +82,18 @@ def main():
     publications = get_google_sheet("publications_social", header_row=1)
     evenements = get_google_sheet("evenements_marketing", header_row=1)
     
+    print(f"   📊 Ventes : {len(ventes)} lignes")
+    print(f"   📧 Infolettres : {len(infolettres)} lignes")
+    print(f"   📱 Publications : {len(publications)} lignes")
+    print(f"   ⚡ Événements : {len(evenements)} lignes")
+    
     if ventes.empty:
         print("❌ Aucune donnée de ventes")
         return
     
     if 'date' not in ventes.columns:
         print("❌ Colonne 'date' non trouvée")
+        print(f"   Colonnes disponibles : {list(ventes.columns)[:10]}")
         return
     
     ventes['date'] = pd.to_datetime(ventes['date'], errors='coerce')
@@ -107,7 +103,7 @@ def main():
     start_date = ventes['date'].min().strftime('%Y-%m-%d')
     end_date = ventes['date'].max().strftime('%Y-%m-%d')
     
-    print(f"\n🌦️ Récupération météo...")
+    print(f"\n🌦️ Récupération météo {start_date} → {end_date}...")
     weather_data = get_weather_data(start_date, end_date)
     
     if weather_data and 'daily' in weather_data and 'time' in weather_data['daily']:
@@ -120,22 +116,25 @@ def main():
             'weather_code': weather_data['daily']['weather_code']
         })
         ventes_meteo = ventes.merge(weather_df, on='date', how='left')
-        print("✅ Météo fusionnée")
+        print("   ✅ Météo fusionnée")
     else:
-        print("⚠️ Pas de météo, continuation")
+        print("   ⚠️ Pas de météo disponible")
         ventes_meteo = ventes
     
-    # Conversion en string pour les dates
     ventes_meteo['date'] = ventes_meteo['date'].dt.strftime('%Y-%m-%d')
-    
-    # Nettoyage des NaN
     ventes_meteo = ventes_meteo.where(pd.notnull(ventes_meteo), None)
     
-    # Calcul du total des ventes
+    # Calcul du total des ventes (version robuste)
     total_ventes = 0
     if 'ventes_total' in ventes.columns:
-        ventes_total_clean = pd.to_numeric(ventes['ventes_total'], errors='coerce')
+        # Nettoie : enlève $, virgules, espaces
+        ventes_total_raw = ventes['ventes_total'].astype(str).str.replace('$', '').str.replace(',', '').str.replace(' ', '').str.replace(' ', '')
+        ventes_total_clean = pd.to_numeric(ventes_total_raw, errors='coerce')
         total_ventes = float(ventes_total_clean.sum()) if ventes_total_clean.notna().any() else 0
+        print(f"   💰 Total ventes : {total_ventes:,.2f} $")
+    else:
+        print(f"   ⚠️ Colonne 'ventes_total' non trouvée")
+        print(f"   Colonnes : {list(ventes.columns)[:15]}")
     
     dashboard_data = {
         'ventes': ventes_meteo.to_dict(orient='records'),
