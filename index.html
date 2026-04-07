@@ -11,11 +11,9 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; }
         body { background: #f0f2f5; padding: 24px; }
         .container { max-width: 1400px; margin: 0 auto; }
-        
         .header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 28px; }
         .header h1 { font-size: 1.6rem; font-weight: 600; color: #1a3a57; }
         .header p { color: #5a6e7c; font-size: 0.8rem; }
-        
         .filters-card { background: white; border-radius: 20px; padding: 20px 24px; margin-bottom: 24px; display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
         .filter-group { display: flex; flex-direction: column; gap: 6px; }
         .filter-group label { font-size: 0.7rem; font-weight: 600; color: #4b6b8a; text-transform: uppercase; }
@@ -24,29 +22,23 @@
         .btn-toggle.active { background: #2c7cb6; color: white; }
         .btn-export { background: #2c7cb6; color: white; border: none; border-radius: 40px; padding: 8px 20px; cursor: pointer; font-size: 0.8rem; }
         .reset-btn { background: #eef2f9; border: none; border-radius: 40px; padding: 8px 20px; cursor: pointer; }
-        
+        .warning-banner { background: #fff3e0; border-left: 5px solid #e67e22; border-radius: 12px; padding: 12px 20px; margin-bottom: 24px; font-size: 0.85rem; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
         .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 28px; }
         .kpi-card { background: white; border-radius: 20px; padding: 18px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
         .kpi-value { font-size: 2rem; font-weight: 700; color: #1a3a57; }
         .kpi-label { font-size: 0.7rem; color: #5b7d9e; text-transform: uppercase; margin-bottom: 8px; }
         .kpi-compare { font-size: 0.7rem; margin-top: 8px; padding-top: 8px; border-top: 1px solid #eef2f8; }
-        .trend-up { color: #2b7e3a; }
-        .trend-down { color: #bc5a2c; }
-        
         .chart-container { background: white; border-radius: 20px; padding: 20px; margin-bottom: 28px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
         .section-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 16px; border-left: 4px solid #2c7cb6; padding-left: 14px; }
-        
         .two-columns { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 24px; margin-bottom: 28px; }
         .insight-card { background: white; border-radius: 20px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
         .insight-card h3 { font-size: 1rem; margin-bottom: 16px; font-weight: 600; color: #1a3a57; }
-        
         .table-container { background: white; border-radius: 20px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
         th, td { padding: 10px 8px; text-align: left; border-bottom: 1px solid #ecf0f4; }
         th { font-weight: 600; color: #2f5b82; background: #f9fbfd; }
         .badge { background: #e3f0fc; border-radius: 30px; padding: 2px 10px; font-size: 0.7rem; display: inline-block; }
         .warning { background: #fff3e0; color: #c97e00; padding: 12px; border-radius: 12px; text-align: center; }
-        
         @media (max-width: 680px) { body { padding: 16px; } .kpi-value { font-size: 1.4rem; } }
     </style>
 </head>
@@ -63,6 +55,12 @@
         <div class="filter-group"><label>🏪 Canal</label><select id="channelFilter"><option value="total">Tous canaux</option><option value="bel">BEL (online)</option><option value="boutique">Boutique</option></select></div>
         <div style="flex:1"></div>
         <button class="reset-btn" id="resetBtn"><i class="fas fa-undo-alt"></i> Réinitialiser</button>
+    </div>
+
+    <!-- AVERTISSEMENT VENTES -->
+    <div class="warning-banner">
+        <i class="fas fa-info-circle" style="color: #e67e22; font-size: 1.2rem;"></i>
+        <span><strong>Note sur les données de ventes</strong> : Les montants affichés ici proviennent de l’API Shopify (ventes brutes avant livraison, taxes et réductions). Ils peuvent différer des rapports comptables. L’objectif est de mesurer <strong>l’impact des actions marketing</strong> (infolettres, RS, météo, promotions), pas de faire une analyse comptable fine.</span>
     </div>
 
     <div class="filters-card" style="padding: 12px 24px; justify-content: flex-end;">
@@ -85,39 +83,20 @@
         <canvas id="salesChart" height="300" style="max-height: 350px;"></canvas>
     </div>
 
-    <!-- Sections marketing : 2 colonnes -->
+    <!-- Sections marketing -->
     <div class="two-columns">
-        <div class="insight-card">
-            <h3><i class="fas fa-envelope-open-text"></i> 📧 Infolettres récentes</h3>
-            <div id="emailTable">Chargement...</div>
-        </div>
-        <div class="insight-card">
-            <h3><i class="fab fa-instagram"></i> 📱 Réseaux sociaux</h3>
-            <div id="socialTable">Chargement...</div>
-        </div>
+        <div class="insight-card"><h3><i class="fas fa-envelope-open-text"></i> 📧 Infolettres (période sélectionnée)</h3><div id="emailTable">Chargement...</div></div>
+        <div class="insight-card"><h3><i class="fab fa-instagram"></i> 📱 Réseaux sociaux (période sélectionnée)</h3><div id="socialTable">Chargement...</div></div>
     </div>
-
-    <!-- Météo + Événements -->
     <div class="two-columns">
-        <div class="insight-card">
-            <h3><i class="fas fa-cloud-sun-rain"></i> 🌦️ Météo vs ventes</h3>
-            <div id="weatherInsight">Chargement...</div>
-        </div>
-        <div class="insight-card">
-            <h3><i class="fas fa-calendar-star"></i> ⚡ Événements marketing</h3>
-            <div id="eventsTable">Chargement...</div>
-        </div>
+        <div class="insight-card"><h3><i class="fas fa-cloud-sun-rain"></i> 🌦️ Météo vs ventes</h3><div id="weatherInsight">Chargement...</div></div>
+        <div class="insight-card"><h3><i class="fas fa-calendar-star"></i> ⚡ Événements marketing</h3><div id="eventsTable">Chargement...</div></div>
     </div>
 
     <!-- Tableau détaillé -->
     <div class="table-container">
         <div class="section-title" id="tableTitle">📋 Détail des ventes</div>
-        <div id="tableView">
-            <table id="dataTable">
-                <thead id="tableHeader"></thead>
-                <tbody id="tableBody"></tbody>
-            </table>
-        </div>
+        <div id="tableView"><table id="dataTable"><thead id="tableHeader"></thead><tbody id="tableBody"></tbody></table></div>
     </div>
 </div>
 
@@ -125,6 +104,15 @@
     let fullData = null;
     let salesChart = null;
     let currentView = 'monthly';
+
+    // Jours fériés Québec + Canada
+    const holidays = {
+        "2024-01-01": "Jour de l'an", "2024-04-01": "Lundi de Pâques", "2024-05-20": "Fête de la Reine",
+        "2024-06-24": "Fête nationale du Québec", "2024-07-01": "Fête du Canada", "2024-09-02": "Fête du Travail",
+        "2024-10-14": "Action de grâce", "2024-12-25": "Noël", "2024-12-26": "Lendemain de Noël",
+        "2025-01-01": "Jour de l'an", "2025-12-25": "Noël", "2025-12-26": "Lendemain de Noël",
+        "2023-01-01": "Jour de l'an", "2023-12-25": "Noël", "2023-12-26": "Lendemain de Noël"
+    };
 
     async function loadData() {
         try {
@@ -134,7 +122,6 @@
             console.log(`✅ ${fullData.ventes.length} jours chargés`);
             initFilters();
             applyFiltersAndRender();
-            renderMarketingSections();
         } catch (err) {
             document.body.innerHTML = `<div style="padding:2rem;text-align:center;color:red;">❌ ${err.message}</div>`;
         }
@@ -205,8 +192,6 @@
             let change = prevTotal > 0 ? ((currentTotal - prevTotal) / prevTotal * 100) : 0;
             return { text: `vs ${prevYear}`, change: change };
         }
-        if (ventes.length === 0) return { text: '', change: 0 };
-        const currentTotal = computeKPIs(ventes, channel).total;
         return { text: `total`, change: 0 };
     }
 
@@ -223,56 +208,55 @@
         return Object.entries(months).sort().map(([key, data]) => ({ period: data.name, total: data.total, avg: data.total / data.count }));
     }
 
-    function renderMarketingSections() {
-        // Infolettres
-        const infos = fullData.infolettres || [];
+    function renderMarketingSections(ventesPeriode) {
+        // Infolettres filtrées par période
+        let infos = (fullData.infolettres || []).filter(e => ventesPeriode.some(v => dayjs(v.date).format('YYYY-MM-DD') === dayjs(e.date_envoi).format('YYYY-MM-DD')));
         if (infos.length) {
-            let html = '<table style="width:100%"><thead><tr><th>Date</th><th>Sujet</th><th>Ventes générées</th></tr></thead><tbody>';
-            infos.slice(0,10).forEach(e => {
+            let html = '<table><thead>资<th>Date</th><th>Sujet</th><th>Ventes générées</th></tr></thead><tbody>';
+            infos.forEach(e => {
                 html += `<tr><td>${dayjs(e.date_envoi).format('DD/MM/YYYY')}</td><td>${e.sujet || '—'}</td><td>${e.ventes_generees_$ ? parseFloat(e.ventes_generees_$).toLocaleString('fr-CA')+' $' : '—'}</td></tr>`;
             });
             html += '</tbody></table>';
             document.getElementById('emailTable').innerHTML = html;
         } else {
-            document.getElementById('emailTable').innerHTML = '<p class="warning">Aucune donnée d’infolettre</p>';
+            document.getElementById('emailTable').innerHTML = '<p class="warning">Aucune infolettre sur cette période</p>';
         }
         
-        // Réseaux sociaux
-        const posts = fullData.publications || [];
+        // Réseaux sociaux filtrés
+        let posts = (fullData.publications || []).filter(p => ventesPeriode.some(v => dayjs(v.date).format('YYYY-MM-DD') === dayjs(p.date).format('YYYY-MM-DD')));
         if (posts.length) {
-            let html = '<table style="width:100%"><thead><tr><th>Date</th><th>Plateforme</th><th>Likes</th><th>Partages</th></tr></thead><tbody>';
-            posts.slice(0,10).forEach(p => {
+            let html = '<table><thead><tr><th>Date</th><th>Plateforme</th><th>Likes</th><th>Partages</th></tr></thead><tbody>';
+            posts.forEach(p => {
                 html += `<tr><td>${dayjs(p.date).format('DD/MM/YYYY')}</td><td>${p.plateforme || '—'}</td><td>${p.likes || '—'}</td><td>${p.partages || '—'}</td></tr>`;
             });
             html += '</tbody></table>';
             document.getElementById('socialTable').innerHTML = html;
         } else {
-            document.getElementById('socialTable').innerHTML = '<p class="warning">Aucune donnée réseaux sociaux</p>';
+            document.getElementById('socialTable').innerHTML = '<p class="warning">Aucune publication sur cette période</p>';
         }
         
-        // Météo
-        const ventes = getFilteredData();
-        const rainDays = ventes.filter(v => (v.precipitation_mm || 0) > 1);
-        const dryDays = ventes.filter(v => (v.precipitation_mm || 0) === 0);
+        // Météo (précipitations)
+        const rainDays = ventesPeriode.filter(v => (v.precipitation_mm || 0) > 0.5);
+        const dryDays = ventesPeriode.filter(v => (v.precipitation_mm || 0) <= 0.5);
         const avgRain = rainDays.length ? rainDays.reduce((a,b)=>a+(b.ventes_total||0),0)/rainDays.length : 0;
         const avgDry = dryDays.length ? dryDays.reduce((a,b)=>a+(b.ventes_total||0),0)/dryDays.length : 0;
         document.getElementById('weatherInsight').innerHTML = `
-            <div><strong>☔ Jours de pluie</strong> : ${rainDays.length} jours → moyenne ${avgRain.toLocaleString('fr-CA')} $</div>
+            <div><strong>☔ Jours avec précipitations</strong> : ${rainDays.length} jours → moyenne ${avgRain.toLocaleString('fr-CA')} $</div>
             <div><strong>☀️ Jours secs</strong> : ${dryDays.length} jours → moyenne ${avgDry.toLocaleString('fr-CA')} $</div>
             <div><strong>📊 Différence</strong> : ${avgRain > avgDry ? '▲ +' : '▼ '}${Math.abs(((avgRain-avgDry)/avgDry*100)||0).toFixed(1)}%</div>
         `;
         
         // Événements
-        const events = fullData.evenements || [];
+        const events = (fullData.evenements || []).filter(ev => ventesPeriode.some(v => dayjs(v.date).format('YYYY-MM-DD') === dayjs(ev.date).format('YYYY-MM-DD')));
         if (events.length) {
-            let html = '<table style="width:100%"><thead><tr><th>Date</th><th>Type</th><th>Description</th></tr></thead><tbody>';
-            events.slice(0,10).forEach(ev => {
+            let html = '<table><thead><tr><th>Date</th><th>Type</th><th>Description</th></tr></thead><tbody>';
+            events.forEach(ev => {
                 html += `<tr><td>${dayjs(ev.date).format('DD/MM/YYYY')}</td><td>${ev.type || '—'}</td><td>${ev.description || '—'}</td></tr>`;
             });
             html += '</tbody></table>';
             document.getElementById('eventsTable').innerHTML = html;
         } else {
-            document.getElementById('eventsTable').innerHTML = '<p class="warning">Aucun événement enregistré</p>';
+            document.getElementById('eventsTable').innerHTML = '<p class="warning">Aucun événement sur cette période</p>';
         }
     }
 
@@ -304,7 +288,7 @@
                 data: { labels: monthly.map(m=>m.period), datasets: [{ label: 'Ventes ($)', data: monthly.map(m=>m.total), backgroundColor: '#2c7cb6', borderRadius: 8 }] },
                 options: { responsive: true }
             });
-            document.getElementById('tableHeader').innerHTML = '<tr><th>Mois</th><th>Ventes totales</th><th>Moyenne / jour</th></tr>';
+            document.getElementById('tableHeader').innerHTML = '<table><th>Mois</th><th>Ventes totales</th><th>Moyenne / jour</th></tr>';
             document.getElementById('tableBody').innerHTML = monthly.map(m => `<tr><td>${m.period}</td><td>${m.total.toLocaleString('fr-CA')} $</td><td>${m.avg.toLocaleString('fr-CA')} $</td></tr>`).join('');
         } else {
             if (ventes.length > 90) {
@@ -329,21 +313,30 @@
             salesChart = new Chart(ctx, {
                 type: 'line',
                 data: { labels, datasets: [{ label: 'Ventes ($)', data: values, borderColor: '#2c7cb6', fill: true, tension: 0.2 }] },
-                options: { responsive: true }
+                options: { responsive: true, plugins: { tooltip: { callbacks: { label: (ctx) => `${ctx.raw.toLocaleString('fr-CA')} $`, afterBody: (tooltipItems) => {
+                    const index = tooltipItems[0].dataIndex;
+                    const dateStr = dayjs(ventes[index].date).format('YYYY-MM-DD');
+                    if (holidays[dateStr]) return `Férié : ${holidays[dateStr]}`;
+                    return null;
+                } } } } }
             });
-            document.getElementById('tableHeader').innerHTML = '<tr><th>Date</th><th>BEL ($)</th><th>Boutique ($)</th><th>Total ($)</th><th>Pluie (mm)</th></tr>';
+            document.getElementById('tableHeader').innerHTML = '<tr><th>Date</th><th>BEL ($)</th><th>Boutique ($)</th><th>Total ($)</th><th>Précipitations (mm)</th></tr>';
             document.getElementById('tableBody').innerHTML = ventes.map(v => {
                 let bel = parseFloat(v.ventes_bel)||0, boutique = parseFloat(v.ventes_boutique)||0;
-                return `<tr><td>${dayjs(v.date).format('DD MMM YYYY')}</td><td>${bel.toLocaleString('fr-CA')} $</td><td>${boutique.toLocaleString('fr-CA')} $</td><td>${(bel+boutique).toLocaleString('fr-CA')} $</td><td>${v.precipitation_mm || 0}</td></tr>`;
+                return `<tr>
+                    <td>${dayjs(v.date).format('DD MMM YYYY')} ${holidays[dayjs(v.date).format('YYYY-MM-DD')] ? `<span class="badge">${holidays[dayjs(v.date).format('YYYY-MM-DD')]}</span>` : ''}</td>
+                    <td>${bel.toLocaleString('fr-CA')} $</td> <td>${boutique.toLocaleString('fr-CA')} $</td>
+                    <td>${(bel+boutique).toLocaleString('fr-CA')} $</td> <td>${v.precipitation_mm || 0}</td>
+                </tr>`;
             }).join('');
         }
-        renderMarketingSections();
+        renderMarketingSections(ventes);
     }
 
     function exportCSV() {
         const ventes = getFilteredData();
         if (!ventes.length) return;
-        let csvRows = [['Date', 'BEL ($)', 'Boutique ($)', 'Total ($)', 'Pluie (mm)']];
+        let csvRows = [['Date', 'BEL ($)', 'Boutique ($)', 'Total ($)', 'Précipitations (mm)']];
         ventes.forEach(v => {
             let bel = parseFloat(v.ventes_bel)||0, boutique = parseFloat(v.ventes_boutique)||0;
             csvRows.push([dayjs(v.date).format('YYYY-MM-DD'), bel, boutique, bel+boutique, v.precipitation_mm || 0]);
