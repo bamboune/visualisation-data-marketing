@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.10/dayjs.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, sans-serif; }
         body { background: #f0f2f5; padding: 24px; }
         .container { max-width: 1400px; margin: 0 auto; }
         .header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 28px; }
@@ -60,7 +60,7 @@
     <!-- AVERTISSEMENT VENTES -->
     <div class="warning-banner">
         <i class="fas fa-info-circle" style="color: #e67e22; font-size: 1.2rem;"></i>
-        <span><strong>Note sur les données de ventes</strong> : Les montants affichés ici proviennent de l’API Shopify (ventes brutes avant livraison, taxes et réductions). Ils peuvent différer des rapports comptables. L’objectif est de mesurer <strong>l’impact des actions marketing</strong> (infolettres, RS, météo, promotions), pas de faire une analyse comptable fine.</span>
+        <span><strong>Note sur les données de ventes</strong> : Les montants affichés ici proviennent de l’API Shopify (ventes brutes avant livraison, taxes et réductions). Ils peuvent différer des rapports comptables. L’objectif est de mesurer <strong>l’impact des actions marketing</strong>, pas de faire une analyse comptable fine.</span>
     </div>
 
     <div class="filters-card" style="padding: 12px 24px; justify-content: flex-end;">
@@ -85,8 +85,8 @@
 
     <!-- Sections marketing -->
     <div class="two-columns">
-        <div class="insight-card"><h3><i class="fas fa-envelope-open-text"></i> 📧 Infolettres (période sélectionnée)</h3><div id="emailTable">Chargement...</div></div>
-        <div class="insight-card"><h3><i class="fab fa-instagram"></i> 📱 Réseaux sociaux (période sélectionnée)</h3><div id="socialTable">Chargement...</div></div>
+        <div class="insight-card"><h3><i class="fas fa-envelope-open-text"></i> 📧 Infolettres (période)</h3><div id="emailTable">Chargement...</div></div>
+        <div class="insight-card"><h3><i class="fab fa-instagram"></i> 📱 Réseaux sociaux (période)</h3><div id="socialTable">Chargement...</div></div>
     </div>
     <div class="two-columns">
         <div class="insight-card"><h3><i class="fas fa-cloud-sun-rain"></i> 🌦️ Météo vs ventes</h3><div id="weatherInsight">Chargement...</div></div>
@@ -151,12 +151,18 @@
         }).join('');
     }
 
+    // FILTRAGE STABLE (version qui fonctionnait avant)
     function getFilteredData() {
         let ventes = [...fullData.ventes];
         const year = document.getElementById('yearFilter').value;
         const month = document.getElementById('monthFilter').value;
-        if (year !== 'all') ventes = ventes.filter(v => dayjs(v.date).year() == year);
-        if (month !== 'all') ventes = ventes.filter(v => dayjs(v.date).format('YYYY-MM') == month);
+        
+        if (year !== 'all') {
+            ventes = ventes.filter(v => dayjs(v.date).year() == year);
+        }
+        if (month !== 'all') {
+            ventes = ventes.filter(v => dayjs(v.date).format('YYYY-MM') == month);
+        }
         return ventes;
     }
 
@@ -209,10 +215,10 @@
     }
 
     function renderMarketingSections(ventesPeriode) {
-        // Infolettres filtrées par période
+        // Infolettres filtrées
         let infos = (fullData.infolettres || []).filter(e => ventesPeriode.some(v => dayjs(v.date).format('YYYY-MM-DD') === dayjs(e.date_envoi).format('YYYY-MM-DD')));
         if (infos.length) {
-            let html = '<table><thead><tr><th>Date</th><th>Sujet</th><th>Ventes générées</th></tr></thead><tbody>';
+            let html = '<table><thead>资<th>Date</th><th>Sujet</th><th>Ventes générées</th></tr></thead><tbody>';
             infos.forEach(e => {
                 html += `<tr><td>${dayjs(e.date_envoi).format('DD/MM/YYYY')}</td><td>${e.sujet || '—'}</td><td>${e.ventes_generees_$ ? parseFloat(e.ventes_generees_$).toLocaleString('fr-CA')+' $' : '—'}</td></tr>`;
             });
@@ -225,7 +231,7 @@
         // Réseaux sociaux filtrés
         let posts = (fullData.publications || []).filter(p => ventesPeriode.some(v => dayjs(v.date).format('YYYY-MM-DD') === dayjs(p.date).format('YYYY-MM-DD')));
         if (posts.length) {
-            let html = '<table><thead><tr><th>Date</th><th>Plateforme</th><th>Likes</th><th>Partages</th></tr></thead><tbody>';
+            let html = '<table><thead>起源<th>Date</th><th>Plateforme</th><th>Likes</th><th>Partages</th></tr></thead><tbody>';
             posts.forEach(p => {
                 html += `<tr><td>${dayjs(p.date).format('DD/MM/YYYY')}</td><td>${p.plateforme || '—'}</td><td>${p.likes || '—'}</td><td>${p.partages || '—'}</td></tr>`;
             });
@@ -235,7 +241,7 @@
             document.getElementById('socialTable').innerHTML = '<p class="warning">Aucune publication sur cette période</p>';
         }
         
-        // Météo (précipitations)
+        // Météo
         const rainDays = ventesPeriode.filter(v => (v.precipitation_mm || 0) > 0.5);
         const dryDays = ventesPeriode.filter(v => (v.precipitation_mm || 0) <= 0.5);
         const avgRain = rainDays.length ? rainDays.reduce((a,b)=>a+(b.ventes_total||0),0)/rainDays.length : 0;
@@ -321,7 +327,7 @@
                 } } } } }
             });
             
-            // TABLEAU JOURNALIER AVEC COLONNE ÉVÉNEMENT
+            // TABLEAU JOURNALIER AVEC ÉVÉNEMENTS
             document.getElementById('tableHeader').innerHTML = '<tr><th>Date</th><th>BEL ($)</th><th>Boutique ($)</th><th>Total ($)</th><th>Précip. (mm)</th><th>Événement</th></tr>';
             document.getElementById('tableBody').innerHTML = ventes.map(v => {
                 let bel = parseFloat(v.ventes_bel)||0, boutique = parseFloat(v.ventes_boutique)||0;
