@@ -25027,9 +25027,36 @@
       "segment": "followup",
       "notes": "",
       "date": "2026-04-05"
+    },
+    {
+      "date_envoi": "2025-11-27",
+      "sujet": "test 1-2-3-4 oui oui",
+      "nb_envoyes": "",
+      "taux_ouverture_%": "",
+      "taux_clic_%": "",
+      "nb_commandes": "",
+      "ventes_generees_$": "",
+      "segment": "",
+      "notes": "",
+      "date": "2025-11-27"
     }
   ],
-  "publications": [],
+  "publications": [
+    {
+      "date": "2025-11-27",
+      "plateforme": "",
+      "type_contenu": "",
+      "description_courte": "Test 1-2-1-2",
+      "lien_post": "",
+      "format": "",
+      "reach": "",
+      "impressions": "",
+      "likes": "",
+      "commentaires": "",
+      "partages": "",
+      "sauvegardes": ""
+    }
+  ],
   "evenements": [
     {
       "date": "2021-11-03",
@@ -25065,6 +25092,13 @@
       "canal": "Boutique en ligne",
       "description": "Black Friday 2025",
       "impact_note": "~130k$ BEL en 1 jour"
+    },
+    {
+      "date": "2026-04-05",
+      "type": "Promo",
+      "canal": "Infolettre",
+      "description": "Promo exclusive infolettre",
+      "impact_note": ""
     }
   ],
   "stats": {
