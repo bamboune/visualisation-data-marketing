@@ -3,64 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LMH Dashboard</title>
+    <title>LMH Dashboard — ventes & marketing</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.10/dayjs.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, sans-serif; }
-        body { background: #f4f6fa; padding: 24px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; }
+        body { background: #f0f2f5; padding: 24px; }
         .container { max-width: 1400px; margin: 0 auto; }
-        .header { margin-bottom: 28px; }
-        .header h1 { font-size: 1.8rem; color: #1a3a57; }
-        .filters-card { background: white; border-radius: 24px; padding: 20px; margin-bottom: 28px; display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-end; }
+        
+        /* Header */
+        .header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 28px; }
+        .header h1 { font-size: 1.6rem; font-weight: 600; color: #1a3a57; }
+        .header p { color: #5a6e7c; font-size: 0.8rem; }
+        
+        /* Filtres */
+        .filters-card { background: white; border-radius: 20px; padding: 20px 24px; margin-bottom: 24px; display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
         .filter-group { display: flex; flex-direction: column; gap: 6px; }
-        .filter-group label { font-size: 0.7rem; font-weight: 600; color: #4b6b8a; }
-        .filter-group select, .filter-group input { padding: 8px 14px; border-radius: 14px; border: 1px solid #dce3ec; background: #f9fbfd; }
+        .filter-group label { font-size: 0.7rem; font-weight: 600; color: #4b6b8a; text-transform: uppercase; }
+        .filter-group select { padding: 8px 14px; border-radius: 12px; border: 1px solid #dce3ec; background: white; font-size: 0.9rem; cursor: pointer; }
+        .filter-group select:hover { border-color: #2c7cb6; }
+        .btn-toggle { background: #eef2f9; border: none; border-radius: 40px; padding: 8px 20px; font-weight: 500; cursor: pointer; font-size: 0.8rem; }
+        .btn-toggle.active { background: #2c7cb6; color: white; }
+        .btn-export { background: #2c7cb6; color: white; border: none; border-radius: 40px; padding: 8px 20px; cursor: pointer; font-size: 0.8rem; }
         .reset-btn { background: #eef2f9; border: none; border-radius: 40px; padding: 8px 20px; cursor: pointer; }
-        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; margin-bottom: 32px; }
-        .kpi-card { background: white; border-radius: 28px; padding: 20px; }
+        
+        /* KPIs */
+        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 28px; }
+        .kpi-card { background: white; border-radius: 20px; padding: 18px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
         .kpi-value { font-size: 2rem; font-weight: 700; color: #1a3a57; }
-        .kpi-label { font-size: 0.75rem; color: #5b7d9e; text-transform: uppercase; margin-bottom: 8px; }
+        .kpi-label { font-size: 0.7rem; color: #5b7d9e; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px; }
         .kpi-compare { font-size: 0.7rem; margin-top: 8px; padding-top: 8px; border-top: 1px solid #eef2f8; }
         .trend-up { color: #2b7e3a; }
         .trend-down { color: #bc5a2c; }
-        .chart-container { background: white; border-radius: 28px; padding: 20px; margin-bottom: 32px; }
-        .section-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 18px; border-left: 4px solid #2c7cb6; padding-left: 16px; }
+        
+        /* Graphique */
+        .chart-container { background: white; border-radius: 20px; padding: 20px; margin-bottom: 28px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .section-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 16px; border-left: 4px solid #2c7cb6; padding-left: 14px; }
+        
+        /* Tableau */
+        .table-container { background: white; border-radius: 20px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
-        th, td { padding: 10px 6px; text-align: left; border-bottom: 1px solid #ecf0f4; }
-        th { font-weight: 600; color: #2f5b82; }
-        @media (max-width: 680px) { body { padding: 16px; } .kpi-value { font-size: 1.5rem; } }
+        th, td { padding: 10px 8px; text-align: left; border-bottom: 1px solid #ecf0f4; }
+        th { font-weight: 600; color: #2f5b82; background: #f9fbfd; }
+        .warning { background: #fff3e0; color: #c97e00; padding: 12px; border-radius: 12px; text-align: center; }
+        
+        @media (max-width: 680px) { body { padding: 16px; } .kpi-value { font-size: 1.4rem; } }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="header">
-        <h1><i class="fas fa-chart-line"></i> LMH Dashboard — ventes & marketing</h1>
+        <div><h1><i class="fas fa-chart-line"></i> LMH Dashboard</h1><p>Ventes, météo & marketing — mise à jour automatique</p></div>
+        <button class="btn-export" id="exportBtn"><i class="fas fa-download"></i> Exporter CSV</button>
     </div>
 
     <div class="filters-card">
-        <div class="filter-group"><label>Année</label><select id="yearFilter"><option value="all">Toutes</option></select></div>
-        <div class="filter-group"><label>Mois</label><select id="monthFilter"><option value="all">Tous</option></select></div>
-        <div class="filter-group"><label>Canal</label><select id="channelFilter"><option value="bel">BEL (online)</option><option value="boutique">Boutique</option><option value="total" selected>Tous canaux</option></select></div>
-        <button class="reset-btn" id="resetFilters">Réinitialiser</button>
+        <div class="filter-group"><label>📅 Année</label><select id="yearFilter"></select></div>
+        <div class="filter-group"><label>📆 Mois</label><select id="monthFilter"></select></div>
+        <div class="filter-group"><label>🏪 Canal</label><select id="channelFilter"><option value="total">Tous canaux</option><option value="bel">BEL (online)</option><option value="boutique">Boutique</option></select></div>
+        <div style="flex:1"></div>
+        <button class="reset-btn" id="resetBtn"><i class="fas fa-undo-alt"></i> Réinitialiser</button>
+    </div>
+
+    <div class="filters-card" style="padding: 12px 24px; justify-content: flex-end;">
+        <span style="font-size:0.7rem; color:#4b6b8a;">Mode d'affichage :</span>
+        <button class="btn-toggle" id="viewMonthlyBtn">📊 Vue mensuelle</button>
+        <button class="btn-toggle" id="viewDailyBtn">📋 Vue journalière</button>
     </div>
 
     <div class="kpi-grid" id="kpiContainer">
         <div class="kpi-card"><div class="kpi-label">Ventes totales</div><div class="kpi-value" id="totalSales">—</div><div class="kpi-compare" id="salesCompare"></div></div>
         <div class="kpi-card"><div class="kpi-label">Moyenne / jour</div><div class="kpi-value" id="avgSales">—</div><div class="kpi-compare" id="avgCompare"></div></div>
         <div class="kpi-card"><div class="kpi-label">Panier moyen BEL</div><div class="kpi-value" id="avgCart">—</div></div>
-        <div class="kpi-card"><div class="kpi-label">Commandes</div><div class="kpi-value" id="totalOrders">—</div></div>
+        <div class="kpi-card"><div class="kpi-label">Commandes totales</div><div class="kpi-value" id="totalOrders">—</div></div>
     </div>
 
     <div class="chart-container">
-        <div class="section-title" id="chartTitle">Évolution des ventes</div>
+        <div class="section-title" id="chartTitle">📈 Évolution des ventes</div>
         <canvas id="salesChart" height="300" style="max-height: 350px;"></canvas>
     </div>
 
-    <div class="chart-container">
-        <div class="section-title" id="tableTitle">Détail des ventes</div>
-        <div style="overflow-x: auto;">
+    <div class="table-container">
+        <div class="section-title" id="tableTitle">📋 Détail des ventes</div>
+        <div id="tableView">
             <table id="dataTable">
                 <thead id="tableHeader"></thead>
                 <tbody id="tableBody"></tbody>
@@ -70,101 +96,73 @@
 </div>
 
 <script>
-    let fullData = null;
-    let salesChart = null;
-
+    // ---------- ÉTAT GLOBAL ----------
+    let fullData = null;          // données brutes
+    let salesChart = null;        // instance Chart.js
+    let currentView = 'monthly';  // 'monthly' ou 'daily'
+    
+    // ---------- CHARGEMENT DES DONNÉES ----------
     async function loadData() {
         try {
             const response = await fetch('data.json?v=' + Date.now());
             if (!response.ok) throw new Error('data.json introuvable');
             fullData = await response.json();
-            console.log("Données chargées:", fullData.ventes.length, "jours");
+            console.log(`✅ ${fullData.ventes.length} jours chargés`);
             initFilters();
-            updateUI();
+            applyFiltersAndRender();
         } catch (err) {
             console.error(err);
-            document.body.innerHTML = `<div style="padding:2rem;text-align:center;color:red;">Erreur: ${err.message}</div>`;
+            document.body.innerHTML = `<div style="padding:2rem;text-align:center;color:red;">❌ ${err.message}</div>`;
         }
     }
 
+    // ---------- INITIALISATION DES FILTRES ----------
     function initFilters() {
         if (!fullData?.ventes) return;
         const years = [...new Set(fullData.ventes.map(v => dayjs(v.date).year()))].sort((a,b)=>b-a);
         const yearSelect = document.getElementById('yearFilter');
-        yearSelect.innerHTML = '<option value="all">Toutes</option>' + years.map(y => `<option value="${y}">${y}</option>`).join('');
+        yearSelect.innerHTML = '<option value="all">Toutes les années</option>' + years.map(y => `<option value="${y}">${y}</option>`).join('');
+        
+        updateMonthFilter();
+    }
+    
+    function updateMonthFilter() {
+        const year = document.getElementById('yearFilter').value;
+        let months = [];
+        
+        if (year === 'all') {
+            // Toutes les années : afficher "Novembre 2024", "Décembre 2024", etc.
+            const monthSet = new Set();
+            fullData.ventes.forEach(v => {
+                monthSet.add(dayjs(v.date).format('YYYY-MM'));
+            });
+            months = Array.from(monthSet).sort().reverse();
+        } else {
+            // Année spécifique : afficher les mois de cette année
+            for (let i = 1; i <= 12; i++) months.push(`${year}-${String(i).padStart(2,'0')}`);
+        }
+        
+        const monthSelect = document.getElementById('monthFilter');
+        monthSelect.innerHTML = '<option value="all">Tous les mois</option>' + months.map(m => {
+            const display = year === 'all' ? dayjs(m).format('MMMM YYYY') : dayjs(m).format('MMMM');
+            return `<option value="${m}">${display}</option>`;
+        }).join('');
     }
 
+    // ---------- FILTRAGE DES DONNÉES ----------
     function getFilteredData() {
         let ventes = [...fullData.ventes];
         const year = document.getElementById('yearFilter').value;
         const month = document.getElementById('monthFilter').value;
         
         if (year !== 'all') ventes = ventes.filter(v => dayjs(v.date).year() == year);
-        if (month !== 'all') ventes = ventes.filter(v => dayjs(v.date).month() + 1 == month);
+        if (month !== 'all') ventes = ventes.filter(v => dayjs(v.date).format('YYYY-MM') == month);
         
         return ventes;
     }
-
-    function getComparisonPeriod(currentVentes, channel) {
-        if (currentVentes.length === 0) return { total: 0, avg: 0, change: 0 };
-        
-        const dates = currentVentes.map(v => dayjs(v.date)).sort();
-        const startDate = dates[0];
-        const endDate = dates[dates.length - 1];
-        const durationDays = endDate.diff(startDate, 'day') + 1;
-        
-        const prevStart = startDate.subtract(durationDays, 'day');
-        const prevEnd = prevStart.add(durationDays - 1, 'day');
-        
-        let prevVentes = fullData.ventes.filter(v => {
-            const d = dayjs(v.date);
-            return d >= prevStart && d <= prevEnd;
-        });
-        
-        let currentTotal = 0, prevTotal = 0;
-        currentVentes.forEach(v => {
-            let val = channel === 'bel' ? parseFloat(v.ventes_bel)||0 : channel === 'boutique' ? parseFloat(v.ventes_boutique)||0 : (parseFloat(v.ventes_bel)||0) + (parseFloat(v.ventes_boutique)||0) + (parseFloat(v.ventes_wholesale)||0);
-            currentTotal += val;
-        });
-        prevVentes.forEach(v => {
-            let val = channel === 'bel' ? parseFloat(v.ventes_bel)||0 : channel === 'boutique' ? parseFloat(v.ventes_boutique)||0 : (parseFloat(v.ventes_bel)||0) + (parseFloat(v.ventes_boutique)||0) + (parseFloat(v.ventes_wholesale)||0);
-            prevTotal += val;
-        });
-        
-        const change = prevTotal > 0 ? ((currentTotal - prevTotal) / prevTotal * 100) : 0;
-        return { total: prevTotal, avg: prevTotal / prevVentes.length, change: change };
-    }
-
-    function aggregateByMonth(ventes, channel) {
-        const months = {};
-        ventes.forEach(v => {
-            const monthKey = dayjs(v.date).format('YYYY-MM');
-            const monthName = dayjs(v.date).format('MMMM YYYY');
-            let val = channel === 'bel' ? parseFloat(v.ventes_bel)||0 : channel === 'boutique' ? parseFloat(v.ventes_boutique)||0 : (parseFloat(v.ventes_bel)||0) + (parseFloat(v.ventes_boutique)||0) + (parseFloat(v.ventes_wholesale)||0);
-            if (!months[monthKey]) months[monthKey] = { name: monthName, total: 0, count: 0 };
-            months[monthKey].total += val;
-            months[monthKey].count++;
-        });
-        return Object.entries(months).sort().map(([key, data]) => ({
-            period: data.name,
-            total: data.total,
-            avg: data.total / data.count
-        }));
-    }
-
-    function updateUI() {
-        let ventes = getFilteredData();
-        const channel = document.getElementById('channelFilter').value;
-        const year = document.getElementById('yearFilter').value;
-        const month = document.getElementById('monthFilter').value;
-        
-        const isSingleMonth = (month !== 'all');
-        const isYearOnly = (year !== 'all' && month === 'all');
-        const isAllYears = (year === 'all' && month === 'all');
-        const useMonthlyView = isYearOnly || isAllYears || ventes.length > 60;
-        
-        if (ventes.length === 0) return;
-        
+    
+    // ---------- CALCUL DES KPI ----------
+    function computeKPIs(ventes, channel) {
         let total = 0, totalBel = 0, totalBoutique = 0, totalOrders = 0, cartSum = 0, cartCount = 0;
         ventes.forEach(v => {
             let bel = parseFloat(v.ventes_bel) || 0;
@@ -177,119 +175,257 @@
             let panier = parseFloat(v.panier_moyen_bel) || 0;
             if (panier > 0) { cartSum += panier; cartCount++; }
         });
-        
         const avgDaily = ventes.length ? total / ventes.length : 0;
         const avgCart = cartCount ? cartSum / cartCount : 0;
         const displayTotal = channel === 'bel' ? totalBel : channel === 'boutique' ? totalBoutique : total;
-        
-        document.getElementById('totalSales').innerHTML = displayTotal.toLocaleString('fr-CA') + ' $';
-        document.getElementById('avgSales').innerHTML = avgDaily.toLocaleString('fr-CA') + ' $';
-        document.getElementById('avgCart').innerHTML = avgCart.toLocaleString('fr-CA') + ' $';
-        document.getElementById('totalOrders').innerHTML = totalOrders.toLocaleString('fr-CA');
-        
-        let salesCompare = document.getElementById('salesCompare');
-        let avgCompare = document.getElementById('avgCompare');
+        return { total: displayTotal, avgDaily, avgCart, totalOrders, rawTotal: total };
+    }
+    
+    // ---------- COMPARAISON INTELLIGENTE ----------
+    function getComparison(ventes, channel, year, month) {
+        const isYearOnly = (year !== 'all' && month === 'all');
+        const isSingleMonth = (month !== 'all');
         
         if (isYearOnly && year !== 'all') {
+            // Comparaison avec l'année précédente
             const prevYear = parseInt(year) - 1;
-            let prevYearVentes = fullData.ventes.filter(v => dayjs(v.date).year() == prevYear);
+            let prevVentes = fullData.ventes.filter(v => dayjs(v.date).year() == prevYear);
             let prevTotal = 0;
-            prevYearVentes.forEach(v => {
-                let val = channel === 'bel' ? parseFloat(v.ventes_bel)||0 : channel === 'boutique' ? parseFloat(v.ventes_boutique)||0 : (parseFloat(v.ventes_bel)||0) + (parseFloat(v.ventes_boutique)||0) + (parseFloat(v.ventes_wholesale)||0);
-                prevTotal += val;
+            prevVentes.forEach(v => {
+                prevTotal += channel === 'bel' ? (parseFloat(v.ventes_bel)||0) : channel === 'boutique' ? (parseFloat(v.ventes_boutique)||0) : (parseFloat(v.ventes_bel)||0) + (parseFloat(v.ventes_boutique)||0) + (parseFloat(v.ventes_wholesale)||0);
             });
-            let change = prevTotal > 0 ? ((displayTotal - prevTotal) / prevTotal * 100) : 0;
-            salesCompare.innerHTML = `vs ${prevYear} : ${change > 0 ? '▲ +' : '▼ '}${Math.abs(change).toFixed(1)}%`;
-            avgCompare.innerHTML = ``;
-        } else {
-            let comparison = getComparisonPeriod(ventes, channel);
-            if (comparison.total > 0) {
-                salesCompare.innerHTML = `vs période précédente : ${comparison.change > 0 ? '▲ +' : '▼ '}${Math.abs(comparison.change).toFixed(1)}%`;
-                let avgChange = comparison.avg > 0 ? ((avgDaily - comparison.avg) / comparison.avg * 100) : 0;
-                avgCompare.innerHTML = `vs période précédente : ${avgChange > 0 ? '▲ +' : '▼ '}${Math.abs(avgChange).toFixed(1)}%`;
-            } else {
-                salesCompare.innerHTML = `—`;
-                avgCompare.innerHTML = `—`;
-            }
+            let currentTotal = computeKPIs(ventes, channel).total;
+            let change = prevTotal > 0 ? ((currentTotal - prevTotal) / prevTotal * 100) : 0;
+            return { text: `vs ${prevYear}`, change: change };
         }
         
-        const chartTitle = document.getElementById('chartTitle');
-        if (useMonthlyView) {
-            chartTitle.innerHTML = '📊 Ventes mensuelles';
-            const monthlyData = aggregateByMonth(ventes, channel);
-            const labels = monthlyData.map(m => m.period);
-            const values = monthlyData.map(m => m.total);
-            if (salesChart) salesChart.destroy();
-            const ctx = document.getElementById('salesChart').getContext('2d');
-            salesChart = new Chart(ctx, {
-                type: 'bar',
-                data: { labels, datasets: [{ label: 'Ventes ($)', data: values, backgroundColor: '#2c7cb6', borderRadius: 8 }] },
-                options: { responsive: true, maintainAspectRatio: true }
+        if (isSingleMonth && year !== 'all') {
+            // Comparaison avec le même mois de l'année précédente
+            const prevYear = parseInt(year) - 1;
+            const prevMonth = month.split('-')[1];
+            let prevVentes = fullData.ventes.filter(v => dayjs(v.date).year() == prevYear && dayjs(v.date).month() + 1 == parseInt(prevMonth));
+            let prevTotal = 0;
+            prevVentes.forEach(v => {
+                prevTotal += channel === 'bel' ? (parseFloat(v.ventes_bel)||0) : channel === 'boutique' ? (parseFloat(v.ventes_boutique)||0) : (parseFloat(v.ventes_bel)||0) + (parseFloat(v.ventes_boutique)||0) + (parseFloat(v.ventes_wholesale)||0);
             });
-        } else {
-            chartTitle.innerHTML = '📈 Évolution quotidienne';
-            const labels = ventes.map(v => dayjs(v.date).format('DD MMM'));
-            const values = ventes.map(v => {
-                let bel = parseFloat(v.ventes_bel) || 0;
-                let boutique = parseFloat(v.ventes_boutique) || 0;
-                if (channel === 'bel') return bel;
-                if (channel === 'boutique') return boutique;
-                return bel + boutique + (parseFloat(v.ventes_wholesale) || 0);
-            });
-            if (salesChart) salesChart.destroy();
-            const ctx = document.getElementById('salesChart').getContext('2d');
-            salesChart = new Chart(ctx, {
-                type: 'line',
-                data: { labels, datasets: [{ label: 'Ventes ($)', data: values, borderColor: '#2c7cb6', fill: true, backgroundColor: 'rgba(44,124,182,0.05)', tension: 0.2 }] },
-                options: { responsive: true, maintainAspectRatio: true }
-            });
+            let currentTotal = computeKPIs(ventes, channel).total;
+            let change = prevTotal > 0 ? ((currentTotal - prevTotal) / prevTotal * 100) : 0;
+            return { text: `vs ${prevYear}`, change: change };
         }
         
-        const tableTitle = document.getElementById('tableTitle');
-        const tableHeader = document.getElementById('tableHeader');
-        const tableBody = document.getElementById('tableBody');
+        // Période personnalisée : comparer avec période précédente de même durée
+        if (ventes.length === 0) return { text: '', change: 0 };
+        const dates = ventes.map(v => dayjs(v.date)).sort();
+        const startDate = dates[0];
+        const endDate = dates[dates.length - 1];
+        const durationDays = endDate.diff(startDate, 'day') + 1;
+        const prevStart = startDate.subtract(durationDays, 'day');
+        const prevEnd = prevStart.add(durationDays - 1, 'day');
+        let prevVentes = fullData.ventes.filter(v => dayjs(v.date) >= prevStart && dayjs(v.date) <= prevEnd);
+        let prevTotal = 0;
+        prevVentes.forEach(v => {
+            prevTotal += channel === 'bel' ? (parseFloat(v.ventes_bel)||0) : channel === 'boutique' ? (parseFloat(v.ventes_boutique)||0) : (parseFloat(v.ventes_bel)||0) + (parseFloat(v.ventes_boutique)||0) + (parseFloat(v.ventes_wholesale)||0);
+        });
+        let currentTotal = computeKPIs(ventes, channel).total;
+        let change = prevTotal > 0 ? ((currentTotal - prevTotal) / prevTotal * 100) : 0;
+        return { text: `vs période précédente`, change: change };
+    }
+    
+    // ---------- AGRÉGATION MENSUELLE ----------
+    function aggregateMonthly(ventes, channel) {
+        const months = {};
+        ventes.forEach(v => {
+            const monthKey = dayjs(v.date).format('YYYY-MM');
+            const monthName = dayjs(v.date).format('MMMM YYYY');
+            let val = channel === 'bel' ? (parseFloat(v.ventes_bel)||0) : channel === 'boutique' ? (parseFloat(v.ventes_boutique)||0) : (parseFloat(v.ventes_bel)||0) + (parseFloat(v.ventes_boutique)||0) + (parseFloat(v.ventes_wholesale)||0);
+            if (!months[monthKey]) months[monthKey] = { name: monthName, total: 0, count: 0 };
+            months[monthKey].total += val;
+            months[monthKey].count++;
+        });
+        return Object.entries(months).sort().map(([key, data]) => ({
+            period: data.name,
+            total: data.total,
+            avg: data.total / data.count
+        }));
+    }
+    
+    // ---------- RENDU PRINCIPAL ----------
+    function applyFiltersAndRender() {
+        const ventes = getFilteredData();
+        const channel = document.getElementById('channelFilter').value;
+        const year = document.getElementById('yearFilter').value;
+        const month = document.getElementById('monthFilter').value;
         
-        if (useMonthlyView) {
-            tableTitle.innerHTML = '📅 Ventes par mois';
-            const monthlyData = aggregateByMonth(ventes, channel);
-            tableHeader.innerHTML = '<tr><th>Mois</th><th>Ventes totales</th><th>Moyenne / jour</th></tr>';
-            tableBody.innerHTML = monthlyData.map(m => `
-                <tr>
-                    <td>${m.period}</td>
-                    <td>${m.total.toLocaleString('fr-CA')} $</td>
-                    <td>${m.avg.toLocaleString('fr-CA')} $</td>
-                </tr>
-            `).join('');
+        if (ventes.length === 0) {
+            document.getElementById('totalSales').innerHTML = '0 $';
+            return;
+        }
+        
+        // KPIs
+        const kpis = computeKPIs(ventes, channel);
+        document.getElementById('totalSales').innerHTML = kpis.total.toLocaleString('fr-CA') + ' $';
+        document.getElementById('avgSales').innerHTML = kpis.avgDaily.toLocaleString('fr-CA') + ' $';
+        document.getElementById('avgCart').innerHTML = kpis.avgCart.toLocaleString('fr-CA') + ' $';
+        document.getElementById('totalOrders').innerHTML = kpis.totalOrders.toLocaleString('fr-CA');
+        
+        const comparison = getComparison(ventes, channel, year, month);
+        document.getElementById('salesCompare').innerHTML = `${comparison.text} : ${comparison.change > 0 ? '▲ +' : '▼ '}${Math.abs(comparison.change).toFixed(1)}%`;
+        const avgCompareVal = getComparison(ventes, channel, year, month);
+        document.getElementById('avgCompare').innerHTML = `${avgCompareVal.text} : ${avgCompareVal.change > 0 ? '▲ +' : '▼ '}${Math.abs(avgCompareVal.change).toFixed(1)}%`;
+        
+        // Rendu selon la vue
+        if (currentView === 'monthly') {
+            renderMonthlyView(ventes, channel);
         } else {
-            tableTitle.innerHTML = '📋 Détail jour par jour';
-            tableHeader.innerHTML = '<tr><th>Date</th><th>BEL ($)</th><th>Boutique ($)</th><th>Total ($)</th><th>Pluie (mm)</th><th>Neige (cm)</th></tr>';
-            tableBody.innerHTML = ventes.map(v => {
-                let bel = parseFloat(v.ventes_bel) || 0;
-                let boutique = parseFloat(v.ventes_boutique) || 0;
-                let total = bel + boutique + (parseFloat(v.ventes_wholesale) || 0);
-                return `<tr>
-                    <td>${dayjs(v.date).format('DD MMM YYYY')}</td>
-                    <td>${bel.toLocaleString('fr-CA')} $</td>
-                    <td>${boutique.toLocaleString('fr-CA')} $</td>
-                    <td>${total.toLocaleString('fr-CA')} $</td>
-                    <td>${v.precipitation_mm || 0}</td>
-                    <td>${v.snowfall_cm || 0}</td>
-                </tr>`;
-            }).join('');
+            renderDailyView(ventes, channel);
         }
     }
     
-    document.getElementById('yearFilter').addEventListener('change', () => updateUI());
-    document.getElementById('monthFilter').addEventListener('change', () => updateUI());
-    document.getElementById('channelFilter').addEventListener('change', () => updateUI());
-    document.getElementById('resetFilters').addEventListener('click', () => {
-        document.getElementById('yearFilter').value = 'all';
-        document.getElementById('monthFilter').value = 'all';
-        document.getElementById('channelFilter').value = 'total';
-        updateUI();
-    });
+    function renderMonthlyView(ventes, channel) {
+        const monthlyData = aggregateMonthly(ventes, channel);
+        document.getElementById('chartTitle').innerHTML = '📊 Ventes mensuelles';
+        document.getElementById('tableTitle').innerHTML = '📅 Ventes par mois';
+        
+        // Graphique barres
+        const labels = monthlyData.map(m => m.period);
+        const values = monthlyData.map(m => m.total);
+        if (salesChart) salesChart.destroy();
+        const ctx = document.getElementById('salesChart').getContext('2d');
+        salesChart = new Chart(ctx, {
+            type: 'bar',
+            data: { labels, datasets: [{ label: 'Ventes ($)', data: values, backgroundColor: '#2c7cb6', borderRadius: 8 }] },
+            options: { responsive: true, maintainAspectRatio: true }
+        });
+        
+        // Tableau mensuel
+        document.getElementById('tableHeader').innerHTML = '<tr><th>Mois</th><th>Ventes totales</th><th>Moyenne / jour</th></tr>';
+        document.getElementById('tableBody').innerHTML = monthlyData.map(m => `
+            <tr><td>${m.period}</td><td>${m.total.toLocaleString('fr-CA')} $</td><td>${m.avg.toLocaleString('fr-CA')} $</td></tr>
+        `).join('');
+    }
     
+    function renderDailyView(ventes, channel) {
+        const maxDays = 90;
+        if (ventes.length > maxDays) {
+            document.getElementById('chartTitle').innerHTML = '⚠️ Vue journalière indisponible';
+            document.getElementById('tableTitle').innerHTML = '⚠️ Trop de données';
+            document.getElementById('tableHeader').innerHTML = '';
+            document.getElementById('tableBody').innerHTML = `<tr><td colspan="3" class="warning">📅 Période trop large (${ventes.length} jours). Sélectionnez un mois ou une année + mois pour voir le détail journalier.</td></tr>`;
+            if (salesChart) salesChart.destroy();
+            return;
+        }
+        
+        document.getElementById('chartTitle').innerHTML = '📈 Évolution quotidienne';
+        document.getElementById('tableTitle').innerHTML = '📋 Détail jour par jour';
+        
+        const labels = ventes.map(v => dayjs(v.date).format('DD MMM'));
+        const values = ventes.map(v => {
+            let bel = parseFloat(v.ventes_bel) || 0;
+            let boutique = parseFloat(v.ventes_boutique) || 0;
+            if (channel === 'bel') return bel;
+            if (channel === 'boutique') return boutique;
+            return bel + boutique + (parseFloat(v.ventes_wholesale) || 0);
+        });
+        if (salesChart) salesChart.destroy();
+        const ctx = document.getElementById('salesChart').getContext('2d');
+        salesChart = new Chart(ctx, {
+            type: 'line',
+            data: { labels, datasets: [{ label: 'Ventes ($)', data: values, borderColor: '#2c7cb6', fill: true, backgroundColor: 'rgba(44,124,182,0.05)', tension: 0.2 }] },
+            options: { responsive: true, maintainAspectRatio: true }
+        });
+        
+        document.getElementById('tableHeader').innerHTML = '<tr><th>Date</th><th>BEL ($)</th><th>Boutique ($)</th><th>Total ($)</th><th>Pluie (mm)</th><th>Neige (cm)</th></tr>';
+        document.getElementById('tableBody').innerHTML = ventes.map(v => {
+            let bel = parseFloat(v.ventes_bel) || 0;
+            let boutique = parseFloat(v.ventes_boutique) || 0;
+            let total = bel + boutique + (parseFloat(v.ventes_wholesale) || 0);
+            return `<tr>
+                <td>${dayjs(v.date).format('DD MMM YYYY')}</td>
+                <td>${bel.toLocaleString('fr-CA')} $</td>
+                <td>${boutique.toLocaleString('fr-CA')} $</td>
+                <td>${total.toLocaleString('fr-CA')} $</td>
+                <td>${v.precipitation_mm || 0}</td>
+                <td>${v.snowfall_cm || 0}</td>
+            </tr>`;
+        }).join('');
+    }
+    
+    // ---------- EXPORT CSV ----------
+    function exportCSV() {
+        const ventes = getFilteredData();
+        const channel = document.getElementById('channelFilter').value;
+        if (ventes.length === 0) return;
+        
+        let dataToExport;
+        if (currentView === 'monthly') {
+            dataToExport = aggregateMonthly(ventes, channel);
+            const headers = ['Mois', 'Ventes totales ($)', 'Moyenne par jour ($)'];
+            const rows = dataToExport.map(m => [m.period, m.total, m.avg]);
+            downloadCSV(headers, rows, 'rapport_mensuel.csv');
+        } else {
+            const headers = ['Date', 'BEL ($)', 'Boutique ($)', 'Wholesale ($)', 'Total ($)', 'Pluie (mm)', 'Neige (cm)'];
+            const rows = ventes.map(v => [
+                dayjs(v.date).format('YYYY-MM-DD'),
+                parseFloat(v.ventes_bel)||0,
+                parseFloat(v.ventes_boutique)||0,
+                parseFloat(v.ventes_wholesale)||0,
+                (parseFloat(v.ventes_bel)||0) + (parseFloat(v.ventes_boutique)||0) + (parseFloat(v.ventes_wholesale)||0),
+                v.precipitation_mm || 0,
+                v.snowfall_cm || 0
+            ]);
+            downloadCSV(headers, rows, 'rapport_journalier.csv');
+        }
+    }
+    
+    function downloadCSV(headers, rows, filename) {
+        const csvRows = [headers.join(',')];
+        for (const row of rows) {
+            csvRows.push(row.map(cell => `"${cell}"`).join(','));
+        }
+        const blob = new Blob([csvRows.join('\n')], { type: 'text/csv' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = filename;
+        link.click();
+        URL.revokeObjectURL(link.href);
+    }
+    
+    // ---------- ÉVÉNEMENTS ----------
+    function bindEvents() {
+        document.getElementById('yearFilter').addEventListener('change', () => {
+            updateMonthFilter();
+            applyFiltersAndRender();
+        });
+        document.getElementById('monthFilter').addEventListener('change', () => applyFiltersAndRender());
+        document.getElementById('channelFilter').addEventListener('change', () => applyFiltersAndRender());
+        document.getElementById('resetBtn').addEventListener('click', () => {
+            document.getElementById('yearFilter').value = 'all';
+            updateMonthFilter();
+            document.getElementById('monthFilter').value = 'all';
+            document.getElementById('channelFilter').value = 'total';
+            applyFiltersAndRender();
+        });
+        document.getElementById('viewMonthlyBtn').addEventListener('click', () => {
+            currentView = 'monthly';
+            document.getElementById('viewMonthlyBtn').classList.add('active');
+            document.getElementById('viewDailyBtn').classList.remove('active');
+            applyFiltersAndRender();
+        });
+        document.getElementById('viewDailyBtn').addEventListener('click', () => {
+            currentView = 'daily';
+            document.getElementById('viewDailyBtn').classList.add('active');
+            document.getElementById('viewMonthlyBtn').classList.remove('active');
+            applyFiltersAndRender();
+        });
+        document.getElementById('exportBtn').addEventListener('click', () => exportCSV());
+        
+        // État initial des boutons
+        document.getElementById('viewMonthlyBtn').classList.add('active');
+    }
+    
+    // ---------- DÉMARRAGE ----------
     loadData();
+    bindEvents();
 </script>
 </body>
 </html>
