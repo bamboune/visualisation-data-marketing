@@ -28,16 +28,11 @@ def get_google_sheet(sheet_name, header_row=1):
         if not h or h.strip() == "":
             clean_headers.append(f"col_{i}")
         else:
-            clean_headers.append(h.strip())
+            clean_headers.append(h.strip().lower())
     
     df = pd.DataFrame(data_rows, columns=clean_headers)
     
-    # DEBUG : Affiche les infos
-    print(f"   🔍 '{sheet_name}' : {len(df)} lignes, colonnes : {list(df.columns)[:10]}")
-    if len(df) > 0:
-        print(f"   🔍 Première ligne : {df.iloc[0].to_dict()}")
-    
-    # Cherche la colonne date (insensible à la casse)
+    # Cherche la colonne date
     date_col = None
     for col in df.columns:
         if col.lower() in ['date', 'date_envoi']:
@@ -46,9 +41,9 @@ def get_google_sheet(sheet_name, header_row=1):
     
     if date_col:
         df['date'] = pd.to_datetime(df[date_col], errors='coerce')
-        print(f"   ✓ Colonne date trouvée : '{date_col}' → convertie en 'date'")
+        print(f"   ✓ '{sheet_name}' : {len(df)} lignes, date trouvée")
     else:
-        print(f"   ⚠️ Aucune colonne date trouvée parmi : {list(df.columns)[:10]}")
+        print(f"   ✓ '{sheet_name}' : {len(df)} lignes (pas de date)")
     
     return df
 
@@ -62,31 +57,39 @@ def get_weather_data(start_date, end_date, lat=45.5, lon=-73.6):
         "daily": ["temperature_2m_max", "temperature_2m_min", "precipitation_sum", "snowfall_sum", "weather_code"],
         "timezone": "America/Montreal"
     }
-    response = requests.get(url, params=params)
-    return response.json()
+    try:
+        print(f"   🌐 Appel météo : {start_date} → {end_date}")
+        response = requests.get(url, params=params, timeout=30)
+        response.raise_for_status()
+        data = response.json()
+        
+        if 'daily' not in data or 'time' not in data['daily']:
+            print(f"   ⚠️ Réponse inattendue, utilisation données vides")
+            return None
+        
+        print(f"   ✅ {len(data['daily']['time'])} jours météo reçus")
+        return data
+        
+    except Exception as e:
+        print(f"   ❌ Erreur météo : {e}")
+        return None
 
 def main():
     print("📊 Génération du dashboard LMH...")
     
-    print("📁 Lecture de ventes_quotidiennes...")
+    print("📁 Lecture des feuilles...")
     ventes = get_google_sheet("ventes_quotidiennes", header_row=1)
-    
-    print("📁 Lecture de campagnes_email...")
     infolettres = get_google_sheet("campagnes_email", header_row=1)
-    
-    print("📁 Lecture de publications_social...")
     publications = get_google_sheet("publications_social", header_row=1)
-    
-    print("📁 Lecture de evenements_marketing...")
     evenements = get_google_sheet("evenements_marketing", header_row=1)
     
     if ventes.empty:
-        print("❌ ERREUR : Aucune donnée de ventes")
+        print("❌ Aucune donnée de ventes")
         return
     
     if 'date' not in ventes.columns:
-        print("❌ ERREUR : Pas de colonne 'date' après traitement")
-        print(f"   Colonnes existantes : {list(ventes.columns)}")
+        print("❌ Colonne 'date' non trouvée")
+        print(f"   Colonnes : {list(ventes.columns)[:10]}")
         return
     
     ventes['date'] = pd.to_datetime(ventes['date'], errors='coerce')
@@ -95,11 +98,11 @@ def main():
     
     start_date = ventes['date'].min().strftime('%Y-%m-%d')
     end_date = ventes['date'].max().strftime('%Y-%m-%d')
-    print(f"\n🌦️ Météo du {start_date} au {end_date}...")
+    print(f"\n🌦️ Récupération météo...")
     
     weather_data = get_weather_data(start_date, end_date)
     
-    if 'daily' in weather_data and 'time' in weather_data['daily']:
+    if weather_data and 'daily' in weather_data and 'time' in weather_data['daily']:
         weather_df = pd.DataFrame({
             'date': pd.to_datetime(weather_data['daily']['time']),
             'temp_max': weather_data['daily']['temperature_2m_max'],
@@ -109,7 +112,9 @@ def main():
             'weather_code': weather_data['daily']['weather_code']
         })
         ventes_meteo = ventes.merge(weather_df, on='date', how='left')
+        print("✅ Météo fusionnée avec succès")
     else:
+        print("⚠️ Pas de météo disponible, continuation sans")
         ventes_meteo = ventes
     
     ventes_meteo = ventes_meteo.where(pd.notnull(ventes_meteo), None)
@@ -117,13 +122,18 @@ def main():
     if 'date' in ventes_meteo.columns:
         ventes_meteo['date'] = ventes_meteo['date'].astype(str)
     
+    total_ventes = 0
+    if 'ventes_total' in ventes.columns:
+        ventes_total_clean = pd.to_numeric(ventes['ventes_total'], errors='coerce')
+        total_ventes = float(ventes_total_clean.sum()) if ventes_total_clean.notna().any() else 0
+    
     dashboard_data = {
         'ventes': ventes_meteo.to_dict(orient='records'),
         'infolettres': infolettres.where(pd.notnull(infolettres), None).to_dict(orient='records'),
         'publications': publications.where(pd.notnull(publications), None).to_dict(orient='records'),
         'evenements': evenements.where(pd.notnull(evenements), None).to_dict(orient='records'),
         'stats': {
-            'total_ventes': float(ventes['ventes_total'].sum()) if 'ventes_total' in ventes else 0,
+            'total_ventes': total_ventes,
             'total_commandes': 0,
             'date_min': start_date,
             'date_max': end_date
@@ -133,7 +143,9 @@ def main():
     with open('data.json', 'w', encoding='utf-8') as f:
         json.dump(dashboard_data, f, ensure_ascii=False, indent=2)
     
-    print(f"\n✅ data.json généré ! {len(ventes)} jours, total {dashboard_data['stats']['total_ventes']:,.2f} $")
+    print(f"\n✅ SUCCÈS ! data.json généré")
+    print(f"   📅 {len(ventes)} jours du {start_date} au {end_date}")
+    print(f"   💰 Total ventes : {total_ventes:,.2f} $")
 
 if __name__ == "__main__":
     main()
