@@ -9,6 +9,16 @@ import os
 SPREADSHEET_ID = "1vYqgbiiYDnJONtFCx11LkTdPUM14fCf0IG1L7P2O4ro"
 SERVICE_ACCOUNT_FILE = "service_account.json"
 
+def convert_to_serializable(obj):
+    """Convertit les objets non-sérialisables pour JSON"""
+    if isinstance(obj, pd.Timestamp):
+        return obj.strftime('%Y-%m-%d')
+    if isinstance(obj, datetime):
+        return obj.strftime('%Y-%m-%d')
+    if pd.isna(obj):
+        return None
+    return obj
+
 def get_google_sheet(sheet_name, header_row=1):
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
     creds = ServiceAccountCredentials.from_json_keyfile_name(SERVICE_ACCOUNT_FILE, scope)
@@ -41,9 +51,9 @@ def get_google_sheet(sheet_name, header_row=1):
     
     if date_col:
         df['date'] = pd.to_datetime(df[date_col], errors='coerce')
-        print(f"   ✓ '{sheet_name}' : {len(df)} lignes, date trouvée")
+        print(f"   ✓ '{sheet_name}' : {len(df)} lignes")
     else:
-        print(f"   ✓ '{sheet_name}' : {len(df)} lignes (pas de date)")
+        print(f"   ✓ '{sheet_name}' : {len(df)} lignes")
     
     return df
 
@@ -58,20 +68,19 @@ def get_weather_data(start_date, end_date, lat=45.5, lon=-73.6):
         "timezone": "America/Montreal"
     }
     try:
-        print(f"   🌐 Appel météo : {start_date} → {end_date}")
+        print(f"   🌐 Météo : {start_date} → {end_date}")
         response = requests.get(url, params=params, timeout=30)
         response.raise_for_status()
         data = response.json()
         
-        if 'daily' not in data or 'time' not in data['daily']:
-            print(f"   ⚠️ Réponse inattendue, utilisation données vides")
+        if 'daily' in data and 'time' in data['daily']:
+            print(f"   ✅ {len(data['daily']['time'])} jours")
+            return data
+        else:
+            print(f"   ⚠️ Réponse inattendue")
             return None
-        
-        print(f"   ✅ {len(data['daily']['time'])} jours météo reçus")
-        return data
-        
     except Exception as e:
-        print(f"   ❌ Erreur météo : {e}")
+        print(f"   ❌ Erreur : {e}")
         return None
 
 def main():
@@ -89,7 +98,6 @@ def main():
     
     if 'date' not in ventes.columns:
         print("❌ Colonne 'date' non trouvée")
-        print(f"   Colonnes : {list(ventes.columns)[:10]}")
         return
     
     ventes['date'] = pd.to_datetime(ventes['date'], errors='coerce')
@@ -98,8 +106,8 @@ def main():
     
     start_date = ventes['date'].min().strftime('%Y-%m-%d')
     end_date = ventes['date'].max().strftime('%Y-%m-%d')
-    print(f"\n🌦️ Récupération météo...")
     
+    print(f"\n🌦️ Récupération météo...")
     weather_data = get_weather_data(start_date, end_date)
     
     if weather_data and 'daily' in weather_data and 'time' in weather_data['daily']:
@@ -112,16 +120,18 @@ def main():
             'weather_code': weather_data['daily']['weather_code']
         })
         ventes_meteo = ventes.merge(weather_df, on='date', how='left')
-        print("✅ Météo fusionnée avec succès")
+        print("✅ Météo fusionnée")
     else:
-        print("⚠️ Pas de météo disponible, continuation sans")
+        print("⚠️ Pas de météo, continuation")
         ventes_meteo = ventes
     
+    # Conversion en string pour les dates
+    ventes_meteo['date'] = ventes_meteo['date'].dt.strftime('%Y-%m-%d')
+    
+    # Nettoyage des NaN
     ventes_meteo = ventes_meteo.where(pd.notnull(ventes_meteo), None)
     
-    if 'date' in ventes_meteo.columns:
-        ventes_meteo['date'] = ventes_meteo['date'].astype(str)
-    
+    # Calcul du total des ventes
     total_ventes = 0
     if 'ventes_total' in ventes.columns:
         ventes_total_clean = pd.to_numeric(ventes['ventes_total'], errors='coerce')
@@ -141,7 +151,7 @@ def main():
     }
     
     with open('data.json', 'w', encoding='utf-8') as f:
-        json.dump(dashboard_data, f, ensure_ascii=False, indent=2)
+        json.dump(dashboard_data, f, ensure_ascii=False, indent=2, default=convert_to_serializable)
     
     print(f"\n✅ SUCCÈS ! data.json généré")
     print(f"   📅 {len(ventes)} jours du {start_date} au {end_date}")
