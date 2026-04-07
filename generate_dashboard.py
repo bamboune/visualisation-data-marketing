@@ -11,19 +11,30 @@ SPREADSHEET_ID = "1vYqgbiiYDnJONtFCx11LkTdPUM14fCf0IG1L7P2O4ro"
 SERVICE_ACCOUNT_FILE = "service_account.json"
 
 def clean_numeric(value):
-    """Nettoie une valeur pour la convertir en nombre"""
+    """Nettoie une valeur pour la convertir en nombre (gère virgules françaises)"""
     if value is None or pd.isna(value):
-        return 0
+        return 0.0
     if isinstance(value, (int, float)):
         return float(value)
-    # Convertir en string et nettoyer
-    s = str(value)
-    # Enlève $, espaces, virgules, caractères non numériques (sauf point)
+    
+    s = str(value).strip()
+    if s == '':
+        return 0.0
+    
+    # Remplace la virgule décimale par un point (format français → anglais)
+    s = s.replace(',', '.')
+    
+    # Enlève tout ce qui n'est pas chiffre, point ou moins
     s = re.sub(r'[^\d.-]', '', s)
+    
+    # Gère les cas comme ".123" ou "123."
+    if s == '' or s == '-':
+        return 0.0
+    
     try:
-        return float(s) if s else 0
+        return float(s)
     except:
-        return 0
+        return 0.0
 
 def convert_to_serializable(obj):
     if isinstance(obj, pd.Timestamp):
@@ -104,7 +115,7 @@ def main():
         print("❌ Colonne 'date' non trouvée")
         return
     
-    # NETTOYAGE DES DONNÉES NUMÉRIQUES
+    # NETTOYAGE DES DONNÉES NUMÉRIQUES (avec gestion virgule)
     numeric_columns = ['ventes_bel', 'ventes_boutique', 'ventes_wholesale', 'ventes_total',
                        'commandes_bel', 'commandes_boutique', 'commandes_wholesale', 'commandes_total',
                        'panier_moyen_bel', 'panier_moyen_boutique']
@@ -141,17 +152,21 @@ def main():
     ventes_meteo['date'] = ventes_meteo['date'].dt.strftime('%Y-%m-%d')
     ventes_meteo = ventes_meteo.where(pd.notnull(ventes_meteo), None)
     
-    # Calcul des totaux pour vérification
+    # Calcul des totaux
     total_bel = ventes['ventes_bel'].sum() if 'ventes_bel' in ventes else 0
     total_boutique = ventes['ventes_boutique'].sum() if 'ventes_boutique' in ventes else 0
     total_wholesale = ventes['ventes_wholesale'].sum() if 'ventes_wholesale' in ventes else 0
     total_all = total_bel + total_boutique + total_wholesale
+    
+    # Panier moyen BEL (moyenne des paniers, pas somme)
+    panier_moyen = ventes['panier_moyen_bel'].mean() if 'panier_moyen_bel' in ventes else 0
     
     print(f"\n💰 Vérification des totaux :")
     print(f"   BEL : {total_bel:,.2f} $")
     print(f"   Boutique : {total_boutique:,.2f} $")
     print(f"   Wholesale : {total_wholesale:,.2f} $")
     print(f"   TOTAL : {total_all:,.2f} $")
+    print(f"   Panier moyen BEL : {panier_moyen:,.2f} $")
     
     dashboard_data = {
         'ventes': ventes_meteo.to_dict(orient='records'),
@@ -163,6 +178,7 @@ def main():
             'total_ventes_bel': total_bel,
             'total_ventes_boutique': total_boutique,
             'total_ventes_wholesale': total_wholesale,
+            'panier_moyen_bel': panier_moyen,
             'date_min': start_date,
             'date_max': end_date
         }
