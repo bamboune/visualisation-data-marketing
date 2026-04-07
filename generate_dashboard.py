@@ -5,9 +5,25 @@ from datetime import datetime
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import os
+import re
 
 SPREADSHEET_ID = "1vYqgbiiYDnJONtFCx11LkTdPUM14fCf0IG1L7P2O4ro"
 SERVICE_ACCOUNT_FILE = "service_account.json"
+
+def clean_numeric(value):
+    """Nettoie une valeur pour la convertir en nombre"""
+    if value is None or pd.isna(value):
+        return 0
+    if isinstance(value, (int, float)):
+        return float(value)
+    # Convertir en string et nettoyer
+    s = str(value)
+    # Enlève $, espaces, virgules, caractères non numériques (sauf point)
+    s = re.sub(r'[^\d.-]', '', s)
+    try:
+        return float(s) if s else 0
+    except:
+        return 0
 
 def convert_to_serializable(obj):
     if isinstance(obj, pd.Timestamp):
@@ -32,18 +48,14 @@ def get_google_sheet(sheet_name, header_row=1):
     headers = all_values[header_row - 1]
     data_rows = all_values[header_row:]
     
-    clean_headers = []
-    for i, h in enumerate(headers):
-        if not h or h.strip() == "":
-            clean_headers.append(f"col_{i}")
-        else:
-            clean_headers.append(h.strip().lower())
+    clean_headers = [h.strip().lower() if h else f"col_{i}" for i, h in enumerate(headers)]
     
     df = pd.DataFrame(data_rows, columns=clean_headers)
     
+    # Cherche la colonne date
     date_col = None
     for col in df.columns:
-        if col.lower() in ['date', 'date_envoi']:
+        if col in ['date', 'date_envoi']:
             date_col = col
             break
     
@@ -83,9 +95,6 @@ def main():
     evenements = get_google_sheet("evenements_marketing", header_row=1)
     
     print(f"   📊 Ventes : {len(ventes)} lignes")
-    print(f"   📧 Infolettres : {len(infolettres)} lignes")
-    print(f"   📱 Publications : {len(publications)} lignes")
-    print(f"   ⚡ Événements : {len(evenements)} lignes")
     
     if ventes.empty:
         print("❌ Aucune donnée de ventes")
@@ -93,8 +102,17 @@ def main():
     
     if 'date' not in ventes.columns:
         print("❌ Colonne 'date' non trouvée")
-        print(f"   Colonnes disponibles : {list(ventes.columns)[:10]}")
         return
+    
+    # NETTOYAGE DES DONNÉES NUMÉRIQUES
+    numeric_columns = ['ventes_bel', 'ventes_boutique', 'ventes_wholesale', 'ventes_total',
+                       'commandes_bel', 'commandes_boutique', 'commandes_wholesale', 'commandes_total',
+                       'panier_moyen_bel', 'panier_moyen_boutique']
+    
+    for col in numeric_columns:
+        if col in ventes.columns:
+            ventes[col] = ventes[col].apply(clean_numeric)
+            print(f"   ✅ Nettoyé : {col}")
     
     ventes['date'] = pd.to_datetime(ventes['date'], errors='coerce')
     ventes = ventes.dropna(subset=['date'])
@@ -118,23 +136,22 @@ def main():
         ventes_meteo = ventes.merge(weather_df, on='date', how='left')
         print("   ✅ Météo fusionnée")
     else:
-        print("   ⚠️ Pas de météo disponible")
         ventes_meteo = ventes
     
     ventes_meteo['date'] = ventes_meteo['date'].dt.strftime('%Y-%m-%d')
     ventes_meteo = ventes_meteo.where(pd.notnull(ventes_meteo), None)
     
-    # Calcul du total des ventes (version robuste)
-    total_ventes = 0
-    if 'ventes_total' in ventes.columns:
-        # Nettoie : enlève $, virgules, espaces
-        ventes_total_raw = ventes['ventes_total'].astype(str).str.replace('$', '').str.replace(',', '').str.replace(' ', '').str.replace(' ', '')
-        ventes_total_clean = pd.to_numeric(ventes_total_raw, errors='coerce')
-        total_ventes = float(ventes_total_clean.sum()) if ventes_total_clean.notna().any() else 0
-        print(f"   💰 Total ventes : {total_ventes:,.2f} $")
-    else:
-        print(f"   ⚠️ Colonne 'ventes_total' non trouvée")
-        print(f"   Colonnes : {list(ventes.columns)[:15]}")
+    # Calcul des totaux pour vérification
+    total_bel = ventes['ventes_bel'].sum() if 'ventes_bel' in ventes else 0
+    total_boutique = ventes['ventes_boutique'].sum() if 'ventes_boutique' in ventes else 0
+    total_wholesale = ventes['ventes_wholesale'].sum() if 'ventes_wholesale' in ventes else 0
+    total_all = total_bel + total_boutique + total_wholesale
+    
+    print(f"\n💰 Vérification des totaux :")
+    print(f"   BEL : {total_bel:,.2f} $")
+    print(f"   Boutique : {total_boutique:,.2f} $")
+    print(f"   Wholesale : {total_wholesale:,.2f} $")
+    print(f"   TOTAL : {total_all:,.2f} $")
     
     dashboard_data = {
         'ventes': ventes_meteo.to_dict(orient='records'),
@@ -142,8 +159,10 @@ def main():
         'publications': publications.where(pd.notnull(publications), None).to_dict(orient='records'),
         'evenements': evenements.where(pd.notnull(evenements), None).to_dict(orient='records'),
         'stats': {
-            'total_ventes': total_ventes,
-            'total_commandes': 0,
+            'total_ventes': total_all,
+            'total_ventes_bel': total_bel,
+            'total_ventes_boutique': total_boutique,
+            'total_ventes_wholesale': total_wholesale,
             'date_min': start_date,
             'date_max': end_date
         }
@@ -154,7 +173,6 @@ def main():
     
     print(f"\n✅ SUCCÈS ! data.json généré")
     print(f"   📅 {len(ventes)} jours du {start_date} au {end_date}")
-    print(f"   💰 Total ventes : {total_ventes:,.2f} $")
 
 if __name__ == "__main__":
     main()
