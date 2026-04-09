@@ -32,6 +32,7 @@
         .two-columns { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 24px; margin-bottom: 28px; }
         .insight-card { background: white; border-radius: 20px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
         .insight-card h3 { font-size: 1rem; margin-bottom: 16px; font-weight: 600; color: #1a3a57; }
+        .full-width-card { background: white; border-radius: 20px; padding: 20px; margin-bottom: 28px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
         .table-container { background: white; border-radius: 20px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
         th, td { padding: 10px 8px; text-align: left; border-bottom: 1px solid #ecf0f4; }
@@ -85,13 +86,16 @@
     <!-- Bandeau météo compact -->
     <div id="weatherInsight" class="weather-bar">Chargement...</div>
 
+    <!-- Deux colonnes pour infolettres et réseaux sociaux -->
     <div class="two-columns">
         <div class="insight-card"><h3><i class="fas fa-envelope-open-text"></i> 📧 Infolettres (période)</h3><div id="emailTable">Chargement...</div></div>
         <div class="insight-card"><h3><i class="fab fa-instagram"></i> 📱 Réseaux sociaux (période)</h3><div id="socialTable">Chargement...</div></div>
     </div>
-    <div class="two-columns">
-        <div class="insight-card"><h3><i class="fas fa-calendar-star"></i> ⚡ Événements marketing</h3><div id="eventsTable">Chargement...</div></div>
-        <div class="insight-card"><h3> </h3><div></div></div> <!-- placeholder pour alignement -->
+
+    <!-- Événements marketing pleine largeur -->
+    <div class="full-width-card">
+        <h3><i class="fas fa-calendar-star"></i> ⚡ Événements marketing</h3>
+        <div id="eventsTable">Chargement...</div>
     </div>
 
     <div class="table-container">
@@ -216,7 +220,7 @@
                     <td>${e.ventes_generees_$ ? parseFloat(e.ventes_generees_$).toLocaleString('fr-CA')+' $' : '—'}</td>
                 </tr>`;
             });
-            html += '</tbody><tr>';
+            html += '</tbody></table>';
             document.getElementById('emailTable').innerHTML = html;
         } else {
             document.getElementById('emailTable').innerHTML = '<p class="warning">Aucune infolettre sur cette période</p>';
@@ -228,7 +232,7 @@
             let html = '<table style="width:100%"><thead><tr><th>Date</th><th>Plateforme</th><th>Contenu</th><th>Likes</th></tr></thead><tbody>';
             posts.forEach(p => {
                 let desc = (p.description_courte || p.title || '').substring(0, 80);
-                html += `<tr>
+                html += `<td>
                     <td>${dayjs(p.date).format('DD/MM/YYYY')}</td>
                     <td>${p.plateforme || '—'}</td>
                     <td>${desc}${desc.length === 80 ? '…' : ''}</td>
@@ -241,12 +245,11 @@
             document.getElementById('socialTable').innerHTML = '<p class="warning">Aucune publication sur cette période</p>';
         }
         
-        // Événements marketing (affichage structuré)
+        // Événements marketing
         const events = (fullData.evenements || []).filter(ev => ventesPeriode.some(v => dayjs(v.date).format('YYYY-MM-DD') === dayjs(ev.date).format('YYYY-MM-DD')));
         if (events.length) {
             let html = '<div style="overflow-x:auto;"><table style="width:100%; font-size:0.75rem;"><thead><tr><th>Date</th><th>Actions</th><th>Contexte / Notes</th></tr></thead><tbody>';
             events.forEach(ev => {
-                // Regrouper les colonnes d'action (celles qui ne sont pas 'col_11' ni 'col_14' ni 'date')
                 let actions = [];
                 let contexte = [];
                 for (let [key, value] of Object.entries(ev)) {
@@ -258,9 +261,9 @@
                     } else if (key === 'col_14') {
                         contexte.push(`📝 ${value}`);
                     } else {
-                        // Pour les autres, on enlève le préfixe 'col_' et on affiche
-                        let label = key.replace(/^col_/, '');
-                        actions.push(`${label}: ${value}`);
+                        // Pour les autres, on enlève le préfixe 'col_' et on garde uniquement la valeur
+                        let cleanValue = value.toString();
+                        actions.push(cleanValue);
                     }
                 }
                 let actionsHtml = actions.length ? actions.join(' · ') : '—';
@@ -271,7 +274,7 @@
                     <td style="font-size:0.7rem; color:#666;">${contexteHtml}</td>
                 </tr>`;
             });
-            html += '</tbody></table></div>';
+            html += '</tbody></tr></div>';
             document.getElementById('eventsTable').innerHTML = html;
         } else {
             document.getElementById('eventsTable').innerHTML = '<p class="warning">Aucun événement sur cette période</p>';
@@ -309,7 +312,6 @@
         const comp = getComparison(ventes, channel, year, month);
         document.getElementById('salesCompare').innerHTML = `${comp.text} : ${comp.change > 0 ? '▲ +' : '▼ '}${Math.abs(comp.change).toFixed(1)}%`;
         
-        // Météo
         renderWeather(ventes);
         
         if (currentView === 'monthly') {
