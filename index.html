@@ -107,31 +107,16 @@
     let salesChart = null;
     let currentView = 'monthly';
 
-    // Liste de toutes les colonnes pertinentes dans evenements_marketing
-    const EVENT_COLUMNS = [
-        { key: 'rabais_promos', icon: '🏷️', label: 'Promo' },
-        { key: 'lancement_produits_ateliers', icon: '✨', label: 'Lancement' },
-        { key: 'bis_alertes_back_in_stock', icon: '🔄', label: 'BIS' },
-        { key: 'infolettre', icon: '📧', label: 'Infolettre' },
-        { key: 'push_notif', icon: '📱', label: 'Push' },
-        { key: 'billet_blogue', icon: '📝', label: 'Blogue' },
-        { key: 'webmestre_funnels', icon: '🌐', label: 'Web' },
-        { key: 'temperature', icon: '🌡️', label: 'Température' },
-        { key: 'meteo_montreal', icon: '☁️', label: 'Météo' },
-        { key: 'meteo_generale', icon: '🌍', label: 'Météo gén.' },
-        { key: 'politique_actualite', icon: '🗳️', label: 'Politique' },
-        { key: 'fetec2a9ries_conges', icon: '📅', label: 'Férié/congé' },
-        { key: 'couvertures_mediatiques', icon: '📰', label: 'Médias' },
-        { key: 'commentaires_notes', icon: '📝', label: 'Notes' }
-    ];
-
     async function loadData() {
         try {
             const response = await fetch('data.json?v=' + Date.now());
             if (!response.ok) throw new Error('data.json introuvable');
             fullData = await response.json();
             console.log("Données chargées:", fullData.ventes.length, "jours");
-            console.log("Exemple événement:", fullData.evenements?.[0]);
+            console.log("Nombre d'événements:", fullData.evenements?.length);
+            if (fullData.evenements?.length) {
+                console.log("🔍 Premier événement (brut) :", fullData.evenements[0]);
+            }
             initFilters();
             applyFiltersAndRender();
         } catch (err) {
@@ -225,22 +210,8 @@
         return Object.entries(months).sort().map(([key, data]) => ({ period: data.name, total: data.total, avg: data.total / data.count }));
     }
 
-    function buildEventDescription(ev) {
-        let parts = [];
-        for (const col of EVENT_COLUMNS) {
-            let val = ev[col.key];
-            if (val && val.toString().trim() !== '' && val !== '0' && val !== 'null' && val !== 'undefined') {
-                // Tronquer si trop long
-                let text = val.toString().trim();
-                if (text.length > 80) text = text.substring(0, 80) + '…';
-                parts.push(`${col.icon} ${text}`);
-            }
-        }
-        return parts.join(' · ') || '—';
-    }
-
     function renderMarketingSections(ventesPeriode) {
-        // Infolettres (inchangé)
+        // Infolettres
         let infos = (fullData.infolettres || []).filter(e => ventesPeriode.some(v => dayjs(v.date).format('YYYY-MM-DD') === dayjs(e.date_envoi).format('YYYY-MM-DD')));
         if (infos.length) {
             let html = '<table style="width:100%"><thead><tr><th>Date</th><th>Sujet</th><th>Ventes générées</th></tr></thead><tbody>';
@@ -251,32 +222,32 @@
                     <td>${e.ventes_generees_$ ? parseFloat(e.ventes_generees_$).toLocaleString('fr-CA')+' $' : '—'}</td>
                 </tr>`;
             });
-            html += '</tbody></table>';
+            html += '</tbody><tr>';
             document.getElementById('emailTable').innerHTML = html;
         } else {
             document.getElementById('emailTable').innerHTML = '<p class="warning">Aucune infolettre sur cette période</p>';
         }
         
-        // Réseaux sociaux (inchangé)
+        // Réseaux sociaux
         let posts = (fullData.publications || []).filter(p => ventesPeriode.some(v => dayjs(v.date).format('YYYY-MM-DD') === dayjs(p.date).format('YYYY-MM-DD')));
         if (posts.length) {
-            let html = '<table style="width:100%"><thead><tr><th>Date</th><th>Plateforme</th><th>Contenu</th><th>Likes</th></tr></thead><tbody>';
+            let html = '<table style="width:100%"><thead><tr><th>Date</th><th>Plateforme</th><th>Contenu</th><th>Likes</th></td></thead><tbody>';
             posts.forEach(p => {
                 let desc = (p.description_courte || p.title || '').substring(0, 80);
-                html += `<tr>
+                html += `<td>
                     <td>${dayjs(p.date).format('DD/MM/YYYY')}</td>
                     <td>${p.plateforme || '—'}</td>
                     <td>${desc}${desc.length === 80 ? '…' : ''}</td>
                     <td>${p.likes || '—'}</td>
                 </tr>`;
             });
-            html += '</tbody></table>';
+            html += '</tbody></tr>';
             document.getElementById('socialTable').innerHTML = html;
         } else {
             document.getElementById('socialTable').innerHTML = '<p class="warning">Aucune publication sur cette période</p>';
         }
         
-        // Météo (inchangé)
+        // Météo
         const rainDays = ventesPeriode.filter(v => (v.precipitation_mm || 0) > 0.5);
         const dryDays = ventesPeriode.filter(v => (v.precipitation_mm || 0) <= 0.5);
         const avgRain = rainDays.length ? rainDays.reduce((a,b)=>a+(b.ventes_total||0),0)/rainDays.length : 0;
@@ -287,15 +258,22 @@
             <div><strong>📊 Différence</strong> : ${avgRain > avgDry ? '▲ +' : '▼ '}${Math.abs(((avgRain-avgDry)/avgDry*100)||0).toFixed(1)}%</div>
         `;
         
-        // Événements marketing (affichage de TOUTES les colonnes)
+        // Événements marketing (affichage brut)
         const events = (fullData.evenements || []).filter(ev => ventesPeriode.some(v => dayjs(v.date).format('YYYY-MM-DD') === dayjs(ev.date).format('YYYY-MM-DD')));
         if (events.length) {
-            let html = '<div style="overflow-x:auto;"><table style="width:100%; font-size:0.75rem;"><thead><tr><th>Date</th><th>Détails</th></tr></thead><tbody>';
+            let html = '<div style="overflow-x:auto;"><table style="width:100%; font-size:0.75rem;"><thead><tr><th>Date</th><th>Contenu brut (debug)</th></tr></thead><tbody>';
             events.forEach(ev => {
-                const description = buildEventDescription(ev);
+                // Afficher toutes les propriétés sauf 'date'
+                let details = [];
+                for (let [key, value] of Object.entries(ev)) {
+                    if (key !== 'date' && value && value.toString().trim() !== '') {
+                        details.push(`${key}: ${value}`);
+                    }
+                }
+                let debugText = details.length ? details.join(' | ') : '⚠️ Aucune donnée (objet vide ou mal formaté)';
                 html += `<tr>
                     <td><strong>${dayjs(ev.date).format('DD/MM/YYYY')}</strong><br><span style="font-size:0.65rem;">${dayjs(ev.date).format('dddd')}</span></td>
-                    <td>${description}</td>
+                    <td>${debugText}</td>
                 </tr>`;
             });
             html += '</tbody></table></div>';
@@ -333,8 +311,8 @@
                 data: { labels: monthly.map(m=>m.period), datasets: [{ label: 'Ventes ($)', data: monthly.map(m=>m.total), backgroundColor: '#2c7cb6', borderRadius: 8 }] },
                 options: { responsive: true }
             });
-            document.getElementById('tableHeader').innerHTML = '<tr><th>Mois</th><th>Ventes totales</th><th>Moyenne / jour</th></tr>';
-            document.getElementById('tableBody').innerHTML = monthly.map(m => `<td>
+            document.getElementById('tableHeader').innerHTML = '<table><th>Mois</th><th>Ventes totales</th><th>Moyenne / jour</th></tr>';
+            document.getElementById('tableBody').innerHTML = monthly.map(m => `<tr>
                 <td>${m.period}</td>
                 <td>${m.total.toLocaleString('fr-CA')} $</td>
                 <td>${m.avg.toLocaleString('fr-CA')} $</td>
@@ -370,7 +348,7 @@
                 let bel = parseFloat(v.ventes_bel)||0, boutique = parseFloat(v.ventes_boutique)||0;
                 let eventDate = dayjs(v.date).format('YYYY-MM-DD');
                 let eventMatch = (fullData.evenements || []).find(ev => dayjs(ev.date).format('YYYY-MM-DD') === eventDate);
-                let hasEvent = eventMatch && Object.keys(eventMatch).some(k => eventMatch[k] && eventMatch[k].toString().trim() !== '' && !['date', 'col_'].includes(k));
+                let hasEvent = eventMatch && Object.keys(eventMatch).some(k => k !== 'date' && eventMatch[k] && eventMatch[k].toString().trim() !== '');
                 let eventBadge = hasEvent ? `<span class="badge" style="background:#ffe0b5;">⚡ Action</span>` : '—';
                 return `<tr>
                     <td>${dayjs(v.date).format('DD MMM YYYY')}</td>
