@@ -88,8 +88,8 @@
 
     <!-- Deux colonnes pour infolettres et réseaux sociaux -->
     <div class="two-columns">
-        <div class="insight-card"><h3><i class="fas fa-envelope-open-text"></i> 📧 Infolettres (période)</h3><div id="emailTable">Chargement...</div></div>
-        <div class="insight-card"><h3><i class="fab fa-instagram"></i> 📱 Réseaux sociaux (période)</h3><div id="socialTable">Chargement...</div></div>
+        <div class="insight-card"><h3><i class="fas fa-envelope-open-text"></i> 📧 Infolettres</h3><div id="emailTable">Chargement...</div></div>
+        <div class="insight-card"><h3><i class="fab fa-instagram"></i> 📱 Réseaux sociaux</h3><div id="socialTable">Chargement...</div></div>
     </div>
 
     <!-- Événements marketing pleine largeur -->
@@ -220,26 +220,30 @@
                     <td>${e.ventes_generees_$ ? parseFloat(e.ventes_generees_$).toLocaleString('fr-CA')+' $' : '—'}</td>
                 </tr>`;
             });
-            html += '</tbody></table>';
+            html += '</tbody><tr>';
             document.getElementById('emailTable').innerHTML = html;
         } else {
             document.getElementById('emailTable').innerHTML = '<p class="warning">Aucune infolettre sur cette période</p>';
         }
         
-        // Réseaux sociaux
+        // Réseaux sociaux (avec likes corrigé)
         let posts = (fullData.publications || []).filter(p => ventesPeriode.some(v => dayjs(v.date).format('YYYY-MM-DD') === dayjs(p.date).format('YYYY-MM-DD')));
         if (posts.length) {
+            // Debug : afficher le premier post pour voir les likes
+            if (posts.length) console.log("Exemple de publication :", posts[0]);
             let html = '<table style="width:100%"><thead><tr><th>Date</th><th>Plateforme</th><th>Contenu</th><th>Likes</th></tr></thead><tbody>';
             posts.forEach(p => {
                 let desc = (p.description_courte || p.title || '').substring(0, 80);
-                html += `<td>
+                // Récupérer les likes : différentes possibilités
+                let likes = p.likes || p.like_count || p.likes_count || p.likesCount || '—';
+                html += `<tr>
                     <td>${dayjs(p.date).format('DD/MM/YYYY')}</td>
                     <td>${p.plateforme || '—'}</td>
                     <td>${desc}${desc.length === 80 ? '…' : ''}</td>
-                    <td>${p.likes || '—'}</td>
+                    <td>${likes}</td>
                 </tr>`;
             });
-            html += '</tbody><tr>';
+            html += '</tbody></table>';
             document.getElementById('socialTable').innerHTML = html;
         } else {
             document.getElementById('socialTable').innerHTML = '<p class="warning">Aucune publication sur cette période</p>';
@@ -255,15 +259,12 @@
                 for (let [key, value] of Object.entries(ev)) {
                     if (key === 'date') continue;
                     if (!value || value.toString().trim() === '') continue;
-                    // Identifier les colonnes de contexte (col_11) et notes (col_14)
                     if (key === 'col_11') {
                         contexte.push(value);
                     } else if (key === 'col_14') {
                         contexte.push(`📝 ${value}`);
                     } else {
-                        // Pour les autres, on enlève le préfixe 'col_' et on garde uniquement la valeur
-                        let cleanValue = value.toString();
-                        actions.push(cleanValue);
+                        actions.push(value.toString());
                     }
                 }
                 let actionsHtml = actions.length ? actions.join(' · ') : '—';
@@ -274,7 +275,7 @@
                     <td style="font-size:0.7rem; color:#666;">${contexteHtml}</td>
                 </tr>`;
             });
-            html += '</tbody></tr></div>';
+            html += '</tbody></table></div>';
             document.getElementById('eventsTable').innerHTML = html;
         } else {
             document.getElementById('eventsTable').innerHTML = '<p class="warning">Aucun événement sur cette période</p>';
@@ -326,7 +327,7 @@
                 options: { responsive: true }
             });
             document.getElementById('tableHeader').innerHTML = '<tr><th>Mois</th><th>Ventes totales</th><th>Moyenne / jour</th></tr>';
-            document.getElementById('tableBody').innerHTML = monthly.map(m => `<tr>
+            document.getElementById('tableBody').innerHTML = monthly.map(m => `<td>
                 <td>${m.period}</td>
                 <td>${m.total.toLocaleString('fr-CA')} $</td>
                 <td>${m.avg.toLocaleString('fr-CA')} $</td>
@@ -357,7 +358,7 @@
                 options: { responsive: true, plugins: { tooltip: { callbacks: { label: (ctx) => `${ctx.raw.toLocaleString('fr-CA')} $` } } } }
             });
             
-            document.getElementById('tableHeader').innerHTML = '<tr><th>Date</th><th>BEL ($)</th><th>Boutique ($)</th><th>Total ($)</th><th>Précip. (mm)</th><th>Événement</th></tr>';
+            document.getElementById('tableHeader').innerHTML = '<td><th>Date</th><th>BEL ($)</th><th>Boutique ($)</th><th>Total ($)</th><th>Précip. (mm)</th><th>Événement</th></tr>';
             document.getElementById('tableBody').innerHTML = ventes.map(v => {
                 let bel = parseFloat(v.ventes_bel)||0, boutique = parseFloat(v.ventes_boutique)||0;
                 let eventDate = dayjs(v.date).format('YYYY-MM-DD');
