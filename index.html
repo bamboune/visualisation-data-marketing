@@ -8,6 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.10/dayjs.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* ... (styles inchangés) ... */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, sans-serif; }
         body { background: #f0f2f5; padding: 24px; }
         .container { max-width: 1400px; margin: 0 auto; }
@@ -120,9 +121,19 @@
             const response = await fetch('data.json?v=' + Date.now());
             if (!response.ok) throw new Error('data.json introuvable');
             fullData = await response.json();
-            console.log(`✅ ${fullData.ventes.length} jours chargés`);
+            console.log(`✅ Ventes: ${fullData.ventes.length} jours`);
+            console.log(`📧 Infolettres: ${fullData.infolettres?.length || 0}`);
             console.log(`📱 Publications: ${fullData.publications?.length || 0}`);
             console.log(`⚡ Événements: ${fullData.evenements?.length || 0}`);
+            
+            // Afficher un échantillon pour debug
+            if (fullData.publications?.length) {
+                console.log("Exemple publication:", fullData.publications[0]);
+            }
+            if (fullData.evenements?.length) {
+                console.log("Exemple événement:", fullData.evenements[0]);
+            }
+            
             initFilters();
             applyFiltersAndRender();
         } catch (err) {
@@ -219,14 +230,11 @@
     }
 
     function renderMarketingSections(ventesPeriode) {
-        // Créer un Set des dates de la période pour filtrage rapide
-        const periodeDates = new Set(ventesPeriode.map(v => dayjs(v.date).format('YYYY-MM-DD')));
+        // Normaliser les dates de la période
+        const periodeDatesSet = new Set(ventesPeriode.map(v => dayjs(v.date).format('YYYY-MM-DD')));
         
         // Infolettres
-        let infos = (fullData.infolettres || []).filter(e => {
-            if (!e.date_envoi) return false;
-            return periodeDates.has(dayjs(e.date_envoi).format('YYYY-MM-DD'));
-        });
+        let infos = (fullData.infolettres || []).filter(e => e.date_envoi && periodeDatesSet.has(dayjs(e.date_envoi).format('YYYY-MM-DD')));
         if (infos.length) {
             let html = '<table style="width:100%"><thead><tr><th>Date</th><th>Sujet</th><th>Ventes générées</th></tr></thead><tbody>';
             infos.forEach(e => {
@@ -242,17 +250,15 @@
             document.getElementById('emailTable').innerHTML = '<p class="warning">Aucune infolettre sur cette période</p>';
         }
         
-        // Réseaux sociaux
-        let posts = (fullData.publications || []).filter(p => {
-            if (!p.date) return false;
-            return periodeDates.has(dayjs(p.date).format('YYYY-MM-DD'));
-        });
+        // Publications (réseaux sociaux)
+        let posts = (fullData.publications || []).filter(p => p.date && periodeDatesSet.has(dayjs(p.date).format('YYYY-MM-DD')));
+        console.log(`Publications filtrées: ${posts.length} sur ${fullData.publications?.length || 0} (période: ${periodeDatesSet.size} jours)`);
         
         if (posts.length) {
             let html = '<table style="width:100%"><thead><tr><th>Date</th><th>Plateforme</th><th>Contenu</th><th>Likes</th></tr></thead><tbody>';
             posts.forEach(p => {
                 let desc = (p.description_courte || p.title || '').substring(0, 80);
-                html += `<td>
+                html += `<tr>
                     <td>${dayjs(p.date).format('DD/MM/YYYY')}</td>
                     <td>${p.plateforme || '—'}</td>
                     <td>${desc}${desc.length === 80 ? '…' : ''}</td>
@@ -265,7 +271,7 @@
             document.getElementById('socialTable').innerHTML = '<p class="warning">Aucune publication sur cette période</p>';
         }
         
-        // Météo
+        // Météo (inchangée)
         const rainDays = ventesPeriode.filter(v => (v.precipitation_mm || 0) > 0.5);
         const dryDays = ventesPeriode.filter(v => (v.precipitation_mm || 0) <= 0.5);
         const avgRain = rainDays.length ? rainDays.reduce((a,b)=>a+(b.ventes_total||0),0)/rainDays.length : 0;
@@ -277,10 +283,8 @@
         `;
         
         // Événements marketing
-        const events = (fullData.evenements || []).filter(ev => {
-            if (!ev.date) return false;
-            return periodeDates.has(dayjs(ev.date).format('YYYY-MM-DD'));
-        });
+        let events = (fullData.evenements || []).filter(ev => ev.date && periodeDatesSet.has(dayjs(ev.date).format('YYYY-MM-DD')));
+        console.log(`Événements filtrés: ${events.length} sur ${fullData.evenements?.length || 0}`);
         
         if (events.length) {
             let html = '<div style="overflow-x:auto;"><table style="width:100%; font-size:0.75rem;"><thead><tr><th>Date</th><th>Actions</th><th>Contexte / Notes</th></tr></thead><tbody>';
@@ -319,7 +323,13 @@
         const year = document.getElementById('yearFilter').value;
         const month = document.getElementById('monthFilter').value;
         
-        if (ventes.length === 0) return;
+        if (ventes.length === 0) {
+            document.getElementById('totalSales').innerHTML = '0 $';
+            document.getElementById('emailTable').innerHTML = '<p class="warning">Aucune vente pour cette période</p>';
+            document.getElementById('socialTable').innerHTML = '<p class="warning">Aucune donnée</p>';
+            document.getElementById('eventsTable').innerHTML = '<p class="warning">Aucune donnée</p>';
+            return;
+        }
         
         const kpis = computeKPIs(ventes, channel);
         document.getElementById('totalSales').innerHTML = kpis.total.toLocaleString('fr-CA') + ' $';
@@ -378,7 +388,7 @@
                 } } } } }
             });
             
-            document.getElementById('tableHeader').innerHTML = '<tr><th>Date</th><th>BEL ($)</th><th>Boutique ($)</th><th>Total ($)</th><th>Précip. (mm)</th><th>Événement</th></tr>';
+            document.getElementById('tableHeader').innerHTML = '<table><th>Date</th><th>BEL ($)</th><th>Boutique ($)</th><th>Total ($)</th><th>Précip. (mm)</th><th>Événement</th></tr>';
             document.getElementById('tableBody').innerHTML = ventes.map(v => {
                 let bel = parseFloat(v.ventes_bel)||0, boutique = parseFloat(v.ventes_boutique)||0;
                 let eventDate = dayjs(v.date).format('YYYY-MM-DD');
