@@ -121,6 +121,8 @@
             if (!response.ok) throw new Error('data.json introuvable');
             fullData = await response.json();
             console.log(`✅ ${fullData.ventes.length} jours chargés`);
+            console.log(`📱 Publications: ${fullData.publications?.length || 0}`);
+            console.log(`⚡ Événements: ${fullData.evenements?.length || 0}`);
             initFilters();
             applyFiltersAndRender();
         } catch (err) {
@@ -217,8 +219,14 @@
     }
 
     function renderMarketingSections(ventesPeriode) {
+        // Créer un Set des dates de la période pour filtrage rapide
+        const periodeDates = new Set(ventesPeriode.map(v => dayjs(v.date).format('YYYY-MM-DD')));
+        
         // Infolettres
-        let infos = (fullData.infolettres || []).filter(e => ventesPeriode.some(v => dayjs(v.date).isSame(dayjs(e.date_envoi), 'day')));
+        let infos = (fullData.infolettres || []).filter(e => {
+            if (!e.date_envoi) return false;
+            return periodeDates.has(dayjs(e.date_envoi).format('YYYY-MM-DD'));
+        });
         if (infos.length) {
             let html = '<table style="width:100%"><thead><tr><th>Date</th><th>Sujet</th><th>Ventes générées</th></tr></thead><tbody>';
             infos.forEach(e => {
@@ -234,16 +242,17 @@
             document.getElementById('emailTable').innerHTML = '<p class="warning">Aucune infolettre sur cette période</p>';
         }
         
-        // Réseaux sociaux (corrigé)
+        // Réseaux sociaux
         let posts = (fullData.publications || []).filter(p => {
             if (!p.date) return false;
-            return ventesPeriode.some(v => dayjs(v.date).isSame(dayjs(p.date), 'day'));
+            return periodeDates.has(dayjs(p.date).format('YYYY-MM-DD'));
         });
+        
         if (posts.length) {
-            let html = '<table style="width:100%"><thead><tr><th>Date</th><th>Plateforme</th><th>Description</th><th>Likes</th></tr></thead><tbody>';
+            let html = '<table style="width:100%"><thead><tr><th>Date</th><th>Plateforme</th><th>Contenu</th><th>Likes</th></tr></thead><tbody>';
             posts.forEach(p => {
                 let desc = (p.description_courte || p.title || '').substring(0, 80);
-                html += `<tr>
+                html += `<td>
                     <td>${dayjs(p.date).format('DD/MM/YYYY')}</td>
                     <td>${p.plateforme || '—'}</td>
                     <td>${desc}${desc.length === 80 ? '…' : ''}</td>
@@ -267,27 +276,27 @@
             <div><strong>📊 Différence</strong> : ${avgRain > avgDry ? '▲ +' : '▼ '}${Math.abs(((avgRain-avgDry)/avgDry*100)||0).toFixed(1)}%</div>
         `;
         
-        // Événements marketing (version simple et fiable)
+        // Événements marketing
         const events = (fullData.evenements || []).filter(ev => {
             if (!ev.date) return false;
-            return ventesPeriode.some(v => dayjs(v.date).isSame(dayjs(ev.date), 'day'));
+            return periodeDates.has(dayjs(ev.date).format('YYYY-MM-DD'));
         });
         
         if (events.length) {
             let html = '<div style="overflow-x:auto;"><table style="width:100%; font-size:0.75rem;"><thead><tr><th>Date</th><th>Actions</th><th>Contexte / Notes</th></tr></thead><tbody>';
             events.forEach(ev => {
                 let actions = [];
-                if (ev.rabais_promos) actions.push(`🏷️ ${ev.rabais_promos.substring(0, 40)}`);
-                if (ev.lancement_produits_ateliers) actions.push(`✨ ${ev.lancement_produits_ateliers.substring(0, 40)}`);
-                if (ev.infolettre) actions.push(`📧 Infolettre`);
-                if (ev.push_notif) actions.push(`📱 Push`);
-                if (ev.billet_blogue) actions.push(`📝 Blogue`);
-                if (ev.bis_alertes_back_in_stock) actions.push(`🔄 BIS`);
+                if (ev.rabais_promos && ev.rabais_promos.trim()) actions.push(`🏷️ ${ev.rabais_promos.substring(0, 40)}`);
+                if (ev.lancement_produits_ateliers && ev.lancement_produits_ateliers.trim()) actions.push(`✨ ${ev.lancement_produits_ateliers.substring(0, 40)}`);
+                if (ev.infolettre && ev.infolettre.trim()) actions.push(`📧 Infolettre`);
+                if (ev.push_notif && ev.push_notif.trim()) actions.push(`📱 Push`);
+                if (ev.billet_blogue && ev.billet_blogue.trim()) actions.push(`📝 Blogue`);
+                if (ev.bis_alertes_back_in_stock && ev.bis_alertes_back_in_stock.trim()) actions.push(`🔄 BIS`);
                 
                 let contexte = [];
-                if (ev.meteo_montreal) contexte.push(`🌡️ ${ev.meteo_montreal}`);
-                if (ev.politique_actualite) contexte.push(`🗳️ ${ev.politique_actualite.substring(0, 60)}`);
-                if (ev.fetec2a9ries_conges) contexte.push(`📅 ${ev.fetec2a9ries_conges}`);
+                if (ev.meteo_montreal && ev.meteo_montreal.trim()) contexte.push(`🌡️ ${ev.meteo_montreal}`);
+                if (ev.politique_actualite && ev.politique_actualite.trim()) contexte.push(`🗳️ ${ev.politique_actualite.substring(0, 60)}`);
+                if (ev.fetec2a9ries_conges && ev.fetec2a9ries_conges.trim()) contexte.push(`📅 ${ev.fetec2a9ries_conges}`);
                 
                 let notes = ev.commentaires_notes ? `<div style="font-size:0.7rem;color:#666;">📝 ${ev.commentaires_notes.substring(0, 80)}</div>` : '';
                 
@@ -373,7 +382,7 @@
             document.getElementById('tableBody').innerHTML = ventes.map(v => {
                 let bel = parseFloat(v.ventes_bel)||0, boutique = parseFloat(v.ventes_boutique)||0;
                 let eventDate = dayjs(v.date).format('YYYY-MM-DD');
-                let eventMatch = (fullData.evenements || []).find(ev => dayjs(ev.date).isSame(eventDate, 'day'));
+                let eventMatch = (fullData.evenements || []).find(ev => dayjs(ev.date).format('YYYY-MM-DD') === eventDate);
                 let eventBadge = eventMatch ? `<span class="badge" style="background:#ffe0b5;">⚡ ${eventMatch.rabais_promos || eventMatch.lancement_produits_ateliers || 'Événement'}</span>` : '—';
                 return `<tr>
                     <td>${dayjs(v.date).format('DD MMM YYYY')} ${holidays[eventDate] ? `<span class="badge">📅 ${holidays[eventDate]}</span>` : ''}</td>
