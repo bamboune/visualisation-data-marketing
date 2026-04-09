@@ -189,8 +189,9 @@
     }
 
     function renderMarketingSections(ventesPeriode) {
-        // Infolettres
         const periodeDates = new Set(ventesPeriode.map(v => dayjs(v.date).format('YYYY-MM-DD')));
+
+        // Infolettres
         let infos = (fullData.infolettres || []).filter(e => e.date_envoi && periodeDates.has(dayjs(e.date_envoi).format('YYYY-MM-DD')));
         if (infos.length) {
             let html = '<table style="width:100%"><thead><tr><th>Date</th><th>Sujet</th><th>Ventes générées</th></tr></thead><tbody>';
@@ -201,14 +202,14 @@
                     <td>${e.ventes_generees_$ ? parseFloat(e.ventes_generees_$).toLocaleString('fr-CA')+' $' : '—'}</td>
                 </tr>`;
             });
-            html += '</tbody></table>';
+            html += '</tbody></tr>';
             document.getElementById('emailTable').innerHTML = html;
         } else {
             document.getElementById('emailTable').innerHTML = '<p class="warning">Aucune infolettre sur cette période</p>';
         }
-        
-        // Réseaux sociaux (toutes, sans filtre pour l'instant)
-        let posts = fullData.publications || [];
+
+        // Publications (filtrées par période)
+        let posts = (fullData.publications || []).filter(p => p.date && periodeDates.has(dayjs(p.date).format('YYYY-MM-DD')));
         if (posts.length) {
             let html = '<table style="width:100%"><thead><tr><th>Date</th><th>Plateforme</th><th>Contenu</th><th>Likes</th></tr></thead><tbody>';
             posts.forEach(p => {
@@ -223,9 +224,9 @@
             html += '</tbody></table>';
             document.getElementById('socialTable').innerHTML = html;
         } else {
-            document.getElementById('socialTable').innerHTML = '<p class="warning">Aucune publication</p>';
+            document.getElementById('socialTable').innerHTML = '<p class="warning">Aucune publication sur cette période</p>';
         }
-        
+
         // Météo
         const rainDays = ventesPeriode.filter(v => (v.precipitation_mm || 0) > 0.5);
         const dryDays = ventesPeriode.filter(v => (v.precipitation_mm || 0) <= 0.5);
@@ -236,9 +237,9 @@
             <div><strong>☀️ Jours secs</strong> : ${dryDays.length} jours → moyenne ${avgDry.toLocaleString('fr-CA')} $</div>
             <div><strong>📊 Différence</strong> : ${avgRain > avgDry ? '▲ +' : '▼ '}${Math.abs(((avgRain-avgDry)/avgDry*100)||0).toFixed(1)}%</div>
         `;
-        
-        // Événements (tous, sans filtre)
-        let events = fullData.evenements || [];
+
+        // Événements (filtrés par période)
+        let events = (fullData.evenements || []).filter(ev => ev.date && periodeDates.has(dayjs(ev.date).format('YYYY-MM-DD')));
         if (events.length) {
             let html = '<div style="overflow-x:auto;"><table style="width:100%; font-size:0.75rem;"><thead><tr><th>Date</th><th>Type / Description</th><th>Notes</th></tr></thead><tbody>';
             events.forEach(ev => {
@@ -246,7 +247,7 @@
                 if (ev.type) typeDesc += `🏷️ ${ev.type}`;
                 if (ev.description) typeDesc += (typeDesc ? ' • ' : '') + `✨ ${ev.description.substring(0, 50)}`;
                 if (!typeDesc) typeDesc = '—';
-                let notes = ev.commentaires_notes || ev.impact_note || '';
+                let notes = ev.impact_note || '';
                 if (notes) notes = `<div style="font-size:0.7rem;color:#666;">📝 ${notes.substring(0, 80)}</div>`;
                 html += `<tr>
                     <td><strong>${dayjs(ev.date).format('DD/MM/YYYY')}</strong><br><span style="font-size:0.65rem;">${dayjs(ev.date).format('dddd')}</span></td>
@@ -257,7 +258,7 @@
             html += '</tbody></table></div>';
             document.getElementById('eventsTable').innerHTML = html;
         } else {
-            document.getElementById('eventsTable').innerHTML = '<p class="warning">Aucun événement</p>';
+            document.getElementById('eventsTable').innerHTML = '<p class="warning">Aucun événement sur cette période</p>';
         }
     }
 
@@ -285,7 +286,7 @@
                 document.getElementById('chartTitle').innerHTML = '⚠️ Vue journalière indisponible';
                 document.getElementById('tableTitle').innerHTML = '⚠️ Trop de données';
                 document.getElementById('tableHeader').innerHTML = '';
-                document.getElementById('tableBody').innerHTML = `<tr><td class="warning">📅 Période trop large (${ventes.length} jours). Sélectionnez un mois.</td></tr>`;
+                document.getElementById('tableBody').innerHTML = `<td><td class="warning">📅 Période trop large (${ventes.length} jours). Sélectionnez un mois.</td></tr>`;
                 if (salesChart) salesChart.destroy();
                 return;
             }
@@ -322,7 +323,13 @@
     function applyFiltersAndRender() {
         const ventes = getFilteredVentes();
         const channel = document.getElementById('channelFilter').value;
-        if (ventes.length === 0) return;
+        if (ventes.length === 0) {
+            document.getElementById('totalSales').innerHTML = '0 $';
+            document.getElementById('emailTable').innerHTML = '<p class="warning">Aucune vente pour cette période</p>';
+            document.getElementById('socialTable').innerHTML = '<p class="warning">Aucune donnée</p>';
+            document.getElementById('eventsTable').innerHTML = '<p class="warning">Aucune donnée</p>';
+            return;
+        }
         const kpis = computeKPIs(ventes, channel);
         document.getElementById('totalSales').innerHTML = kpis.total.toLocaleString('fr-CA') + ' $';
         document.getElementById('avgSales').innerHTML = kpis.avgDaily.toLocaleString('fr-CA') + ' $';
