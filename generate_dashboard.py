@@ -1,12 +1,13 @@
 import json
 import pandas as pd
 import requests
-from datetime import datetime
+from datetime import date, datetime
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import os
 import re
 
+# Configuration
 SPREADSHEET_ID = "1vYqgbiiYDnJONtFCx11LkTdPUM14fCf0IG1L7P2O4ro"
 SERVICE_ACCOUNT_FILE = "service_account.json"
 
@@ -21,13 +22,9 @@ def clean_numeric(value):
     if s == '':
         return 0.0
     
-    # Remplace la virgule décimale par un point (format français → anglais)
     s = s.replace(',', '.')
-    
-    # Enlève tout ce qui n'est pas chiffre, point ou moins
     s = re.sub(r'[^\d.-]', '', s)
     
-    # Gère les cas comme ".123" ou "123."
     if s == '' or s == '-':
         return 0.0
     
@@ -105,7 +102,10 @@ def main():
     publications = get_google_sheet("publications_social", header_row=1)
     evenements = get_google_sheet("evenements_marketing", header_row=1)
     
-    print(f"   📊 Ventes : {len(ventes)} lignes")
+    print(f"   📊 Ventes brutes : {len(ventes)} lignes")
+    print(f"   📧 Infolettres : {len(infolettres)} lignes")
+    print(f"   📱 Publications : {len(publications)} lignes")
+    print(f"   ⚡ Événements : {len(evenements)} lignes")
     
     if ventes.empty:
         print("❌ Aucune donnée de ventes")
@@ -113,9 +113,10 @@ def main():
     
     if 'date' not in ventes.columns:
         print("❌ Colonne 'date' non trouvée")
+        print(f"   Colonnes disponibles : {list(ventes.columns)[:10]}")
         return
     
-    # NETTOYAGE DES DONNÉES NUMÉRIQUES (avec gestion virgule)
+    # NETTOYAGE DES DONNÉES NUMÉRIQUES
     numeric_columns = ['ventes_bel', 'ventes_boutique', 'ventes_wholesale', 'ventes_total',
                        'commandes_bel', 'commandes_boutique', 'commandes_wholesale', 'commandes_total',
                        'panier_moyen_bel', 'panier_moyen_boutique']
@@ -125,14 +126,21 @@ def main():
             ventes[col] = ventes[col].apply(clean_numeric)
             print(f"   ✅ Nettoyé : {col}")
     
+    # Conversion des dates
     ventes['date'] = pd.to_datetime(ventes['date'], errors='coerce')
     ventes = ventes.dropna(subset=['date'])
+    
+    # FILTRAGE DES DATES FUTURES
+    aujourdhui = date.today()
+    ventes = ventes[ventes['date'] <= pd.Timestamp(aujourdhui)]
+    print(f"   🗓️ Après filtrage dates futures : {len(ventes)} lignes (jusqu'au {aujourdhui})")
+    
     ventes = ventes.sort_values('date')
     
     start_date = ventes['date'].min().strftime('%Y-%m-%d')
     end_date = ventes['date'].max().strftime('%Y-%m-%d')
     
-    print(f"\n🌦️ Récupération météo {start_date} → {end_date}...")
+    print(f"\n🌦️ Récupération météo du {start_date} au {end_date}...")
     weather_data = get_weather_data(start_date, end_date)
     
     if weather_data and 'daily' in weather_data and 'time' in weather_data['daily']:
@@ -148,6 +156,7 @@ def main():
         print("   ✅ Météo fusionnée")
     else:
         ventes_meteo = ventes
+        print("   ⚠️ Pas de météo disponible")
     
     ventes_meteo['date'] = ventes_meteo['date'].dt.strftime('%Y-%m-%d')
     ventes_meteo = ventes_meteo.where(pd.notnull(ventes_meteo), None)
@@ -158,7 +167,6 @@ def main():
     total_wholesale = ventes['ventes_wholesale'].sum() if 'ventes_wholesale' in ventes else 0
     total_all = total_bel + total_boutique + total_wholesale
     
-    # Panier moyen BEL (moyenne des paniers, pas somme)
     panier_moyen = ventes['panier_moyen_bel'].mean() if 'panier_moyen_bel' in ventes else 0
     
     print(f"\n💰 Vérification des totaux :")
