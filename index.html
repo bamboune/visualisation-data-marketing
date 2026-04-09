@@ -66,7 +66,7 @@
 
     <div class="warning-banner">
         <i class="fas fa-info-circle" style="color: #e67e22; font-size: 1.2rem;"></i>
-        <span><strong>Note sur les données de ventes</strong> : Les montants affichés ici proviennent de l’API Shopify (ventes nettes après rabais, avant taxes et livraison). Ils peuvent différer des rapports comptables. L’objectif est de mesurer <strong>l’impact des actions marketing</strong>, pas de faire une analyse comptable fine.</span>
+        <span><strong>Note sur les données de ventes</strong> : Ventes nettes après rabais, avant taxes et livraison. L’objectif est de mesurer <strong>l’impact des actions marketing</strong>.</span>
     </div>
 
     <div class="filters-card" style="padding: 12px 24px; justify-content: flex-end;">
@@ -218,11 +218,15 @@
 
     function renderMarketingSections(ventesPeriode) {
         // Infolettres
-        let infos = (fullData.infolettres || []).filter(e => ventesPeriode.some(v => dayjs(v.date).format('YYYY-MM-DD') === dayjs(e.date_envoi).format('YYYY-MM-DD')));
+        let infos = (fullData.infolettres || []).filter(e => ventesPeriode.some(v => dayjs(v.date).isSame(dayjs(e.date_envoi), 'day')));
         if (infos.length) {
             let html = '<table style="width:100%"><thead><tr><th>Date</th><th>Sujet</th><th>Ventes générées</th></tr></thead><tbody>';
             infos.forEach(e => {
-                html += `<tr><td>${dayjs(e.date_envoi).format('DD/MM/YYYY')}</td><td>${e.sujet || '—'}</td><td>${e.ventes_generees_$ ? parseFloat(e.ventes_generees_$).toLocaleString('fr-CA')+' $' : '—'}</td></tr>`;
+                html += `<tr>
+                    <td>${dayjs(e.date_envoi).format('DD/MM/YYYY')}</td>
+                    <td>${e.sujet || '—'}</td>
+                    <td>${e.ventes_generees_$ ? parseFloat(e.ventes_generees_$).toLocaleString('fr-CA')+' $' : '—'}</td>
+                </tr>`;
             });
             html += '</tbody></table>';
             document.getElementById('emailTable').innerHTML = html;
@@ -230,20 +234,29 @@
             document.getElementById('emailTable').innerHTML = '<p class="warning">Aucune infolettre sur cette période</p>';
         }
         
-        // Réseaux sociaux
-        let posts = (fullData.publications || []).filter(p => ventesPeriode.some(v => dayjs(v.date).format('YYYY-MM-DD') === dayjs(p.date).format('YYYY-MM-DD')));
+        // Réseaux sociaux (corrigé)
+        let posts = (fullData.publications || []).filter(p => {
+            if (!p.date) return false;
+            return ventesPeriode.some(v => dayjs(v.date).isSame(dayjs(p.date), 'day'));
+        });
         if (posts.length) {
-            let html = '<table style="width:100%"><thead><tr><th>Date</th><th>Plateforme</th><th>Likes</th><th>Partages</th></tr></thead><tbody>';
+            let html = '<table style="width:100%"><thead><tr><th>Date</th><th>Plateforme</th><th>Description</th><th>Likes</th></tr></thead><tbody>';
             posts.forEach(p => {
-                html += `<tr><td>${dayjs(p.date).format('DD/MM/YYYY')}</td><td>${p.plateforme || '—'}</td><td>${p.likes || '—'}</td><td>${p.partages || '—'}</td></tr>`;
+                let desc = (p.description_courte || p.title || '').substring(0, 80);
+                html += `<tr>
+                    <td>${dayjs(p.date).format('DD/MM/YYYY')}</td>
+                    <td>${p.plateforme || '—'}</td>
+                    <td>${desc}${desc.length === 80 ? '…' : ''}</td>
+                    <td>${p.likes || '—'}</td>
+                </tr>`;
             });
-            html += '</tbody></tr>';
+            html += '</tbody></table>';
             document.getElementById('socialTable').innerHTML = html;
         } else {
             document.getElementById('socialTable').innerHTML = '<p class="warning">Aucune publication sur cette période</p>';
         }
         
-        // Météo (API)
+        // Météo
         const rainDays = ventesPeriode.filter(v => (v.precipitation_mm || 0) > 0.5);
         const dryDays = ventesPeriode.filter(v => (v.precipitation_mm || 0) <= 0.5);
         const avgRain = rainDays.length ? rainDays.reduce((a,b)=>a+(b.ventes_total||0),0)/rainDays.length : 0;
@@ -254,108 +267,36 @@
             <div><strong>📊 Différence</strong> : ${avgRain > avgDry ? '▲ +' : '▼ '}${Math.abs(((avgRain-avgDry)/avgDry*100)||0).toFixed(1)}%</div>
         `;
         
-        // ÉVÉNEMENTS - Version regroupée par date avec impact
-        const events = (fullData.evenements || []).filter(ev => ventesPeriode.some(v => dayjs(v.date).format('YYYY-MM-DD') === dayjs(ev.date).format('YYYY-MM-DD')));
+        // Événements marketing (version simple et fiable)
+        const events = (fullData.evenements || []).filter(ev => {
+            if (!ev.date) return false;
+            return ventesPeriode.some(v => dayjs(v.date).isSame(dayjs(ev.date), 'day'));
+        });
         
         if (events.length) {
-            // Regrouper par date
-            const eventsByDate = new Map();
-            
+            let html = '<div style="overflow-x:auto;"><table style="width:100%; font-size:0.75rem;"><thead><tr><th>Date</th><th>Actions</th><th>Contexte / Notes</th></tr></thead><tbody>';
             events.forEach(ev => {
-                const dateKey = dayjs(ev.date).format('YYYY-MM-DD');
-                if (!eventsByDate.has(dateKey)) {
-                    eventsByDate.set(dateKey, {
-                        date: ev.date,
-                        rabais: [],
-                        lancements: [],
-                        infolettre: false,
-                        push: false,
-                        blogue: false,
-                        web: false,
-                        bis: false,
-                        meteo: ev.meteo_montreal || ev.meteo_generale || '',
-                        temperature: ev.temperature || '',
-                        politique: ev.politique_actualite || '',
-                        conges: ev.fetec2a9ries_conges || '',
-                        medias: ev.couvertures_mediatiques || '',
-                        notes: ev.commentaires_notes || ev.description || ''
-                    });
-                }
+                let actions = [];
+                if (ev.rabais_promos) actions.push(`🏷️ ${ev.rabais_promos.substring(0, 40)}`);
+                if (ev.lancement_produits_ateliers) actions.push(`✨ ${ev.lancement_produits_ateliers.substring(0, 40)}`);
+                if (ev.infolettre) actions.push(`📧 Infolettre`);
+                if (ev.push_notif) actions.push(`📱 Push`);
+                if (ev.billet_blogue) actions.push(`📝 Blogue`);
+                if (ev.bis_alertes_back_in_stock) actions.push(`🔄 BIS`);
                 
-                const entry = eventsByDate.get(dateKey);
-                if (ev.rabais_promos && ev.rabais_promos.trim()) entry.rabais.push(ev.rabais_promos);
-                if (ev.lancement_produits_ateliers && ev.lancement_produits_ateliers.trim()) entry.lancements.push(ev.lancement_produits_ateliers);
-                if (ev.infolettre && ev.infolettre.trim()) entry.infolettre = true;
-                if (ev.push_notif && ev.push_notif.trim()) entry.push = true;
-                if (ev.billet_blogue && ev.billet_blogue.trim()) entry.blogue = true;
-                if (ev.webmestre_funnels && ev.webmestre_funnels.trim()) entry.web = true;
-                if (ev.bis_alertes_back_in_stock && ev.bis_alertes_back_in_stock.trim()) entry.bis = true;
-                if (ev.commentaires_notes && ev.commentaires_notes.trim() && !entry.notes) entry.notes = ev.commentaires_notes;
-            });
-            
-            // Map des ventes par date pour calculer l'impact
-            const ventesMap = new Map();
-            ventesPeriode.forEach(v => {
-                ventesMap.set(dayjs(v.date).format('YYYY-MM-DD'), {
-                    ventes: parseFloat(v.ventes_total) || 0,
-                    ventesBel: parseFloat(v.ventes_bel) || 0
-                });
-            });
-            
-            let html = '<div style="overflow-x: auto;"><table style="width:100%; font-size:0.75rem;">';
-            html += '<thead><tr><th>Date</th><th>Événements</th><th>Impact ventes</th><th>Contexte</th></tr></thead><tbody>';
-            
-            const sortedEvents = Array.from(eventsByDate.values()).sort((a,b) => dayjs(b.date).diff(dayjs(a.date)));
-            
-            sortedEvents.forEach(ev => {
-                const dateKey = dayjs(ev.date).format('YYYY-MM-DD');
-                const ventesData = ventesMap.get(dateKey) || { ventes: 0, ventesBel: 0 };
+                let contexte = [];
+                if (ev.meteo_montreal) contexte.push(`🌡️ ${ev.meteo_montreal}`);
+                if (ev.politique_actualite) contexte.push(`🗳️ ${ev.politique_actualite.substring(0, 60)}`);
+                if (ev.fetec2a9ries_conges) contexte.push(`📅 ${ev.fetec2a9ries_conges}`);
                 
-                // Impact vs jour précédent
-                const prevDay = dayjs(ev.date).subtract(1, 'day').format('YYYY-MM-DD');
-                const prevVentes = ventesMap.get(prevDay)?.ventes || 0;
-                const impact = prevVentes > 0 ? ((ventesData.ventes - prevVentes) / prevVentes * 100) : 0;
-                const impactColor = impact > 10 ? '#2b7e3a' : impact < -10 ? '#bc5a2c' : '#6c7e8f';
-                const impactIcon = impact > 10 ? '▲' : impact < -10 ? '▼' : '●';
-                
-                // Badges d'actions
-                let actionBadges = [];
-                ev.rabais.forEach(r => actionBadges.push(`<span class="badge" style="background:#ffe0b5;">🏷️ ${r.substring(0, 35)}</span>`));
-                ev.lancements.forEach(l => actionBadges.push(`<span class="badge" style="background:#d4e8d4;">✨ ${l.substring(0, 35)}</span>`));
-                if (ev.infolettre) actionBadges.push(`<span class="badge" style="background:#cde0f5;">📧 Infolettre</span>`);
-                if (ev.push) actionBadges.push(`<span class="badge" style="background:#cde0f5;">📱 Push</span>`);
-                if (ev.blogue) actionBadges.push(`<span class="badge" style="background:#cde0f5;">📝 Blogue</span>`);
-                if (ev.web) actionBadges.push(`<span class="badge" style="background:#cde0f5;">🌐 Web</span>`);
-                if (ev.bis) actionBadges.push(`<span class="badge" style="background:#cde0f5;">🔄 BIS</span>`);
-                
-                let actionHtml = actionBadges.length ? actionBadges.join(' ') : '<span style="color:#aaa;">—</span>';
-                
-                // Notes
-                let notesHtml = '';
-                if (ev.notes && ev.notes !== '—') {
-                    let shortNote = ev.notes.length > 80 ? ev.notes.substring(0, 80) + '…' : ev.notes;
-                    notesHtml = `<div style="font-size:0.7rem; color:#666; margin-top:4px;">📝 ${shortNote}</div>`;
-                }
-                
-                // Contexte
-                let contexteParts = [];
-                if (ev.meteo) contexteParts.push(`🌡️ ${ev.temperature ? ev.temperature + '°C' : ''} ${ev.meteo}`);
-                if (ev.politique) contexteParts.push(`🗳️ ${ev.politique}`);
-                if (ev.conges) contexteParts.push(`📅 ${ev.conges}`);
-                if (ev.medias) contexteParts.push(`📰 ${ev.medias}`);
-                let contexteHtml = contexteParts.length ? contexteParts.join(' • ') : '—';
+                let notes = ev.commentaires_notes ? `<div style="font-size:0.7rem;color:#666;">📝 ${ev.commentaires_notes.substring(0, 80)}</div>` : '';
                 
                 html += `<tr>
-                    <td><strong>${dayjs(ev.date).format('DD/MM/YYYY')}</strong><br><span style="font-size:0.65rem; color:#888;">${dayjs(ev.date).format('dddd')}</span></td>
-                    <td>${actionHtml}${notesHtml}</td>
-                    <td style="text-align:right;">
-                        <strong>${ventesData.ventes.toLocaleString('fr-CA')} $</strong><br>
-                        <span style="color:${impactColor}; font-size:0.7rem;">${impactIcon} ${impact > 0 ? '+' : ''}${impact.toFixed(1)}% vs veille</span>
-                      </td>
-                    <td style="font-size:0.7rem;">${contexteHtml}</td>
+                    <td><strong>${dayjs(ev.date).format('DD/MM/YYYY')}</strong><br><span style="font-size:0.65rem;">${dayjs(ev.date).format('dddd')}</span></td>
+                    <td>${actions.length ? actions.join(' • ') : '—'}${notes}</td>
+                    <td style="font-size:0.7rem;">${contexte.join(' • ') || '—'}</td>
                 </tr>`;
             });
-            
             html += '</tbody></table></div>';
             document.getElementById('eventsTable').innerHTML = html;
         } else {
@@ -392,7 +333,11 @@
                 options: { responsive: true }
             });
             document.getElementById('tableHeader').innerHTML = '<tr><th>Mois</th><th>Ventes totales</th><th>Moyenne / jour</th></tr>';
-            document.getElementById('tableBody').innerHTML = monthly.map(m => `<tr><td>${m.period}</td><td>${m.total.toLocaleString('fr-CA')} $</td><td>${m.avg.toLocaleString('fr-CA')} $</td></tr>`).join('');
+            document.getElementById('tableBody').innerHTML = monthly.map(m => `<tr>
+                <td>${m.period}</td>
+                <td>${m.total.toLocaleString('fr-CA')} $</td>
+                <td>${m.avg.toLocaleString('fr-CA')} $</td>
+            </tr>`).join('');
         } else {
             if (ventes.length > 90) {
                 document.getElementById('chartTitle').innerHTML = '⚠️ Vue journalière indisponible';
@@ -428,8 +373,8 @@
             document.getElementById('tableBody').innerHTML = ventes.map(v => {
                 let bel = parseFloat(v.ventes_bel)||0, boutique = parseFloat(v.ventes_boutique)||0;
                 let eventDate = dayjs(v.date).format('YYYY-MM-DD');
-                let eventMatch = (fullData.evenements || []).find(ev => dayjs(ev.date).format('YYYY-MM-DD') === eventDate);
-                let eventBadge = eventMatch ? `<span class="badge" style="background:#ffe0b5;">⚡ ${eventMatch.rabais_promos || eventMatch.lancement_produits_ateliers || eventMatch.commentaires_notes || 'Événement'}</span>` : '—';
+                let eventMatch = (fullData.evenements || []).find(ev => dayjs(ev.date).isSame(eventDate, 'day'));
+                let eventBadge = eventMatch ? `<span class="badge" style="background:#ffe0b5;">⚡ ${eventMatch.rabais_promos || eventMatch.lancement_produits_ateliers || 'Événement'}</span>` : '—';
                 return `<tr>
                     <td>${dayjs(v.date).format('DD MMM YYYY')} ${holidays[eventDate] ? `<span class="badge">📅 ${holidays[eventDate]}</span>` : ''}</td>
                     <td>${bel.toLocaleString('fr-CA')} $</td>
