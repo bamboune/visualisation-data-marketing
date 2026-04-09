@@ -4,15 +4,54 @@ import requests
 from datetime import date, datetime
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
-import os
 import re
 
 # Configuration
 SPREADSHEET_ID = "1vYqgbiiYDnJONtFCx11LkTdPUM14fCf0IG1L7P2O4ro"
 SERVICE_ACCOUNT_FILE = "service_account.json"
 
+def super_clean_numeric(value):
+    """Version ultra-agressive pour nettoyer les nombres"""
+    if value is None or pd.isna(value):
+        return 0.0
+    if isinstance(value, (int, float)):
+        return float(value)
+    
+    # Convertir en chaîne
+    s = str(value).strip()
+    if s == '':
+        return 0.0
+    
+    # Afficher la valeur brute pour debug (premières occurrences)
+    if not hasattr(super_clean_numeric, "count"):
+        super_clean_numeric.count = 0
+    if super_clean_numeric.count < 5:
+        print(f"   🔍 Valeur brute: '{s}'")
+        super_clean_numeric.count += 1
+    
+    # Remplacer les virgules par des points (format français)
+    s = s.replace(',', '.')
+    
+    # Supprimer TOUS les caractères sauf chiffres, point et moins
+    s = re.sub(r'[^\d.-]', '', s)
+    
+    # Gérer les cas où il y a plusieurs points (ex: "1.234.56")
+    parts = s.split('.')
+    if len(parts) > 2:
+        # Reconstruire avec un seul point décimal
+        s = parts[0] + ''.join(parts[1:-1]) + '.' + parts[-1]
+    
+    # Éviter les chaînes vides ou incohérentes
+    if s == '' or s == '-' or s == '.':
+        return 0.0
+    
+    try:
+        result = float(s)
+        return result
+    except:
+        return 0.0
+
 def convert_to_serializable(obj):
-    """Convertit les objets pandas pour JSON en gérant NaT"""
     if pd.isna(obj) or (hasattr(pd, 'NaT') and obj is pd.NaT) or (isinstance(obj, pd._libs.tslibs.nattype.NaTType)):
         return None
     if isinstance(obj, pd.Timestamp):
@@ -22,7 +61,6 @@ def convert_to_serializable(obj):
     return obj
 
 def get_google_sheet(sheet_name, header_row=1):
-    """Lit une feuille Google Sheets de manière robuste"""
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
     creds = ServiceAccountCredentials.from_json_keyfile_name(SERVICE_ACCOUNT_FILE, scope)
     client = gspread.authorize(creds)
@@ -33,7 +71,6 @@ def get_google_sheet(sheet_name, header_row=1):
         return pd.DataFrame()
     
     headers = all_values[header_row - 1]
-    # Nettoyer les en-têtes
     clean_headers = []
     for i, h in enumerate(headers):
         if not h or h.strip() == "":
@@ -42,7 +79,6 @@ def get_google_sheet(sheet_name, header_row=1):
             clean_headers.append(h.strip().lower())
     
     data_rows = all_values[header_row:]
-    # Ignorer les lignes où la première colonne (date) est vide
     rows = []
     for row in data_rows:
         if len(row) > 0 and row[0] and str(row[0]).strip():
@@ -52,7 +88,7 @@ def get_google_sheet(sheet_name, header_row=1):
     
     df = pd.DataFrame(rows, columns=clean_headers)
     
-    # Trouver la colonne de date
+    # Date
     date_col = None
     for col in df.columns:
         if col in ['date', 'date_envoi']:
@@ -61,7 +97,7 @@ def get_google_sheet(sheet_name, header_row=1):
     if date_col:
         df['date'] = pd.to_datetime(df[date_col], errors='coerce')
     
-    # Convertir les colonnes numériques (ventes, commandes, etc.)
+    # Nettoyage numérique
     numeric_cols = [
         'ventes_bel', 'ventes_boutique', 'ventes_wholesale', 'ventes_total',
         'commandes_bel', 'commandes_boutique', 'commandes_wholesale', 'commandes_total',
@@ -70,7 +106,7 @@ def get_google_sheet(sheet_name, header_row=1):
     ]
     for col in numeric_cols:
         if col in df.columns:
-            df[col] = pd.to_numeric(df[col], errors='coerce').fillna(0)
+            df[col] = df[col].apply(super_clean_numeric)
     
     return df
 
@@ -113,22 +149,17 @@ def main():
         print("❌ Aucune donnée de ventes")
         return
     
-    # Afficher les colonnes pour debug
-    print(f"   🔍 Colonnes dans ventes : {list(ventes.columns)}")
-    
-    # Afficher les premières valeurs de ventes_bel pour vérifier
+    # Afficher les premières valeurs après conversion
     if 'ventes_bel' in ventes.columns:
-        print(f"   🔍 Exemples ventes_bel : {ventes['ventes_bel'].head(5).tolist()}")
+        print(f"   🔍 Exemples ventes_bel après conversion : {ventes['ventes_bel'].head(5).tolist()}")
     
-    # Vérifier la colonne date
     if 'date' not in ventes.columns:
-        print("❌ Colonne 'date' non trouvée dans ventes")
+        print("❌ Colonne 'date' non trouvée")
         return
     
     ventes['date'] = pd.to_datetime(ventes['date'], errors='coerce')
     ventes = ventes.dropna(subset=['date'])
     
-    # Filtrer les dates futures
     aujourdhui = date.today()
     ventes = ventes[ventes['date'] <= pd.Timestamp(aujourdhui)]
     print(f"   🗓️ Après filtrage dates futures : {len(ventes)} lignes")
@@ -155,11 +186,9 @@ def main():
         ventes_meteo = ventes
         print("   ⚠️ Pas de météo disponible")
     
-    # Convertir les dates en string pour JSON
     ventes_meteo['date'] = ventes_meteo['date'].dt.strftime('%Y-%m-%d')
     ventes_meteo = ventes_meteo.where(pd.notnull(ventes_meteo), None)
     
-    # Calcul des totaux
     total_bel = ventes['ventes_bel'].sum() if 'ventes_bel' in ventes else 0
     total_boutique = ventes['ventes_boutique'].sum() if 'ventes_boutique' in ventes else 0
     total_wholesale = ventes['ventes_wholesale'].sum() if 'ventes_wholesale' in ventes else 0
@@ -168,7 +197,6 @@ def main():
     
     print(f"\n💰 Totaux : BEL={total_bel:,.2f}, Boutique={total_boutique:,.2f}, TOTAL={total_all:,.2f}")
     
-    # Nettoyer les DataFrames secondaires
     infolettres_clean = infolettres.where(pd.notnull(infolettres), None)
     publications_clean = publications.where(pd.notnull(publications), None)
     evenements_clean = evenements.where(pd.notnull(evenements), None)
@@ -199,14 +227,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-def diagnose_raw_values(sheet_name):
-    """Affiche les valeurs brutes des 5 premières lignes de la feuille"""
-    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-    creds = ServiceAccountCredentials.from_json_keyfile_name(SERVICE_ACCOUNT_FILE, scope)
-    client = gspread.authorize(creds)
-    sheet = client.open_by_key(SPREADSHEET_ID).worksheet(sheet_name)
-    all_values = sheet.get_all_values()
-    print(f"\n🔍 DIAGNOSTIC - {sheet_name} :")
-    print(f"En-têtes (ligne 1) : {all_values[0][:10]}")
-    for i, row in enumerate(all_values[1:4], start=2):
-        print(f"Ligne {i} : {row[:11]}")  # 11 colonnes = date + ventes_bel + ...
