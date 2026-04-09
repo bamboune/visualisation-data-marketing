@@ -38,7 +38,7 @@ def convert_to_serializable(obj):
     return obj
 
 def get_google_sheet(sheet_name, header_row=1):
-    """Lit une feuille Google Sheets de manière robuste"""
+    """Lit une feuille Google Sheets de manière robuste en ignorant les lignes vides"""
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
     creds = ServiceAccountCredentials.from_json_keyfile_name(SERVICE_ACCOUNT_FILE, scope)
     client = gspread.authorize(creds)
@@ -49,9 +49,7 @@ def get_google_sheet(sheet_name, header_row=1):
         return pd.DataFrame()
     
     headers = all_values[header_row - 1]
-    data_rows = all_values[header_row:]
-    
-    # Nettoyer les en-têtes (les rendre uniques)
+    # Nettoyer les en-têtes
     clean_headers = []
     for i, h in enumerate(headers):
         if not h or h.strip() == "":
@@ -59,15 +57,21 @@ def get_google_sheet(sheet_name, header_row=1):
         else:
             clean_headers.append(h.strip().lower())
     
-    # Construire le DataFrame en ignorant les lignes où la première colonne (date) est vide
+    # Récupérer les lignes de données à partir de header_row
+    data_rows = all_values[header_row:]
+    
+    # Filtrer les lignes où la première colonne (date) n'est pas vide
     rows = []
     for row in data_rows:
-        if row and len(row) > 0 and row[0] and str(row[0]).strip():
+        if len(row) > 0 and row[0] and str(row[0]).strip():
+            # Compléter la ligne avec des chaînes vides si elle a moins de colonnes que l'en-tête
+            if len(row) < len(clean_headers):
+                row.extend([''] * (len(clean_headers) - len(row)))
             rows.append(row)
     
     df = pd.DataFrame(rows, columns=clean_headers)
     
-    # Chercher la colonne date (plusieurs noms possibles)
+    # Trouver la colonne de date
     date_col = None
     for col in df.columns:
         if col in ['date', 'date_envoi']:
@@ -77,7 +81,7 @@ def get_google_sheet(sheet_name, header_row=1):
     if date_col:
         df['date'] = pd.to_datetime(df[date_col], errors='coerce')
     
-    # Convertir les colonnes numériques si elles existent
+    # Convertir les colonnes numériques connues
     numeric_cols = ['ventes_bel', 'ventes_boutique', 'ventes_wholesale', 'ventes_total',
                     'commandes_bel', 'commandes_boutique', 'commandes_wholesale', 'commandes_total',
                     'panier_moyen_bel', 'panier_moyen_boutique',
@@ -123,11 +127,11 @@ def main():
     print(f"   📱 Publications : {len(publications)} lignes")
     print(f"   ⚡ Événements : {len(evenements)} lignes")
     
-    # Afficher un échantillon des publications pour debug
+    # Afficher un aperçu des publications pour debug
     if len(publications) > 0:
-        print("   🔍 Aperçu publications :")
+        print("   🔍 Aperçu des 3 premières publications :")
         for i, row in publications.head(3).iterrows():
-            print(f"      {row.get('date', '?')} | {row.get('plateforme', '?')} | {str(row.get('description_courte', ''))[:50]}...")
+            print(f"      - {row.get('date', '?')} | {row.get('plateforme', '?')} | {str(row.get('description_courte', ''))[:50]}...")
     
     if ventes.empty:
         print("❌ Aucune donnée de ventes")
@@ -137,7 +141,7 @@ def main():
         print("❌ Colonne 'date' non trouvée dans ventes")
         return
     
-    # Nettoyage des colonnes numériques
+    # Nettoyage des colonnes numériques des ventes
     numeric_cols_ventes = ['ventes_bel', 'ventes_boutique', 'ventes_wholesale', 'ventes_total',
                            'commandes_bel', 'commandes_boutique', 'commandes_wholesale', 'commandes_total',
                            'panier_moyen_bel', 'panier_moyen_boutique']
@@ -214,6 +218,7 @@ def main():
     print(f"\n✅ SUCCÈS ! data.json généré")
     print(f"   📅 {len(ventes)} jours du {start_date} au {end_date}")
     print(f"   📱 {len(publications_clean)} publications incluses")
+    print(f"   ⚡ {len(evenements_clean)} événements inclus")
 
 if __name__ == "__main__":
     main()
