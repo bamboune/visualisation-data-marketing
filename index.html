@@ -14,13 +14,15 @@
         .header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 28px; }
         .header h1 { font-size: 1.6rem; font-weight: 600; color: #1a3a57; }
         .header p { color: #5a6e7c; font-size: 0.8rem; }
+        .header-buttons { display: flex; gap: 12px; }
+        .btn-primary { background: #2c7cb6; color: white; border: none; border-radius: 40px; padding: 8px 20px; cursor: pointer; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-primary:hover { background: #1e5a86; }
         .filters-card { background: white; border-radius: 20px; padding: 20px 24px; margin-bottom: 24px; display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
         .filter-group { display: flex; flex-direction: column; gap: 6px; }
         .filter-group label { font-size: 0.7rem; font-weight: 600; color: #4b6b8a; text-transform: uppercase; }
         .filter-group select { padding: 8px 14px; border-radius: 12px; border: 1px solid #dce3ec; background: white; font-size: 0.9rem; cursor: pointer; }
         .btn-toggle { background: #eef2f9; border: none; border-radius: 40px; padding: 8px 20px; font-weight: 500; cursor: pointer; font-size: 0.8rem; }
         .btn-toggle.active { background: #2c7cb6; color: white; }
-        .btn-export { background: #2c7cb6; color: white; border: none; border-radius: 40px; padding: 8px 20px; cursor: pointer; font-size: 0.8rem; }
         .reset-btn { background: #eef2f9; border: none; border-radius: 40px; padding: 8px 20px; cursor: pointer; }
         .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 28px; }
         .kpi-card { background: white; border-radius: 20px; padding: 18px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
@@ -40,6 +42,14 @@
         .badge { background: #e3f0fc; border-radius: 30px; padding: 2px 10px; font-size: 0.7rem; display: inline-block; margin: 2px; }
         .weather-bar { background: white; border-radius: 20px; padding: 12px 20px; margin-bottom: 28px; display: flex; flex-wrap: wrap; justify-content: space-around; gap: 16px; font-size: 0.85rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
         .warning { background: #fff3e0; color: #c97e00; padding: 12px; border-radius: 12px; text-align: center; }
+        /* Modal */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { background: white; border-radius: 28px; padding: 24px; max-width: 500px; width: 90%; }
+        .modal-content h2 { margin-bottom: 20px; }
+        .modal-content label { display: block; margin-top: 12px; font-weight: 600; color: #1a3a57; }
+        .modal-content input, .modal-content textarea { width: 100%; padding: 10px; margin-top: 4px; border-radius: 12px; border: 1px solid #dce3ec; }
+        .modal-content button { margin-top: 20px; }
+        .close { float: right; font-size: 1.5rem; cursor: pointer; }
         @media (max-width: 680px) { body { padding: 16px; } .kpi-value { font-size: 1.4rem; } .weather-bar { flex-direction: column; align-items: center; } }
     </style>
 </head>
@@ -54,7 +64,10 @@
 <div class="container">
     <div class="header">
         <div><h1><i class="fas fa-chart-line"></i> LMH Dashboard</h1><p>Ventes, météo, infolettres & réseaux sociaux — mise à jour automatique</p></div>
-        <button class="btn-export" id="exportBtn"><i class="fas fa-download"></i> Exporter CSV</button>
+        <div class="header-buttons">
+            <button class="btn-primary" id="openModalBtn"><i class="fas fa-plus"></i> Ajouter un événement</button>
+            <button class="btn-primary" id="exportBtn"><i class="fas fa-download"></i> Exporter CSV</button>
+        </div>
     </div>
 
     <div class="filters-card">
@@ -104,10 +117,31 @@
     </div>
 </div>
 
+<!-- Modal pour ajouter un événement -->
+<div id="eventModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2><i class="fas fa-calendar-plus"></i> Ajouter un événement marketing</h2>
+        <form id="eventForm">
+            <label>📅 Date</label>
+            <input type="date" id="eventDate" required>
+            <label>⚡ Action</label>
+            <input type="text" id="eventAction" placeholder="Ex: Lancement produit, Promo, BIS, Infolettre..." required>
+            <label>📝 Contexte / Note</label>
+            <textarea id="eventNote" rows="3" placeholder="Détails supplémentaires..."></textarea>
+            <button type="submit" class="btn-primary" style="width:100%">Envoyer</button>
+        </form>
+        <div id="formMessage" style="margin-top:12px; font-size:0.8rem;"></div>
+    </div>
+</div>
+
 <script>
     let fullData = null;
     let salesChart = null;
     let currentView = 'monthly';
+
+    // Configuration du webhook Google Apps Script (à remplacer)
+    const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbz2UyVp5X7n8Q9r0s1t2u3v4w5x6y7z8a9b0c/exec'; // ← À remplacer par l'URL de déploiement
 
     async function loadData() {
         try {
@@ -220,30 +254,28 @@
                     <td>${e.ventes_generees_$ ? parseFloat(e.ventes_generees_$).toLocaleString('fr-CA')+' $' : '—'}</td>
                 </tr>`;
             });
-            html += '</tbody><tr>';
+            html += '</tbody></tr>';
             document.getElementById('emailTable').innerHTML = html;
         } else {
             document.getElementById('emailTable').innerHTML = '<p class="warning">Aucune infolettre sur cette période</p>';
         }
         
-        // Réseaux sociaux (avec likes corrigé)
+        // Réseaux sociaux (avec lien à la place des likes)
         let posts = (fullData.publications || []).filter(p => ventesPeriode.some(v => dayjs(v.date).format('YYYY-MM-DD') === dayjs(p.date).format('YYYY-MM-DD')));
         if (posts.length) {
-            // Debug : afficher le premier post pour voir les likes
-            if (posts.length) console.log("Exemple de publication :", posts[0]);
-            let html = '<table style="width:100%"><thead><tr><th>Date</th><th>Plateforme</th><th>Contenu</th><th>Likes</th></tr></thead><tbody>';
+            let html = '<table style="width:100%"><thead><tr><th>Date</th><th>Plateforme</th><th>Contenu</th><th>Lien</th></tr></thead><tbody>';
             posts.forEach(p => {
                 let desc = (p.description_courte || p.title || '').substring(0, 80);
-                // Récupérer les likes : différentes possibilités
-                let likes = p.likes || p.like_count || p.likes_count || p.likesCount || '—';
+                let lien = p.lien_post || p.link || p.url || '';
+                let lienHtml = lien ? `<a href="${lien}" target="_blank" style="color:#2c7cb6;">🔗 Voir le post</a>` : '—';
                 html += `<tr>
                     <td>${dayjs(p.date).format('DD/MM/YYYY')}</td>
                     <td>${p.plateforme || '—'}</td>
                     <td>${desc}${desc.length === 80 ? '…' : ''}</td>
-                    <td>${likes}</td>
+                    <td>${lienHtml}</td>
                 </tr>`;
             });
-            html += '</tbody></table>';
+            html += '</tbody></td>';
             document.getElementById('socialTable').innerHTML = html;
         } else {
             document.getElementById('socialTable').innerHTML = '<p class="warning">Aucune publication sur cette période</p>';
@@ -327,7 +359,7 @@
                 options: { responsive: true }
             });
             document.getElementById('tableHeader').innerHTML = '<tr><th>Mois</th><th>Ventes totales</th><th>Moyenne / jour</th></tr>';
-            document.getElementById('tableBody').innerHTML = monthly.map(m => `<td>
+            document.getElementById('tableBody').innerHTML = monthly.map(m => `<tr>
                 <td>${m.period}</td>
                 <td>${m.total.toLocaleString('fr-CA')} $</td>
                 <td>${m.avg.toLocaleString('fr-CA')} $</td>
@@ -358,7 +390,7 @@
                 options: { responsive: true, plugins: { tooltip: { callbacks: { label: (ctx) => `${ctx.raw.toLocaleString('fr-CA')} $` } } } }
             });
             
-            document.getElementById('tableHeader').innerHTML = '<td><th>Date</th><th>BEL ($)</th><th>Boutique ($)</th><th>Total ($)</th><th>Précip. (mm)</th><th>Événement</th></tr>';
+            document.getElementById('tableHeader').innerHTML = '<tr><th>Date</th><th>BEL ($)</th><th>Boutique ($)</th><th>Total ($)</th><th>Précip. (mm)</th><th>Événement</th></tr>';
             document.getElementById('tableBody').innerHTML = ventes.map(v => {
                 let bel = parseFloat(v.ventes_bel)||0, boutique = parseFloat(v.ventes_boutique)||0;
                 let eventDate = dayjs(v.date).format('YYYY-MM-DD');
@@ -392,6 +424,42 @@
         link.download = 'ventes.csv';
         link.click();
     }
+
+    // Gestion du modal pour ajouter un événement
+    const modal = document.getElementById('eventModal');
+    const openBtn = document.getElementById('openModalBtn');
+    const closeSpan = document.querySelector('.close');
+    const form = document.getElementById('eventForm');
+    const formMessage = document.getElementById('formMessage');
+
+    openBtn.onclick = () => modal.style.display = 'flex';
+    closeSpan.onclick = () => modal.style.display = 'none';
+    window.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+
+    form.onsubmit = async (e) => {
+        e.preventDefault();
+        const date = document.getElementById('eventDate').value;
+        const action = document.getElementById('eventAction').value.trim();
+        const note = document.getElementById('eventNote').value.trim();
+        if (!date || !action) {
+            formMessage.innerHTML = '<span style="color:red;">Veuillez remplir la date et l\'action.</span>';
+            return;
+        }
+        formMessage.innerHTML = 'Envoi en cours...';
+        try {
+            const response = await fetch(WEBHOOK_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ date, action, note })
+            });
+            formMessage.innerHTML = '<span style="color:green;">✅ Événement ajouté ! Rafraîchissez les données dans quelques minutes.</span>';
+            form.reset();
+            setTimeout(() => { modal.style.display = 'none'; formMessage.innerHTML = ''; }, 2000);
+        } catch (err) {
+            formMessage.innerHTML = '<span style="color:red;">Erreur réseau. Réessayez plus tard.</span>';
+        }
+    };
 
     document.getElementById('yearFilter').addEventListener('change', () => { updateMonthFilter(); applyFiltersAndRender(); });
     document.getElementById('monthFilter').addEventListener('change', () => applyFiltersAndRender());
