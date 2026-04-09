@@ -107,22 +107,22 @@
     let salesChart = null;
     let currentView = 'monthly';
 
-    // Configuration des colonnes d'actions marketing avec leurs icônes
-    const ACTION_FIELDS = [
+    // Liste de toutes les colonnes pertinentes dans evenements_marketing
+    const EVENT_COLUMNS = [
         { key: 'rabais_promos', icon: '🏷️', label: 'Promo' },
         { key: 'lancement_produits_ateliers', icon: '✨', label: 'Lancement' },
         { key: 'bis_alertes_back_in_stock', icon: '🔄', label: 'BIS' },
         { key: 'infolettre', icon: '📧', label: 'Infolettre' },
         { key: 'push_notif', icon: '📱', label: 'Push' },
         { key: 'billet_blogue', icon: '📝', label: 'Blogue' },
-        { key: 'webmestre_funnels', icon: '🌐', label: 'Web' }
-    ];
-
-    const CONTEXT_FIELDS = [
-        { key: 'meteo_montreal', icon: '🌡️' },
-        { key: 'politique_actualite', icon: '🗳️' },
-        { key: 'fetec2a9ries_conges', icon: '📅' },
-        { key: 'couvertures_mediatiques', icon: '📰' }
+        { key: 'webmestre_funnels', icon: '🌐', label: 'Web' },
+        { key: 'temperature', icon: '🌡️', label: 'Température' },
+        { key: 'meteo_montreal', icon: '☁️', label: 'Météo' },
+        { key: 'meteo_generale', icon: '🌍', label: 'Météo gén.' },
+        { key: 'politique_actualite', icon: '🗳️', label: 'Politique' },
+        { key: 'fetec2a9ries_conges', icon: '📅', label: 'Férié/congé' },
+        { key: 'couvertures_mediatiques', icon: '📰', label: 'Médias' },
+        { key: 'commentaires_notes', icon: '📝', label: 'Notes' }
     ];
 
     async function loadData() {
@@ -131,6 +131,7 @@
             if (!response.ok) throw new Error('data.json introuvable');
             fullData = await response.json();
             console.log("Données chargées:", fullData.ventes.length, "jours");
+            console.log("Exemple événement:", fullData.evenements?.[0]);
             initFilters();
             applyFiltersAndRender();
         } catch (err) {
@@ -224,36 +225,18 @@
         return Object.entries(months).sort().map(([key, data]) => ({ period: data.name, total: data.total, avg: data.total / data.count }));
     }
 
-    // Fonction pour construire la description d'un événement à partir de toutes ses colonnes non vides
     function buildEventDescription(ev) {
         let parts = [];
-        // Actions marketing
-        for (const field of ACTION_FIELDS) {
-            let val = ev[field.key];
-            if (val && val.toString().trim() !== '') {
-                // Pour les champs booléens ou présents, on n'affiche que l'icône + label
-                if (typeof val === 'boolean' || val === 'x' || val === 'oui' || val === 'true') {
-                    parts.push(`${field.icon} ${field.label}`);
-                } else {
-                    parts.push(`${field.icon} ${val.toString().substring(0, 60)}`);
-                }
+        for (const col of EVENT_COLUMNS) {
+            let val = ev[col.key];
+            if (val && val.toString().trim() !== '' && val !== '0' && val !== 'null' && val !== 'undefined') {
+                // Tronquer si trop long
+                let text = val.toString().trim();
+                if (text.length > 80) text = text.substring(0, 80) + '…';
+                parts.push(`${col.icon} ${text}`);
             }
         }
-        // Commentaires/notes généraux
-        if (ev.commentaires_notes && ev.commentaires_notes.trim() !== '') {
-            parts.push(`📝 ${ev.commentaires_notes.substring(0, 100)}`);
-        }
-        // Contexte (météo, politique, fériés, médias) - optionnel, on peut les mettre à part
-        let contextParts = [];
-        for (const ctx of CONTEXT_FIELDS) {
-            let val = ev[ctx.key];
-            if (val && val.toString().trim() !== '') {
-                contextParts.push(`${ctx.icon} ${val.toString().substring(0, 60)}`);
-            }
-        }
-        let description = parts.join(' · ');
-        let context = contextParts.join(' · ');
-        return { description, context };
+        return parts.join(' · ') || '—';
     }
 
     function renderMarketingSections(ventesPeriode) {
@@ -274,7 +257,7 @@
             document.getElementById('emailTable').innerHTML = '<p class="warning">Aucune infolettre sur cette période</p>';
         }
         
-        // Réseaux sociaux
+        // Réseaux sociaux (inchangé)
         let posts = (fullData.publications || []).filter(p => ventesPeriode.some(v => dayjs(v.date).format('YYYY-MM-DD') === dayjs(p.date).format('YYYY-MM-DD')));
         if (posts.length) {
             let html = '<table style="width:100%"><thead><tr><th>Date</th><th>Plateforme</th><th>Contenu</th><th>Likes</th></tr></thead><tbody>';
@@ -304,16 +287,15 @@
             <div><strong>📊 Différence</strong> : ${avgRain > avgDry ? '▲ +' : '▼ '}${Math.abs(((avgRain-avgDry)/avgDry*100)||0).toFixed(1)}%</div>
         `;
         
-        // Événements marketing (affichage enrichi)
+        // Événements marketing (affichage de TOUTES les colonnes)
         const events = (fullData.evenements || []).filter(ev => ventesPeriode.some(v => dayjs(v.date).format('YYYY-MM-DD') === dayjs(ev.date).format('YYYY-MM-DD')));
         if (events.length) {
-            let html = '<div style="overflow-x:auto;"><table style="width:100%; font-size:0.75rem;"><thead><tr><th>Date</th><th>Actions & Notes</th><th>Contexte</th></tr></thead><tbody>';
+            let html = '<div style="overflow-x:auto;"><table style="width:100%; font-size:0.75rem;"><thead><tr><th>Date</th><th>Détails</th></tr></thead><tbody>';
             events.forEach(ev => {
-                const { description, context } = buildEventDescription(ev);
+                const description = buildEventDescription(ev);
                 html += `<tr>
                     <td><strong>${dayjs(ev.date).format('DD/MM/YYYY')}</strong><br><span style="font-size:0.65rem;">${dayjs(ev.date).format('dddd')}</span></td>
-                    <td>${description || '—'}</td>
-                    <td style="font-size:0.7rem;">${context || '—'}</td>
+                    <td>${description}</td>
                 </tr>`;
             });
             html += '</tbody></table></div>';
@@ -352,7 +334,7 @@
                 options: { responsive: true }
             });
             document.getElementById('tableHeader').innerHTML = '<tr><th>Mois</th><th>Ventes totales</th><th>Moyenne / jour</th></tr>';
-            document.getElementById('tableBody').innerHTML = monthly.map(m => `<tr>
+            document.getElementById('tableBody').innerHTML = monthly.map(m => `<td>
                 <td>${m.period}</td>
                 <td>${m.total.toLocaleString('fr-CA')} $</td>
                 <td>${m.avg.toLocaleString('fr-CA')} $</td>
@@ -388,7 +370,7 @@
                 let bel = parseFloat(v.ventes_bel)||0, boutique = parseFloat(v.ventes_boutique)||0;
                 let eventDate = dayjs(v.date).format('YYYY-MM-DD');
                 let eventMatch = (fullData.evenements || []).find(ev => dayjs(ev.date).format('YYYY-MM-DD') === eventDate);
-                let hasEvent = eventMatch && (eventMatch.rabais_promos || eventMatch.lancement_produits_ateliers || eventMatch.commentaires_notes);
+                let hasEvent = eventMatch && Object.keys(eventMatch).some(k => eventMatch[k] && eventMatch[k].toString().trim() !== '' && !['date', 'col_'].includes(k));
                 let eventBadge = hasEvent ? `<span class="badge" style="background:#ffe0b5;">⚡ Action</span>` : '—';
                 return `<tr>
                     <td>${dayjs(v.date).format('DD MMM YYYY')}</td>
