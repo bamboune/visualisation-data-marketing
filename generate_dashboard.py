@@ -11,28 +11,8 @@ import re
 SPREADSHEET_ID = "1vYqgbiiYDnJONtFCx11LkTdPUM14fCf0IG1L7P2O4ro"
 SERVICE_ACCOUNT_FILE = "service_account.json"
 
-def clean_numeric(value):
-    """Convertit une valeur en nombre (gère les virgules et $)"""
-    if value is None or pd.isna(value):
-        return 0.0
-    if isinstance(value, (int, float)):
-        return float(value)
-    s = str(value).strip()
-    if s == '':
-        return 0.0
-    # Remplacer virgule décimale par point
-    s = s.replace(',', '.')
-    # Enlever tout sauf chiffres, point et moins
-    s = re.sub(r'[^\d.-]', '', s)
-    if s == '' or s == '-':
-        return 0.0
-    try:
-        return float(s)
-    except:
-        return 0.0
-
 def convert_to_serializable(obj):
-    """Convertit les objets pandas pour JSON"""
+    """Convertit les objets pandas pour JSON en gérant NaT"""
     if pd.isna(obj) or (hasattr(pd, 'NaT') and obj is pd.NaT) or (isinstance(obj, pd._libs.tslibs.nattype.NaTType)):
         return None
     if isinstance(obj, pd.Timestamp):
@@ -90,7 +70,7 @@ def get_google_sheet(sheet_name, header_row=1):
     ]
     for col in numeric_cols:
         if col in df.columns:
-            df[col] = pd.to_numeric(df[col], errors='coerce')
+            df[col] = pd.to_numeric(df[col], errors='coerce').fillna(0)
     
     return df
 
@@ -133,19 +113,12 @@ def main():
         print("❌ Aucune donnée de ventes")
         return
     
-    # Afficher les colonnes disponibles pour debug
+    # Afficher les colonnes pour debug
     print(f"   🔍 Colonnes dans ventes : {list(ventes.columns)}")
     
-    # Nettoyage des colonnes numériques
-    numeric_cols_ventes = [
-        'ventes_bel', 'ventes_boutique', 'ventes_wholesale', 'ventes_total',
-        'commandes_bel', 'commandes_boutique', 'commandes_wholesale', 'commandes_total',
-        'panier_moyen_bel', 'panier_moyen_boutique'
-    ]
-    for col in numeric_cols_ventes:
-        if col in ventes.columns:
-            ventes[col] = ventes[col].apply(clean_numeric)
-            print(f"   ✅ Nettoyé : {col}")
+    # Afficher les premières valeurs de ventes_bel pour vérifier
+    if 'ventes_bel' in ventes.columns:
+        print(f"   🔍 Exemples ventes_bel : {ventes['ventes_bel'].head(5).tolist()}")
     
     # Vérifier la colonne date
     if 'date' not in ventes.columns:
