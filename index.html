@@ -3,53 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LMH Dashboard — ventes & marketing</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <title>LMH Dashboard - Diagnostic</title>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.10/dayjs.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- ... (style inchangé) ... -->
+    <style>
+        body { font-family: system-ui, sans-serif; margin: 20px; background: #f0f2f5; }
+        .kpi { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 30px; }
+        .card { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); min-width: 150px; }
+        .card h3 { margin: 0 0 10px; font-size: 0.8rem; color: #666; text-transform: uppercase; }
+        .card .value { font-size: 1.8rem; font-weight: bold; color: #1a3a57; }
+        table { width: 100%; border-collapse: collapse; background: white; border-radius: 20px; overflow: hidden; margin-bottom: 20px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
+        th { background: #f9fbfd; font-weight: 600; color: #2f5b82; }
+        .section { margin-bottom: 30px; }
+        .section h2 { margin-bottom: 15px; font-size: 1.2rem; border-left: 4px solid #2c7cb6; padding-left: 14px; }
+        .warning { background: #fff3e0; padding: 12px; border-radius: 12px; text-align: center; color: #c97e00; }
+    </style>
 </head>
 <body>
-<script>
-    const password = prompt("🔒 Accès sécurisé - Mot de passe :");
-    if (password !== "LMH2026") {
-        document.body.innerHTML = '<div style="text-align:center; padding: 3rem;"><h2>Accès refusé</h2><p>Mot de passe incorrect.</p></div>';
-        throw new Error("Accès non autorisé");
-    }
-</script>
-<div class="container">
-    <!-- ... (HTML inchangé) ... -->
-</div>
-<script>
-    let fullData = null;
-    let salesChart = null;
-    let currentView = 'monthly';
+    <h1>LMH Dashboard - Diagnostic</h1>
+    <div id="kpi" class="kpi">Chargement...</div>
+    <div class="section">
+        <h2>📊 Ventes mensuelles</h2>
+        <div id="monthlyTable">Chargement...</div>
+    </div>
+    <div class="section">
+        <h2>📱 Publications (toutes)</h2>
+        <div id="publications">Chargement...</div>
+    </div>
+    <div class="section">
+        <h2>⚡ Événements (tous)</h2>
+        <div id="events">Chargement...</div>
+    </div>
 
-    // ... (toutes les fonctions inchangées, mais avec la version corrigée de renderMarketingSections) ...
-
-    // Assure-toi que renderMarketingSections utilise les bons champs
-    function renderMarketingSections(ventesPeriode) {
-        const periodeDatesSet = new Set(ventesPeriode.map(v => dayjs(v.date).format('YYYY-MM-DD')));
-        
-        // Infolettres
-        let infos = (fullData.infolettres || []).filter(e => e.date_envoi && periodeDatesSet.has(dayjs(e.date_envoi).format('YYYY-MM-DD')));
-        // ... (afficher)
-        
-        // Réseaux sociaux
-        let posts = (fullData.publications || []).filter(p => p.date && periodeDatesSet.has(dayjs(p.date).format('YYYY-MM-DD')));
-        console.log("Publications filtrées:", posts.length);
-        // ... (afficher avec plateforme, description_courte, likes)
-        
-        // Météo
-        // ...
-        
-        // Événements
-        let events = (fullData.evenements || []).filter(ev => ev.date && periodeDatesSet.has(dayjs(ev.date).format('YYYY-MM-DD')));
-        console.log("Événements filtrés:", events.length);
-        // ... (afficher avec type, description)
-    }
-    
-    // ... (reste du code)
-</script>
+    <script>
+        async function loadData() {
+            try {
+                const response = await fetch('data.json?v=' + Date.now());
+                if (!response.ok) throw new Error('data.json introuvable');
+                const data = await response.json();
+                console.log('Données chargées:', data);
+                
+                // --- KPIs ---
+                let totalVentes = 0, totalBel = 0, totalBoutique = 0, totalCommandes = 0;
+                let cartSum = 0, cartCount = 0;
+                data.ventes.forEach(v => {
+                    let bel = parseFloat(v.ventes_bel) || 0;
+                    let boutique = parseFloat(v.ventes_boutique) || 0;
+                    let wholesale = parseFloat(v.ventes_wholesale) || 0;
+                    totalBel += bel;
+                    totalBoutique += boutique;
+                    totalVentes += bel + boutique + wholesale;
+                    totalCommandes += parseInt(v.commandes_total) || 0;
+                    let panier = parseFloat(v.panier_moyen_bel) || 0;
+                    if (panier > 0) { cartSum += panier; cartCount++; }
+                });
+                const avgCart = cartCount ? cartSum / cartCount : 0;
+                const avgDaily = data.ventes.length ? totalVentes / data.ventes.length : 0;
+                
+                document.getElementById('kpi').innerHTML = `
+                    <div class="card"><h3>Ventes totales</h3><div class="value">${totalVentes.toLocaleString('fr-CA')} $</div></div>
+                    <div class="card"><h3>Moyenne / jour</h3><div class="value">${avgDaily.toLocaleString('fr-CA')} $</div></div>
+                    <div class="card"><h3>Panier moyen BEL</h3><div class="value">${avgCart.toLocaleString('fr-CA')} $</div></div>
+                    <div class="card"><h3>Commandes totales</h3><div class="value">${totalCommandes.toLocaleString('fr-CA')}</div></div>
+                `;
+                
+                // --- Ventes mensuelles ---
+                const monthly = {};
+                data.ventes.forEach(v => {
+                    const ym = dayjs(v.date).format('YYYY-MM');
+                    const monthName = dayjs(v.date).format('MMMM YYYY');
+                    const val = (parseFloat(v.ventes_bel)||0) + (parseFloat(v.ventes_boutique)||0) + (parseFloat(v.ventes_wholesale)||0);
+                    if (!monthly[ym]) monthly[ym] = { name: monthName, total: 0, count: 0 };
+                    monthly[ym].total += val;
+                    monthly[ym].count++;
+                });
+                const monthlyArray = Object.entries(monthly).sort().map(([key, m]) => ({ name: m.name, total: m.total, avg: m.total / m.count }));
+                let monthlyHtml = '<table><thead><tr><th>Mois</th><th>Ventes totales</th><th>Moyenne/jour</th></tr></thead><tbody>';
+                monthlyArray.forEach(m => {
+                    monthlyHtml += `<tr><td>${m.name}</td><td>${m.total.toLocaleString('fr-CA')} $</td><td>${m.avg.toLocaleString('fr-CA')} $</td></tr>`;
+                });
+                monthlyHtml += '</tbody></table>';
+                document.getElementById('monthlyTable').innerHTML = monthlyHtml;
+                
+                // --- Publications ---
+                const pubs = data.publications || [];
+                let pubsHtml = '';
+                if (pubs.length) {
+                    pubsHtml = '<table><thead><tr><th>Date</th><th>Plateforme</th><th>Contenu</th><th>Likes</th></tr></thead><tbody>';
+                    pubs.forEach(p => {
+                        pubsHtml += `<tr>
+                            <td>${dayjs(p.date).format('DD/MM/YYYY')}</td>
+                            <td>${p.plateforme || '—'}</td>
+                            <td>${(p.description_courte || '').substring(0, 80)}</td>
+                            <td>${p.likes || '—'}</td>
+                        </tr>`;
+                    });
+                    pubsHtml += '</tbody></table>';
+                } else {
+                    pubsHtml = '<div class="warning">Aucune publication trouvée</div>';
+                }
+                document.getElementById('publications').innerHTML = pubsHtml;
+                
+                // --- Événements ---
+                const events = data.evenements || [];
+                let eventsHtml = '';
+                if (events.length) {
+                    eventsHtml = '<table><thead><tr><th>Date</th><th>Type</th><th>Description</th><th>Notes</th></tr></thead><tbody>';
+                    events.forEach(e => {
+                        eventsHtml += `<tr>
+                            <td>${dayjs(e.date).format('DD/MM/YYYY')}</td>
+                            <td>${e.type || '—'}</td>
+                            <td>${(e.description || '').substring(0, 80)}</td>
+                            <td>${(e.commentaires_notes || e.impact_note || '').substring(0, 60)}</td>
+                        </tr>`;
+                    });
+                    eventsHtml += '</tbody></table>';
+                } else {
+                    eventsHtml = '<div class="warning">Aucun événement trouvé</div>';
+                }
+                document.getElementById('events').innerHTML = eventsHtml;
+                
+            } catch (err) {
+                document.body.innerHTML = `<div style="color:red; padding: 2rem;">❌ Erreur: ${err.message}</div>`;
+            }
+        }
+        loadData();
+    </script>
 </body>
 </html>
