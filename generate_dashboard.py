@@ -12,22 +12,17 @@ SPREADSHEET_ID = "1vYqgbiiYDnJONtFCx11LkTdPUM14fCf0IG1L7P2O4ro"
 SERVICE_ACCOUNT_FILE = "service_account.json"
 
 def clean_numeric(value):
-    """Nettoie une valeur pour la convertir en nombre (gère virgules françaises)"""
     if value is None or pd.isna(value):
         return 0.0
     if isinstance(value, (int, float)):
         return float(value)
-    
     s = str(value).strip()
     if s == '':
         return 0.0
-    
     s = s.replace(',', '.')
     s = re.sub(r'[^\d.-]', '', s)
-    
     if s == '' or s == '-':
         return 0.0
-    
     try:
         return float(s)
     except:
@@ -43,24 +38,36 @@ def convert_to_serializable(obj):
     return obj
 
 def get_google_sheet(sheet_name, header_row=1):
+    """Lit une feuille Google Sheets de manière robuste"""
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
     creds = ServiceAccountCredentials.from_json_keyfile_name(SERVICE_ACCOUNT_FILE, scope)
     client = gspread.authorize(creds)
     sheet = client.open_by_key(SPREADSHEET_ID).worksheet(sheet_name)
     
     all_values = sheet.get_all_values()
-    
     if not all_values or len(all_values) < header_row:
         return pd.DataFrame()
     
     headers = all_values[header_row - 1]
     data_rows = all_values[header_row:]
     
-    clean_headers = [h.strip().lower() if h else f"col_{i}" for i, h in enumerate(headers)]
+    # Nettoyer les en-têtes (les rendre uniques)
+    clean_headers = []
+    for i, h in enumerate(headers):
+        if not h or h.strip() == "":
+            clean_headers.append(f"col_{i}")
+        else:
+            clean_headers.append(h.strip().lower())
     
-    df = pd.DataFrame(data_rows, columns=clean_headers)
+    # Construire le DataFrame en ignorant les lignes où la première colonne (date) est vide
+    rows = []
+    for row in data_rows:
+        if row and len(row) > 0 and row[0] and str(row[0]).strip():
+            rows.append(row)
     
-    # Cherche la colonne date
+    df = pd.DataFrame(rows, columns=clean_headers)
+    
+    # Chercher la colonne date (plusieurs noms possibles)
     date_col = None
     for col in df.columns:
         if col in ['date', 'date_envoi']:
@@ -69,6 +76,15 @@ def get_google_sheet(sheet_name, header_row=1):
     
     if date_col:
         df['date'] = pd.to_datetime(df[date_col], errors='coerce')
+    
+    # Convertir les colonnes numériques si elles existent
+    numeric_cols = ['ventes_bel', 'ventes_boutique', 'ventes_wholesale', 'ventes_total',
+                    'commandes_bel', 'commandes_boutique', 'commandes_wholesale', 'commandes_total',
+                    'panier_moyen_bel', 'panier_moyen_boutique',
+                    'likes', 'commentaires', 'partages', 'sauvegardes', 'reach', 'impressions']
+    for col in numeric_cols:
+        if col in df.columns:
+            df[col] = pd.to_numeric(df[col], errors='coerce')
     
     return df
 
@@ -102,41 +118,42 @@ def main():
     publications = get_google_sheet("publications_social", header_row=1)
     evenements = get_google_sheet("evenements_marketing", header_row=1)
     
-    print(f"   📊 Ventes brutes : {len(ventes)} lignes")
+    print(f"   📊 Ventes : {len(ventes)} lignes")
     print(f"   📧 Infolettres : {len(infolettres)} lignes")
     print(f"   📱 Publications : {len(publications)} lignes")
     print(f"   ⚡ Événements : {len(evenements)} lignes")
+    
+    # Afficher un échantillon des publications pour debug
+    if len(publications) > 0:
+        print("   🔍 Aperçu publications :")
+        for i, row in publications.head(3).iterrows():
+            print(f"      {row.get('date', '?')} | {row.get('plateforme', '?')} | {str(row.get('description_courte', ''))[:50]}...")
     
     if ventes.empty:
         print("❌ Aucune donnée de ventes")
         return
     
     if 'date' not in ventes.columns:
-        print("❌ Colonne 'date' non trouvée")
-        print(f"   Colonnes disponibles : {list(ventes.columns)[:10]}")
+        print("❌ Colonne 'date' non trouvée dans ventes")
         return
     
-    # NETTOYAGE DES DONNÉES NUMÉRIQUES
-    numeric_columns = ['ventes_bel', 'ventes_boutique', 'ventes_wholesale', 'ventes_total',
-                       'commandes_bel', 'commandes_boutique', 'commandes_wholesale', 'commandes_total',
-                       'panier_moyen_bel', 'panier_moyen_boutique']
-    
-    for col in numeric_columns:
+    # Nettoyage des colonnes numériques
+    numeric_cols_ventes = ['ventes_bel', 'ventes_boutique', 'ventes_wholesale', 'ventes_total',
+                           'commandes_bel', 'commandes_boutique', 'commandes_wholesale', 'commandes_total',
+                           'panier_moyen_bel', 'panier_moyen_boutique']
+    for col in numeric_cols_ventes:
         if col in ventes.columns:
             ventes[col] = ventes[col].apply(clean_numeric)
-            print(f"   ✅ Nettoyé : {col}")
     
-    # Conversion des dates
     ventes['date'] = pd.to_datetime(ventes['date'], errors='coerce')
     ventes = ventes.dropna(subset=['date'])
     
-    # FILTRAGE DES DATES FUTURES
+    # Filtrer les dates futures
     aujourdhui = date.today()
     ventes = ventes[ventes['date'] <= pd.Timestamp(aujourdhui)]
-    print(f"   🗓️ Après filtrage dates futures : {len(ventes)} lignes (jusqu'au {aujourdhui})")
+    print(f"   🗓️ Après filtrage dates futures : {len(ventes)} lignes")
     
     ventes = ventes.sort_values('date')
-    
     start_date = ventes['date'].min().strftime('%Y-%m-%d')
     end_date = ventes['date'].max().strftime('%Y-%m-%d')
     
@@ -166,21 +183,20 @@ def main():
     total_boutique = ventes['ventes_boutique'].sum() if 'ventes_boutique' in ventes else 0
     total_wholesale = ventes['ventes_wholesale'].sum() if 'ventes_wholesale' in ventes else 0
     total_all = total_bel + total_boutique + total_wholesale
-    
     panier_moyen = ventes['panier_moyen_bel'].mean() if 'panier_moyen_bel' in ventes else 0
     
-    print(f"\n💰 Vérification des totaux :")
-    print(f"   BEL : {total_bel:,.2f} $")
-    print(f"   Boutique : {total_boutique:,.2f} $")
-    print(f"   Wholesale : {total_wholesale:,.2f} $")
-    print(f"   TOTAL : {total_all:,.2f} $")
-    print(f"   Panier moyen BEL : {panier_moyen:,.2f} $")
+    print(f"\n💰 Totaux : BEL={total_bel:,.2f}, Boutique={total_boutique:,.2f}, TOTAL={total_all:,.2f}")
+    
+    # Nettoyer les DataFrames secondaires pour éviter les problèmes de JSON
+    infolettres_clean = infolettres.where(pd.notnull(infolettres), None)
+    publications_clean = publications.where(pd.notnull(publications), None)
+    evenements_clean = evenements.where(pd.notnull(evenements), None)
     
     dashboard_data = {
         'ventes': ventes_meteo.to_dict(orient='records'),
-        'infolettres': infolettres.where(pd.notnull(infolettres), None).to_dict(orient='records'),
-        'publications': publications.where(pd.notnull(publications), None).to_dict(orient='records'),
-        'evenements': evenements.where(pd.notnull(evenements), None).to_dict(orient='records'),
+        'infolettres': infolettres_clean.to_dict(orient='records'),
+        'publications': publications_clean.to_dict(orient='records'),
+        'evenements': evenements_clean.to_dict(orient='records'),
         'stats': {
             'total_ventes': total_all,
             'total_ventes_bel': total_bel,
@@ -197,6 +213,7 @@ def main():
     
     print(f"\n✅ SUCCÈS ! data.json généré")
     print(f"   📅 {len(ventes)} jours du {start_date} au {end_date}")
+    print(f"   📱 {len(publications_clean)} publications incluses")
 
 if __name__ == "__main__":
     main()
