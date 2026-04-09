@@ -12,6 +12,7 @@ SPREADSHEET_ID = "1vYqgbiiYDnJONtFCx11LkTdPUM14fCf0IG1L7P2O4ro"
 SERVICE_ACCOUNT_FILE = "service_account.json"
 
 def clean_numeric(value):
+    """Convertit une valeur en nombre (gère les virgules et $)"""
     if value is None or pd.isna(value):
         return 0.0
     if isinstance(value, (int, float)):
@@ -19,7 +20,9 @@ def clean_numeric(value):
     s = str(value).strip()
     if s == '':
         return 0.0
+    # Remplacer virgule décimale par point
     s = s.replace(',', '.')
+    # Enlever tout sauf chiffres, point et moins
     s = re.sub(r'[^\d.-]', '', s)
     if s == '' or s == '-':
         return 0.0
@@ -29,16 +32,17 @@ def clean_numeric(value):
         return 0.0
 
 def convert_to_serializable(obj):
+    """Convertit les objets pandas pour JSON"""
+    if pd.isna(obj) or (hasattr(pd, 'NaT') and obj is pd.NaT) or (isinstance(obj, pd._libs.tslibs.nattype.NaTType)):
+        return None
     if isinstance(obj, pd.Timestamp):
         return obj.strftime('%Y-%m-%d')
     if isinstance(obj, datetime):
         return obj.strftime('%Y-%m-%d')
-    if pd.isna(obj):
-        return None
     return obj
 
 def get_google_sheet(sheet_name, header_row=1):
-    """Lit une feuille Google Sheets de manière robuste en ignorant les lignes vides"""
+    """Lit une feuille Google Sheets de manière robuste"""
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
     creds = ServiceAccountCredentials.from_json_keyfile_name(SERVICE_ACCOUNT_FILE, scope)
     client = gspread.authorize(creds)
@@ -57,14 +61,11 @@ def get_google_sheet(sheet_name, header_row=1):
         else:
             clean_headers.append(h.strip().lower())
     
-    # Récupérer les lignes de données à partir de header_row
     data_rows = all_values[header_row:]
-    
-    # Filtrer les lignes où la première colonne (date) n'est pas vide
+    # Ignorer les lignes où la première colonne (date) est vide
     rows = []
     for row in data_rows:
         if len(row) > 0 and row[0] and str(row[0]).strip():
-            # Compléter la ligne avec des chaînes vides si elle a moins de colonnes que l'en-tête
             if len(row) < len(clean_headers):
                 row.extend([''] * (len(clean_headers) - len(row)))
             rows.append(row)
@@ -77,15 +78,16 @@ def get_google_sheet(sheet_name, header_row=1):
         if col in ['date', 'date_envoi']:
             date_col = col
             break
-    
     if date_col:
         df['date'] = pd.to_datetime(df[date_col], errors='coerce')
     
-    # Convertir les colonnes numériques connues
-    numeric_cols = ['ventes_bel', 'ventes_boutique', 'ventes_wholesale', 'ventes_total',
-                    'commandes_bel', 'commandes_boutique', 'commandes_wholesale', 'commandes_total',
-                    'panier_moyen_bel', 'panier_moyen_boutique',
-                    'likes', 'commentaires', 'partages', 'sauvegardes', 'reach', 'impressions']
+    # Convertir les colonnes numériques (ventes, commandes, etc.)
+    numeric_cols = [
+        'ventes_bel', 'ventes_boutique', 'ventes_wholesale', 'ventes_total',
+        'commandes_bel', 'commandes_boutique', 'commandes_wholesale', 'commandes_total',
+        'panier_moyen_bel', 'panier_moyen_boutique',
+        'likes', 'commentaires', 'partages', 'sauvegardes', 'reach', 'impressions'
+    ]
     for col in numeric_cols:
         if col in df.columns:
             df[col] = pd.to_numeric(df[col], errors='coerce')
@@ -122,32 +124,33 @@ def main():
     publications = get_google_sheet("publications_social", header_row=1)
     evenements = get_google_sheet("evenements_marketing", header_row=1)
     
-    print(f"   📊 Ventes : {len(ventes)} lignes")
+    print(f"   📊 Ventes brutes : {len(ventes)} lignes")
     print(f"   📧 Infolettres : {len(infolettres)} lignes")
     print(f"   📱 Publications : {len(publications)} lignes")
     print(f"   ⚡ Événements : {len(evenements)} lignes")
-    
-    # Afficher un aperçu des publications pour debug
-    if len(publications) > 0:
-        print("   🔍 Aperçu des 3 premières publications :")
-        for i, row in publications.head(3).iterrows():
-            print(f"      - {row.get('date', '?')} | {row.get('plateforme', '?')} | {str(row.get('description_courte', ''))[:50]}...")
     
     if ventes.empty:
         print("❌ Aucune donnée de ventes")
         return
     
-    if 'date' not in ventes.columns:
-        print("❌ Colonne 'date' non trouvée dans ventes")
-        return
+    # Afficher les colonnes disponibles pour debug
+    print(f"   🔍 Colonnes dans ventes : {list(ventes.columns)}")
     
-    # Nettoyage des colonnes numériques des ventes
-    numeric_cols_ventes = ['ventes_bel', 'ventes_boutique', 'ventes_wholesale', 'ventes_total',
-                           'commandes_bel', 'commandes_boutique', 'commandes_wholesale', 'commandes_total',
-                           'panier_moyen_bel', 'panier_moyen_boutique']
+    # Nettoyage des colonnes numériques
+    numeric_cols_ventes = [
+        'ventes_bel', 'ventes_boutique', 'ventes_wholesale', 'ventes_total',
+        'commandes_bel', 'commandes_boutique', 'commandes_wholesale', 'commandes_total',
+        'panier_moyen_bel', 'panier_moyen_boutique'
+    ]
     for col in numeric_cols_ventes:
         if col in ventes.columns:
             ventes[col] = ventes[col].apply(clean_numeric)
+            print(f"   ✅ Nettoyé : {col}")
+    
+    # Vérifier la colonne date
+    if 'date' not in ventes.columns:
+        print("❌ Colonne 'date' non trouvée dans ventes")
+        return
     
     ventes['date'] = pd.to_datetime(ventes['date'], errors='coerce')
     ventes = ventes.dropna(subset=['date'])
@@ -179,6 +182,7 @@ def main():
         ventes_meteo = ventes
         print("   ⚠️ Pas de météo disponible")
     
+    # Convertir les dates en string pour JSON
     ventes_meteo['date'] = ventes_meteo['date'].dt.strftime('%Y-%m-%d')
     ventes_meteo = ventes_meteo.where(pd.notnull(ventes_meteo), None)
     
@@ -191,7 +195,7 @@ def main():
     
     print(f"\n💰 Totaux : BEL={total_bel:,.2f}, Boutique={total_boutique:,.2f}, TOTAL={total_all:,.2f}")
     
-    # Nettoyer les DataFrames secondaires pour éviter les problèmes de JSON
+    # Nettoyer les DataFrames secondaires
     infolettres_clean = infolettres.where(pd.notnull(infolettres), None)
     publications_clean = publications.where(pd.notnull(publications), None)
     evenements_clean = evenements.where(pd.notnull(evenements), None)
