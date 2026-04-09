@@ -199,3 +199,14 @@ def main():
 
 if __name__ == "__main__":
     main()
+def diagnose_raw_values(sheet_name):
+    """Affiche les valeurs brutes des 5 premières lignes de la feuille"""
+    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+    creds = ServiceAccountCredentials.from_json_keyfile_name(SERVICE_ACCOUNT_FILE, scope)
+    client = gspread.authorize(creds)
+    sheet = client.open_by_key(SPREADSHEET_ID).worksheet(sheet_name)
+    all_values = sheet.get_all_values()
+    print(f"\n🔍 DIAGNOSTIC - {sheet_name} :")
+    print(f"En-têtes (ligne 1) : {all_values[0][:10]}")
+    for i, row in enumerate(all_values[1:4], start=2):
+        print(f"Ligne {i} : {row[:11]}")  # 11 colonnes = date + ventes_bel + ...
