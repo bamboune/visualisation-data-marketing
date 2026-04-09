@@ -37,7 +37,7 @@
         table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
         th, td { padding: 10px 8px; text-align: left; border-bottom: 1px solid #ecf0f4; }
         th { font-weight: 600; color: #2f5b82; background: #f9fbfd; }
-        .badge { background: #e3f0fc; border-radius: 30px; padding: 2px 10px; font-size: 0.7rem; display: inline-block; }
+        .badge { background: #e3f0fc; border-radius: 30px; padding: 2px 10px; font-size: 0.7rem; display: inline-block; margin: 2px; }
         .warning { background: #fff3e0; color: #c97e00; padding: 12px; border-radius: 12px; text-align: center; }
         @media (max-width: 680px) { body { padding: 16px; } .kpi-value { font-size: 1.4rem; } }
     </style>
@@ -237,7 +237,7 @@
             posts.forEach(p => {
                 html += `<tr><td>${dayjs(p.date).format('DD/MM/YYYY')}</td><td>${p.plateforme || '—'}</td><td>${p.likes || '—'}</td><td>${p.partages || '—'}</td></tr>`;
             });
-            html += '</tbody></table>';
+            html += '</tbody></tr>';
             document.getElementById('socialTable').innerHTML = html;
         } else {
             document.getElementById('socialTable').innerHTML = '<p class="warning">Aucune publication sur cette période</p>';
@@ -254,46 +254,109 @@
             <div><strong>📊 Différence</strong> : ${avgRain > avgDry ? '▲ +' : '▼ '}${Math.abs(((avgRain-avgDry)/avgDry*100)||0).toFixed(1)}%</div>
         `;
         
-        // Événements enrichis
+        // ÉVÉNEMENTS - Version regroupée par date avec impact
         const events = (fullData.evenements || []).filter(ev => ventesPeriode.some(v => dayjs(v.date).format('YYYY-MM-DD') === dayjs(ev.date).format('YYYY-MM-DD')));
+        
         if (events.length) {
-            let html = '<table style="width:100%"><thead><tr><th>Date</th><th>Actions marketing</th><th>Notes / Description</th><th>Météo</th><th>Contexte</th></tr></thead><tbody>';
+            // Regrouper par date
+            const eventsByDate = new Map();
+            
             events.forEach(ev => {
-                // Types d'actions
-                let actions = [];
-                if (ev.rabais_promos && ev.rabais_promos !== '') actions.push(`🏷️ ${ev.rabais_promos}`);
-                if (ev.lancement_produits_ateliers && ev.lancement_produits_ateliers !== '') actions.push(`✨ ${ev.lancement_produits_ateliers}`);
-                if (ev.infolettre && ev.infolettre !== '') actions.push(`📧 Infolettre`);
-                if (ev.push_notif && ev.push_notif !== '') actions.push(`📱 Push`);
-                if (ev.billet_blogue && ev.billet_blogue !== '') actions.push(`📝 Blogue`);
-                if (ev.webmestre_funnels && ev.webmestre_funnels !== '') actions.push(`🌐 Web`);
-                if (ev.bis_alertes_back_in_stock && ev.bis_alertes_back_in_stock !== '') actions.push(`🔄 BIS`);
-                let actionText = actions.length ? actions.join(' • ') : '—';
+                const dateKey = dayjs(ev.date).format('YYYY-MM-DD');
+                if (!eventsByDate.has(dateKey)) {
+                    eventsByDate.set(dateKey, {
+                        date: ev.date,
+                        rabais: [],
+                        lancements: [],
+                        infolettre: false,
+                        push: false,
+                        blogue: false,
+                        web: false,
+                        bis: false,
+                        meteo: ev.meteo_montreal || ev.meteo_generale || '',
+                        temperature: ev.temperature || '',
+                        politique: ev.politique_actualite || '',
+                        conges: ev.fetec2a9ries_conges || '',
+                        medias: ev.couvertures_mediatiques || '',
+                        notes: ev.commentaires_notes || ev.description || ''
+                    });
+                }
                 
-                // Météo (depuis colonnes evenements)
-                let meteoText = ev.meteo_montreal || ev.meteo_generale || '—';
-                if (ev.temperature && ev.temperature !== '') meteoText = `${ev.temperature}°C • ${meteoText}`;
+                const entry = eventsByDate.get(dateKey);
+                if (ev.rabais_promos && ev.rabais_promos.trim()) entry.rabais.push(ev.rabais_promos);
+                if (ev.lancement_produits_ateliers && ev.lancement_produits_ateliers.trim()) entry.lancements.push(ev.lancement_produits_ateliers);
+                if (ev.infolettre && ev.infolettre.trim()) entry.infolettre = true;
+                if (ev.push_notif && ev.push_notif.trim()) entry.push = true;
+                if (ev.billet_blogue && ev.billet_blogue.trim()) entry.blogue = true;
+                if (ev.webmestre_funnels && ev.webmestre_funnels.trim()) entry.web = true;
+                if (ev.bis_alertes_back_in_stock && ev.bis_alertes_back_in_stock.trim()) entry.bis = true;
+                if (ev.commentaires_notes && ev.commentaires_notes.trim() && !entry.notes) entry.notes = ev.commentaires_notes;
+            });
+            
+            // Map des ventes par date pour calculer l'impact
+            const ventesMap = new Map();
+            ventesPeriode.forEach(v => {
+                ventesMap.set(dayjs(v.date).format('YYYY-MM-DD'), {
+                    ventes: parseFloat(v.ventes_total) || 0,
+                    ventesBel: parseFloat(v.ventes_bel) || 0
+                });
+            });
+            
+            let html = '<div style="overflow-x: auto;"><table style="width:100%; font-size:0.75rem;">';
+            html += '<thead><tr><th>Date</th><th>Événements</th><th>Impact ventes</th><th>Contexte</th></tr></thead><tbody>';
+            
+            const sortedEvents = Array.from(eventsByDate.values()).sort((a,b) => dayjs(b.date).diff(dayjs(a.date)));
+            
+            sortedEvents.forEach(ev => {
+                const dateKey = dayjs(ev.date).format('YYYY-MM-DD');
+                const ventesData = ventesMap.get(dateKey) || { ventes: 0, ventesBel: 0 };
                 
-                // Contexte (politique, grèves, fériés, médias)
-                let contexte = [];
-                if (ev.politique_actualite && ev.politique_actualite !== '') contexte.push(`🗳️ ${ev.politique_actualite}`);
-                if (ev.fetec2a9ries_conges && ev.fetec2a9ries_conges !== '') contexte.push(`📅 ${ev.fetec2a9ries_conges}`);
-                if (ev.couvertures_mediatiques && ev.couvertures_mediatiques !== '') contexte.push(`📰 ${ev.couvertures_mediatiques}`);
-                let contexteText = contexte.length ? contexte.join(' • ') : '—';
+                // Impact vs jour précédent
+                const prevDay = dayjs(ev.date).subtract(1, 'day').format('YYYY-MM-DD');
+                const prevVentes = ventesMap.get(prevDay)?.ventes || 0;
+                const impact = prevVentes > 0 ? ((ventesData.ventes - prevVentes) / prevVentes * 100) : 0;
+                const impactColor = impact > 10 ? '#2b7e3a' : impact < -10 ? '#bc5a2c' : '#6c7e8f';
+                const impactIcon = impact > 10 ? '▲' : impact < -10 ? '▼' : '●';
                 
-                // Description/Notes
-                let description = ev.commentaires_notes || ev.description || '—';
-                if (description.length > 100) description = description.substring(0, 100) + '…';
+                // Badges d'actions
+                let actionBadges = [];
+                ev.rabais.forEach(r => actionBadges.push(`<span class="badge" style="background:#ffe0b5;">🏷️ ${r.substring(0, 35)}</span>`));
+                ev.lancements.forEach(l => actionBadges.push(`<span class="badge" style="background:#d4e8d4;">✨ ${l.substring(0, 35)}</span>`));
+                if (ev.infolettre) actionBadges.push(`<span class="badge" style="background:#cde0f5;">📧 Infolettre</span>`);
+                if (ev.push) actionBadges.push(`<span class="badge" style="background:#cde0f5;">📱 Push</span>`);
+                if (ev.blogue) actionBadges.push(`<span class="badge" style="background:#cde0f5;">📝 Blogue</span>`);
+                if (ev.web) actionBadges.push(`<span class="badge" style="background:#cde0f5;">🌐 Web</span>`);
+                if (ev.bis) actionBadges.push(`<span class="badge" style="background:#cde0f5;">🔄 BIS</span>`);
+                
+                let actionHtml = actionBadges.length ? actionBadges.join(' ') : '<span style="color:#aaa;">—</span>';
+                
+                // Notes
+                let notesHtml = '';
+                if (ev.notes && ev.notes !== '—') {
+                    let shortNote = ev.notes.length > 80 ? ev.notes.substring(0, 80) + '…' : ev.notes;
+                    notesHtml = `<div style="font-size:0.7rem; color:#666; margin-top:4px;">📝 ${shortNote}</div>`;
+                }
+                
+                // Contexte
+                let contexteParts = [];
+                if (ev.meteo) contexteParts.push(`🌡️ ${ev.temperature ? ev.temperature + '°C' : ''} ${ev.meteo}`);
+                if (ev.politique) contexteParts.push(`🗳️ ${ev.politique}`);
+                if (ev.conges) contexteParts.push(`📅 ${ev.conges}`);
+                if (ev.medias) contexteParts.push(`📰 ${ev.medias}`);
+                let contexteHtml = contexteParts.length ? contexteParts.join(' • ') : '—';
                 
                 html += `<tr>
-                    <td>${dayjs(ev.date).format('DD/MM/YYYY')}</td>
-                    <td>${actionText}</td>
-                    <td>${description}</td>
-                    <td>${meteoText}</td>
-                    <td>${contexteText}</td>
+                    <td><strong>${dayjs(ev.date).format('DD/MM/YYYY')}</strong><br><span style="font-size:0.65rem; color:#888;">${dayjs(ev.date).format('dddd')}</span></td>
+                    <td>${actionHtml}${notesHtml}</td>
+                    <td style="text-align:right;">
+                        <strong>${ventesData.ventes.toLocaleString('fr-CA')} $</strong><br>
+                        <span style="color:${impactColor}; font-size:0.7rem;">${impactIcon} ${impact > 0 ? '+' : ''}${impact.toFixed(1)}% vs veille</span>
+                      </td>
+                    <td style="font-size:0.7rem;">${contexteHtml}</td>
                 </tr>`;
             });
-            html += '</tbody></table>';
+            
+            html += '</tbody></table></div>';
             document.getElementById('eventsTable').innerHTML = html;
         } else {
             document.getElementById('eventsTable').innerHTML = '<p class="warning">Aucun événement sur cette période</p>';
