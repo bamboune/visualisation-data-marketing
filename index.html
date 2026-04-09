@@ -113,12 +113,11 @@
             if (!response.ok) throw new Error('data.json introuvable');
             fullData = await response.json();
             console.log("Données chargées:", fullData.ventes?.length || 0, "jours");
-            console.log("Événements:", fullData.evenements?.length || 0);
-            console.log("Publications:", fullData.publications?.length || 0);
             initFilters();
             renderAll();
         } catch (err) {
-            document.body.innerHTML = `<div style="padding:2rem;text-align:center;color:red;">❌ ${err.message}</div>`;
+            console.error(err);
+            document.getElementById('emailTable').innerHTML = `<p class="warning">Erreur: ${err.message}</p>`;
         }
     }
 
@@ -159,26 +158,17 @@
 
     function getFilteredEvents(ventes) {
         const periodeDates = new Set(ventes.map(v => dayjs(v.date).format('YYYY-MM-DD')));
-        return (fullData?.evenements || []).filter(ev => {
-            if (!ev.date) return false;
-            return periodeDates.has(dayjs(ev.date).format('YYYY-MM-DD'));
-        });
+        return (fullData?.evenements || []).filter(ev => ev.date && periodeDates.has(dayjs(ev.date).format('YYYY-MM-DD')));
     }
 
     function getFilteredPublications(ventes) {
         const periodeDates = new Set(ventes.map(v => dayjs(v.date).format('YYYY-MM-DD')));
-        return (fullData?.publications || []).filter(pub => {
-            if (!pub.date) return false;
-            return periodeDates.has(dayjs(pub.date).format('YYYY-MM-DD'));
-        });
+        return (fullData?.publications || []).filter(pub => pub.date && periodeDates.has(dayjs(pub.date).format('YYYY-MM-DD')));
     }
 
     function getFilteredInfolettres(ventes) {
         const periodeDates = new Set(ventes.map(v => dayjs(v.date).format('YYYY-MM-DD')));
-        return (fullData?.infolettres || []).filter(inf => {
-            if (!inf.date_envoi) return false;
-            return periodeDates.has(dayjs(inf.date_envoi).format('YYYY-MM-DD'));
-        });
+        return (fullData?.infolettres || []).filter(inf => inf.date_envoi && periodeDates.has(dayjs(inf.date_envoi).format('YYYY-MM-DD')));
     }
 
     function computeKPIs(ventes, channel) {
@@ -219,11 +209,14 @@
         document.getElementById('avgSales').innerHTML = kpis.avgDaily.toLocaleString('fr-CA') + ' $';
         document.getElementById('avgCart').innerHTML = kpis.avgCart.toLocaleString('fr-CA') + ' $';
         document.getElementById('totalOrders').innerHTML = kpis.totalOrders.toLocaleString('fr-CA');
+        document.getElementById('salesCompare').innerHTML = `${ventes.length} jours`;
+        document.getElementById('avgCompare').innerHTML = ``;
     }
 
     function renderPublications(publications) {
+        const container = document.getElementById('socialTable');
         if (!publications.length) {
-            document.getElementById('socialTable').innerHTML = '<p class="warning">Aucune publication sur cette période</p>';
+            container.innerHTML = '<p class="warning">Aucune publication sur cette période</p>';
             return;
         }
         let html = '<table style="width:100%"><thead><tr><th>Date</th><th>Plateforme</th><th>Contenu</th><th>Likes</th></tr></thead><tbody>';
@@ -237,12 +230,13 @@
             </tr>`;
         });
         html += '</tbody></table>';
-        document.getElementById('socialTable').innerHTML = html;
+        container.innerHTML = html;
     }
 
     function renderInfolettres(infolettres) {
+        const container = document.getElementById('emailTable');
         if (!infolettres.length) {
-            document.getElementById('emailTable').innerHTML = '<p class="warning">Aucune infolettre sur cette période</p>';
+            container.innerHTML = '<p class="warning">Aucune infolettre sur cette période</p>';
             return;
         }
         let html = '<table style="width:100%"><thead><tr><th>Date</th><th>Sujet</th><th>Taux ouverture</th></tr></thead><tbody>';
@@ -254,12 +248,13 @@
             </tr>`;
         });
         html += '</tbody></table>';
-        document.getElementById('emailTable').innerHTML = html;
+        container.innerHTML = html;
     }
 
     function renderEvents(events, ventes) {
+        const container = document.getElementById('eventsTable');
         if (!events.length) {
-            document.getElementById('eventsTable').innerHTML = '<p class="warning">Aucun événement sur cette période</p>';
+            container.innerHTML = '<p class="warning">Aucun événement sur cette période</p>';
             return;
         }
         
@@ -277,22 +272,25 @@
             if (ev.lancement_produits_ateliers && ev.lancement_produits_ateliers.trim()) actions.push(`✨ ${ev.lancement_produits_ateliers.substring(0, 30)}`);
             if (ev.infolettre && ev.infolettre.trim()) actions.push(`📧 Infolettre`);
             if (ev.push_notif && ev.push_notif.trim()) actions.push(`📱 Push`);
+            if (ev.billet_blogue && ev.billet_blogue.trim()) actions.push(`📝 Blogue`);
             
             let contexte = [];
             if (ev.meteo_montreal) contexte.push(`🌡️ ${ev.meteo_montreal}`);
             if (ev.politique_actualite) contexte.push(`🗳️ ${ev.politique_actualite.substring(0, 40)}`);
             if (ev.fetec2a9ries_conges) contexte.push(`📅 ${ev.fetec2a9ries_conges}`);
             
+            let notes = ev.commentaires_notes ? `<div style="font-size:0.7rem;color:#666;">📝 ${ev.commentaires_notes.substring(0, 60)}</div>` : '';
+            
             html += `<tr>
                 <td><strong>${dayjs(ev.date).format('DD/MM/YYYY')}</strong><br><span style="font-size:0.65rem;">${dayjs(ev.date).format('dddd')}</span></td>
-                <td>${actions.length ? actions.join(' • ') : '—'}${ev.commentaires_notes ? `<div style="font-size:0.7rem;color:#666;">📝 ${ev.commentaires_notes.substring(0, 60)}</div>` : ''}</td>
+                <td>${actions.length ? actions.join(' • ') : '—'}${notes}</td>
                 <td style="text-align:right;"><strong>${ventesDay.toLocaleString('fr-CA')} $</strong></td>
                 <td style="font-size:0.7rem;">${contexte.join(' • ') || '—'}</td>
             </tr>`;
         });
         
-        html += '</tbody><table></div>';
-        document.getElementById('eventsTable').innerHTML = html;
+        html += '</tbody></table></div>';
+        container.innerHTML = html;
     }
 
     function renderWeather(ventes) {
@@ -307,7 +305,7 @@
         `;
     }
 
-    function renderChart(ventes, channel) {
+    function renderChartAndTable(ventes, channel) {
         const isMonthly = currentView === 'monthly';
         
         if (isMonthly) {
@@ -368,19 +366,20 @@
         const ventes = getFilteredVentes();
         const channel = document.getElementById('channelFilter').value;
         
-        if (!ventes.length) return;
+        if (!ventes.length) {
+            document.getElementById('totalSales').innerHTML = '0 $';
+            document.getElementById('emailTable').innerHTML = '<p class="warning">Aucune donnée pour cette période</p>';
+            document.getElementById('socialTable').innerHTML = '<p class="warning">Aucune donnée pour cette période</p>';
+            document.getElementById('eventsTable').innerHTML = '<p class="warning">Aucune donnée pour cette période</p>';
+            return;
+        }
         
         renderKPIs(ventes, channel);
-        renderChart(ventes, channel);
+        renderChartAndTable(ventes, channel);
         renderWeather(ventes);
-        
-        const publications = getFilteredPublications(ventes);
-        const infolettres = getFilteredInfolettres(ventes);
-        const events = getFilteredEvents(ventes);
-        
-        renderPublications(publications);
-        renderInfolettres(infolettres);
-        renderEvents(events, ventes);
+        renderPublications(getFilteredPublications(ventes));
+        renderInfolettres(getFilteredInfolettres(ventes));
+        renderEvents(getFilteredEvents(ventes), ventes);
     }
 
     function exportCSV() {
@@ -398,6 +397,7 @@
         link.click();
     }
 
+    // Event listeners
     document.getElementById('yearFilter').addEventListener('change', () => { updateMonthFilter(); renderAll(); });
     document.getElementById('monthFilter').addEventListener('change', () => renderAll());
     document.getElementById('channelFilter').addEventListener('change', () => renderAll());
