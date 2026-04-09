@@ -22,7 +22,6 @@
         .btn-toggle.active { background: #2c7cb6; color: white; }
         .btn-export { background: #2c7cb6; color: white; border: none; border-radius: 40px; padding: 8px 20px; cursor: pointer; font-size: 0.8rem; }
         .reset-btn { background: #eef2f9; border: none; border-radius: 40px; padding: 8px 20px; cursor: pointer; }
-        .warning-banner { background: #fff3e0; border-left: 5px solid #e67e22; border-radius: 12px; padding: 12px 20px; margin-bottom: 24px; font-size: 0.85rem; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
         .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 28px; }
         .kpi-card { background: white; border-radius: 20px; padding: 18px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
         .kpi-value { font-size: 2rem; font-weight: 700; color: #1a3a57; }
@@ -38,8 +37,9 @@
         th, td { padding: 10px 8px; text-align: left; border-bottom: 1px solid #ecf0f4; }
         th { font-weight: 600; color: #2f5b82; background: #f9fbfd; }
         .badge { background: #e3f0fc; border-radius: 30px; padding: 2px 10px; font-size: 0.7rem; display: inline-block; margin: 2px; }
+        .weather-bar { background: white; border-radius: 20px; padding: 12px 20px; margin-bottom: 28px; display: flex; flex-wrap: wrap; justify-content: space-around; gap: 16px; font-size: 0.85rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
         .warning { background: #fff3e0; color: #c97e00; padding: 12px; border-radius: 12px; text-align: center; }
-        @media (max-width: 680px) { body { padding: 16px; } .kpi-value { font-size: 1.4rem; } }
+        @media (max-width: 680px) { body { padding: 16px; } .kpi-value { font-size: 1.4rem; } .weather-bar { flex-direction: column; align-items: center; } }
     </style>
 </head>
 <body>
@@ -64,11 +64,6 @@
         <button class="reset-btn" id="resetBtn"><i class="fas fa-undo-alt"></i> Réinitialiser</button>
     </div>
 
-    <div class="warning-banner">
-        <i class="fas fa-info-circle" style="color: #e67e22; font-size: 1.2rem;"></i>
-        <span><strong>Note sur les données de ventes</strong> : Ventes nettes après rabais, avant taxes et livraison. L’objectif est de mesurer <strong>l’impact des actions marketing</strong>.</span>
-    </div>
-
     <div class="filters-card" style="padding: 12px 24px; justify-content: flex-end;">
         <span style="font-size:0.7rem; color:#4b6b8a;">Mode d'affichage :</span>
         <button class="btn-toggle" id="viewMonthlyBtn">📊 Vue mensuelle</button>
@@ -87,13 +82,16 @@
         <canvas id="salesChart" height="300" style="max-height: 350px;"></canvas>
     </div>
 
+    <!-- Bandeau météo compact -->
+    <div id="weatherInsight" class="weather-bar">Chargement...</div>
+
     <div class="two-columns">
         <div class="insight-card"><h3><i class="fas fa-envelope-open-text"></i> 📧 Infolettres (période)</h3><div id="emailTable">Chargement...</div></div>
         <div class="insight-card"><h3><i class="fab fa-instagram"></i> 📱 Réseaux sociaux (période)</h3><div id="socialTable">Chargement...</div></div>
     </div>
     <div class="two-columns">
-        <div class="insight-card"><h3><i class="fas fa-cloud-sun-rain"></i> 🌦️ Météo vs ventes</h3><div id="weatherInsight">Chargement...</div></div>
         <div class="insight-card"><h3><i class="fas fa-calendar-star"></i> ⚡ Événements marketing</h3><div id="eventsTable">Chargement...</div></div>
+        <div class="insight-card"><h3> </h3><div></div></div> <!-- placeholder pour alignement -->
     </div>
 
     <div class="table-container">
@@ -113,10 +111,6 @@
             if (!response.ok) throw new Error('data.json introuvable');
             fullData = await response.json();
             console.log("Données chargées:", fullData.ventes.length, "jours");
-            console.log("Nombre d'événements:", fullData.evenements?.length);
-            if (fullData.evenements?.length) {
-                console.log("🔍 Premier événement (brut) :", fullData.evenements[0]);
-            }
             initFilters();
             applyFiltersAndRender();
         } catch (err) {
@@ -231,49 +225,50 @@
         // Réseaux sociaux
         let posts = (fullData.publications || []).filter(p => ventesPeriode.some(v => dayjs(v.date).format('YYYY-MM-DD') === dayjs(p.date).format('YYYY-MM-DD')));
         if (posts.length) {
-            let html = '<table style="width:100%"><thead><tr><th>Date</th><th>Plateforme</th><th>Contenu</th><th>Likes</th></td></thead><tbody>';
+            let html = '<table style="width:100%"><thead><tr><th>Date</th><th>Plateforme</th><th>Contenu</th><th>Likes</th></tr></thead><tbody>';
             posts.forEach(p => {
                 let desc = (p.description_courte || p.title || '').substring(0, 80);
-                html += `<td>
+                html += `<tr>
                     <td>${dayjs(p.date).format('DD/MM/YYYY')}</td>
                     <td>${p.plateforme || '—'}</td>
                     <td>${desc}${desc.length === 80 ? '…' : ''}</td>
                     <td>${p.likes || '—'}</td>
                 </tr>`;
             });
-            html += '</tbody></tr>';
+            html += '</tbody><tr>';
             document.getElementById('socialTable').innerHTML = html;
         } else {
             document.getElementById('socialTable').innerHTML = '<p class="warning">Aucune publication sur cette période</p>';
         }
         
-        // Météo
-        const rainDays = ventesPeriode.filter(v => (v.precipitation_mm || 0) > 0.5);
-        const dryDays = ventesPeriode.filter(v => (v.precipitation_mm || 0) <= 0.5);
-        const avgRain = rainDays.length ? rainDays.reduce((a,b)=>a+(b.ventes_total||0),0)/rainDays.length : 0;
-        const avgDry = dryDays.length ? dryDays.reduce((a,b)=>a+(b.ventes_total||0),0)/dryDays.length : 0;
-        document.getElementById('weatherInsight').innerHTML = `
-            <div><strong>☔ Jours avec précipitations</strong> : ${rainDays.length} jours → moyenne ${avgRain.toLocaleString('fr-CA')} $</div>
-            <div><strong>☀️ Jours secs</strong> : ${dryDays.length} jours → moyenne ${avgDry.toLocaleString('fr-CA')} $</div>
-            <div><strong>📊 Différence</strong> : ${avgRain > avgDry ? '▲ +' : '▼ '}${Math.abs(((avgRain-avgDry)/avgDry*100)||0).toFixed(1)}%</div>
-        `;
-        
-        // Événements marketing (affichage brut)
+        // Événements marketing (affichage structuré)
         const events = (fullData.evenements || []).filter(ev => ventesPeriode.some(v => dayjs(v.date).format('YYYY-MM-DD') === dayjs(ev.date).format('YYYY-MM-DD')));
         if (events.length) {
-            let html = '<div style="overflow-x:auto;"><table style="width:100%; font-size:0.75rem;"><thead><tr><th>Date</th><th>Contenu brut (debug)</th></tr></thead><tbody>';
+            let html = '<div style="overflow-x:auto;"><table style="width:100%; font-size:0.75rem;"><thead><tr><th>Date</th><th>Actions</th><th>Contexte / Notes</th></tr></thead><tbody>';
             events.forEach(ev => {
-                // Afficher toutes les propriétés sauf 'date'
-                let details = [];
+                // Regrouper les colonnes d'action (celles qui ne sont pas 'col_11' ni 'col_14' ni 'date')
+                let actions = [];
+                let contexte = [];
                 for (let [key, value] of Object.entries(ev)) {
-                    if (key !== 'date' && value && value.toString().trim() !== '') {
-                        details.push(`${key}: ${value}`);
+                    if (key === 'date') continue;
+                    if (!value || value.toString().trim() === '') continue;
+                    // Identifier les colonnes de contexte (col_11) et notes (col_14)
+                    if (key === 'col_11') {
+                        contexte.push(value);
+                    } else if (key === 'col_14') {
+                        contexte.push(`📝 ${value}`);
+                    } else {
+                        // Pour les autres, on enlève le préfixe 'col_' et on affiche
+                        let label = key.replace(/^col_/, '');
+                        actions.push(`${label}: ${value}`);
                     }
                 }
-                let debugText = details.length ? details.join(' | ') : '⚠️ Aucune donnée (objet vide ou mal formaté)';
+                let actionsHtml = actions.length ? actions.join(' · ') : '—';
+                let contexteHtml = contexte.length ? contexte.join(' · ') : '—';
                 html += `<tr>
                     <td><strong>${dayjs(ev.date).format('DD/MM/YYYY')}</strong><br><span style="font-size:0.65rem;">${dayjs(ev.date).format('dddd')}</span></td>
-                    <td>${debugText}</td>
+                    <td>${actionsHtml}</td>
+                    <td style="font-size:0.7rem; color:#666;">${contexteHtml}</td>
                 </tr>`;
             });
             html += '</tbody></table></div>';
@@ -281,6 +276,20 @@
         } else {
             document.getElementById('eventsTable').innerHTML = '<p class="warning">Aucun événement sur cette période</p>';
         }
+    }
+
+    function renderWeather(ventes) {
+        const rainDays = ventes.filter(v => (v.precipitation_mm || 0) > 0.5);
+        const dryDays = ventes.filter(v => (v.precipitation_mm || 0) <= 0.5);
+        const avgRain = rainDays.length ? rainDays.reduce((a,b)=>a+(b.ventes_total||0),0)/rainDays.length : 0;
+        const avgDry = dryDays.length ? dryDays.reduce((a,b)=>a+(b.ventes_total||0),0)/dryDays.length : 0;
+        const diff = avgRain > avgDry ? '▲ +' : '▼ ';
+        const diffValue = Math.abs(((avgRain-avgDry)/avgDry*100)||0).toFixed(1);
+        document.getElementById('weatherInsight').innerHTML = `
+            <div><strong>☔ Jours avec précipitations</strong> : ${rainDays.length} jours → moyenne ${avgRain.toLocaleString('fr-CA')} $</div>
+            <div><strong>☀️ Jours secs</strong> : ${dryDays.length} jours → moyenne ${avgDry.toLocaleString('fr-CA')} $</div>
+            <div><strong>📊 Différence</strong> : ${diff}${diffValue}%</div>
+        `;
     }
 
     function applyFiltersAndRender() {
@@ -300,6 +309,9 @@
         const comp = getComparison(ventes, channel, year, month);
         document.getElementById('salesCompare').innerHTML = `${comp.text} : ${comp.change > 0 ? '▲ +' : '▼ '}${Math.abs(comp.change).toFixed(1)}%`;
         
+        // Météo
+        renderWeather(ventes);
+        
         if (currentView === 'monthly') {
             const monthly = aggregateMonthly(ventes, channel);
             document.getElementById('chartTitle').innerHTML = '📊 Ventes mensuelles';
@@ -311,7 +323,7 @@
                 data: { labels: monthly.map(m=>m.period), datasets: [{ label: 'Ventes ($)', data: monthly.map(m=>m.total), backgroundColor: '#2c7cb6', borderRadius: 8 }] },
                 options: { responsive: true }
             });
-            document.getElementById('tableHeader').innerHTML = '<table><th>Mois</th><th>Ventes totales</th><th>Moyenne / jour</th></tr>';
+            document.getElementById('tableHeader').innerHTML = '<tr><th>Mois</th><th>Ventes totales</th><th>Moyenne / jour</th></tr>';
             document.getElementById('tableBody').innerHTML = monthly.map(m => `<tr>
                 <td>${m.period}</td>
                 <td>${m.total.toLocaleString('fr-CA')} $</td>
