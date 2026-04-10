@@ -134,18 +134,25 @@ def main():
     print(f"   ⚡ Événements : {len(evenements)} lignes")
     
     # ==================== DIAGNOSTIC ====================
-    # Afficher les 5 premières lignes brutes de la feuille evenements_marketing
-    print("\n🔍 DIAGNOSTIC - evenements_marketing (5 premières lignes brutes) :")
+        # Afficher les 5 dernières lignes brutes de la feuille (pour debug)
     try:
         scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
         creds = ServiceAccountCredentials.from_json_keyfile_name(SERVICE_ACCOUNT_FILE, scope)
         client = gspread.authorize(creds)
         sheet_raw = client.open_by_key(SPREADSHEET_ID).worksheet("evenements_marketing")
         all_raw = sheet_raw.get_all_values()
-        for i in range(min(5, len(all_raw))):
+        print("\n🔍 Dernières lignes brutes de evenements_marketing :")
+        for i in range(max(0, len(all_raw)-5), len(all_raw)):
             print(f"   Ligne {i+1}: {all_raw[i][:5]}")  # affiche les 5 premières colonnes
     except Exception as e:
-        print(f"   ❌ Erreur diagnostic: {e}")
+        print(f"   ❌ Erreur affichage brut: {e}")
+    
+    # Afficher les 5 derniers événements lus dans le DataFrame
+    if len(evenements) > 0:
+        print("\n🔍 Derniers événements dans le DataFrame :")
+        for i in range(max(0, len(evenements)-5), len(evenements)):
+            row = evenements.iloc[i]
+            print(f"   date={row.get('date', '?')}, rabais={row.get('rabais_promos', '')}, lancement={row.get('lancement_produits_ateliers', '')}")
     # ====================================================
     
     if ventes.empty:
