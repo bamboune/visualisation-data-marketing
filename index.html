@@ -241,18 +241,25 @@
 
         .warning-msg { color: #8a8f9e; font-size: 0.82rem; text-align: center; padding: 14px 0; }
 
-        /* EVENTS SEARCH */
-        .events-search {
-            width: 100%;
-            padding: 8px 12px;
-            margin-bottom: 12px;
-            border-radius: 8px;
-            border: 1px solid #ddd8d0;
-            background: #faf8f5;
+        /* GLOBAL SEARCH */
+        .search-input {
+            background: #ffffff;
             color: #1e2330;
-            font-size: 0.82rem;
+            border: 1px solid #ddd8d0;
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-size: 0.85rem;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+            width: 210px;
         }
-        .events-search:focus { outline: none; border-color: #7c6fa0; }
+        .search-input:focus { outline: none; border-color: #7c6fa0; }
+        .search-results-card {
+            background: #ffffff;
+            border: 1px solid #e8e3db;
+            border-radius: 14px;
+            padding: 20px 22px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
 
         /* MODAL */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(30,35,48,0.45); justify-content: center; align-items: center; z-index: 1000; }
@@ -353,6 +360,7 @@
                 <option value="bel">BEL (online)</option>
                 <option value="boutique">Boutique</option>
             </select>
+            <input type="text" id="globalSearch" class="search-input" placeholder="🔍 Rechercher un événement…">
             <button class="btn-reset" id="resetBtn">Réinitialiser</button>
             <button class="btn-add" id="openModalBtn">+ Événement</button>
         </div>
@@ -407,7 +415,6 @@
                     <div class="card-title">⚡ Événements marketing et contexte</div>
                     <span class="badge-count" id="eventsCount">0</span>
                 </div>
-                <input type="text" id="eventsSearch" class="events-search" placeholder="Rechercher par date, action ou note…" style="display:none;">
                 <div id="eventsBody"></div>
             </div>
             <div class="chart-card">
@@ -431,6 +438,14 @@
                 </div>
                 <div id="socialBody"></div>
             </div>
+        </div>
+    </div>
+
+    <!-- VUE RECHERCHE -->
+    <div id="searchView" style="display:none;">
+        <div class="search-results-card">
+            <div class="card-title-sm" id="searchResultsHeader">Résultats</div>
+            <div id="searchResultsBody"></div>
         </div>
     </div>
 
@@ -738,19 +753,31 @@
     }
 
     // ── EVENTS TABLE ──
-    function renderEventsTable(monthKey) {
-        const searchEl = document.getElementById('eventsSearch');
-        searchEl.value = '';
+    function buildEventRow(ev, showFullDate) {
+        const d = dayjs(ev.date);
+        const dateStr = showFullDate
+            ? d.date() + ' ' + MONTHS_SHORT[d.month()] + ' ' + d.year() + ' · ' + DAYS_FR[d.day()]
+            : d.format('DD/MM') + ' ' + DAYS_FR[d.day()];
+        const actions = ACTION_COLS.map(k => ev[k]?.toString().trim()).filter(Boolean).join(' · ') || '—';
+        const notes   = [...CONTEXTE_COLS.map(k => ev[k]?.toString().trim()), ev.commentaires_notes?.toString().trim()].filter(Boolean).join(' · ');
+        const isMarketing = ACTION_COLS.some(k => ev[k]?.toString().trim());
+        const isContexte  = CONTEXTE_COLS.some(k => ev[k]?.toString().trim());
+        const tagHtml = (isMarketing ? ' <span class="tag-marketing">marketing</span>' : '')
+                      + (isContexte  ? ' <span class="tag-contexte">contexte</span>'  : '');
+        return `<tr>
+            <td class="date-cell">${dateStr}</td>
+            <td class="action-cell">${actions}${tagHtml}</td>
+            <td class="note-cell">${notes}</td>
+        </tr>`;
+    }
 
+    function renderEventsTable(monthKey) {
         const [y, m] = monthKey.split('-').map(Number);
         const start = `${monthKey}-01`;
         const end   = dayjs(new Date(y, m, 0)).format('YYYY-MM-DD');
 
         const events = (fullData.evenements || [])
-            .filter(ev => {
-                const d = dayjs(ev.date).format('YYYY-MM-DD');
-                return d >= start && d <= end;
-            })
+            .filter(ev => { const d = dayjs(ev.date).format('YYYY-MM-DD'); return d >= start && d <= end; })
             .filter(ev =>
                 ACTION_COLS.some(k => ev[k]?.toString().trim()) ||
                 CONTEXTE_COLS.some(k => ev[k]?.toString().trim()) ||
@@ -760,52 +787,51 @@
 
         document.getElementById('eventsCount').textContent = events.length;
 
-        function buildEventsHTML(list) {
-            if (!list.length) return '<p class="warning-msg">Aucun événement trouvé.</p>';
-            let html = '<table class="mini-table"><thead><tr><th>Date</th><th>Action</th><th>Note</th></tr></thead><tbody>';
-            list.forEach(ev => {
-                const d = dayjs(ev.date);
-                const dateStr = d.format('DD/MM') + ' ' + DAYS_FR[d.day()];
-                const actions = ACTION_COLS.map(k => ev[k]?.toString().trim()).filter(Boolean).join(' · ') || '—';
-                const notes   = [...CONTEXTE_COLS.map(k => ev[k]?.toString().trim()), ev.commentaires_notes?.toString().trim()].filter(Boolean).join(' · ');
-                const isMarketing = ACTION_COLS.some(k => ev[k]?.toString().trim());
-                const isContexte  = CONTEXTE_COLS.some(k => ev[k]?.toString().trim());
-                const tagHtml = (isMarketing ? ' <span class="tag-marketing">marketing</span>' : '')
-                              + (isContexte  ? ' <span class="tag-contexte">contexte</span>'  : '');
-                html += `<tr>
-                    <td class="date-cell">${dateStr}</td>
-                    <td class="action-cell">${actions}${tagHtml}</td>
-                    <td class="note-cell">${notes}</td>
-                </tr>`;
-            });
-            html += '</tbody></table>';
-            return html;
-        }
-
         if (!events.length) {
             document.getElementById('eventsBody').innerHTML = '<p class="warning-msg">Aucun événement ce mois</p>';
-            searchEl.style.display = 'none';
             return;
         }
+        let html = '<table class="mini-table"><thead><tr><th>Date</th><th>Action</th><th>Note</th></tr></thead><tbody>';
+        events.forEach(ev => { html += buildEventRow(ev, false); });
+        html += '</tbody></table>';
+        document.getElementById('eventsBody').innerHTML = html;
+    }
 
-        searchEl.style.display = 'block';
-        document.getElementById('eventsBody').innerHTML = buildEventsHTML(events);
+    // ── GLOBAL SEARCH ──
+    function renderSearchResults(query) {
+        const q = query.toLowerCase().trim();
+        document.getElementById('annualView').style.display  = 'none';
+        document.getElementById('monthlyView').style.display = 'none';
+        document.getElementById('weatherBar').style.display  = 'none';
+        document.getElementById('viewToggles').style.display = 'none';
+        document.getElementById('searchView').style.display  = 'block';
 
-        // Remplace l'élément pour retirer les anciens listeners
-        const fresh = searchEl.cloneNode(true);
-        searchEl.parentNode.replaceChild(fresh, searchEl);
-        fresh.addEventListener('input', () => {
-            const q = fresh.value.toLowerCase().trim();
-            if (!q) { document.getElementById('eventsBody').innerHTML = buildEventsHTML(events); return; }
-            const filtered = events.filter(ev => {
+        const filtered = (fullData.evenements || [])
+            .filter(ev =>
+                ACTION_COLS.some(k => ev[k]?.toString().trim()) ||
+                CONTEXTE_COLS.some(k => ev[k]?.toString().trim()) ||
+                ev.commentaires_notes?.toString().trim()
+            )
+            .filter(ev => {
                 const d = dayjs(ev.date);
-                const dateStr = d.format('DD/MM') + ' ' + DAYS_FR[d.day()];
+                const dateStr = d.date() + ' ' + MONTHS_SHORT[d.month()] + ' ' + d.year();
                 const actions = ACTION_COLS.map(k => ev[k]?.toString().trim()).filter(Boolean).join(' ');
                 const notes   = [...CONTEXTE_COLS.map(k => ev[k]?.toString().trim()), ev.commentaires_notes?.toString().trim()].filter(Boolean).join(' ');
                 return (dateStr + ' ' + actions + ' ' + notes).toLowerCase().includes(q);
-            });
-            document.getElementById('eventsBody').innerHTML = buildEventsHTML(filtered);
-        });
+            })
+            .sort((a,b) => dayjs(b.date).diff(dayjs(a.date)));
+
+        document.getElementById('searchResultsHeader').textContent =
+            `${filtered.length} résultat${filtered.length !== 1 ? 's' : ''} pour "${query}"`;
+
+        if (!filtered.length) {
+            document.getElementById('searchResultsBody').innerHTML = '<p class="warning-msg">Aucun événement trouvé.</p>';
+            return;
+        }
+        let html = '<table class="mini-table"><thead><tr><th>Date</th><th>Action</th><th>Note</th></tr></thead><tbody>';
+        filtered.forEach(ev => { html += buildEventRow(ev, true); });
+        html += '</tbody></table>';
+        document.getElementById('searchResultsBody').innerHTML = html;
     }
 
     // ── EMAIL TABLE ──
@@ -954,7 +980,19 @@
     document.getElementById('monthFilter').addEventListener('change', applyFiltersAndRender);
     document.getElementById('channelFilter').addEventListener('change', applyFiltersAndRender);
 
+    document.getElementById('globalSearch').addEventListener('input', function() {
+        const q = this.value.trim();
+        if (q.length === 0) {
+            document.getElementById('searchView').style.display = 'none';
+            applyFiltersAndRender();
+        } else if (q.length >= 2) {
+            renderSearchResults(q);
+        }
+    });
+
     document.getElementById('resetBtn').addEventListener('click', () => {
+        document.getElementById('globalSearch').value = '';
+        document.getElementById('searchView').style.display = 'none';
         document.getElementById('yearFilter').value = document.getElementById('yearFilter').options[0]?.value;
         updateMonthFilter();
         document.getElementById('monthFilter').value = 'all';
