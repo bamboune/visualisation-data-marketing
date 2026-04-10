@@ -281,20 +281,29 @@
             document.getElementById('socialTable').innerHTML = '<p class="warning">Aucune publication sur cette période</p>';
         }
         
-        // Événements marketing
-        const events = (fullData.evenements || []).filter(ev => ventesPeriode.some(v => dayjs(v.date).format('YYYY-MM-DD') === dayjs(ev.date).format('YYYY-MM-DD')));
+        // Événements marketing — filtre par plage de dates (pas besoin de vente ce jour-là)
+        const periodStart = ventesPeriode.length ? dayjs(ventesPeriode[0].date) : null;
+        const periodEnd = ventesPeriode.length ? dayjs(ventesPeriode[ventesPeriode.length - 1].date) : null;
+        const events = (fullData.evenements || []).filter(ev => {
+            const evDate = dayjs(ev.date);
+            if (!evDate.isValid()) return false;
+            if (!periodStart || !periodEnd) return true;
+            return !evDate.isBefore(periodStart, 'day') && !evDate.isAfter(periodEnd, 'day');
+        });
         if (events.length) {
             let html = '<div style="overflow-x:auto;"><table style="width:100%; font-size:0.75rem;"><thead><tr><th>Date</th><th>Actions</th><th>Contexte / Notes</th></tr></thead><tbody>';
             events.forEach(ev => {
                 let actions = [];
                 let contexte = [];
+                const contexteKeys = ['temperature', 'meteo_montreal', 'meteo_generale', 'politique_actualite', 'fetes_feries_conges', 'couvertures_mediatiques'];
+                const notesKeys = ['commentaires_notes'];
                 for (let [key, value] of Object.entries(ev)) {
                     if (key === 'date') continue;
                     if (!value || value.toString().trim() === '') continue;
-                    if (key === 'col_11') {
-                        contexte.push(value);
-                    } else if (key === 'col_14') {
+                    if (notesKeys.includes(key)) {
                         contexte.push(`📝 ${value}`);
+                    } else if (contexteKeys.includes(key)) {
+                        contexte.push(value);
                     } else {
                         actions.push(value.toString());
                     }
