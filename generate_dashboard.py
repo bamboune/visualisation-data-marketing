@@ -138,7 +138,7 @@ def main():
     ventes = get_google_sheet("ventes_quotidiennes", header_row=1)
     infolettres = get_google_sheet("campagnes_email", header_row=1)
     publications = get_google_sheet("publications_social", header_row=1)
-    evenements = get_google_sheet("evenements_marketing", header_row=1)
+    evenements = get_google_sheet("evenements_marketing", header_row=2)
     
     print(f"   📊 Ventes brutes : {len(ventes)} lignes")
     print(f"   📧 Infolettres : {len(infolettres)} lignes")
