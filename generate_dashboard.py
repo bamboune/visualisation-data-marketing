@@ -17,37 +17,25 @@ def super_clean_numeric(value):
     if isinstance(value, (int, float)):
         return float(value)
     
-    # Convertir en chaîne
     s = str(value).strip()
     if s == '':
         return 0.0
     
-    # Afficher la valeur brute pour debug (premières occurrences)
     if not hasattr(super_clean_numeric, "count"):
         super_clean_numeric.count = 0
     if super_clean_numeric.count < 5:
         print(f"   🔍 Valeur brute: '{s}'")
         super_clean_numeric.count += 1
     
-    # Remplacer les virgules par des points (format français)
     s = s.replace(',', '.')
-    
-    # Supprimer TOUS les caractères sauf chiffres, point et moins
     s = re.sub(r'[^\d.-]', '', s)
-    
-    # Gérer les cas où il y a plusieurs points (ex: "1.234.56")
     parts = s.split('.')
     if len(parts) > 2:
-        # Reconstruire avec un seul point décimal
         s = parts[0] + ''.join(parts[1:-1]) + '.' + parts[-1]
-    
-    # Éviter les chaînes vides ou incohérentes
     if s == '' or s == '-' or s == '.':
         return 0.0
-    
     try:
-        result = float(s)
-        return result
+        return float(s)
     except:
         return 0.0
 
@@ -138,18 +126,32 @@ def main():
     ventes = get_google_sheet("ventes_quotidiennes", header_row=1)
     infolettres = get_google_sheet("campagnes_email", header_row=1)
     publications = get_google_sheet("publications_social", header_row=1)
-    evenements = get_google_sheet("evenements_marketing", header_row=2)
+    evenements = get_google_sheet("evenements_marketing", header_row=2)  # ← en-têtes ligne 2
     
     print(f"   📊 Ventes brutes : {len(ventes)} lignes")
     print(f"   📧 Infolettres : {len(infolettres)} lignes")
     print(f"   📱 Publications : {len(publications)} lignes")
     print(f"   ⚡ Événements : {len(evenements)} lignes")
     
+    # ==================== DIAGNOSTIC ====================
+    # Afficher les 5 premières lignes brutes de la feuille evenements_marketing
+    print("\n🔍 DIAGNOSTIC - evenements_marketing (5 premières lignes brutes) :")
+    try:
+        scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+        creds = ServiceAccountCredentials.from_json_keyfile_name(SERVICE_ACCOUNT_FILE, scope)
+        client = gspread.authorize(creds)
+        sheet_raw = client.open_by_key(SPREADSHEET_ID).worksheet("evenements_marketing")
+        all_raw = sheet_raw.get_all_values()
+        for i in range(min(5, len(all_raw))):
+            print(f"   Ligne {i+1}: {all_raw[i][:5]}")  # affiche les 5 premières colonnes
+    except Exception as e:
+        print(f"   ❌ Erreur diagnostic: {e}")
+    # ====================================================
+    
     if ventes.empty:
         print("❌ Aucune donnée de ventes")
         return
     
-    # Afficher les premières valeurs après conversion
     if 'ventes_bel' in ventes.columns:
         print(f"   🔍 Exemples ventes_bel après conversion : {ventes['ventes_bel'].head(5).tolist()}")
     
