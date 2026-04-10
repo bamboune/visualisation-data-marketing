@@ -25595,6 +25595,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 3
+    },
+    {
+      "date": "2026-04-09",
+      "ventes_bel": 4102.77,
+      "ventes_boutique": 1409.8,
+      "ventes_wholesale": 587.03,
+      "ventes_total": 6099.6,
+      "commandes_bel": 41.0,
+      "commandes_boutique": 25.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 67.0,
+      "panier_moyen_bel": 100.07,
+      "panier_moyen_boutique": 56.39,
+      "temp_max": 13.2,
+      "temp_min": -0.6,
+      "precipitation_mm": 0.3,
+      "snowfall_cm": 0.0,
+      "weather_code": 51
     }
   ],
   "infolettres": [
@@ -25782,6 +25800,20 @@
       "type_contenu": "image",
       "description_courte": "Ton meilleur truc pour y arriver? 🫠 Ton meilleur truc pour y arriver? 🫠",
       "lien_post": "https://www.facebook.com/reel/1110332517952799/",
+      "format": "",
+      "reach": 0.0,
+      "impressions": 0.0,
+      "likes": 0.0,
+      "commentaires": 0.0,
+      "partages": 0.0,
+      "sauvegardes": 0.0
+    },
+    {
+      "date": "2026-04-09",
+      "plateforme": "instagram",
+      "type_contenu": "image",
+      "description_courte": "Quand la ptite nouvelle dans l’équipe mélange tout l’monde à l’atelier 🤪 Ta réponse pref? #allô? #thankunext #hahahalol... Quand la ptite nouvelle dans l’équipe mélange tout l’monde à l’atelier 🤪 Ta",
+      "lien_post": "https://www.instagram.com/p/DW7NbBhDJoF",
       "format": "",
       "reach": 0.0,
       "impressions": 0.0,
@@ -38646,12 +38678,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9378746.93,
-    "total_ventes_bel": 6479948.05,
-    "total_ventes_boutique": 2388660.93,
-    "total_ventes_wholesale": 510137.94999999995,
-    "panier_moyen_bel": 94.7562447257384,
+    "total_ventes": 9384846.530000001,
+    "total_ventes_bel": 6484050.82,
+    "total_ventes_boutique": 2390070.73,
+    "total_ventes_wholesale": 510724.98,
+    "panier_moyen_bel": 94.75997891777935,
     "date_min": "2021-11-01",
-    "date_max": "2026-04-08"
+    "date_max": "2026-04-09"
   }
 }
