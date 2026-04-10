@@ -6,485 +6,655 @@
     <title>LMH Dashboard — ventes & marketing</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.10/dayjs.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, sans-serif; }
-        body { background: #f0f2f5; padding: 24px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0d0f14; color: #e8eaf0; font-family: system-ui, -apple-system, sans-serif; padding: 24px; min-height: 100vh; }
         .container { max-width: 1400px; margin: 0 auto; }
-        .header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 28px; }
-        .header h1 { font-size: 1.6rem; font-weight: 600; color: #1a3a57; }
-        .header p { color: #5a6e7c; font-size: 0.8rem; }
-        .header-buttons { display: flex; gap: 12px; }
-        .btn-primary { background: #2c7cb6; color: white; border: none; border-radius: 40px; padding: 8px 20px; cursor: pointer; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 8px; }
-        .btn-primary:hover { background: #1e5a86; }
-        .filters-card { background: white; border-radius: 20px; padding: 20px 24px; margin-bottom: 24px; display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        .filter-group { display: flex; flex-direction: column; gap: 6px; }
-        .filter-group label { font-size: 0.7rem; font-weight: 600; color: #4b6b8a; text-transform: uppercase; }
-        .filter-group select { padding: 8px 14px; border-radius: 12px; border: 1px solid #dce3ec; background: white; font-size: 0.9rem; cursor: pointer; }
-        .btn-toggle { background: #eef2f9; border: none; border-radius: 40px; padding: 8px 20px; font-weight: 500; cursor: pointer; font-size: 0.8rem; }
-        .btn-toggle.active { background: #2c7cb6; color: white; }
-        .reset-btn { background: #eef2f9; border: none; border-radius: 40px; padding: 8px 20px; cursor: pointer; }
-        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 28px; }
-        .kpi-card { background: white; border-radius: 20px; padding: 18px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        .kpi-value { font-size: 2rem; font-weight: 700; color: #1a3a57; }
-        .kpi-label { font-size: 0.7rem; color: #5b7d9e; text-transform: uppercase; margin-bottom: 8px; }
-        .kpi-compare { font-size: 0.7rem; margin-top: 8px; padding-top: 8px; border-top: 1px solid #eef2f8; }
-        .chart-container { background: white; border-radius: 20px; padding: 20px; margin-bottom: 28px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        .section-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 16px; border-left: 4px solid #2c7cb6; padding-left: 14px; }
-        .two-columns { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 24px; margin-bottom: 28px; }
-        .insight-card { background: white; border-radius: 20px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        .insight-card h3 { font-size: 1rem; margin-bottom: 16px; font-weight: 600; color: #1a3a57; }
-        .full-width-card { background: white; border-radius: 20px; padding: 20px; margin-bottom: 28px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        .table-container { background: white; border-radius: 20px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
-        th, td { padding: 10px 8px; text-align: left; border-bottom: 1px solid #ecf0f4; }
-        th { font-weight: 600; color: #2f5b82; background: #f9fbfd; }
-        .badge { background: #e3f0fc; border-radius: 30px; padding: 2px 10px; font-size: 0.7rem; display: inline-block; margin: 2px; }
-        .weather-bar { background: white; border-radius: 20px; padding: 12px 20px; margin-bottom: 28px; display: flex; flex-wrap: wrap; justify-content: space-around; gap: 16px; font-size: 0.85rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        .warning { background: #fff3e0; color: #c97e00; padding: 12px; border-radius: 12px; text-align: center; }
-        /* Modal */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 1000; }
-        .modal-content { background: white; border-radius: 28px; padding: 24px; max-width: 500px; width: 90%; }
-        .modal-content h2 { margin-bottom: 20px; }
-        .modal-content label { display: block; margin-top: 12px; font-weight: 600; color: #1a3a57; }
-        .modal-content input, .modal-content textarea { width: 100%; padding: 10px; margin-top: 4px; border-radius: 12px; border: 1px solid #dce3ec; }
-        .modal-content button { margin-top: 20px; }
-        .close { float: right; font-size: 1.5rem; cursor: pointer; }
-        @media (max-width: 680px) { body { padding: 16px; } .kpi-value { font-size: 1.4rem; } .weather-bar { flex-direction: column; align-items: center; } }
+
+        /* HEADER */
+        .header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 20px; }
+        .header-left h1 { font-size: 1.4rem; font-weight: 700; color: #fff; }
+        .header-left p { font-size: 0.72rem; color: #6b7280; margin-top: 2px; }
+        .header-right { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+
+        select {
+            background: #1c1f2e; color: #e8eaf0;
+            border: 1px solid #2d3048; border-radius: 8px;
+            padding: 8px 14px; font-size: 0.82rem; cursor: pointer;
+        }
+        select:focus { outline: none; border-color: #4a7fd4; }
+
+        .btn-reset { background: #1c1f2e; color: #9ca3af; border: 1px solid #2d3048; border-radius: 8px; padding: 8px 14px; cursor: pointer; font-size: 0.82rem; }
+        .btn-reset:hover { background: #252840; }
+        .btn-add { background: #1c1f2e; color: #e8eaf0; border: 1px solid #2d3048; border-radius: 8px; padding: 8px 16px; cursor: pointer; font-size: 0.82rem; font-weight: 600; }
+        .btn-add:hover { background: #4a7fd4; border-color: #4a7fd4; }
+
+        /* TOGGLES */
+        .view-toggles { display: flex; gap: 8px; margin-bottom: 20px; }
+        .btn-view { background: #1c1f2e; color: #9ca3af; border: 1px solid #2d3048; border-radius: 8px; padding: 8px 20px; cursor: pointer; font-size: 0.82rem; font-weight: 500; }
+        .btn-view.active { background: #e8eaf0; color: #0d0f14; border-color: #e8eaf0; }
+        .btn-view:not(.active):hover { background: #252840; }
+
+        /* KPI GRID */
+        .kpi-grid { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+        @media (max-width: 900px) { .kpi-grid { grid-template-columns: 1fr 1fr; } }
+        .kpi-card { background: #14171f; border: 1px solid #1e2130; border-radius: 14px; padding: 18px 20px; }
+        .kpi-label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #6b7280; margin-bottom: 10px; }
+        .kpi-value { font-size: 2rem; font-weight: 700; color: #ffffff; line-height: 1.1; }
+        .kpi-sub { font-size: 0.72rem; color: #6b7280; margin-top: 6px; }
+
+        /* WEATHER */
+        .weather-bar { background: #14171f; border: 1px solid #1e2130; border-radius: 12px; padding: 12px 20px; margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 24px; font-size: 0.82rem; color: #9ca3af; }
+        .weather-bar strong { color: #e8eaf0; }
+
+        /* CHART CARD */
+        .chart-card { background: #14171f; border: 1px solid #1e2130; border-radius: 14px; padding: 20px; }
+        .card-title-sm { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #6b7280; margin-bottom: 16px; }
+
+        /* ANNUAL */
+        .annual-message { background: #14171f; border: 1px solid #1e2130; border-radius: 12px; padding: 20px; text-align: center; color: #6b7280; font-size: 0.88rem; margin-top: 14px; }
+
+        /* MONTHLY GRID */
+        .monthly-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+        @media (max-width: 820px) { .monthly-grid { grid-template-columns: 1fr; } }
+
+        /* DATA CARDS */
+        .data-card { background: #14171f; border: 1px solid #1e2130; border-radius: 14px; padding: 18px 20px; overflow: hidden; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+        .card-title { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #6b7280; }
+        .badge-count { background: #1c1f2e; border: 1px solid #2d3048; border-radius: 20px; padding: 2px 10px; font-size: 0.68rem; color: #9ca3af; }
+
+        /* MINI TABLES */
+        .mini-table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
+        .mini-table th { color: #4b5563; font-weight: 600; text-align: left; padding: 0 0 8px 0; font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 1px solid #1e2130; }
+        .mini-table td { padding: 8px 4px 8px 0; border-bottom: 1px solid #1a1d27; color: #d1d5db; vertical-align: top; }
+        .mini-table tr:last-child td { border-bottom: none; }
+        .date-cell { color: #6b7280; font-size: 0.7rem; white-space: nowrap; }
+        .action-cell { color: #ffffff; font-weight: 600; }
+        .note-cell { color: #9ca3af; font-size: 0.72rem; }
+
+        .canal-badge { display: inline-block; padding: 1px 7px; border-radius: 4px; font-size: 0.63rem; font-weight: 700; }
+        .canal-ig { background: #2d1f3d; color: #c084fc; }
+        .canal-fb { background: #1a2540; color: #60a5fa; }
+
+        .link-voir { color: #4a7fd4; text-decoration: none; font-size: 0.72rem; font-weight: 500; }
+        .link-voir:hover { color: #7aa8e8; }
+        .voir-plus { display: block; text-align: center; color: #4a7fd4; font-size: 0.78rem; margin-top: 10px; cursor: pointer; padding-top: 10px; border-top: 1px solid #1e2130; }
+        .voir-plus:hover { color: #7aa8e8; }
+        .warning-msg { color: #6b7280; font-size: 0.8rem; text-align: center; padding: 12px 0; }
+
+        /* MODAL */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.75); justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { background: #14171f; border: 1px solid #2d3048; border-radius: 20px; padding: 28px; max-width: 480px; width: 90%; }
+        .modal-content h2 { color: #fff; margin-bottom: 20px; font-size: 1.05rem; }
+        .modal-content label { display: block; margin-top: 14px; font-weight: 600; color: #9ca3af; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .modal-content input, .modal-content textarea { width: 100%; padding: 10px 14px; margin-top: 6px; border-radius: 10px; border: 1px solid #2d3048; background: #1c1f2e; color: #e8eaf0; font-size: 0.9rem; }
+        .modal-content input:focus, .modal-content textarea:focus { outline: none; border-color: #4a7fd4; }
+        .btn-submit { width: 100%; margin-top: 20px; padding: 12px; background: #4a7fd4; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 0.9rem; font-weight: 600; }
+        .btn-submit:hover { background: #3a6bc4; }
+        .modal-close { float: right; font-size: 1.3rem; cursor: pointer; color: #6b7280; line-height: 1; }
+        .modal-close:hover { color: #e8eaf0; }
     </style>
 </head>
 <body>
+
 <script>
-    const password = prompt("🔒 Accès sécurisé - Mot de passe :");
-    if (password !== "LMH2026") {
-        document.body.innerHTML = '<div style="text-align:center; padding: 3rem;"><h2>Accès refusé</h2><p>Mot de passe incorrect.</p></div>';
-        throw new Error("Accès non autorisé");
-    }
+    (function() {
+        if (sessionStorage.getItem('lmh_auth') !== 'LMH2026') {
+            const pw = prompt('🔒 Accès sécurisé — Mot de passe :');
+            if (pw !== 'LMH2026') {
+                document.body.innerHTML = '<div style="text-align:center;padding:3rem;color:#6b7280;"><h2 style="color:#fff">Accès refusé</h2><p>Mot de passe incorrect.</p></div>';
+                throw new Error('Non autorisé');
+            }
+            sessionStorage.setItem('lmh_auth', 'LMH2026');
+        }
+    })();
 </script>
+
 <div class="container">
+
     <div class="header">
-        <div><h1><i class="fas fa-chart-line"></i> LMH Dashboard</h1><p>Ventes, météo, infolettres & réseaux sociaux — mise à jour automatique</p></div>
-        <div class="header-buttons">
-            <button class="btn-primary" id="openModalBtn"><i class="fas fa-plus"></i> Ajouter un événement</button>
-            <button class="btn-primary" id="exportBtn"><i class="fas fa-download"></i> Exporter CSV</button>
+        <div class="header-left">
+            <h1>LMH Dashboard</h1>
+            <p>Ventes, météo, infolettres & réseaux sociaux — mise à jour automatique</p>
+        </div>
+        <div class="header-right">
+            <select id="yearFilter"></select>
+            <select id="monthFilter"></select>
+            <select id="channelFilter">
+                <option value="total">Tous canaux</option>
+                <option value="bel">BEL (online)</option>
+                <option value="boutique">Boutique</option>
+            </select>
+            <button class="btn-reset" id="resetBtn">Réinitialiser</button>
+            <button class="btn-add" id="openModalBtn">+ Événement</button>
         </div>
     </div>
 
-    <div class="filters-card">
-        <div class="filter-group"><label>📅 Année</label><select id="yearFilter"></select></div>
-        <div class="filter-group"><label>📆 Mois</label><select id="monthFilter"></select></div>
-        <div class="filter-group"><label>🏪 Canal</label><select id="channelFilter"><option value="total">Tous canaux</option><option value="bel">BEL (online)</option><option value="boutique">Boutique</option></select></div>
-        <div style="flex:1"></div>
-        <button class="reset-btn" id="resetBtn"><i class="fas fa-undo-alt"></i> Réinitialiser</button>
-    </div>
-
-    <div class="filters-card" style="padding: 12px 24px; justify-content: flex-end;">
-        <span style="font-size:0.7rem; color:#4b6b8a;">Mode d'affichage :</span>
-        <button class="btn-toggle" id="viewMonthlyBtn">📊 Vue mensuelle</button>
-        <button class="btn-toggle" id="viewDailyBtn">📋 Vue journalière</button>
+    <div class="view-toggles" id="viewToggles">
+        <button class="btn-view active" id="viewAnnualBtn">Vue annuelle</button>
+        <button class="btn-view" id="viewMonthlyBtn">Vue mensuelle</button>
     </div>
 
     <div class="kpi-grid">
-        <div class="kpi-card"><div class="kpi-label">Ventes totales</div><div class="kpi-value" id="totalSales">—</div><div class="kpi-compare" id="salesCompare"></div></div>
-        <div class="kpi-card"><div class="kpi-label">Moyenne / jour</div><div class="kpi-value" id="avgSales">—</div><div class="kpi-compare" id="avgCompare"></div></div>
-        <div class="kpi-card"><div class="kpi-label">Panier moyen BEL</div><div class="kpi-value" id="avgCart">—</div></div>
-        <div class="kpi-card"><div class="kpi-label">Commandes totales</div><div class="kpi-value" id="totalOrders">—</div></div>
+        <div class="kpi-card">
+            <div class="kpi-label" id="kpi1Label">Ventes totales</div>
+            <div class="kpi-value" id="kpi1Value">—</div>
+            <div class="kpi-sub" id="kpi1Sub"></div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label" id="kpi2Label">—</div>
+            <div class="kpi-value" id="kpi2Value">—</div>
+            <div class="kpi-sub" id="kpi2Sub"></div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label" id="kpi3Label">—</div>
+            <div class="kpi-value" id="kpi3Value">—</div>
+            <div class="kpi-sub" id="kpi3Sub"></div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label" id="kpi4Label">—</div>
+            <div class="kpi-value" id="kpi4Value">—</div>
+            <div class="kpi-sub" id="kpi4Sub"></div>
+        </div>
     </div>
 
-    <div class="chart-container">
-        <div class="section-title" id="chartTitle">📈 Évolution des ventes</div>
-        <canvas id="salesChart" height="300" style="max-height: 350px;"></canvas>
+    <div id="weatherBar" class="weather-bar" style="display:none;"></div>
+
+    <!-- VUE ANNUELLE -->
+    <div id="annualView">
+        <div class="chart-card">
+            <div class="card-title-sm" id="annualChartTitle">Ventes mensuelles vs activité marketing</div>
+            <canvas id="annualChart" height="320" style="max-height:380px;"></canvas>
+        </div>
+        <div class="annual-message">Sélectionne un mois pour voir le détail journalier, les événements marketing et les tableaux complets.</div>
     </div>
 
-    <!-- Bandeau météo compact -->
-    <div id="weatherInsight" class="weather-bar">Chargement...</div>
-
-    <!-- Deux colonnes pour infolettres et réseaux sociaux -->
-    <div class="two-columns">
-        <div class="insight-card"><h3><i class="fas fa-envelope-open-text"></i> 📧 Infolettres</h3><div id="emailTable">Chargement...</div></div>
-        <div class="insight-card"><h3><i class="fab fa-instagram"></i> 📱 Réseaux sociaux</h3><div id="socialTable">Chargement...</div></div>
+    <!-- VUE MENSUELLE -->
+    <div id="monthlyView" style="display:none;">
+        <div class="monthly-grid">
+            <div class="data-card">
+                <div class="card-header">
+                    <div class="card-title">⚡ Événements marketing</div>
+                    <span class="badge-count" id="eventsCount">0</span>
+                </div>
+                <div id="eventsBody"></div>
+            </div>
+            <div class="chart-card">
+                <div class="card-title-sm" id="dailyChartTitle">Ventes journalières</div>
+                <canvas id="dailyChart" height="280" style="max-height:320px;"></canvas>
+            </div>
+        </div>
+        <div class="monthly-grid">
+            <div class="data-card">
+                <div class="card-header">
+                    <div class="card-title">📧 Infolettres</div>
+                    <span class="badge-count" id="emailCount">0 envois</span>
+                </div>
+                <div id="emailBody"></div>
+            </div>
+            <div class="data-card">
+                <div class="card-header">
+                    <div class="card-title">📱 Réseaux sociaux</div>
+                    <span class="badge-count" id="socialCount">0 posts</span>
+                </div>
+                <div id="socialBody"></div>
+            </div>
+        </div>
     </div>
 
-    <!-- Événements marketing pleine largeur -->
-    <div class="full-width-card">
-        <h3><i class="fas fa-calendar-star"></i> ⚡ Événements marketing</h3>
-        <div id="eventsTable">Chargement...</div>
-    </div>
-
-    <div class="table-container">
-        <div class="section-title" id="tableTitle">📋 Détail des ventes</div>
-        <div id="tableView"><table id="dataTable"><thead id="tableHeader"></thead><tbody id="tableBody"></tbody></table></div>
-    </div>
 </div>
 
-<!-- Modal pour ajouter un événement -->
+<!-- MODAL -->
 <div id="eventModal" class="modal">
     <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2><i class="fas fa-calendar-plus"></i> Ajouter un événement marketing</h2>
+        <span class="modal-close" id="modalClose">&times;</span>
+        <h2>+ Ajouter un événement</h2>
         <form id="eventForm">
-            <label>📅 Date</label>
+            <label>Date</label>
             <input type="date" id="eventDate" required>
-            <label>⚡ Action</label>
-            <input type="text" id="eventAction" placeholder="Ex: Lancement produit, Promo, BIS, Infolettre..." required>
-            <label>📝 Contexte / Note</label>
+            <label>Action</label>
+            <input type="text" id="eventAction" placeholder="Ex: Lancement produit, Promo, BIS..." required>
+            <label>Note</label>
             <textarea id="eventNote" rows="3" placeholder="Détails supplémentaires..."></textarea>
-            <button type="submit" class="btn-primary" style="width:100%">Envoyer</button>
+            <button type="submit" class="btn-submit">Envoyer</button>
         </form>
-        <div id="formMessage" style="margin-top:12px; font-size:0.8rem;"></div>
+        <div id="formMessage" style="margin-top:10px;font-size:0.8rem;"></div>
     </div>
 </div>
 
 <script>
+    const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbxR-QpfTDuUJOnGAmDFyI8K20csya70Wxz6Y7MDuKIHjpsM5vNBNEnwru4VyaDJeO_UbQ/exec';
+    const MONTHS_SHORT = ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
+    const MONTHS_LONG  = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+    const DAYS_FR = ['dim','lun','mar','mer','jeu','ven','sam'];
+    const ACTION_COLS = ['rabais_promos','lancement_produits_ateliers','bis_alertes_back_in_stock','infolettre','push_notif','billet_blogue','webmestre_funnels'];
+    const CONTEXTE_COLS = ['temperature','meteo_montreal','meteo_generale','politique_actualite','fetes_feries_conges','couvertures_mediatiques'];
+
     let fullData = null;
-    let salesChart = null;
-    let currentView = 'monthly';
+    let annualChart = null;
+    let dailyChart = null;
+    let currentView = 'annual';
 
-    // Configuration du webhook Google Apps Script (à remplacer)
-    const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbxR-QpfTDuUJOnGAmDFyI8K20csya70Wxz6Y7MDuKIHjpsM5vNBNEnwru4VyaDJeO_UbQ/exec'; // ← À remplacer par l'URL de déploiement
-
+    // ── LOAD ──
     async function loadData() {
         try {
-            const response = await fetch('data.json?v=' + Date.now());
-            if (!response.ok) throw new Error('data.json introuvable');
-            fullData = await response.json();
-            console.log("Données chargées:", fullData.ventes.length, "jours");
+            const r = await fetch('data.json?v=' + Date.now());
+            if (!r.ok) throw new Error('data.json introuvable');
+            fullData = await r.json();
             initFilters();
             applyFiltersAndRender();
-        } catch (err) {
-            document.body.innerHTML = `<div style="padding:2rem;text-align:center;color:red;">❌ ${err.message}</div>`;
+        } catch(err) {
+            document.body.innerHTML = `<div style="padding:2rem;text-align:center;color:#ef4444;">❌ ${err.message}</div>`;
         }
     }
 
+    // ── FILTERS ──
     function initFilters() {
-        if (!fullData?.ventes) return;
         const years = [...new Set(fullData.ventes.map(v => dayjs(v.date).year()))].sort((a,b)=>b-a);
-        document.getElementById('yearFilter').innerHTML = '<option value="all">Toutes les années</option>' + years.map(y => `<option value="${y}">${y}</option>`).join('');
+        const yEl = document.getElementById('yearFilter');
+        yEl.innerHTML = years.map(y => `<option value="${y}">${y}</option>`).join('');
+        yEl.value = years[0];
         updateMonthFilter();
     }
-    
+
     function updateMonthFilter() {
         const year = document.getElementById('yearFilter').value;
-        let months = [];
-        if (year === 'all') {
-            const monthSet = new Set();
-            fullData.ventes.forEach(v => monthSet.add(dayjs(v.date).format('YYYY-MM')));
-            months = Array.from(monthSet).sort().reverse();
+        let opts = '<option value="all">Tous les mois</option>';
+        for (let i = 1; i <= 12; i++) {
+            const key = `${year}-${String(i).padStart(2,'0')}`;
+            opts += `<option value="${key}">${MONTHS_LONG[i-1]}</option>`;
+        }
+        document.getElementById('monthFilter').innerHTML = opts;
+        document.getElementById('monthFilter').value = 'all';
+    }
+
+    // ── HELPERS ──
+    function getSalesValue(v, channel) {
+        if (channel === 'bel') return parseFloat(v.ventes_bel)||0;
+        if (channel === 'boutique') return parseFloat(v.ventes_boutique)||0;
+        return (parseFloat(v.ventes_bel)||0) + (parseFloat(v.ventes_boutique)||0) + (parseFloat(v.ventes_wholesale)||0);
+    }
+
+    // ── MAIN RENDER ──
+    function applyFiltersAndRender() {
+        const year    = parseInt(document.getElementById('yearFilter').value);
+        const month   = document.getElementById('monthFilter').value;
+        const channel = document.getElementById('channelFilter').value;
+        const isAnnual = (month === 'all');
+
+        // Toggle visibility
+        document.getElementById('viewToggles').style.display = isAnnual ? 'flex' : 'none';
+        if (!isAnnual) currentView = 'monthly';
+
+        document.getElementById('annualView').style.display  = isAnnual ? 'block' : 'none';
+        document.getElementById('monthlyView').style.display = isAnnual ? 'none'  : 'block';
+
+        if (isAnnual) {
+            renderAnnualView(year, channel);
         } else {
-            for (let i = 1; i <= 12; i++) months.push(`${year}-${String(i).padStart(2,'0')}`);
+            renderMonthlyView(year, month, channel);
         }
-        const monthSelect = document.getElementById('monthFilter');
-        monthSelect.innerHTML = '<option value="all">Tous les mois</option>' + months.map(m => {
-            const display = year === 'all' ? dayjs(m).format('MMMM YYYY') : dayjs(m).format('MMMM');
-            return `<option value="${m}">${display}</option>`;
-        }).join('');
     }
 
-    function getFilteredVentes() {
-        let ventes = [...fullData.ventes];
-        const year = document.getElementById('yearFilter').value;
-        const month = document.getElementById('monthFilter').value;
-        ventes = ventes.filter(v => v.date && dayjs(v.date).isValid());
-        if (year !== 'all') {
-            ventes = ventes.filter(v => dayjs(v.date).year() == year);
-        }
-        if (month !== 'all') {
-            ventes = ventes.filter(v => dayjs(v.date).format('YYYY-MM') == month);
-        }
-        return ventes;
-    }
+    // ── ANNUAL VIEW ──
+    function renderAnnualView(year, channel) {
+        const ventes = fullData.ventes.filter(v => dayjs(v.date).year() === year);
 
-    function computeKPIs(ventes, channel) {
-        let total = 0, totalBel = 0, totalBoutique = 0, totalOrders = 0, cartSum = 0, cartCount = 0;
-        ventes.forEach(v => {
-            let bel = parseFloat(v.ventes_bel) || 0;
-            let boutique = parseFloat(v.ventes_boutique) || 0;
-            let wholesale = parseFloat(v.ventes_wholesale) || 0;
-            totalBel += bel;
-            totalBoutique += boutique;
-            total += bel + boutique + wholesale;
-            totalOrders += parseInt(v.commandes_total) || 0;
-            let panier = parseFloat(v.panier_moyen_bel) || 0;
-            if (panier > 0) { cartSum += panier; cartCount++; }
+        const monthlyVentes = Array(12).fill(0);
+        ventes.forEach(v => { monthlyVentes[dayjs(v.date).month()] += getSalesValue(v, channel); });
+
+        const monthlyPubs = Array(12).fill(0);
+        (fullData.publications || []).filter(p => dayjs(p.date).year() === year)
+            .forEach(p => { monthlyPubs[dayjs(p.date).month()]++; });
+
+        const monthlyEmails = Array(12).fill(0);
+        (fullData.infolettres || []).filter(e => {
+            const d = e.date_envoi || e.date;
+            return dayjs(d).year() === year;
+        }).forEach(e => {
+            const d = e.date_envoi || e.date;
+            monthlyEmails[dayjs(d).month()]++;
         });
-        const avgDaily = ventes.length ? total / ventes.length : 0;
-        const avgCart = cartCount ? cartSum / cartCount : 0;
-        const displayTotal = channel === 'bel' ? totalBel : channel === 'boutique' ? totalBoutique : total;
-        return { total: displayTotal, avgDaily, avgCart, totalOrders };
-    }
 
-    function getComparison(ventes, channel, year, month) {
-        const isYearOnly = (year !== 'all' && month === 'all');
-        if (isYearOnly && year !== 'all') {
-            const prevYear = parseInt(year) - 1;
-            let prevVentes = fullData.ventes.filter(v => dayjs(v.date).year() == prevYear);
-            let prevTotal = 0;
-            prevVentes.forEach(v => {
-                prevTotal += channel === 'bel' ? (parseFloat(v.ventes_bel)||0) : channel === 'boutique' ? (parseFloat(v.ventes_boutique)||0) : (parseFloat(v.ventes_bel)||0) + (parseFloat(v.ventes_boutique)||0) + (parseFloat(v.ventes_wholesale)||0);
-            });
-            let currentTotal = computeKPIs(ventes, channel).total;
-            let change = prevTotal > 0 ? ((currentTotal - prevTotal) / prevTotal * 100) : 0;
-            return { text: `vs ${prevYear}`, change: change };
-        }
-        return { text: `total`, change: 0 };
-    }
+        const totalVentes = monthlyVentes.reduce((a,b)=>a+b,0);
+        const totalPubs   = monthlyPubs.reduce((a,b)=>a+b,0);
+        const totalEmails = monthlyEmails.reduce((a,b)=>a+b,0);
+        const totalEvents = (fullData.evenements || []).filter(ev => {
+            if (dayjs(ev.date).year() !== year) return false;
+            return ACTION_COLS.some(k => ev[k]?.toString().trim()) || (ev.commentaires_notes?.toString().trim());
+        }).length;
 
-    function aggregateMonthly(ventes, channel) {
-        const months = {};
-        ventes.forEach(v => {
-            const monthKey = dayjs(v.date).format('YYYY-MM');
-            const monthName = dayjs(v.date).format('MMMM YYYY');
-            let val = channel === 'bel' ? (parseFloat(v.ventes_bel)||0) : channel === 'boutique' ? (parseFloat(v.ventes_boutique)||0) : (parseFloat(v.ventes_bel)||0) + (parseFloat(v.ventes_boutique)||0) + (parseFloat(v.ventes_wholesale)||0);
-            if (!months[monthKey]) months[monthKey] = { name: monthName, total: 0, count: 0 };
-            months[monthKey].total += val;
-            months[monthKey].count++;
-        });
-        return Object.entries(months).sort().map(([key, data]) => ({ period: data.name, total: data.total, avg: data.total / data.count }));
-    }
+        // Period label
+        const firstM = monthlyVentes.findIndex(v=>v>0);
+        const lastM  = monthlyVentes.reduce((l,v,i)=>v>0?i:l, -1);
+        let periodLabel = '';
+        if (firstM >= 0 && lastM >= 0) {
+            periodLabel = firstM === lastM
+                ? MONTHS_LONG[firstM]
+                : `${MONTHS_LONG[firstM]} – ${MONTHS_LONG[lastM]}${lastM < 11 ? ' (partiel)' : ''}`;
+        }
 
-    function renderMarketingSections(ventesPeriode) {
-        // Infolettres
-        let infos = (fullData.infolettres || []).filter(e => ventesPeriode.some(v => dayjs(v.date).format('YYYY-MM-DD') === dayjs(e.date_envoi).format('YYYY-MM-DD')));
-        if (infos.length) {
-            let html = '<table style="width:100%"><thead><tr><th>Date</th><th>Sujet</th><th>Ventes générées</th></tr></thead><tbody>';
-            infos.forEach(e => {
-                html += `<tr>
-                    <td>${dayjs(e.date_envoi).format('DD/MM/YYYY')}</td>
-                    <td>${e.sujet || '—'}</td>
-                    <td>${e.ventes_generees_$ ? parseFloat(e.ventes_generees_$).toLocaleString('fr-CA')+' $' : '—'}</td>
-                </tr>`;
-            });
-            html += '</tbody></tr>';
-            document.getElementById('emailTable').innerHTML = html;
-        } else {
-            document.getElementById('emailTable').innerHTML = '<p class="warning">Aucune infolettre sur cette période</p>';
-        }
-        
-        // Réseaux sociaux (avec lien à la place des likes)
-        let posts = (fullData.publications || []).filter(p => ventesPeriode.some(v => dayjs(v.date).format('YYYY-MM-DD') === dayjs(p.date).format('YYYY-MM-DD')));
-        if (posts.length) {
-            let html = '<table style="width:100%"><thead><tr><th>Date</th><th>Plateforme</th><th>Contenu</th><th>Lien</th></tr></thead><tbody>';
-            posts.forEach(p => {
-                let desc = (p.description_courte || p.title || '').substring(0, 80);
-                let lien = p.lien_post || p.link || p.url || '';
-                let lienHtml = lien ? `<a href="${lien}" target="_blank" style="color:#2c7cb6;">🔗 Voir le post</a>` : '—';
-                html += `<tr>
-                    <td>${dayjs(p.date).format('DD/MM/YYYY')}</td>
-                    <td>${p.plateforme || '—'}</td>
-                    <td>${desc}${desc.length === 80 ? '…' : ''}</td>
-                    <td>${lienHtml}</td>
-                </tr>`;
-            });
-            html += '</tbody></td>';
-            document.getElementById('socialTable').innerHTML = html;
-        } else {
-            document.getElementById('socialTable').innerHTML = '<p class="warning">Aucune publication sur cette période</p>';
-        }
-        
-        // Événements marketing — filtre par plage de dates (pas besoin de vente ce jour-là)
-        const periodStart = ventesPeriode.length ? dayjs(ventesPeriode[0].date) : null;
-        const periodEnd = ventesPeriode.length ? dayjs(ventesPeriode[ventesPeriode.length - 1].date) : null;
-        const events = (fullData.evenements || []).filter(ev => {
-            const evDate = dayjs(ev.date);
-            if (!evDate.isValid()) return false;
-            if (!periodStart || !periodEnd) return true;
-            return !evDate.isBefore(periodStart, 'day') && !evDate.isAfter(periodEnd, 'day');
-        });
-        if (events.length) {
-            let html = '<div style="overflow-x:auto;"><table style="width:100%; font-size:0.75rem;"><thead><tr><th>Date</th><th>Actions</th><th>Contexte / Notes</th></tr></thead><tbody>';
-            events.forEach(ev => {
-                let actions = [];
-                let contexte = [];
-                const contexteKeys = ['temperature', 'meteo_montreal', 'meteo_generale', 'politique_actualite', 'fetes_feries_conges', 'couvertures_mediatiques'];
-                const notesKeys = ['commentaires_notes'];
-                for (let [key, value] of Object.entries(ev)) {
-                    if (key === 'date') continue;
-                    if (!value || value.toString().trim() === '') continue;
-                    if (notesKeys.includes(key)) {
-                        contexte.push(`📝 ${value}`);
-                    } else if (contexteKeys.includes(key)) {
-                        contexte.push(value);
-                    } else {
-                        actions.push(value.toString());
+        // KPIs
+        setKPI(1, `Ventes totales — ${year} (YTD)`, totalVentes.toLocaleString('fr-CA') + ' $', periodLabel);
+        setKPI(2, 'Publications totales', totalPubs, 'IG + FB combinés');
+        setKPI(3, 'Infolettres envoyées', totalEmails, `YTD ${year}`);
+        setKPI(4, 'Événements marketing', totalEvents, 'Promos & campagnes');
+
+        document.getElementById('weatherBar').style.display = 'none';
+        document.getElementById('annualChartTitle').textContent = `VENTES MENSUELLES VS ACTIVITÉ MARKETING — ${year}`;
+
+        if (annualChart) annualChart.destroy();
+        annualChart = new Chart(document.getElementById('annualChart').getContext('2d'), {
+            data: {
+                labels: MONTHS_SHORT,
+                datasets: [
+                    {
+                        type: 'bar', label: 'Ventes ($)', data: monthlyVentes,
+                        backgroundColor: '#4a7fd4', borderRadius: 5, borderSkipped: false,
+                        yAxisID: 'y', order: 2,
+                    },
+                    {
+                        type: 'line', label: 'Publications IG+FB', data: monthlyPubs,
+                        borderColor: '#e07b4a', backgroundColor: 'transparent',
+                        borderWidth: 2.5, tension: 0.3,
+                        pointRadius: 4, pointBackgroundColor: '#e07b4a', pointBorderColor: '#14171f', pointBorderWidth: 2,
+                        yAxisID: 'y2', order: 0,
+                    },
+                    {
+                        type: 'line', label: 'Infolettres', data: monthlyEmails,
+                        borderColor: '#6ab04c', backgroundColor: 'transparent',
+                        borderWidth: 2, borderDash: [5,4], tension: 0.3,
+                        pointRadius: 3, pointBackgroundColor: '#6ab04c',
+                        yAxisID: 'y2', order: 1,
+                    }
+                ]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: true,
+                interaction: { mode: 'index', intersect: false },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: '#9ca3af', padding: 20, usePointStyle: true, pointStyleWidth: 14 }
+                    },
+                    tooltip: {
+                        backgroundColor: '#1c1f2e', titleColor: '#e8eaf0', bodyColor: '#9ca3af',
+                        borderColor: '#2d3048', borderWidth: 1,
+                        callbacks: {
+                            label: ctx => ctx.dataset.yAxisID === 'y'
+                                ? ` ${ctx.raw.toLocaleString('fr-CA')} $`
+                                : ` ${ctx.raw} ${ctx.dataset.label === 'Infolettres' ? 'infolettre(s)' : 'publication(s)'}`
+                        }
+                    }
+                },
+                scales: {
+                    x: { ticks: { color: '#6b7280' }, grid: { color: '#1e2130' } },
+                    y: {
+                        position: 'left',
+                        ticks: { color: '#6b7280', callback: v => v >= 1000 ? Math.round(v/1000)+'k $' : v+' $' },
+                        grid: { color: '#1e2130' }
+                    },
+                    y2: {
+                        position: 'right',
+                        ticks: { color: '#6b7280', precision: 0, stepSize: 2 },
+                        grid: { drawOnChartArea: false },
+                        title: { display: true, text: 'Publications / infolettres', color: '#6b7280', font: { size: 10 } }
                     }
                 }
-                let actionsHtml = actions.length ? actions.join(' · ') : '—';
-                let contexteHtml = contexte.length ? contexte.join(' · ') : '—';
-                html += `<tr>
-                    <td><strong>${dayjs(ev.date).format('DD/MM/YYYY')}</strong><br><span style="font-size:0.65rem;">${dayjs(ev.date).format('dddd')}</span></td>
-                    <td>${actionsHtml}</td>
-                    <td style="font-size:0.7rem; color:#666;">${contexteHtml}</td>
-                </tr>`;
-            });
-            html += '</tbody></table></div>';
-            document.getElementById('eventsTable').innerHTML = html;
-        } else {
-            document.getElementById('eventsTable').innerHTML = '<p class="warning">Aucun événement sur cette période</p>';
-        }
-    }
-
-    function renderWeather(ventes) {
-        const rainDays = ventes.filter(v => (v.precipitation_mm || 0) > 0.5);
-        const dryDays = ventes.filter(v => (v.precipitation_mm || 0) <= 0.5);
-        const avgRain = rainDays.length ? rainDays.reduce((a,b)=>a+(b.ventes_total||0),0)/rainDays.length : 0;
-        const avgDry = dryDays.length ? dryDays.reduce((a,b)=>a+(b.ventes_total||0),0)/dryDays.length : 0;
-        const diff = avgRain > avgDry ? '▲ +' : '▼ ';
-        const diffValue = Math.abs(((avgRain-avgDry)/avgDry*100)||0).toFixed(1);
-        document.getElementById('weatherInsight').innerHTML = `
-            <div><strong>☔ Jours avec précipitations</strong> : ${rainDays.length} jours → moyenne ${avgRain.toLocaleString('fr-CA')} $</div>
-            <div><strong>☀️ Jours secs</strong> : ${dryDays.length} jours → moyenne ${avgDry.toLocaleString('fr-CA')} $</div>
-            <div><strong>📊 Différence</strong> : ${diff}${diffValue}%</div>
-        `;
-    }
-
-    function applyFiltersAndRender() {
-        const ventes = getFilteredVentes();
-        const channel = document.getElementById('channelFilter').value;
-        const year = document.getElementById('yearFilter').value;
-        const month = document.getElementById('monthFilter').value;
-        
-        if (ventes.length === 0) return;
-        
-        const kpis = computeKPIs(ventes, channel);
-        document.getElementById('totalSales').innerHTML = kpis.total.toLocaleString('fr-CA') + ' $';
-        document.getElementById('avgSales').innerHTML = kpis.avgDaily.toLocaleString('fr-CA') + ' $';
-        document.getElementById('avgCart').innerHTML = kpis.avgCart.toLocaleString('fr-CA') + ' $';
-        document.getElementById('totalOrders').innerHTML = kpis.totalOrders.toLocaleString('fr-CA');
-        
-        const comp = getComparison(ventes, channel, year, month);
-        document.getElementById('salesCompare').innerHTML = `${comp.text} : ${comp.change > 0 ? '▲ +' : '▼ '}${Math.abs(comp.change).toFixed(1)}%`;
-        
-        renderWeather(ventes);
-        
-        if (currentView === 'monthly') {
-            const monthly = aggregateMonthly(ventes, channel);
-            document.getElementById('chartTitle').innerHTML = '📊 Ventes mensuelles';
-            document.getElementById('tableTitle').innerHTML = '📅 Ventes par mois';
-            if (salesChart) salesChart.destroy();
-            const ctx = document.getElementById('salesChart').getContext('2d');
-            salesChart = new Chart(ctx, {
-                type: 'bar',
-                data: { labels: monthly.map(m=>m.period), datasets: [{ label: 'Ventes ($)', data: monthly.map(m=>m.total), backgroundColor: '#2c7cb6', borderRadius: 8 }] },
-                options: { responsive: true }
-            });
-            document.getElementById('tableHeader').innerHTML = '<tr><th>Mois</th><th>Ventes totales</th><th>Moyenne / jour</th></tr>';
-            document.getElementById('tableBody').innerHTML = monthly.map(m => `<tr>
-                <td>${m.period}</td>
-                <td>${m.total.toLocaleString('fr-CA')} $</td>
-                <td>${m.avg.toLocaleString('fr-CA')} $</td>
-            </tr>`).join('');
-        } else {
-            if (ventes.length > 90) {
-                document.getElementById('chartTitle').innerHTML = '⚠️ Vue journalière indisponible';
-                document.getElementById('tableTitle').innerHTML = '⚠️ Trop de données';
-                document.getElementById('tableHeader').innerHTML = '';
-                document.getElementById('tableBody').innerHTML = `<tr><td class="warning">📅 Période trop large (${ventes.length} jours). Sélectionnez un mois.</td></tr>`;
-                if (salesChart) salesChart.destroy();
-                return;
             }
-            document.getElementById('chartTitle').innerHTML = '📈 Évolution quotidienne';
-            document.getElementById('tableTitle').innerHTML = '📋 Détail jour par jour';
-            const labels = ventes.map(v => dayjs(v.date).format('DD MMM'));
-            const values = ventes.map(v => {
-                let bel = parseFloat(v.ventes_bel)||0, boutique = parseFloat(v.ventes_boutique)||0;
-                if (channel === 'bel') return bel;
-                if (channel === 'boutique') return boutique;
-                return bel + boutique + (parseFloat(v.ventes_wholesale)||0);
-            });
-            if (salesChart) salesChart.destroy();
-            const ctx = document.getElementById('salesChart').getContext('2d');
-            salesChart = new Chart(ctx, {
-                type: 'line',
-                data: { labels, datasets: [{ label: 'Ventes ($)', data: values, borderColor: '#2c7cb6', fill: true, tension: 0.2 }] },
-                options: { responsive: true, plugins: { tooltip: { callbacks: { label: (ctx) => `${ctx.raw.toLocaleString('fr-CA')} $` } } } }
-            });
-            
-            document.getElementById('tableHeader').innerHTML = '<tr><th>Date</th><th>BEL ($)</th><th>Boutique ($)</th><th>Total ($)</th><th>Précip. (mm)</th><th>Événement</th></tr>';
-            document.getElementById('tableBody').innerHTML = ventes.map(v => {
-                let bel = parseFloat(v.ventes_bel)||0, boutique = parseFloat(v.ventes_boutique)||0;
-                let eventDate = dayjs(v.date).format('YYYY-MM-DD');
-                let eventMatch = (fullData.evenements || []).find(ev => dayjs(ev.date).format('YYYY-MM-DD') === eventDate);
-                let hasEvent = eventMatch && Object.keys(eventMatch).some(k => k !== 'date' && eventMatch[k] && eventMatch[k].toString().trim() !== '');
-                let eventBadge = hasEvent ? `<span class="badge" style="background:#ffe0b5;">⚡ Action</span>` : '—';
+        });
+    }
+
+    // ── MONTHLY VIEW ──
+    function renderMonthlyView(year, monthKey, channel) {
+        const ventes = fullData.ventes
+            .filter(v => dayjs(v.date).format('YYYY-MM') === monthKey)
+            .sort((a,b) => dayjs(a.date).diff(dayjs(b.date)));
+
+        const monthIdx  = parseInt(monthKey.split('-')[1]) - 1;
+        const monthName = MONTHS_LONG[monthIdx] + ' ' + year;
+
+        // KPIs
+        let totalVentes = 0, totalOrders = 0, cartSum = 0, cartCount = 0;
+        ventes.forEach(v => {
+            totalVentes  += getSalesValue(v, channel);
+            totalOrders  += parseInt(v.commandes_total)||0;
+            const p = parseFloat(v.panier_moyen_bel)||0;
+            if (p > 0) { cartSum += p; cartCount++; }
+        });
+        const avgDaily = ventes.length ? totalVentes / ventes.length : 0;
+        const avgCart  = cartCount ? cartSum / cartCount : 0;
+
+        setKPI(1, `Ventes totales — ${monthName.toUpperCase()}`, totalVentes.toLocaleString('fr-CA') + ' $', `${ventes.length} jours écoulés · ${totalOrders.toLocaleString('fr-CA')} commandes`);
+        setKPI(2, 'Panier moyen', avgCart.toLocaleString('fr-CA', {minimumFractionDigits:2,maximumFractionDigits:2}) + ' $', 'BEL (online)');
+        setKPI(3, 'Moy. / jour', avgDaily.toLocaleString('fr-CA', {maximumFractionDigits:0}) + ' $', '');
+        setKPI(4, 'Commandes', totalOrders.toLocaleString('fr-CA'), '');
+
+        // Weather
+        const rainDays = ventes.filter(v => (parseFloat(v.precipitation_mm)||0) > 0.5);
+        const dryDays  = ventes.filter(v => (parseFloat(v.precipitation_mm)||0) <= 0.5);
+        const avgRain  = rainDays.length ? rainDays.reduce((a,v)=>a+getSalesValue(v,channel),0)/rainDays.length : 0;
+        const avgDry   = dryDays.length  ? dryDays.reduce((a,v)=>a+getSalesValue(v,channel),0)/dryDays.length   : 0;
+        const diff     = avgDry > 0 ? ((avgRain-avgDry)/avgDry*100) : 0;
+        const diffStr  = (diff >= 0 ? '+' : '') + diff.toFixed(1) + ' %';
+        const diffCol  = diff >= 0 ? '#6ab04c' : '#ef4444';
+        const wb = document.getElementById('weatherBar');
+        wb.style.display = 'flex';
+        wb.innerHTML = `
+            <span><strong>☔ Jours de pluie (${rainDays.length})</strong> → ${avgRain.toLocaleString('fr-CA',{maximumFractionDigits:0})} $ moy.</span>
+            <span><strong>☀️ Jours secs (${dryDays.length})</strong> → ${avgDry.toLocaleString('fr-CA',{maximumFractionDigits:0})} $ moy.</span>
+            <span style="color:${diffCol};font-weight:600;">Pluie = ${diffStr} de ventes</span>
+        `;
+
+        // Daily chart
+        document.getElementById('dailyChartTitle').textContent = `VENTES JOURNALIÈRES — ${monthName.toUpperCase()}`;
+        if (dailyChart) dailyChart.destroy();
+        dailyChart = new Chart(document.getElementById('dailyChart').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: ventes.map(v => dayjs(v.date).date() + ' ' + MONTHS_SHORT[dayjs(v.date).month()]),
+                datasets: [{ label: 'Ventes ($)', data: ventes.map(v => getSalesValue(v,channel)), backgroundColor: '#4a7fd4', borderRadius: 4 }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: true,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: '#1c1f2e', titleColor: '#e8eaf0', bodyColor: '#9ca3af',
+                        borderColor: '#2d3048', borderWidth: 1,
+                        callbacks: { label: ctx => ` ${ctx.raw.toLocaleString('fr-CA')} $` }
+                    }
+                },
+                scales: {
+                    x: { ticks: { color: '#6b7280', font: { size: 10 } }, grid: { color: '#1e2130' } },
+                    y: { ticks: { color: '#6b7280', callback: v => v>=1000?Math.round(v/1000)+'k $':v+' $' }, grid: { color: '#1e2130' } }
+                }
+            }
+        });
+
+        renderEventsTable(monthKey);
+        renderEmailTable(monthKey);
+        renderSocialTable(monthKey);
+    }
+
+    // ── EVENTS TABLE ──
+    function renderEventsTable(monthKey) {
+        const [y, m] = monthKey.split('-').map(Number);
+        const start = `${monthKey}-01`;
+        const end   = dayjs(new Date(y, m, 0)).format('YYYY-MM-DD');
+
+        const events = (fullData.evenements || [])
+            .filter(ev => {
+                const d = dayjs(ev.date).format('YYYY-MM-DD');
+                return d >= start && d <= end;
+            })
+            .filter(ev =>
+                ACTION_COLS.some(k => ev[k]?.toString().trim()) ||
+                CONTEXTE_COLS.some(k => ev[k]?.toString().trim()) ||
+                ev.commentaires_notes?.toString().trim()
+            )
+            .sort((a,b) => dayjs(a.date).diff(dayjs(b.date)));
+
+        document.getElementById('eventsCount').textContent = events.length;
+
+        if (!events.length) {
+            document.getElementById('eventsBody').innerHTML = '<p class="warning-msg">Aucun événement ce mois</p>';
+            return;
+        }
+
+        let html = '<table class="mini-table"><thead><tr><th>Date</th><th>Action</th><th>Note</th></tr></thead><tbody>';
+        events.forEach(ev => {
+            const d = dayjs(ev.date);
+            const dateStr = d.format('DD/MM') + ' ' + DAYS_FR[d.day()];
+            const actions = ACTION_COLS.map(k => ev[k]?.toString().trim()).filter(Boolean).join(' · ') || '—';
+            const notes   = [...CONTEXTE_COLS.map(k => ev[k]?.toString().trim()), ev.commentaires_notes?.toString().trim()].filter(Boolean).join(' · ');
+            html += `<tr>
+                <td class="date-cell">${dateStr}</td>
+                <td class="action-cell">${actions}</td>
+                <td class="note-cell">${notes}</td>
+            </tr>`;
+        });
+        html += '</tbody></table>';
+        document.getElementById('eventsBody').innerHTML = html;
+    }
+
+    // ── EMAIL TABLE ──
+    function renderEmailTable(monthKey) {
+        const emails = (fullData.infolettres || []).filter(e => {
+            const d = e.date_envoi || e.date;
+            return dayjs(d).format('YYYY-MM') === monthKey;
+        });
+
+        document.getElementById('emailCount').textContent = `${emails.length} envois`;
+
+        if (!emails.length) {
+            document.getElementById('emailBody').innerHTML = '<p class="warning-msg">Aucune infolettre ce mois</p>';
+            return;
+        }
+
+        let html = '<table class="mini-table"><thead><tr><th>Date</th><th>Sujet</th><th>Ventes</th></tr></thead><tbody>';
+        emails.forEach(e => {
+            const d = e.date_envoi || e.date;
+            const sujet  = (e.sujet||'').substring(0,38) + ((e.sujet||'').length>38?'…':'');
+            const ventes = e['ventes_generees_$'] ? parseFloat(e['ventes_generees_$']).toLocaleString('fr-CA')+' $' : '—';
+            html += `<tr>
+                <td class="date-cell">${dayjs(d).format('DD/MM')}</td>
+                <td>${sujet}</td>
+                <td class="note-cell">${ventes}</td>
+            </tr>`;
+        });
+        html += '</tbody></table>';
+        document.getElementById('emailBody').innerHTML = html;
+    }
+
+    // ── SOCIAL TABLE ──
+    function renderSocialTable(monthKey) {
+        const LIMIT = 5;
+        const posts = (fullData.publications || [])
+            .filter(p => dayjs(p.date).format('YYYY-MM') === monthKey)
+            .sort((a,b) => dayjs(a.date).diff(dayjs(b.date)));
+
+        document.getElementById('socialCount').textContent = `${posts.length} posts`;
+
+        if (!posts.length) {
+            document.getElementById('socialBody').innerHTML = '<p class="warning-msg">Aucune publication ce mois</p>';
+            return;
+        }
+
+        function buildRows(list) {
+            return list.map(p => {
+                const pl  = (p.plateforme||'').toLowerCase();
+                const cls = pl === 'instagram' ? 'canal-ig' : 'canal-fb';
+                const lbl = pl === 'instagram' ? 'IG' : 'FB';
+                const txt = (p.description_courte || p.title || '').substring(0,28);
+                const url = p.lien_post || p.link || p.url || '';
                 return `<tr>
-                    <td>${dayjs(v.date).format('DD MMM YYYY')}</td>
-                    <td>${bel.toLocaleString('fr-CA')} $</td>
-                    <td>${boutique.toLocaleString('fr-CA')} $</td>
-                    <td>${(bel+boutique).toLocaleString('fr-CA')} $</td>
-                    <td>${v.precipitation_mm || 0}</td>
-                    <td>${eventBadge}</td>
+                    <td class="date-cell">${dayjs(p.date).format('DD/MM')}</td>
+                    <td><span class="canal-badge ${cls}">${lbl}</span></td>
+                    <td class="note-cell">${txt}${txt.length===28?'…':''}</td>
+                    <td>${url?`<a href="${url}" target="_blank" class="link-voir">Voir</a>`:'—'}</td>
                 </tr>`;
             }).join('');
         }
-        renderMarketingSections(ventes);
-    }
 
-    function exportCSV() {
-        const ventes = getFilteredVentes();
-        if (!ventes.length) return;
-        let csvRows = [['Date', 'BEL ($)', 'Boutique ($)', 'Total ($)', 'Précipitations (mm)']];
-        ventes.forEach(v => {
-            let bel = parseFloat(v.ventes_bel)||0, boutique = parseFloat(v.ventes_boutique)||0;
-            csvRows.push([dayjs(v.date).format('YYYY-MM-DD'), bel, boutique, bel+boutique, v.precipitation_mm || 0]);
-        });
-        const blob = new Blob([csvRows.map(row => row.join(',')).join('\n')], { type: 'text/csv' });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = 'ventes.csv';
-        link.click();
-    }
+        const shown     = posts.slice(0, LIMIT);
+        const remaining = posts.length - LIMIT;
 
-    // Gestion du modal pour ajouter un événement
-    const modal = document.getElementById('eventModal');
-    const openBtn = document.getElementById('openModalBtn');
-    const closeSpan = document.querySelector('.close');
-    const form = document.getElementById('eventForm');
-    const formMessage = document.getElementById('formMessage');
+        let html = '<table class="mini-table"><thead><tr><th>Date</th><th>Canal</th><th>Contenu</th><th></th></tr></thead><tbody id="socialTbody">';
+        html += buildRows(shown);
+        html += '</tbody></table>';
+        if (remaining > 0) html += `<span class="voir-plus" id="voirPlusBtn">Voir les ${remaining} autre${remaining>1?'s':''} post${remaining>1?'s':''} →</span>`;
 
-    openBtn.onclick = () => modal.style.display = 'flex';
-    closeSpan.onclick = () => modal.style.display = 'none';
-    window.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+        document.getElementById('socialBody').innerHTML = html;
 
-    form.onsubmit = async (e) => {
-        e.preventDefault();
-        const date = document.getElementById('eventDate').value;
-        const action = document.getElementById('eventAction').value.trim();
-        const note = document.getElementById('eventNote').value.trim();
-        if (!date || !action) {
-            formMessage.innerHTML = '<span style="color:red;">Veuillez remplir la date et l\'action.</span>';
-            return;
-        }
-        formMessage.innerHTML = 'Envoi en cours...';
-        try {
-            const response = await fetch(WEBHOOK_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ date, action, note })
+        if (remaining > 0) {
+            document.getElementById('voirPlusBtn').addEventListener('click', function() {
+                this.style.display = 'none';
+                document.getElementById('socialTbody').insertAdjacentHTML('beforeend', buildRows(posts.slice(LIMIT)));
             });
-            formMessage.innerHTML = '<span style="color:green;">✅ Événement ajouté ! Rafraîchissez les données dans quelques minutes.</span>';
-            form.reset();
-            setTimeout(() => { modal.style.display = 'none'; formMessage.innerHTML = ''; }, 2000);
-        } catch (err) {
-            formMessage.innerHTML = '<span style="color:red;">Erreur réseau. Réessayez plus tard.</span>';
         }
-    };
+    }
 
+    // ── KPI HELPER ──
+    function setKPI(n, label, value, sub) {
+        document.getElementById(`kpi${n}Label`).textContent = label;
+        document.getElementById(`kpi${n}Value`).textContent = value;
+        document.getElementById(`kpi${n}Sub`).textContent   = sub;
+    }
+
+    // ── LISTENERS ──
     document.getElementById('yearFilter').addEventListener('change', () => { updateMonthFilter(); applyFiltersAndRender(); });
-    document.getElementById('monthFilter').addEventListener('change', () => applyFiltersAndRender());
-    document.getElementById('channelFilter').addEventListener('change', () => applyFiltersAndRender());
+    document.getElementById('monthFilter').addEventListener('change', applyFiltersAndRender);
+    document.getElementById('channelFilter').addEventListener('change', applyFiltersAndRender);
+
     document.getElementById('resetBtn').addEventListener('click', () => {
-        document.getElementById('yearFilter').value = 'all';
+        document.getElementById('yearFilter').value = document.getElementById('yearFilter').options[0]?.value;
         updateMonthFilter();
         document.getElementById('monthFilter').value = 'all';
         document.getElementById('channelFilter').value = 'total';
+        currentView = 'annual';
         applyFiltersAndRender();
     });
-    document.getElementById('viewMonthlyBtn').addEventListener('click', () => { currentView = 'monthly'; document.getElementById('viewMonthlyBtn').classList.add('active'); document.getElementById('viewDailyBtn').classList.remove('active'); applyFiltersAndRender(); });
-    document.getElementById('viewDailyBtn').addEventListener('click', () => { currentView = 'daily'; document.getElementById('viewDailyBtn').classList.add('active'); document.getElementById('viewMonthlyBtn').classList.remove('active'); applyFiltersAndRender(); });
-    document.getElementById('exportBtn').addEventListener('click', () => exportCSV());
-    document.getElementById('viewMonthlyBtn').classList.add('active');
-    
+
+    document.getElementById('viewAnnualBtn').addEventListener('click', () => {
+        currentView = 'annual';
+        document.getElementById('viewAnnualBtn').classList.add('active');
+        document.getElementById('viewMonthlyBtn').classList.remove('active');
+    });
+    document.getElementById('viewMonthlyBtn').addEventListener('click', () => {
+        currentView = 'monthly';
+        document.getElementById('viewMonthlyBtn').classList.add('active');
+        document.getElementById('viewAnnualBtn').classList.remove('active');
+    });
+
+    // Modal
+    const modal = document.getElementById('eventModal');
+    document.getElementById('openModalBtn').onclick = () => modal.style.display = 'flex';
+    document.getElementById('modalClose').onclick   = () => modal.style.display = 'none';
+    window.onclick = e => { if (e.target === modal) modal.style.display = 'none'; };
+
+    document.getElementById('eventForm').onsubmit = async (e) => {
+        e.preventDefault();
+        const date   = document.getElementById('eventDate').value;
+        const action = document.getElementById('eventAction').value.trim();
+        const note   = document.getElementById('eventNote').value.trim();
+        if (!date || !action) return;
+        document.getElementById('formMessage').innerHTML = 'Envoi en cours…';
+        try {
+            await fetch(WEBHOOK_URL, {
+                method: 'POST', mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ date, action, note })
+            });
+            document.getElementById('formMessage').innerHTML = '<span style="color:#6ab04c;">✅ Événement ajouté ! Mise à jour dans quelques minutes.</span>';
+            document.getElementById('eventForm').reset();
+            setTimeout(() => { modal.style.display = 'none'; document.getElementById('formMessage').innerHTML = ''; }, 2500);
+        } catch(err) {
+            document.getElementById('formMessage').innerHTML = '<span style="color:#ef4444;">Erreur réseau. Réessayez.</span>';
+        }
+    };
+
     loadData();
 </script>
 </body>
