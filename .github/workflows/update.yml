@@ -33,7 +33,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+          git rebase origin/main
           git add data.json
           git commit -m "Mise à jour automatique du dashboard" || exit 0
-          git pull --rebase origin main
           git push
