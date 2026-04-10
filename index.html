@@ -241,6 +241,19 @@
 
         .warning-msg { color: #8a8f9e; font-size: 0.82rem; text-align: center; padding: 14px 0; }
 
+        /* EVENTS SEARCH */
+        .events-search {
+            width: 100%;
+            padding: 8px 12px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            border: 1px solid #ddd8d0;
+            background: #faf8f5;
+            color: #1e2330;
+            font-size: 0.82rem;
+        }
+        .events-search:focus { outline: none; border-color: #7c6fa0; }
+
         /* MODAL */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(30,35,48,0.45); justify-content: center; align-items: center; z-index: 1000; }
         .modal-content {
@@ -394,6 +407,7 @@
                     <div class="card-title">⚡ Événements marketing et contexte</div>
                     <span class="badge-count" id="eventsCount">0</span>
                 </div>
+                <input type="text" id="eventsSearch" class="events-search" placeholder="Rechercher par date, action ou note…" style="display:none;">
                 <div id="eventsBody"></div>
             </div>
             <div class="chart-card">
@@ -671,28 +685,48 @@
             <span style="color:${diffCol};font-weight:600;">Pluie = ${diffStr} de ventes</span>
         `;
 
-        // Daily chart
+        // Daily chart — barres empilées par canal
         document.getElementById('dailyChartTitle').textContent = `VENTES JOURNALIÈRES — ${monthName.toUpperCase()}`;
         if (dailyChart) dailyChart.destroy();
+
+        const chartLabels    = ventes.map(v => dayjs(v.date).date() + ' ' + MONTHS_SHORT[dayjs(v.date).month()]);
+        const dataBEL        = ventes.map(v => parseFloat(v.ventes_bel)||0);
+        const dataBoutique   = ventes.map(v => parseFloat(v.ventes_boutique)||0);
+        const dataWholesale  = ventes.map(v => parseFloat(v.ventes_wholesale)||0);
+
+        let chartDatasets;
+        if (channel === 'bel') {
+            chartDatasets = [{ label: 'BEL (online)', data: dataBEL, backgroundColor: '#a89cc8', borderRadius: 4 }];
+        } else if (channel === 'boutique') {
+            chartDatasets = [{ label: 'Boutique physique', data: dataBoutique, backgroundColor: '#c87f4a', borderRadius: 4 }];
+        } else {
+            chartDatasets = [
+                { label: 'BEL (online)',      data: dataBEL,       backgroundColor: '#a89cc8' },
+                { label: 'Boutique physique', data: dataBoutique,  backgroundColor: '#c87f4a' },
+                { label: 'Wholesale',         data: dataWholesale, backgroundColor: '#5a9e7a' },
+            ];
+        }
+
         dailyChart = new Chart(document.getElementById('dailyChart').getContext('2d'), {
             type: 'bar',
-            data: {
-                labels: ventes.map(v => dayjs(v.date).date() + ' ' + MONTHS_SHORT[dayjs(v.date).month()]),
-                datasets: [{ label: 'Ventes ($)', data: ventes.map(v => getSalesValue(v,channel)), backgroundColor: '#a89cc8', borderRadius: 4 }]
-            },
+            data: { labels: chartLabels, datasets: chartDatasets },
             options: {
                 responsive: true, maintainAspectRatio: true,
                 plugins: {
-                    legend: { display: false },
+                    legend: {
+                        display: channel === 'total',
+                        position: 'bottom',
+                        labels: { color: '#9ca3af', padding: 16, usePointStyle: true, pointStyleWidth: 12, font: { size: 11 } }
+                    },
                     tooltip: {
                         backgroundColor: '#ffffff', titleColor: '#1e2330', bodyColor: '#5a5f72',
                         borderColor: '#e8e3db', borderWidth: 1,
-                        callbacks: { label: ctx => ` ${ctx.raw.toLocaleString('fr-CA')} $` }
+                        callbacks: { label: ctx => ` ${ctx.dataset.label} : ${ctx.raw.toLocaleString('fr-CA')} $` }
                     }
                 },
                 scales: {
-                    x: { ticks: { color: '#8a8f9e', font: { size: 11 } }, grid: { color: '#f0ece6' } },
-                    y: { ticks: { color: '#8a8f9e', callback: v => v>=1000?Math.round(v/1000)+'k $':v+' $' }, grid: { color: '#f0ece6' } }
+                    x: { stacked: true, ticks: { color: '#8a8f9e', font: { size: 11 } }, grid: { color: '#f0ece6' } },
+                    y: { stacked: true, ticks: { color: '#8a8f9e', callback: v => v>=1000?Math.round(v/1000)+'k $':v+' $' }, grid: { color: '#f0ece6' } }
                 }
             }
         });
@@ -705,6 +739,9 @@
 
     // ── EVENTS TABLE ──
     function renderEventsTable(monthKey) {
+        const searchEl = document.getElementById('eventsSearch');
+        searchEl.value = '';
+
         const [y, m] = monthKey.split('-').map(Number);
         const start = `${monthKey}-01`;
         const end   = dayjs(new Date(y, m, 0)).format('YYYY-MM-DD');
@@ -723,29 +760,52 @@
 
         document.getElementById('eventsCount').textContent = events.length;
 
+        function buildEventsHTML(list) {
+            if (!list.length) return '<p class="warning-msg">Aucun événement trouvé.</p>';
+            let html = '<table class="mini-table"><thead><tr><th>Date</th><th>Action</th><th>Note</th></tr></thead><tbody>';
+            list.forEach(ev => {
+                const d = dayjs(ev.date);
+                const dateStr = d.format('DD/MM') + ' ' + DAYS_FR[d.day()];
+                const actions = ACTION_COLS.map(k => ev[k]?.toString().trim()).filter(Boolean).join(' · ') || '—';
+                const notes   = [...CONTEXTE_COLS.map(k => ev[k]?.toString().trim()), ev.commentaires_notes?.toString().trim()].filter(Boolean).join(' · ');
+                const isMarketing = ACTION_COLS.some(k => ev[k]?.toString().trim());
+                const isContexte  = CONTEXTE_COLS.some(k => ev[k]?.toString().trim());
+                const tagHtml = (isMarketing ? ' <span class="tag-marketing">marketing</span>' : '')
+                              + (isContexte  ? ' <span class="tag-contexte">contexte</span>'  : '');
+                html += `<tr>
+                    <td class="date-cell">${dateStr}</td>
+                    <td class="action-cell">${actions}${tagHtml}</td>
+                    <td class="note-cell">${notes}</td>
+                </tr>`;
+            });
+            html += '</tbody></table>';
+            return html;
+        }
+
         if (!events.length) {
             document.getElementById('eventsBody').innerHTML = '<p class="warning-msg">Aucun événement ce mois</p>';
+            searchEl.style.display = 'none';
             return;
         }
 
-        let html = '<table class="mini-table"><thead><tr><th>Date</th><th>Action</th><th>Note</th></tr></thead><tbody>';
-        events.forEach(ev => {
-            const d = dayjs(ev.date);
-            const dateStr = d.format('DD/MM') + ' ' + DAYS_FR[d.day()];
-            const actions = ACTION_COLS.map(k => ev[k]?.toString().trim()).filter(Boolean).join(' · ') || '—';
-            const notes   = [...CONTEXTE_COLS.map(k => ev[k]?.toString().trim()), ev.commentaires_notes?.toString().trim()].filter(Boolean).join(' · ');
-            const isMarketing = ACTION_COLS.some(k => ev[k]?.toString().trim());
-            const isContexte  = CONTEXTE_COLS.some(k => ev[k]?.toString().trim());
-            const tagHtml = (isMarketing ? ' <span class="tag-marketing">marketing</span>' : '')
-                          + (isContexte  ? ' <span class="tag-contexte">contexte</span>'  : '');
-            html += `<tr>
-                <td class="date-cell">${dateStr}</td>
-                <td class="action-cell">${actions}${tagHtml}</td>
-                <td class="note-cell">${notes}</td>
-            </tr>`;
+        searchEl.style.display = 'block';
+        document.getElementById('eventsBody').innerHTML = buildEventsHTML(events);
+
+        // Remplace l'élément pour retirer les anciens listeners
+        const fresh = searchEl.cloneNode(true);
+        searchEl.parentNode.replaceChild(fresh, searchEl);
+        fresh.addEventListener('input', () => {
+            const q = fresh.value.toLowerCase().trim();
+            if (!q) { document.getElementById('eventsBody').innerHTML = buildEventsHTML(events); return; }
+            const filtered = events.filter(ev => {
+                const d = dayjs(ev.date);
+                const dateStr = d.format('DD/MM') + ' ' + DAYS_FR[d.day()];
+                const actions = ACTION_COLS.map(k => ev[k]?.toString().trim()).filter(Boolean).join(' ');
+                const notes   = [...CONTEXTE_COLS.map(k => ev[k]?.toString().trim()), ev.commentaires_notes?.toString().trim()].filter(Boolean).join(' ');
+                return (dateStr + ' ' + actions + ' ' + notes).toLowerCase().includes(q);
+            });
+            document.getElementById('eventsBody').innerHTML = buildEventsHTML(filtered);
         });
-        html += '</tbody></table>';
-        document.getElementById('eventsBody').innerHTML = html;
     }
 
     // ── EMAIL TABLE ──
