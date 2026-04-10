@@ -16,15 +16,9 @@ function doPost(e) {
     const lastRow = sheet.getLastRow();
     const newRow = lastRow + 1;
 
-    sheet.getRange(newRow, 1).setValue(date);  // colonne A : date
-    if (categorie === 'contexte') {
-      // Événement contexte → va dans les notes (col O)
-      sheet.getRange(newRow, 15).setValue(action + (note ? ' — ' + note : ''));
-    } else {
-      // Événement marketing → va dans lancement_produits_ateliers (col C)
-      sheet.getRange(newRow, 3).setValue(action);
-      sheet.getRange(newRow, 15).setValue(note);
-    }
+    sheet.getRange(newRow, 1).setValue(date);    // colonne A : date
+    sheet.getRange(newRow, 3).setValue(action);  // colonne C : lancement_produits_ateliers
+    sheet.getRange(newRow, 15).setValue(note);   // colonne O : commentaires_notes
 
     // === AJOUT : déclencher le workflow GitHub ===
     triggerWorkflow();
