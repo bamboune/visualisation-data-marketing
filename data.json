@@ -38611,23 +38611,6 @@
     {
       "date": "2026-04-09",
       "rabais_promos": "",
-      "lancement_produits_ateliers": "",
-      "bis_alertes_back_in_stock": "",
-      "infolettre": "",
-      "push_notif": "",
-      "billet_blogue": "",
-      "webmestre_funnels": "",
-      "temperature": "",
-      "meteo_montreal": "",
-      "meteo_generale": "",
-      "politique_actualite": "",
-      "fetes_feries_conges": "",
-      "couvertures_mediatiques": "",
-      "commentaires_notes": "C'est gris dehors enh! — Ouaip ouaip!"
-    },
-    {
-      "date": "2026-04-08",
-      "rabais_promos": "",
       "lancement_produits_ateliers": "BIS",
       "bis_alertes_back_in_stock": "",
       "infolettre": "",
@@ -38640,7 +38623,7 @@
       "politique_actualite": "",
       "fetes_feries_conges": "",
       "couvertures_mediatiques": "",
-      "commentaires_notes": "CRÈME OUI"
+      "commentaires_notes": "Baume des lunes"
     }
   ],
   "stats": {
