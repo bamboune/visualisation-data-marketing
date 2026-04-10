@@ -288,6 +288,26 @@
         .btn-submit:hover { background: #6a5e8c; }
         .modal-close { float: right; font-size: 1.3rem; cursor: pointer; color: #8a8f9e; line-height: 1; }
         .modal-close:hover { color: #1e2330; }
+
+        /* CATEGORY TAGS */
+        .tag-marketing { background: #ede9ff; color: #5b21b6; padding: 2px 8px; border-radius: 5px; font-size: 0.68rem; font-weight: 700; display: inline-block; }
+        .tag-contexte { background: #fef3c7; color: #92400e; padding: 2px 8px; border-radius: 5px; font-size: 0.68rem; font-weight: 700; display: inline-block; }
+
+        /* HOLIDAYS BAR */
+        .holidays-bar {
+            margin: 14px -22px -22px -22px;
+            padding: 8px 22px;
+            background: #f7f4ef;
+            border-top: 1px solid #e8e3db;
+            border-radius: 0 0 14px 14px;
+            font-size: 0.72rem;
+            color: #8a8f9e;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .holiday-item { display: flex; align-items: center; gap: 5px; }
+        .holiday-dot { width: 6px; height: 6px; background: #c87f4a; border-radius: 50%; display: inline-block; flex-shrink: 0; }
     </style>
 </head>
 <body>
@@ -371,7 +391,7 @@
         <div class="monthly-grid">
             <div class="data-card">
                 <div class="card-header">
-                    <div class="card-title">⚡ Événements marketing</div>
+                    <div class="card-title">⚡ Événements marketing et contexte</div>
                     <span class="badge-count" id="eventsCount">0</span>
                 </div>
                 <div id="eventsBody"></div>
@@ -379,6 +399,7 @@
             <div class="chart-card">
                 <div class="card-title-sm" id="dailyChartTitle">Ventes journalières</div>
                 <canvas id="dailyChart" height="280" style="max-height:320px;"></canvas>
+                <div id="holidaysBar" class="holidays-bar" style="display:none;"></div>
             </div>
         </div>
         <div class="monthly-grid">
@@ -405,10 +426,15 @@
 <div id="eventModal" class="modal">
     <div class="modal-content">
         <span class="modal-close" id="modalClose">&times;</span>
-        <h2>+ Ajouter un événement</h2>
+        <h2>+ Ajouter un événement marketing et contexte</h2>
         <form id="eventForm">
             <label>Date</label>
             <input type="date" id="eventDate" required>
+            <label>Catégorie</label>
+            <select id="eventCategorie" style="width:100%;padding:10px 14px;margin-top:6px;border-radius:10px;border:1px solid #ddd8d0;background:#faf8f5;color:#1e2330;font-size:0.9rem;">
+                <option value="marketing">Marketing</option>
+                <option value="contexte">Contexte</option>
+            </select>
             <label>Action</label>
             <input type="text" id="eventAction" placeholder="Ex: Lancement produit, Promo, BIS..." required>
             <label>Note</label>
@@ -532,7 +558,7 @@
         }
 
         // KPIs
-        setKPI(1, `Ventes totales — ${year} (YTD)`, totalVentes.toLocaleString('fr-CA') + ' $', periodLabel);
+        setKPI(1, `Ventes totales nettes — ${year} (YTD)`, totalVentes.toLocaleString('fr-CA') + ' $', periodLabel);
         setKPI(2, 'Publications totales', totalPubs, 'IG + FB combinés');
         setKPI(3, 'Infolettres envoyées', totalEmails, `YTD ${year}`);
         setKPI(4, 'Événements marketing', totalEvents, 'Promos & campagnes');
@@ -616,14 +642,16 @@
         ventes.forEach(v => {
             totalVentes  += getSalesValue(v, channel);
             totalOrders  += parseInt(v.commandes_total)||0;
-            const p = parseFloat(v.panier_moyen_bel)||0;
+            const panierField = channel === 'boutique' ? 'panier_moyen_boutique' : 'panier_moyen_bel';
+            const p = parseFloat(v[panierField])||0;
             if (p > 0) { cartSum += p; cartCount++; }
         });
         const avgDaily = ventes.length ? totalVentes / ventes.length : 0;
         const avgCart  = cartCount ? cartSum / cartCount : 0;
+        const panierLabel = channel === 'boutique' ? 'Boutique' : 'BEL (online)';
 
-        setKPI(1, `Ventes totales — ${monthName.toUpperCase()}`, totalVentes.toLocaleString('fr-CA') + ' $', `${ventes.length} jours écoulés · ${totalOrders.toLocaleString('fr-CA')} commandes`);
-        setKPI(2, 'Panier moyen', avgCart.toLocaleString('fr-CA', {minimumFractionDigits:2,maximumFractionDigits:2}) + ' $', 'BEL (online)');
+        setKPI(1, `Ventes totales nettes — ${monthName.toUpperCase()}`, totalVentes.toLocaleString('fr-CA') + ' $', `${ventes.length} jours écoulés · ${totalOrders.toLocaleString('fr-CA')} commandes`);
+        setKPI(2, 'Panier moyen', avgCart.toLocaleString('fr-CA', {minimumFractionDigits:2,maximumFractionDigits:2}) + ' $', panierLabel);
         setKPI(3, 'Moy. / jour', avgDaily.toLocaleString('fr-CA', {maximumFractionDigits:0}) + ' $', '');
         setKPI(4, 'Commandes', totalOrders.toLocaleString('fr-CA'), '');
 
@@ -672,6 +700,7 @@
         renderEventsTable(monthKey);
         renderEmailTable(monthKey);
         renderSocialTable(monthKey);
+        renderHolidaysBar(monthKey);
     }
 
     // ── EVENTS TABLE ──
@@ -705,9 +734,13 @@
             const dateStr = d.format('DD/MM') + ' ' + DAYS_FR[d.day()];
             const actions = ACTION_COLS.map(k => ev[k]?.toString().trim()).filter(Boolean).join(' · ') || '—';
             const notes   = [...CONTEXTE_COLS.map(k => ev[k]?.toString().trim()), ev.commentaires_notes?.toString().trim()].filter(Boolean).join(' · ');
+            const isMarketing = ACTION_COLS.some(k => ev[k]?.toString().trim());
+            const isContexte  = CONTEXTE_COLS.some(k => ev[k]?.toString().trim());
+            const tagHtml = (isMarketing ? ' <span class="tag-marketing">marketing</span>' : '')
+                          + (isContexte  ? ' <span class="tag-contexte">contexte</span>'  : '');
             html += `<tr>
                 <td class="date-cell">${dateStr}</td>
-                <td class="action-cell">${actions}</td>
+                <td class="action-cell">${actions}${tagHtml}</td>
                 <td class="note-cell">${notes}</td>
             </tr>`;
         });
@@ -792,6 +825,63 @@
         }
     }
 
+    // ── QUÉBEC HOLIDAYS ──
+    function calcEaster(year) {
+        const a = year%19, b = Math.floor(year/100), c = year%100;
+        const d = Math.floor(b/4), e = b%4, f = Math.floor((b+8)/25);
+        const g = Math.floor((b-f+1)/3), h = (19*a+b-d-g+15)%30;
+        const i = Math.floor(c/4), k = c%4;
+        const l = (32+2*e+2*i-h-k)%7;
+        const m = Math.floor((a+11*h+22*l)/451);
+        const mo = Math.floor((h+l-7*m+114)/31);
+        const dy = ((h+l-7*m+114)%31)+1;
+        return new Date(year, mo-1, dy);
+    }
+
+    function getQuebecHolidays(year) {
+        const easter = calcEaster(year);
+        const addDays = (d, n) => { const r = new Date(d); r.setDate(r.getDate()+n); return r; };
+        const fmt = d => d.toISOString().split('T')[0];
+
+        const may25 = new Date(year, 4, 25);
+        const patriotes = new Date(year, 4, 25 - (may25.getDay()===0 ? 6 : may25.getDay()-1));
+
+        const sep1 = new Date(year, 8, 1);
+        const travail = new Date(year, 8, 1 + (sep1.getDay()===1 ? 0 : (8-sep1.getDay())%7));
+
+        const oct1 = new Date(year, 9, 1);
+        const actionGraces = new Date(year, 9, 1 + (oct1.getDay()===1 ? 0 : (8-oct1.getDay())%7) + 7);
+
+        const july1 = new Date(year, 6, 1);
+        const canada = july1.getDay()===0 ? new Date(year,6,2) : july1;
+
+        return [
+            { date: fmt(new Date(year,0,1)),  name: "Jour de l'An" },
+            { date: fmt(addDays(easter,-2)),  name: 'Vendredi saint' },
+            { date: fmt(addDays(easter,1)),   name: 'Lundi de Pâques' },
+            { date: fmt(patriotes),           name: 'Journée des Patriotes' },
+            { date: fmt(new Date(year,5,24)), name: 'Fête nationale (QC)' },
+            { date: fmt(canada),              name: 'Fête du Canada' },
+            { date: fmt(travail),             name: 'Fête du Travail' },
+            { date: fmt(actionGraces),        name: 'Action de grâces' },
+            { date: fmt(new Date(year,11,25)),name: 'Noël' },
+            { date: fmt(new Date(year,11,26)),name: 'Lendemain de Noël' },
+        ];
+    }
+
+    function renderHolidaysBar(monthKey) {
+        const year = parseInt(monthKey.split('-')[0]);
+        const holidays = getQuebecHolidays(year).filter(h => h.date.startsWith(monthKey));
+        const bar = document.getElementById('holidaysBar');
+        if (!holidays.length) { bar.style.display = 'none'; return; }
+        bar.style.display = 'flex';
+        bar.innerHTML = holidays.map(h => {
+            const d = dayjs(h.date);
+            const label = d.date() + ' ' + MONTHS_SHORT[d.month()];
+            return `<span class="holiday-item"><span class="holiday-dot"></span>${label} — ${h.name}</span>`;
+        }).join('');
+    }
+
     // ── KPI HELPER ──
     function setKPI(n, label, value, sub) {
         document.getElementById(`kpi${n}Label`).textContent = label;
@@ -832,16 +922,17 @@
 
     document.getElementById('eventForm').onsubmit = async (e) => {
         e.preventDefault();
-        const date   = document.getElementById('eventDate').value;
-        const action = document.getElementById('eventAction').value.trim();
-        const note   = document.getElementById('eventNote').value.trim();
+        const date      = document.getElementById('eventDate').value;
+        const categorie = document.getElementById('eventCategorie').value;
+        const action    = document.getElementById('eventAction').value.trim();
+        const note      = document.getElementById('eventNote').value.trim();
         if (!date || !action) return;
         document.getElementById('formMessage').innerHTML = 'Envoi en cours…';
         try {
             await fetch(WEBHOOK_URL, {
                 method: 'POST', mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ date, action, note })
+                body: JSON.stringify({ date, categorie, action, note })
             });
             document.getElementById('formMessage').innerHTML = '<span style="color:#6ab04c;">✅ Événement ajouté ! Mise à jour dans quelques minutes.</span>';
             document.getElementById('eventForm').reset();
