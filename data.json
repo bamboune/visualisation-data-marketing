@@ -25613,6 +25613,24 @@
       "precipitation_mm": 0.3,
       "snowfall_cm": 0.0,
       "weather_code": 51
+    },
+    {
+      "date": "2026-04-10",
+      "ventes_bel": 3132.25,
+      "ventes_boutique": 987.76,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 4120.01,
+      "commandes_bel": 34.0,
+      "commandes_boutique": 29.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 63.0,
+      "panier_moyen_bel": 92.13,
+      "panier_moyen_boutique": 34.06,
+      "temp_max": 10.0,
+      "temp_min": 3.3,
+      "precipitation_mm": 11.4,
+      "snowfall_cm": 0.0,
+      "weather_code": 63
     }
   ],
   "infolettres": [
@@ -25814,6 +25832,34 @@
       "type_contenu": "image",
       "description_courte": "Quand la ptite nouvelle dans l’équipe mélange tout l’monde à l’atelier 🤪 Ta réponse pref? #allô? #thankunext #hahahalol... Quand la ptite nouvelle dans l’équipe mélange tout l’monde à l’atelier 🤪 Ta",
       "lien_post": "https://www.instagram.com/p/DW7NbBhDJoF",
+      "format": "",
+      "reach": 0.0,
+      "impressions": 0.0,
+      "likes": 0.0,
+      "commentaires": 0.0,
+      "partages": 0.0,
+      "sauvegardes": 0.0
+    },
+    {
+      "date": "2026-04-10",
+      "plateforme": "instagram",
+      "type_contenu": "image",
+      "description_courte": "Tu connaissais cette expression-là toi? 🙈 #quelyâbemepèteunsinge #prochainepersonne #hahahalolol Tu connaissais cette expression-là toi? 🙈 #quelyâbemepèteunsinge #prochainepersonne #hahahalolol",
+      "lien_post": "https://www.instagram.com/p/DW9cZYQjNxi",
+      "format": "",
+      "reach": 0.0,
+      "impressions": 0.0,
+      "likes": 0.0,
+      "commentaires": 0.0,
+      "partages": 0.0,
+      "sauvegardes": 0.0
+    },
+    {
+      "date": "2026-04-10",
+      "plateforme": "facebook",
+      "type_contenu": "image",
+      "description_courte": "Quand la ptite nouvelle dans l’équipe mélange tout l’monde à l’atelier 🤪 Ta réponse pref? #allô? #thankunext #hahahalol... Quand la ptite nouvelle dans l’équipe mélange tout l’monde à l’atelier 🤪 Ta",
+      "lien_post": "https://www.facebook.com/reel/1274983844738739/",
       "format": "",
       "reach": 0.0,
       "impressions": 0.0,
@@ -38641,32 +38687,15 @@
       "fetes_feries_conges": "",
       "couvertures_mediatiques": "",
       "commentaires_notes": "6 pers."
-    },
-    {
-      "date": "2026-04-08",
-      "rabais_promos": "",
-      "lancement_produits_ateliers": "COUCOUCOU",
-      "bis_alertes_back_in_stock": "",
-      "infolettre": "",
-      "push_notif": "",
-      "billet_blogue": "",
-      "webmestre_funnels": "",
-      "temperature": "",
-      "meteo_montreal": "",
-      "meteo_generale": "",
-      "politique_actualite": "",
-      "fetes_feries_conges": "",
-      "couvertures_mediatiques": "",
-      "commentaires_notes": "ROUCOUCOU"
     }
   ],
   "stats": {
-    "total_ventes": 9384846.530000001,
-    "total_ventes_bel": 6484050.82,
-    "total_ventes_boutique": 2390070.73,
+    "total_ventes": 9388966.540000001,
+    "total_ventes_bel": 6487183.07,
+    "total_ventes_boutique": 2391058.49,
     "total_ventes_wholesale": 510724.98,
-    "panier_moyen_bel": 94.75997891777935,
+    "panier_moyen_bel": 94.7581320224719,
     "date_min": "2021-11-01",
-    "date_max": "2026-04-09"
+    "date_max": "2026-04-10"
   }
 }
