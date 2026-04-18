@@ -25721,6 +25721,24 @@
       "precipitation_mm": 8.0,
       "snowfall_cm": 0.0,
       "weather_code": 63
+    },
+    {
+      "date": "2026-04-17",
+      "ventes_bel": 4775.68,
+      "ventes_boutique": 1541.4,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 6317.08,
+      "commandes_bel": 41.0,
+      "commandes_boutique": 35.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 76.0,
+      "panier_moyen_bel": 116.48,
+      "panier_moyen_boutique": 44.04,
+      "temp_max": 17.6,
+      "temp_min": 5.3,
+      "precipitation_mm": 0.1,
+      "snowfall_cm": 0.0,
+      "weather_code": 51
     }
   ],
   "infolettres": [
@@ -25771,6 +25789,18 @@
       "segment": "regular",
       "notes": "",
       "date": "2026-04-11"
+    },
+    {
+      "date_envoi": "2026-04-17",
+      "sujet": "Rappel: ton atelier chez Les Mauvaises Herbes! 🌾",
+      "nb_envoyes": "",
+      "taux_ouverture_%": "",
+      "taux_clic_%": "",
+      "nb_commandes": "",
+      "ventes_generees_$": "",
+      "segment": "regular",
+      "notes": "",
+      "date": "2026-04-17"
     }
   ],
   "publications": [
@@ -38809,12 +38839,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9420903.48,
-    "total_ventes_bel": 6508576.02,
-    "total_ventes_boutique": 2400300.7800000003,
+    "total_ventes": 9427220.559999999,
+    "total_ventes_bel": 6513351.699999999,
+    "total_ventes_boutique": 2401842.1799999997,
     "total_ventes_wholesale": 512026.68,
-    "panier_moyen_bel": 94.82991602519243,
+    "panier_moyen_bel": 94.84505594405594,
     "date_min": "2021-11-01",
-    "date_max": "2026-04-16"
+    "date_max": "2026-04-17"
   }
 }
