@@ -112,7 +112,6 @@
             color: #8a8f9e;
             margin-top: 6px;
         }
-
         /* WEATHER */
         .weather-bar {
             background: #ffffff;
@@ -723,6 +722,30 @@
             ];
         }
 
+        // Ligne pointillée — même mois, année précédente
+        const prevYear     = year - 1;
+        const prevMonthKey = `${prevYear}-${monthKey.split('-')[1]}`;
+        const prevVentes   = fullData.ventes.filter(v => dayjs(v.date).format('YYYY-MM') === prevMonthKey);
+        if (prevVentes.length) {
+            const prevByDay = {};
+            prevVentes.forEach(v => { prevByDay[dayjs(v.date).date()] = getSalesValue(v, channel); });
+            const prevLineData = ventes.map(v => prevByDay[dayjs(v.date).date()] ?? null);
+            chartDatasets.push({
+                type: 'line',
+                label: `${MONTHS_LONG[monthIdx]} ${prevYear}`,
+                data: prevLineData,
+                borderColor: '#9ca3af',
+                backgroundColor: 'transparent',
+                borderWidth: 2,
+                borderDash: [6, 4],
+                tension: 0.3,
+                pointRadius: 2,
+                pointBackgroundColor: '#9ca3af',
+                yAxisID: 'y',
+                order: 0,
+            });
+        }
+
         dailyChart = new Chart(document.getElementById('dailyChart').getContext('2d'), {
             type: 'bar',
             data: { labels: chartLabels, datasets: chartDatasets },
@@ -730,14 +753,14 @@
                 responsive: true, maintainAspectRatio: true,
                 plugins: {
                     legend: {
-                        display: channel === 'total',
+                        display: channel === 'total' || prevVentes.length > 0,
                         position: 'bottom',
                         labels: { color: '#9ca3af', padding: 16, usePointStyle: true, pointStyleWidth: 12, font: { size: 11 } }
                     },
                     tooltip: {
                         backgroundColor: '#ffffff', titleColor: '#1e2330', bodyColor: '#5a5f72',
                         borderColor: '#e8e3db', borderWidth: 1,
-                        callbacks: { label: ctx => ` ${ctx.dataset.label} : ${ctx.raw.toLocaleString('fr-CA')} $` }
+                        callbacks: { label: ctx => ` ${ctx.dataset.label} : ${(ctx.raw ?? 0).toLocaleString('fr-CA')} $` }
                     }
                 },
                 scales: {
