@@ -112,16 +112,6 @@
             color: #8a8f9e;
             margin-top: 6px;
         }
-        .kpi-yoy {
-            font-size: 0.72rem;
-            font-weight: 600;
-            margin-top: 5px;
-            letter-spacing: 0.01em;
-        }
-        .kpi-yoy.up   { color: #6ab04c; }
-        .kpi-yoy.down { color: #ef4444; }
-        .kpi-yoy.flat { color: #9ca3af; }
-
         /* WEATHER */
         .weather-bar {
             background: #ffffff;
@@ -387,25 +377,21 @@
             <div class="kpi-label" id="kpi1Label">Ventes totales</div>
             <div class="kpi-value" id="kpi1Value">—</div>
             <div class="kpi-sub" id="kpi1Sub"></div>
-            <div class="kpi-yoy flat" id="kpi1Yoy"></div>
         </div>
         <div class="kpi-card">
             <div class="kpi-label" id="kpi2Label">—</div>
             <div class="kpi-value" id="kpi2Value">—</div>
             <div class="kpi-sub" id="kpi2Sub"></div>
-            <div class="kpi-yoy flat" id="kpi2Yoy"></div>
         </div>
         <div class="kpi-card">
             <div class="kpi-label" id="kpi3Label">—</div>
             <div class="kpi-value" id="kpi3Value">—</div>
             <div class="kpi-sub" id="kpi3Sub"></div>
-            <div class="kpi-yoy flat" id="kpi3Yoy"></div>
         </div>
         <div class="kpi-card">
             <div class="kpi-label" id="kpi4Label">—</div>
             <div class="kpi-value" id="kpi4Value">—</div>
             <div class="kpi-sub" id="kpi4Sub"></div>
-            <div class="kpi-yoy flat" id="kpi4Yoy"></div>
         </div>
     </div>
 
@@ -693,34 +679,10 @@
         const avgCart  = cartCount ? cartSum / cartCount : 0;
         const panierLabel = channel === 'boutique' ? 'Boutique' : 'BEL (online)';
 
-        // YoY — même mois, année précédente
-        const prevYear     = year - 1;
-        const prevMonthKey = `${prevYear}-${monthKey.split('-')[1]}`;
-        const prevVentes   = fullData.ventes.filter(v => dayjs(v.date).format('YYYY-MM') === prevMonthKey);
-        let prevTotal = 0, prevOrders = 0, prevCartSum = 0, prevCartCount = 0;
-        prevVentes.forEach(v => {
-            prevTotal  += getSalesValue(v, channel);
-            prevOrders += parseInt(v.commandes_total) || 0;
-            const pf = channel === 'boutique' ? 'panier_moyen_boutique' : 'panier_moyen_bel';
-            const p  = parseFloat(v[pf]) || 0;
-            if (p > 0) { prevCartSum += p; prevCartCount++; }
-        });
-        const prevAvgCart  = prevCartCount ? prevCartSum / prevCartCount : 0;
-        const prevAvgDaily = prevVentes.length ? prevTotal / prevVentes.length : 0;
-        const prevLabel    = MONTHS_LONG[monthIdx] + ' ' + prevYear;
-
-        function yoyBadge(current, prev) {
-            if (!prevVentes.length || prev === 0) return null;
-            const pct = (current - prev) / Math.abs(prev) * 100;
-            const dir  = pct > 0.5 ? 'up' : pct < -0.5 ? 'down' : 'flat';
-            const sign = pct >= 0 ? '+' : '';
-            return { text: `${sign}${pct.toFixed(1)} % vs ${prevLabel}`, dir };
-        }
-
-        setKPI(1, `Ventes totales nettes — ${monthName.toUpperCase()}`, totalVentes.toLocaleString('fr-CA') + ' $', `${ventes.length} jours écoulés · ${totalOrders.toLocaleString('fr-CA')} commandes`, yoyBadge(totalVentes, prevTotal));
-        setKPI(2, 'Panier moyen', avgCart.toLocaleString('fr-CA', {minimumFractionDigits:2,maximumFractionDigits:2}) + ' $', panierLabel, yoyBadge(avgCart, prevAvgCart));
-        setKPI(3, 'Moy. / jour', avgDaily.toLocaleString('fr-CA', {maximumFractionDigits:0}) + ' $', '', yoyBadge(avgDaily, prevAvgDaily));
-        setKPI(4, 'Commandes', totalOrders.toLocaleString('fr-CA'), '', yoyBadge(totalOrders, prevOrders));
+        setKPI(1, `Ventes totales nettes — ${monthName.toUpperCase()}`, totalVentes.toLocaleString('fr-CA') + ' $', `${ventes.length} jours écoulés · ${totalOrders.toLocaleString('fr-CA')} commandes`);
+        setKPI(2, 'Panier moyen', avgCart.toLocaleString('fr-CA', {minimumFractionDigits:2,maximumFractionDigits:2}) + ' $', panierLabel);
+        setKPI(3, 'Moy. / jour', avgDaily.toLocaleString('fr-CA', {maximumFractionDigits:0}) + ' $', '');
+        setKPI(4, 'Commandes', totalOrders.toLocaleString('fr-CA'), '');
 
         // Weather
         const rainDays = ventes.filter(v => (parseFloat(v.precipitation_mm)||0) > 0.5);
@@ -760,6 +722,30 @@
             ];
         }
 
+        // Ligne pointillée — même mois, année précédente
+        const prevYear     = year - 1;
+        const prevMonthKey = `${prevYear}-${monthKey.split('-')[1]}`;
+        const prevVentes   = fullData.ventes.filter(v => dayjs(v.date).format('YYYY-MM') === prevMonthKey);
+        if (prevVentes.length) {
+            const prevByDay = {};
+            prevVentes.forEach(v => { prevByDay[dayjs(v.date).date()] = getSalesValue(v, channel); });
+            const prevLineData = ventes.map(v => prevByDay[dayjs(v.date).date()] ?? null);
+            chartDatasets.push({
+                type: 'line',
+                label: `${MONTHS_LONG[monthIdx]} ${prevYear}`,
+                data: prevLineData,
+                borderColor: '#9ca3af',
+                backgroundColor: 'transparent',
+                borderWidth: 2,
+                borderDash: [6, 4],
+                tension: 0.3,
+                pointRadius: 2,
+                pointBackgroundColor: '#9ca3af',
+                yAxisID: 'y',
+                order: 0,
+            });
+        }
+
         dailyChart = new Chart(document.getElementById('dailyChart').getContext('2d'), {
             type: 'bar',
             data: { labels: chartLabels, datasets: chartDatasets },
@@ -767,14 +753,14 @@
                 responsive: true, maintainAspectRatio: true,
                 plugins: {
                     legend: {
-                        display: channel === 'total',
+                        display: channel === 'total' || prevVentes.length > 0,
                         position: 'bottom',
                         labels: { color: '#9ca3af', padding: 16, usePointStyle: true, pointStyleWidth: 12, font: { size: 11 } }
                     },
                     tooltip: {
                         backgroundColor: '#ffffff', titleColor: '#1e2330', bodyColor: '#5a5f72',
                         borderColor: '#e8e3db', borderWidth: 1,
-                        callbacks: { label: ctx => ` ${ctx.dataset.label} : ${ctx.raw.toLocaleString('fr-CA')} $` }
+                        callbacks: { label: ctx => ` ${ctx.dataset.label} : ${(ctx.raw ?? 0).toLocaleString('fr-CA')} $` }
                     }
                 },
                 scales: {
@@ -1007,15 +993,10 @@
     }
 
     // ── KPI HELPER ──
-    function setKPI(n, label, value, sub, yoy) {
+    function setKPI(n, label, value, sub) {
         document.getElementById(`kpi${n}Label`).textContent = label;
         document.getElementById(`kpi${n}Value`).textContent = value;
         document.getElementById(`kpi${n}Sub`).textContent   = sub;
-        const yoyEl = document.getElementById(`kpi${n}Yoy`);
-        if (yoyEl) {
-            yoyEl.textContent = yoy?.text || '';
-            yoyEl.className   = 'kpi-yoy ' + (yoy?.dir || 'flat');
-        }
     }
 
     // ── LISTENERS ──
