@@ -679,7 +679,18 @@
         const avgCart  = cartCount ? cartSum / cartCount : 0;
         const panierLabel = channel === 'boutique' ? 'Boutique' : 'BEL (online)';
 
-        setKPI(1, `Ventes totales nettes — ${monthName.toUpperCase()}`, totalVentes.toLocaleString('fr-CA') + ' $', `${ventes.length} jours écoulés · ${totalOrders.toLocaleString('fr-CA')} commandes`);
+        const prevYearMTD     = year - 1;
+        const prevMonthKeyMTD = `${prevYearMTD}-${monthKey.split('-')[1]}`;
+        const lastDay         = ventes.length ? dayjs(ventes[ventes.length - 1].date).date() : 0;
+        const prevVentesMTD   = fullData.ventes.filter(v =>
+            dayjs(v.date).format('YYYY-MM') === prevMonthKeyMTD &&
+            dayjs(v.date).date() <= lastDay
+        );
+        const prevTotalMTD    = prevVentesMTD.reduce((s, v) => s + getSalesValue(v, channel), 0);
+        const prevMTDLabel    = prevVentesMTD.length
+            ? `${MONTHS_LONG[monthIdx].toUpperCase()} ${prevYearMTD} (MTD) : ${prevTotalMTD.toLocaleString('fr-CA')} $`
+            : 'Données année précédente non disponibles';
+        setKPI(1, `Ventes totales nettes — ${monthName.toUpperCase()}`, totalVentes.toLocaleString('fr-CA') + ' $', prevMTDLabel);
         setKPI(2, 'Panier moyen', avgCart.toLocaleString('fr-CA', {minimumFractionDigits:2,maximumFractionDigits:2}) + ' $', panierLabel);
         setKPI(3, 'Moy. / jour', avgDaily.toLocaleString('fr-CA', {maximumFractionDigits:0}) + ' $', '');
         setKPI(4, 'Commandes', totalOrders.toLocaleString('fr-CA'), '');
