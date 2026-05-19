@@ -1,4 +1,5 @@
 import json
+import os
 import pandas as pd
 import requests
 from datetime import date, datetime
@@ -8,6 +9,7 @@ import re
 
 # Configuration
 SPREADSHEET_ID = "1vYqgbiiYDnJONtFCx11LkTdPUM14fCf0IG1L7P2O4ro"
+MAILERLITE_API_KEY = os.environ.get("MAILERLITE_API_KEY", "")
 SERVICE_ACCOUNT_FILE = "service_account.json"
 
 def super_clean_numeric(value):
@@ -98,6 +100,58 @@ def get_google_sheet(sheet_name, header_row=1):
     
     return df
 
+def get_mailerlite_campaigns():
+    """Récupère toutes les campagnes envoyées depuis le nouveau Mailerlite (API v1)."""
+    if not MAILERLITE_API_KEY:
+        print("   ⚠️  MAILERLITE_API_KEY non définie — infolettres ignorées")
+        return pd.DataFrame()
+
+    headers = {
+        "Authorization": f"Bearer {MAILERLITE_API_KEY}",
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+    }
+    campaigns = []
+    page = 1
+
+    while True:
+        try:
+            resp = requests.get(
+                "https://connect.mailerlite.com/api/campaigns",
+                headers=headers,
+                params={"filter[status]": "sent", "limit": 25, "page": page},
+                timeout=30,
+            )
+            resp.raise_for_status()
+            body = resp.json()
+        except Exception as e:
+            print(f"   ❌ Erreur Mailerlite : {e}")
+            break
+
+        for c in body.get("data", []):
+            sent_at = c.get("sent_at") or c.get("created_at") or ""
+            date_str = sent_at[:10] if sent_at else None
+            campaigns.append({
+                "date":              date_str,
+                "date_envoi":        date_str,
+                "sujet":             c.get("subject") or c.get("name") or "",
+                "ventes_generees_$": None,
+            })
+
+        meta = body.get("meta", {})
+        if page >= meta.get("last_page", 1):
+            break
+        page += 1
+
+    print(f"   📧 Mailerlite : {len(campaigns)} campagnes récupérées")
+    if not campaigns:
+        return pd.DataFrame()
+
+    df = pd.DataFrame(campaigns)
+    df["date"] = pd.to_datetime(df["date"], errors="coerce")
+    return df.sort_values("date")
+
+
 def get_weather_data(start_date, end_date, lat=45.5, lon=-73.6):
     url = "https://archive-api.open-meteo.com/v1/archive"
     params = {
@@ -124,7 +178,7 @@ def main():
     
     print("📁 Lecture des feuilles...")
     ventes = get_google_sheet("ventes_quotidiennes", header_row=1)
-    infolettres = get_google_sheet("campagnes_email", header_row=1)
+    infolettres = get_mailerlite_campaigns()
     publications = get_google_sheet("publications_social", header_row=1)
     evenements = get_google_sheet("evenements_marketing", header_row=2)  # ← en-têtes ligne 2
     

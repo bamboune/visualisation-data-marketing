@@ -28,6 +28,8 @@ jobs:
       
       - name: Générer dashboard
         run: python generate_dashboard.py
+        env:
+          MAILERLITE_API_KEY: ${{ secrets.MAILERLITE_API_KEY }}
       
       - name: Commit et push
         run: |
