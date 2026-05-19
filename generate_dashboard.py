@@ -26,7 +26,7 @@ def super_clean_numeric(value):
     if not hasattr(super_clean_numeric, "count"):
         super_clean_numeric.count = 0
     if super_clean_numeric.count < 5:
-        print(f"   🔍 Valeur brute: '{s}'")
+        print(f"   \U0001f50d Valeur brute: '{s}'")
         super_clean_numeric.count += 1
     
     s = s.replace(',', '.')
@@ -131,13 +131,10 @@ def get_mailerlite_campaigns():
         for c in body.get("data", []):
             sent_at = c.get("sent_at") or c.get("created_at") or ""
             date_str = sent_at[:10] if sent_at else None
-            open_rate = c.get("stats", {}).get("open_rate", {})
-            taux = open_rate.get("float") if isinstance(open_rate, dict) else None
             campaigns.append({
-                "date":            date_str,
-                "date_envoi":      date_str,
-                "sujet":           c.get("subject") or c.get("name") or "",
-                "taux_ouverture":  round(taux * 100, 1) if taux is not None else None,
+                "date":       date_str,
+                "date_envoi": date_str,
+                "sujet":      c.get("subject") or c.get("name") or "",
             })
 
         meta = body.get("meta", {})
@@ -145,7 +142,7 @@ def get_mailerlite_campaigns():
             break
         page += 1
 
-    print(f"   📧 Mailerlite : {len(campaigns)} campagnes récupérées")
+    print(f"   \U0001f4e7 Mailerlite : {len(campaigns)} campagnes récupérées")
     if not campaigns:
         return pd.DataFrame()
 
@@ -176,17 +173,17 @@ def get_weather_data(start_date, end_date, lat=45.5, lon=-73.6):
         return None
 
 def main():
-    print("📊 Génération du dashboard LMH...")
+    print("\U0001f4ca Génération du dashboard LMH...")
     
-    print("📁 Lecture des feuilles...")
+    print("\U0001f4c1 Lecture des feuilles...")
     ventes = get_google_sheet("ventes_quotidiennes", header_row=1)
     infolettres = get_mailerlite_campaigns()
     publications = get_google_sheet("publications_social", header_row=1)
     evenements = get_google_sheet("evenements_marketing", header_row=2)  # ← en-têtes ligne 2
     
-    print(f"   📊 Ventes brutes : {len(ventes)} lignes")
-    print(f"   📧 Infolettres : {len(infolettres)} lignes")
-    print(f"   📱 Publications : {len(publications)} lignes")
+    print(f"   \U0001f4ca Ventes brutes : {len(ventes)} lignes")
+    print(f"   \U0001f4e7 Infolettres : {len(infolettres)} lignes")
+    print(f"   \U0001f4f1 Publications : {len(publications)} lignes")
     print(f"   ⚡ Événements : {len(evenements)} lignes")
     
     # ==================== DIAGNOSTIC ====================
@@ -197,7 +194,7 @@ def main():
         client = gspread.authorize(creds)
         sheet_raw = client.open_by_key(SPREADSHEET_ID).worksheet("evenements_marketing")
         all_raw = sheet_raw.get_all_values()
-        print("\n🔍 Dernières lignes brutes de evenements_marketing :")
+        print("\n\U0001f50d Dernières lignes brutes de evenements_marketing :")
         for i in range(max(0, len(all_raw)-5), len(all_raw)):
             print(f"   Ligne {i+1}: {all_raw[i][:5]}")  # affiche les 5 premières colonnes
     except Exception as e:
@@ -205,7 +202,7 @@ def main():
     
     # Afficher les 5 derniers événements lus dans le DataFrame
     if len(evenements) > 0:
-        print("\n🔍 Derniers événements dans le DataFrame :")
+        print("\n\U0001f50d Derniers événements dans le DataFrame :")
         for i in range(max(0, len(evenements)-5), len(evenements)):
             row = evenements.iloc[i]
             print(f"   date={row.get('date', '?')}, rabais={row.get('rabais_promos', '')}, lancement={row.get('lancement_produits_ateliers', '')}")
@@ -216,7 +213,7 @@ def main():
         return
     
     if 'ventes_bel' in ventes.columns:
-        print(f"   🔍 Exemples ventes_bel après conversion : {ventes['ventes_bel'].head(5).tolist()}")
+        print(f"   \U0001f50d Exemples ventes_bel après conversion : {ventes['ventes_bel'].head(5).tolist()}")
     
     if 'date' not in ventes.columns:
         print("❌ Colonne 'date' non trouvée")
@@ -227,13 +224,13 @@ def main():
     
     aujourdhui = date.today()
     ventes = ventes[ventes['date'] <= pd.Timestamp(aujourdhui)]
-    print(f"   🗓️ Après filtrage dates futures : {len(ventes)} lignes")
+    print(f"   \U0001f5d3️ Après filtrage dates futures : {len(ventes)} lignes")
     
     ventes = ventes.sort_values('date')
     start_date = ventes['date'].min().strftime('%Y-%m-%d')
     end_date = ventes['date'].max().strftime('%Y-%m-%d')
     
-    print(f"\n🌦️ Récupération météo du {start_date} au {end_date}...")
+    print(f"\n\U0001f326️ Récupération météo du {start_date} au {end_date}...")
     weather_data = get_weather_data(start_date, end_date)
     
     if weather_data and 'daily' in weather_data and 'time' in weather_data['daily']:
@@ -260,7 +257,7 @@ def main():
     total_all = total_bel + total_boutique + total_wholesale
     panier_moyen = ventes['panier_moyen_bel'].mean() if 'panier_moyen_bel' in ventes else 0
     
-    print(f"\n💰 Totaux : BEL={total_bel:,.2f}, Boutique={total_boutique:,.2f}, TOTAL={total_all:,.2f}")
+    print(f"\n\U0001f4b0 Totaux : BEL={total_bel:,.2f}, Boutique={total_boutique:,.2f}, TOTAL={total_all:,.2f}")
     
     infolettres_clean = infolettres.where(pd.notnull(infolettres), None)
     publications_clean = publications.where(pd.notnull(publications), None)
@@ -286,8 +283,8 @@ def main():
         json.dump(dashboard_data, f, ensure_ascii=False, indent=2, default=convert_to_serializable)
     
     print(f"\n✅ SUCCÈS ! data.json généré")
-    print(f"   📅 {len(ventes)} jours du {start_date} au {end_date}")
-    print(f"   📱 {len(publications_clean)} publications incluses")
+    print(f"   \U0001f4c5 {len(ventes)} jours du {start_date} au {end_date}")
+    print(f"   \U0001f4f1 {len(publications_clean)} publications incluses")
     print(f"   ⚡ {len(evenements_clean)} événements inclus")
 
 if __name__ == "__main__":
