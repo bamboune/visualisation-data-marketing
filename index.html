@@ -690,7 +690,16 @@
         const prevMTDLabel    = prevVentesMTD.length
             ? `${MONTHS_LONG[monthIdx].toUpperCase()} ${prevYearMTD} (MTD) : ${prevTotalMTD.toLocaleString('fr-CA')} $`
             : 'Données année précédente non disponibles';
+        const pctVsN1 = prevVentesMTD.length && prevTotalMTD > 0
+            ? (totalVentes - prevTotalMTD) / prevTotalMTD * 100
+            : null;
         setKPI(1, `Ventes totales nettes — ${monthName.toUpperCase()}`, totalVentes.toLocaleString('fr-CA') + ' $', prevMTDLabel);
+        if (pctVsN1 !== null) {
+            const pctStr   = (pctVsN1 >= 0 ? '+' : '') + pctVsN1.toFixed(1).replace('.', ',') + ' %';
+            const pctColor = pctVsN1 >= 0 ? '#6ab04c' : '#ef4444';
+            document.getElementById('kpi1Value').innerHTML =
+                `${totalVentes.toLocaleString('fr-CA')} $ <span style="font-size:1rem;font-weight:600;color:${pctColor};">${pctStr}</span>`;
+        }
         setKPI(2, 'Panier moyen', avgCart.toLocaleString('fr-CA', {minimumFractionDigits:2,maximumFractionDigits:2}) + ' $', panierLabel);
         setKPI(3, 'Moy. / jour', avgDaily.toLocaleString('fr-CA', {maximumFractionDigits:0}) + ' $', '');
         setKPI(4, 'Commandes', totalOrders.toLocaleString('fr-CA'), '');
