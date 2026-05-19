@@ -26301,64 +26301,52 @@
   ],
   "infolettres": [
     {
-      "date_envoi": "2026-04-05",
-      "sujet": "Ton true crime de Pâques 🕵️‍♂️🔪",
-      "nb_envoyes": "",
-      "taux_ouverture_%": "",
-      "taux_clic_%": "",
-      "nb_commandes": "",
-      "ventes_generees_$": "",
-      "segment": "followup",
-      "notes": "",
-      "date": "2026-04-05"
+      "date": "2026-04-23",
+      "date_envoi": "2026-04-23",
+      "sujet": "Routines de soins visage et ménage du printemps corporel | samedi 25 avril 9h",
+      "ventes_generees_$": null
     },
     {
-      "date_envoi": "2026-04-05",
-      "sujet": "Contient un mystère de Pâques! 🐥🕶️",
-      "nb_envoyes": "",
-      "taux_ouverture_%": "",
-      "taux_clic_%": "",
-      "nb_commandes": "",
-      "ventes_generees_$": "",
-      "segment": "followup",
-      "notes": "",
-      "date": "2026-04-05"
+      "date": "2026-04-30",
+      "date_envoi": "2026-04-30",
+      "sujet": "Idées-cadeaux fête des mères - 30 avril 2026 19h",
+      "ventes_generees_$": null
     },
     {
-      "date_envoi": "2025-11-27",
-      "sujet": "test 1-2-3-4 oui oui",
-      "nb_envoyes": "",
-      "taux_ouverture_%": "",
-      "taux_clic_%": "",
-      "nb_commandes": "",
-      "ventes_generees_$": "",
-      "segment": "",
-      "notes": "",
-      "date": "2025-11-27"
+      "date": "2026-05-01",
+      "date_envoi": "2026-05-01",
+      "sujet": "Idées-cadeaux fête des mères - resend aux pas ouverts - 2 mai 2026 9h",
+      "ventes_generees_$": null
     },
     {
-      "date_envoi": "2026-04-11",
-      "sujet": "Rappel: ton atelier chez Les Mauvaises Herbes! 🌾",
-      "nb_envoyes": "",
-      "taux_ouverture_%": "",
-      "taux_clic_%": "",
-      "nb_commandes": "",
-      "ventes_generees_$": "",
-      "segment": "regular",
-      "notes": "",
-      "date": "2026-04-11"
+      "date": "2026-05-08",
+      "date_envoi": "2026-05-08",
+      "sujet": "Produits ménage + recettes - samedi 9 mai 9h",
+      "ventes_generees_$": null
     },
     {
-      "date_envoi": "2026-04-17",
-      "sujet": "Rappel: ton atelier chez Les Mauvaises Herbes! 🌾",
-      "nb_envoyes": "",
-      "taux_ouverture_%": "",
-      "taux_clic_%": "",
-      "nb_commandes": "",
-      "ventes_generees_$": "",
-      "segment": "regular",
-      "notes": "",
-      "date": "2026-04-17"
+      "date": "2026-05-14",
+      "date_envoi": "2026-05-14",
+      "sujet": "Rappel participantes produits ménagers 16 mai 2026",
+      "ventes_generees_$": null
+    },
+    {
+      "date": "2026-05-14",
+      "date_envoi": "2026-05-14",
+      "sujet": "Promo baku + petite crème / retour baume des Lunes - jeudi 14 mai 19h",
+      "ventes_generees_$": null
+    },
+    {
+      "date": "2026-05-18",
+      "date_envoi": "2026-05-18",
+      "sujet": "Resend to non openers Promo baku + petite crème / retour baume des Lunes - jeudi 14 mai 19h",
+      "ventes_generees_$": null
+    },
+    {
+      "date": "2026-05-18",
+      "date_envoi": "2026-05-18",
+      "sujet": "Resend Promo baku + petite crème / retour baume des Lunes - jeudi 14 mai 19h",
+      "ventes_generees_$": null
     }
   ],
   "publications": [
