@@ -131,11 +131,13 @@ def get_mailerlite_campaigns():
         for c in body.get("data", []):
             sent_at = c.get("sent_at") or c.get("created_at") or ""
             date_str = sent_at[:10] if sent_at else None
+            open_rate = c.get("stats", {}).get("open_rate", {})
+            taux = open_rate.get("float") if isinstance(open_rate, dict) else None
             campaigns.append({
-                "date":              date_str,
-                "date_envoi":        date_str,
-                "sujet":             c.get("subject") or c.get("name") or "",
-                "ventes_generees_$": None,
+                "date":            date_str,
+                "date_envoi":      date_str,
+                "sujet":           c.get("subject") or c.get("name") or "",
+                "taux_ouverture":  round(taux * 100, 1) if taux is not None else None,
             })
 
         meta = body.get("meta", {})

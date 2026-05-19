@@ -892,15 +892,15 @@
             return;
         }
 
-        let html = '<table class="mini-table"><thead><tr><th>Date</th><th>Sujet</th><th>Ventes</th></tr></thead><tbody>';
+        let html = '<table class="mini-table"><thead><tr><th>Date</th><th>Sujet</th><th>Ouverture</th></tr></thead><tbody>';
         emails.forEach(e => {
             const d = e.date_envoi || e.date;
-            const sujet  = (e.sujet||'').substring(0,38) + ((e.sujet||'').length>38?'…':'');
-            const ventes = e['ventes_generees_$'] ? parseFloat(e['ventes_generees_$']).toLocaleString('fr-CA')+' $' : '—';
+            const sujet  = (e.sujet||'').substring(0,60) + ((e.sujet||'').length>60?'…':'');
+            const taux   = e['taux_ouverture'] != null ? e['taux_ouverture'].toLocaleString('fr-CA') + ' %' : '—';
             html += `<tr>
                 <td class="date-cell">${dayjs(d).format('DD/MM')}</td>
                 <td>${sujet}</td>
-                <td class="note-cell">${ventes}</td>
+                <td class="note-cell">${taux}</td>
             </tr>`;
         });
         html += '</tbody></table>';
