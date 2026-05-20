@@ -153,8 +153,11 @@ def get_mailerlite_campaigns():
     return df.sort_values("date")
 
 
+POSTS_SINCE = "2026-05-01"
+
+
 def get_facebook_posts():
-    """Récupère les posts de la page Facebook via Graph API."""
+    """Récupère les posts de la page Facebook via Graph API depuis POSTS_SINCE."""
     if not FACEBOOK_PAGE_TOKEN:
         print("   ⚠️  FACEBOOK_PAGE_TOKEN non définie — posts Facebook ignorés")
         return []
@@ -165,6 +168,7 @@ def get_facebook_posts():
         "fields": "id,message,created_time,permalink_url",
         "access_token": FACEBOOK_PAGE_TOKEN,
         "limit": 100,
+        "since": POSTS_SINCE,
     }
 
     while url:
@@ -234,14 +238,22 @@ def get_instagram_posts():
             print(f"   ❌ Erreur Instagram posts : {e}")
             break
 
-        for post in body.get("data", []):
+        page_data = body.get("data", [])
+        for post in page_data:
             date_str = post.get("timestamp", "")[:10]
+            if date_str < POSTS_SINCE:
+                continue
             posts.append({
                 "date": date_str,
                 "plateforme": "instagram",
                 "description_courte": (post.get("caption") or "")[:200],
                 "lien_post": post.get("permalink", ""),
             })
+
+        # Arrête la pagination si la page entière est avant la date limite
+        oldest = min((p.get("timestamp", "")[:10] for p in page_data), default="")
+        if oldest and oldest < POSTS_SINCE:
+            break
 
         next_page = body.get("paging", {}).get("next")
         url = next_page if next_page else None
