@@ -26297,56 +26297,66 @@
       "precipitation_mm": 5.5,
       "snowfall_cm": 0.0,
       "weather_code": 61
+    },
+    {
+      "date": "2026-05-19",
+      "ventes_bel": 3751.69,
+      "ventes_boutique": 975.74,
+      "ventes_wholesale": 808.37,
+      "ventes_total": 5535.8,
+      "commandes_bel": 42.0,
+      "commandes_boutique": 26.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 69.0,
+      "panier_moyen_bel": 89.33,
+      "panier_moyen_boutique": 37.53,
+      "temp_max": 26.0,
+      "temp_min": 18.3,
+      "precipitation_mm": 0.2,
+      "snowfall_cm": 0.0,
+      "weather_code": 51
     }
   ],
   "infolettres": [
     {
       "date": "2026-04-23",
       "date_envoi": "2026-04-23",
-      "sujet": "Routines de soins visage et ménage du printemps corporel | samedi 25 avril 9h",
-      "ventes_generees_$": null
+      "sujet": "Routines de soins visage et ménage du printemps corporel | samedi 25 avril 9h"
     },
     {
       "date": "2026-04-30",
       "date_envoi": "2026-04-30",
-      "sujet": "Idées-cadeaux fête des mères - 30 avril 2026 19h",
-      "ventes_generees_$": null
+      "sujet": "Idées-cadeaux fête des mères - 30 avril 2026 19h"
     },
     {
       "date": "2026-05-01",
       "date_envoi": "2026-05-01",
-      "sujet": "Idées-cadeaux fête des mères - resend aux pas ouverts - 2 mai 2026 9h",
-      "ventes_generees_$": null
+      "sujet": "Idées-cadeaux fête des mères - resend aux pas ouverts - 2 mai 2026 9h"
     },
     {
       "date": "2026-05-08",
       "date_envoi": "2026-05-08",
-      "sujet": "Produits ménage + recettes - samedi 9 mai 9h",
-      "ventes_generees_$": null
+      "sujet": "Produits ménage + recettes - samedi 9 mai 9h"
     },
     {
       "date": "2026-05-14",
       "date_envoi": "2026-05-14",
-      "sujet": "Rappel participantes produits ménagers 16 mai 2026",
-      "ventes_generees_$": null
+      "sujet": "Rappel participantes produits ménagers 16 mai 2026"
     },
     {
       "date": "2026-05-14",
       "date_envoi": "2026-05-14",
-      "sujet": "Promo baku + petite crème / retour baume des Lunes - jeudi 14 mai 19h",
-      "ventes_generees_$": null
+      "sujet": "Promo baku + petite crème / retour baume des Lunes - jeudi 14 mai 19h"
     },
     {
       "date": "2026-05-18",
       "date_envoi": "2026-05-18",
-      "sujet": "Resend to non openers Promo baku + petite crème / retour baume des Lunes - jeudi 14 mai 19h",
-      "ventes_generees_$": null
+      "sujet": "Resend to non openers Promo baku + petite crème / retour baume des Lunes - jeudi 14 mai 19h"
     },
     {
       "date": "2026-05-18",
       "date_envoi": "2026-05-18",
-      "sujet": "Resend Promo baku + petite crème / retour baume des Lunes - jeudi 14 mai 19h",
-      "ventes_generees_$": null
+      "sujet": "Resend Promo baku + petite crème / retour baume des Lunes - jeudi 14 mai 19h"
     }
   ],
   "publications": [
@@ -39504,12 +39514,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9636988.23,
-    "total_ventes_bel": 6665102.9399999995,
-    "total_ventes_boutique": 2451564.41,
-    "total_ventes_wholesale": 520320.88,
-    "panier_moyen_bel": 95.22505133470226,
+    "total_ventes": 9642524.030000001,
+    "total_ventes_bel": 6668854.63,
+    "total_ventes_boutique": 2452540.1500000004,
+    "total_ventes_wholesale": 521129.25,
+    "panier_moyen_bel": 95.22101915184679,
     "date_min": "2021-11-01",
-    "date_max": "2026-05-18"
+    "date_max": "2026-05-19"
   }
 }
