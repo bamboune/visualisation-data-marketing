@@ -10,6 +10,8 @@ import re
 # Configuration
 SPREADSHEET_ID = "1vYqgbiiYDnJONtFCx11LkTdPUM14fCf0IG1L7P2O4ro"
 MAILERLITE_API_KEY = os.environ.get("MAILERLITE_API_KEY", "")
+FACEBOOK_PAGE_TOKEN = os.environ.get("FACEBOOK_PAGE_TOKEN", "")
+FACEBOOK_PAGE_ID = "164239587106721"
 SERVICE_ACCOUNT_FILE = "service_account.json"
 
 def super_clean_numeric(value):
@@ -151,6 +153,104 @@ def get_mailerlite_campaigns():
     return df.sort_values("date")
 
 
+def get_facebook_posts():
+    """Récupère les posts de la page Facebook via Graph API."""
+    if not FACEBOOK_PAGE_TOKEN:
+        print("   ⚠️  FACEBOOK_PAGE_TOKEN non définie — posts Facebook ignorés")
+        return []
+
+    posts = []
+    url = f"https://graph.facebook.com/v19.0/{FACEBOOK_PAGE_ID}/posts"
+    params = {
+        "fields": "id,message,created_time,permalink_url",
+        "access_token": FACEBOOK_PAGE_TOKEN,
+        "limit": 100,
+    }
+
+    while url:
+        try:
+            resp = requests.get(url, params=params, timeout=30)
+            resp.raise_for_status()
+            body = resp.json()
+        except Exception as e:
+            print(f"   ❌ Erreur Facebook posts : {e}")
+            break
+
+        for post in body.get("data", []):
+            date_str = post.get("created_time", "")[:10]
+            posts.append({
+                "date": date_str,
+                "plateforme": "facebook",
+                "description_courte": (post.get("message") or "")[:200],
+                "lien_post": post.get("permalink_url", ""),
+            })
+
+        next_page = body.get("paging", {}).get("next")
+        url = next_page if next_page else None
+        params = {}
+
+    print(f"   📘 Facebook : {len(posts)} posts récupérés")
+    return posts
+
+
+def get_instagram_posts():
+    """Récupère les posts Instagram Business liés à la page Facebook."""
+    if not FACEBOOK_PAGE_TOKEN:
+        print("   ⚠️  FACEBOOK_PAGE_TOKEN non définie — posts Instagram ignorés")
+        return []
+
+    # Récupère l'ID du compte Instagram Business lié à la page
+    try:
+        resp = requests.get(
+            f"https://graph.facebook.com/v19.0/{FACEBOOK_PAGE_ID}",
+            params={"fields": "instagram_business_account", "access_token": FACEBOOK_PAGE_TOKEN},
+            timeout=30,
+        )
+        resp.raise_for_status()
+        ig_account = resp.json().get("instagram_business_account", {})
+        ig_id = ig_account.get("id")
+    except Exception as e:
+        print(f"   ❌ Erreur récupération compte Instagram : {e}")
+        return []
+
+    if not ig_id:
+        print("   ⚠️  Aucun compte Instagram Business lié à la page")
+        return []
+
+    posts = []
+    url = f"https://graph.facebook.com/v19.0/{ig_id}/media"
+    params = {
+        "fields": "id,caption,timestamp,permalink",
+        "access_token": FACEBOOK_PAGE_TOKEN,
+        "limit": 100,
+    }
+
+    while url:
+        try:
+            resp = requests.get(url, params=params, timeout=30)
+            resp.raise_for_status()
+            body = resp.json()
+        except Exception as e:
+            print(f"   ❌ Erreur Instagram posts : {e}")
+            break
+
+        for post in body.get("data", []):
+            date_str = post.get("timestamp", "")[:10]
+            posts.append({
+                "date": date_str,
+                "plateforme": "instagram",
+                "description_courte": (post.get("caption") or "")[:200],
+                "lien_post": post.get("permalink", ""),
+            })
+
+        next_page = body.get("paging", {}).get("next")
+        url = next_page if next_page else None
+        params = {}
+
+    print(f"   📸 Instagram : {len(posts)} posts récupérés")
+    return posts
+
+
 def get_weather_data(start_date, end_date, lat=45.5, lon=-73.6):
     url = "https://archive-api.open-meteo.com/v1/archive"
     params = {
@@ -175,12 +275,19 @@ def get_weather_data(start_date, end_date, lat=45.5, lon=-73.6):
 def main():
     print("📊 Génération du dashboard LMH...")
     
-    print("📁 Lecture des feuilles...")
+    print("📁 Lecture des données...")
     ventes = get_google_sheet("ventes_quotidiennes", header_row=1)
     infolettres = get_mailerlite_campaigns()
-    publications = get_google_sheet("publications_social", header_row=1)
     evenements = get_google_sheet("evenements_marketing", header_row=2)  # ← en-têtes ligne 2
-    
+
+    print("📱 Récupération des publications Facebook/Instagram...")
+    fb_posts = get_facebook_posts()
+    ig_posts = get_instagram_posts()
+    all_posts = fb_posts + ig_posts
+    publications = pd.DataFrame(all_posts) if all_posts else pd.DataFrame()
+    if not publications.empty:
+        publications["date"] = pd.to_datetime(publications["date"], errors="coerce")
+
     print(f"   📊 Ventes brutes : {len(ventes)} lignes")
     print(f"   📧 Infolettres : {len(infolettres)} lignes")
     print(f"   📱 Publications : {len(publications)} lignes")

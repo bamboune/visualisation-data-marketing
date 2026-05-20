@@ -30,6 +30,7 @@ jobs:
         run: python generate_dashboard.py
         env:
           MAILERLITE_API_KEY: ${{ secrets.MAILERLITE_API_KEY }}
+          FACEBOOK_PAGE_TOKEN: ${{ secrets.FACEBOOK_PAGE_TOKEN }}
       
       - name: Commit et push
         run: |
