@@ -26333,6 +26333,24 @@
       "precipitation_mm": 1.9,
       "snowfall_cm": 0.0,
       "weather_code": 55
+    },
+    {
+      "date": "2026-05-21",
+      "ventes_bel": 4389.01,
+      "ventes_boutique": 1166.21,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 5555.22,
+      "commandes_bel": 45.0,
+      "commandes_boutique": 25.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 70.0,
+      "panier_moyen_bel": 97.53,
+      "panier_moyen_boutique": 46.65,
+      "temp_max": 14.8,
+      "temp_min": 5.2,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -26379,6 +26397,12 @@
   ],
   "publications": [
     {
+      "date": "2026-05-21",
+      "plateforme": "facebook",
+      "description_courte": "Nos baumes des lunes sont de retour 🌝\n\nOn t’a même déjà préparé un p’tit panier pour que tu puisses relaxer 😌\n\nUn rituel tout en douceur ✨",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1541661590680880"
+    },
+    {
       "date": "2026-05-19",
       "plateforme": "facebook",
       "description_courte": "Les Mauvaises Herbes présente…\n\nLes inséparables Crème-Bakuchiol!\n\nUn duo tellement évident que leur histoire a 0 suspens 🤓\n-\n\nIl était une fois une crème 30 ml\n(Cam la Camomille ou Guigui la Guimauve",
@@ -26419,6 +26443,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-05-21",
+      "plateforme": "instagram",
+      "description_courte": "Nos baumes des lunes sont de retour 🌝\n\nOn t’a même déjà préparé un p’tit panier pour que tu puisses relaxer 😌\n\nUn rituel tout en douceur ✨",
+      "lien_post": "https://www.instagram.com/p/DYnZRDPFU55/"
     },
     {
       "date": "2026-05-19",
@@ -39420,12 +39450,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9647261.08,
-    "total_ventes_bel": 6672851.55,
-    "total_ventes_boutique": 2453280.2800000003,
+    "total_ventes": 9652816.3,
+    "total_ventes_bel": 6677240.5600000005,
+    "total_ventes_boutique": 2454446.49,
     "total_ventes_wholesale": 521129.25,
-    "panier_moyen_bel": 95.21946684894054,
+    "panier_moyen_bel": 95.2210450819672,
     "date_min": "2021-11-01",
-    "date_max": "2026-05-20"
+    "date_max": "2026-05-21"
   }
 }
