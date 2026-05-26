@@ -550,7 +550,16 @@
 
     // ── ANNUAL VIEW ──
     function renderAnnualView(year, channel) {
-        const ventes = fullData.ventes.filter(v => dayjs(v.date).year() === year);
+        const today = dayjs();
+        const isCurrentYear = (year === today.year());
+
+        // Pour l'année en cours : seulement les données jusqu'à aujourd'hui (vrai YTD)
+        const ventes = fullData.ventes.filter(v => {
+            const d = dayjs(v.date);
+            if (d.year() !== year) return false;
+            if (isCurrentYear && d.isAfter(today, 'day')) return false;
+            return true;
+        });
 
         const monthlyVentes = Array(12).fill(0);
         ventes.forEach(v => { monthlyVentes[dayjs(v.date).month()] += getSalesValue(v, channel); });
@@ -583,43 +592,86 @@
         if (firstM >= 0 && lastM >= 0) {
             periodLabel = firstM === lastM
                 ? MONTHS_LONG[firstM]
-                : `${MONTHS_LONG[firstM]} – ${MONTHS_LONG[lastM]}${lastM < 11 ? ' (partiel)' : ''}`;
+                : `${MONTHS_LONG[firstM]} – ${MONTHS_LONG[lastM]}${(!isCurrentYear && lastM < 11) ? ' (partiel)' : ''}`;
+        }
+
+        // Comparaison YTD avec l'année précédente à pareille date
+        let prevYTDTotal = 0;
+        let prevMonthlyVentes = Array(12).fill(0);
+        let pctYTD = null;
+        let prevYTDSub = '';
+
+        if (isCurrentYear) {
+            const prevYear = year - 1;
+            const prevCutoffStr = `${prevYear}-${today.format('MM-DD')}`;
+            const prevVentesYTD = fullData.ventes.filter(v =>
+                dayjs(v.date).year() === prevYear && v.date <= prevCutoffStr
+            );
+            prevVentesYTD.forEach(v => { prevMonthlyVentes[dayjs(v.date).month()] += getSalesValue(v, channel); });
+            prevYTDTotal = prevMonthlyVentes.reduce((a,b)=>a+b,0);
+
+            if (prevVentesYTD.length > 0 && prevYTDTotal > 0) {
+                pctYTD = (totalVentes - prevYTDTotal) / prevYTDTotal * 100;
+                prevYTDSub = `${prevYear} à pareille date : ${prevYTDTotal.toLocaleString('fr-CA')} $`;
+            }
         }
 
         // KPIs
-        setKPI(1, `Ventes totales nettes — ${year} (YTD)`, totalVentes.toLocaleString('fr-CA') + ' $', periodLabel);
+        const ytdSuffix = isCurrentYear ? ` — YTD au ${today.date()} ${MONTHS_LONG[today.month()]}` : '';
+        setKPI(1, `Ventes totales nettes — ${year}${ytdSuffix}`, totalVentes.toLocaleString('fr-CA') + ' $', prevYTDSub || periodLabel);
+
+        if (pctYTD !== null) {
+            const pctStr   = (pctYTD >= 0 ? '+' : '') + pctYTD.toFixed(1).replace('.', ',') + ' %';
+            const pctColor = pctYTD >= 0 ? '#6ab04c' : '#ef4444';
+            document.getElementById('kpi1Value').innerHTML =
+                `${totalVentes.toLocaleString('fr-CA')} $ <span style="font-size:1rem;font-weight:600;color:${pctColor};">${pctStr}</span>`;
+        }
+
         setKPI(2, 'Publications totales', totalPubs, 'IG + FB combinés');
-        setKPI(3, 'Infolettres envoyées', totalEmails, `YTD ${year}`);
+        setKPI(3, 'Infolettres envoyées', totalEmails, isCurrentYear ? `YTD ${year}` : `${year}`);
         setKPI(4, 'Événements marketing', totalEvents, 'Promos & campagnes');
 
         document.getElementById('weatherBar').style.display = 'none';
         document.getElementById('annualChartTitle').textContent = `VENTES MENSUELLES VS ACTIVITÉ MARKETING — ${year}`;
 
+        // Datasets du graphique — ajout de la ligne N-1 pour l'année en cours
+        const annualDatasets = [
+            {
+                type: 'bar', label: `Ventes ${year} ($)`, data: monthlyVentes,
+                backgroundColor: '#a89cc8', borderRadius: 5, borderSkipped: false,
+                yAxisID: 'y', order: 2,
+            },
+            {
+                type: 'line', label: 'Publications IG+FB', data: monthlyPubs,
+                borderColor: '#c87f4a', backgroundColor: 'transparent',
+                borderWidth: 2.5, tension: 0.3,
+                pointRadius: 4, pointBackgroundColor: '#c87f4a', pointBorderColor: '#fff', pointBorderWidth: 2,
+                yAxisID: 'y2', order: 0,
+            },
+            {
+                type: 'line', label: 'Infolettres', data: monthlyEmails,
+                borderColor: '#5a9e7a', backgroundColor: 'transparent',
+                borderWidth: 2, borderDash: [5,4], tension: 0.3,
+                pointRadius: 3, pointBackgroundColor: '#5a9e7a', pointBorderColor: '#fff', pointBorderWidth: 1,
+                yAxisID: 'y2', order: 1,
+            }
+        ];
+
+        if (isCurrentYear && prevYTDTotal > 0) {
+            annualDatasets.push({
+                type: 'line', label: `Ventes ${year - 1} (N-1)`, data: prevMonthlyVentes,
+                borderColor: '#94a3b8', backgroundColor: 'transparent',
+                borderWidth: 2, borderDash: [4,4], tension: 0.3,
+                pointRadius: 3, pointBackgroundColor: '#94a3b8', pointBorderColor: '#fff', pointBorderWidth: 1,
+                yAxisID: 'y', order: 3,
+            });
+        }
+
         if (annualChart) annualChart.destroy();
         annualChart = new Chart(document.getElementById('annualChart').getContext('2d'), {
             data: {
                 labels: MONTHS_SHORT,
-                datasets: [
-                    {
-                        type: 'bar', label: 'Ventes ($)', data: monthlyVentes,
-                        backgroundColor: '#a89cc8', borderRadius: 5, borderSkipped: false,
-                        yAxisID: 'y', order: 2,
-                    },
-                    {
-                        type: 'line', label: 'Publications IG+FB', data: monthlyPubs,
-                        borderColor: '#c87f4a', backgroundColor: 'transparent',
-                        borderWidth: 2.5, tension: 0.3,
-                        pointRadius: 4, pointBackgroundColor: '#c87f4a', pointBorderColor: '#fff', pointBorderWidth: 2,
-                        yAxisID: 'y2', order: 0,
-                    },
-                    {
-                        type: 'line', label: 'Infolettres', data: monthlyEmails,
-                        borderColor: '#5a9e7a', backgroundColor: 'transparent',
-                        borderWidth: 2, borderDash: [5,4], tension: 0.3,
-                        pointRadius: 3, pointBackgroundColor: '#5a9e7a', pointBorderColor: '#fff', pointBorderWidth: 1,
-                        yAxisID: 'y2', order: 1,
-                    }
-                ]
+                datasets: annualDatasets
             },
             options: {
                 responsive: true, maintainAspectRatio: true,
