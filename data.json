@@ -26423,6 +26423,24 @@
       "precipitation_mm": 13.4,
       "snowfall_cm": 0.0,
       "weather_code": 61
+    },
+    {
+      "date": "2026-05-26",
+      "ventes_bel": 6224.37,
+      "ventes_boutique": 1531.88,
+      "ventes_wholesale": 453.52,
+      "ventes_total": 8209.77,
+      "commandes_bel": 58.0,
+      "commandes_boutique": 33.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 92.0,
+      "panier_moyen_bel": 107.32,
+      "panier_moyen_boutique": 46.42,
+      "temp_max": 25.6,
+      "temp_min": 12.7,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -26473,6 +26491,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-05-26",
+      "plateforme": "facebook",
+      "description_courte": "Complète la phrase:\n\nBar à ___\nVotre ___ sur mesure\n\nOuverture officielle le mardi 2 juin au pignon sur rue.\n(On a vraiment hâte de vous dévoiler notre projet 🥳)\n((Ça vous fera une bonne occasion de v",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1545719936941712"
+    },
     {
       "date": "2026-05-25",
       "plateforme": "facebook",
@@ -26538,6 +26562,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-05-26",
+      "plateforme": "instagram",
+      "description_courte": "Complète la phrase:\n\nBar à ___\nVotre ___ sur mesure\n\nOuverture officielle le mardi 2 juin au pignon sur rue.\n(On a vraiment hâte de vous dévoiler notre projet 🥳)\n((Ça vous fera une bonne occasion de v",
+      "lien_post": "https://www.instagram.com/p/DYz9xKeMQxl/"
     },
     {
       "date": "2026-05-25",
@@ -39574,12 +39604,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9683244.0,
-    "total_ventes_bel": 6701601.1899999995,
-    "total_ventes_boutique": 2459750.74,
-    "total_ventes_wholesale": 521892.06999999995,
-    "panier_moyen_bel": 95.25264305177112,
+    "total_ventes": 9691453.77,
+    "total_ventes_bel": 6707825.5600000005,
+    "total_ventes_boutique": 2461282.62,
+    "total_ventes_wholesale": 522345.58999999997,
+    "panier_moyen_bel": 95.26085772634444,
     "date_min": "2021-11-01",
-    "date_max": "2026-05-25"
+    "date_max": "2026-05-26"
   }
 }
