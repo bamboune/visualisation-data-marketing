@@ -26441,6 +26441,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 3
+    },
+    {
+      "date": "2026-05-27",
+      "ventes_bel": 8029.87,
+      "ventes_boutique": 1143.36,
+      "ventes_wholesale": 370.7,
+      "ventes_total": 9543.93,
+      "commandes_bel": 69.0,
+      "commandes_boutique": 27.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 97.0,
+      "panier_moyen_bel": 116.37,
+      "panier_moyen_boutique": 42.35,
+      "temp_max": 21.4,
+      "temp_min": 15.6,
+      "precipitation_mm": 0.6,
+      "snowfall_cm": 0.0,
+      "weather_code": 51
     }
   ],
   "infolettres": [
@@ -26488,9 +26506,20 @@
       "date": "2026-05-22",
       "date_envoi": "2026-05-22",
       "sujet": "Produits Grand air + recette anti moustiques enfants + promo baku et petite crème - samedi 23 mai 2026 9h"
+    },
+    {
+      "date": "2026-05-25",
+      "date_envoi": "2026-05-25",
+      "sujet": "Baume des lunes mai 2026"
     }
   ],
   "publications": [
+    {
+      "date": "2026-05-27",
+      "plateforme": "facebook",
+      "description_courte": "Nous auto-déclarons ces deux produits les ESSENTIELS ABSOLUS OBLIGATOIRES de la saison estivale 2026. 🫡",
+      "lien_post": "https://www.facebook.com/reel/1276292501153010/"
+    },
     {
       "date": "2026-05-26",
       "plateforme": "facebook",
@@ -26502,12 +26531,6 @@
       "plateforme": "facebook",
       "description_courte": "C’est pas nous qui le dit!\n\nBakuchiol gratuit à l’achat d’une crème petit format 30 ml Camomille.\n\nJudith résume pas mal pourquoi ce duo-là a son fan club!\n\nEt honnêtement, y’a pas juste le prix qui e",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1544961317017574"
-    },
-    {
-      "date": "2026-05-25",
-      "plateforme": "facebook",
-      "description_courte": "C’est pas nous qui le dit!\n\nBakuchiol gratuit à l’achat d’une crème petit format 30 ml Camomille.\n\nJudith résume pas mal pourquoi ce duo-là a son fan club!\n\nEt honnêtement, y’a pas juste le prix qui e",
-      "lien_post": "https://www.facebook.com/1540669704113402/posts/1544956870351352"
     },
     {
       "date": "2026-05-22",
@@ -26562,6 +26585,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-05-27",
+      "plateforme": "instagram",
+      "description_courte": "Nous auto-déclarons ces deux produits les ESSENTIELS ABSOLUS OBLIGATOIRES de la saison estivale 2026. 🫡",
+      "lien_post": "https://www.instagram.com/reel/DY2mLlZhIMA/"
     },
     {
       "date": "2026-05-26",
@@ -39604,12 +39633,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9691453.77,
-    "total_ventes_bel": 6707825.5600000005,
-    "total_ventes_boutique": 2461282.62,
-    "total_ventes_wholesale": 522345.58999999997,
-    "panier_moyen_bel": 95.26085772634444,
+    "total_ventes": 9700997.7,
+    "total_ventes_bel": 6715855.43,
+    "total_ventes_boutique": 2462425.98,
+    "total_ventes_wholesale": 522716.29,
+    "panier_moyen_bel": 95.27521768707483,
     "date_min": "2021-11-01",
-    "date_max": "2026-05-26"
+    "date_max": "2026-05-27"
   }
 }
