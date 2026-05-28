@@ -739,12 +739,34 @@
             dayjs(v.date).date() <= lastDay
         );
         const prevTotalMTD    = prevVentesMTD.reduce((s, v) => s + getSalesValue(v, channel), 0);
-        const prevMTDLabel    = prevVentesMTD.length
+
+        // Métriques N-1 pour panier moyen, moy/jour et commandes
+        let prevOrders = 0, prevCartSum = 0, prevCartCount = 0;
+        prevVentesMTD.forEach(v => {
+            prevOrders += parseInt(v.commandes_total)||0;
+            const panierField = channel === 'boutique' ? 'panier_moyen_boutique' : 'panier_moyen_bel';
+            const p = parseFloat(v[panierField])||0;
+            if (p > 0) { prevCartSum += p; prevCartCount++; }
+        });
+        const prevAvgDaily = prevVentesMTD.length ? prevTotalMTD / prevVentesMTD.length : 0;
+        const prevAvgCart  = prevCartCount ? prevCartSum / prevCartCount : 0;
+
+        const hasPrev = prevVentesMTD.length > 0;
+        const prevMTDLabel = hasPrev
             ? `${MONTHS_LONG[monthIdx].toUpperCase()} ${prevYearMTD} (MTD) : ${prevTotalMTD.toLocaleString('fr-CA')} $`
             : 'Données année précédente non disponibles';
-        const pctVsN1 = prevVentesMTD.length && prevTotalMTD > 0
-            ? (totalVentes - prevTotalMTD) / prevTotalMTD * 100
-            : null;
+
+        function applyPct(kpiN, currentVal, prevVal) {
+            if (!hasPrev || prevVal <= 0) return;
+            const pct = (currentVal - prevVal) / prevVal * 100;
+            const pctStr   = (pct >= 0 ? '+' : '') + pct.toFixed(1).replace('.', ',') + ' %';
+            const pctColor = pct >= 0 ? '#6ab04c' : '#ef4444';
+            const el = document.getElementById(`kpi${kpiN}Value`);
+            el.innerHTML = el.textContent + ` <span style="font-size:1rem;font-weight:600;color:${pctColor};">${pctStr}</span>`;
+        }
+
+        const pctVsN1 = hasPrev && prevTotalMTD > 0
+            ? (totalVentes - prevTotalMTD) / prevTotalMTD * 100 : null;
         setKPI(1, `Ventes totales nettes — ${monthName.toUpperCase()}`, totalVentes.toLocaleString('fr-CA') + ' $', prevMTDLabel);
         if (pctVsN1 !== null) {
             const pctStr   = (pctVsN1 >= 0 ? '+' : '') + pctVsN1.toFixed(1).replace('.', ',') + ' %';
@@ -752,9 +774,18 @@
             document.getElementById('kpi1Value').innerHTML =
                 `${totalVentes.toLocaleString('fr-CA')} $ <span style="font-size:1rem;font-weight:600;color:${pctColor};">${pctStr}</span>`;
         }
-        setKPI(2, 'Panier moyen', avgCart.toLocaleString('fr-CA', {minimumFractionDigits:2,maximumFractionDigits:2}) + ' $', panierLabel);
-        setKPI(3, 'Moy. / jour', avgDaily.toLocaleString('fr-CA', {maximumFractionDigits:0}) + ' $', '');
-        setKPI(4, 'Commandes', totalOrders.toLocaleString('fr-CA'), '');
+
+        setKPI(2, 'Panier moyen', avgCart.toLocaleString('fr-CA', {minimumFractionDigits:2,maximumFractionDigits:2}) + ' $',
+            hasPrev && prevAvgCart > 0 ? `N-1 : ${prevAvgCart.toLocaleString('fr-CA', {minimumFractionDigits:2,maximumFractionDigits:2})} $` : panierLabel);
+        applyPct(2, avgCart, prevAvgCart);
+
+        setKPI(3, 'Moy. / jour', avgDaily.toLocaleString('fr-CA', {maximumFractionDigits:0}) + ' $',
+            hasPrev && prevAvgDaily > 0 ? `N-1 : ${prevAvgDaily.toLocaleString('fr-CA', {maximumFractionDigits:0})} $` : '');
+        applyPct(3, avgDaily, prevAvgDaily);
+
+        setKPI(4, 'Commandes', totalOrders.toLocaleString('fr-CA'),
+            hasPrev && prevOrders > 0 ? `N-1 : ${prevOrders.toLocaleString('fr-CA')}` : '');
+        applyPct(4, totalOrders, prevOrders);
 
         // Weather
         const rainDays = ventes.filter(v => (parseFloat(v.precipitation_mm)||0) > 0.5);
