@@ -311,6 +311,11 @@
         /* CATEGORY TAGS */
         .tag-marketing { background: #ede9ff; color: #5b21b6; padding: 2px 8px; border-radius: 5px; font-size: 0.68rem; font-weight: 700; display: inline-block; }
         .tag-contexte { background: #fef3c7; color: #92400e; padding: 2px 8px; border-radius: 5px; font-size: 0.68rem; font-weight: 700; display: inline-block; }
+        .event-actions { display: inline-flex; gap: 2px; opacity: 0; transition: opacity 0.15s; vertical-align: middle; margin-left: 6px; }
+        tr:hover .event-actions { opacity: 1; }
+        .btn-ev { background: none; border: none; cursor: pointer; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; line-height: 1; color: #8a8f9e; }
+        .btn-ev:hover { background: #f0ece6; }
+        .btn-ev.del:hover { background: #fee2e2; color: #ef4444; }
 
         /* HOLIDAYS BAR */
         .holidays-bar {
@@ -454,8 +459,12 @@
 <div id="eventModal" class="modal">
     <div class="modal-content">
         <span class="modal-close" id="modalClose">&times;</span>
-        <h2>+ Ajouter un événement marketing et contexte</h2>
+        <h2 id="eventModalTitle">+ Ajouter un événement marketing et contexte</h2>
         <form id="eventForm">
+            <input type="hidden" id="eventMode" value="add">
+            <input type="hidden" id="eventId" value="">
+            <input type="hidden" id="eventDateOriginal" value="">
+            <input type="hidden" id="eventActionOriginal" value="">
             <label>Date</label>
             <input type="date" id="eventDate" required>
             <label>Catégorie</label>
@@ -486,6 +495,7 @@
     let annualChart = null;
     let dailyChart = null;
     let currentView = 'annual';
+    let eventRegistry = new Map();
 
     // ── LOAD ──
     async function loadData() {
@@ -880,7 +890,7 @@
     }
 
     // ── EVENTS TABLE ──
-    function buildEventRow(ev, showFullDate) {
+    function buildEventRow(ev, showFullDate, regKey) {
         const d = dayjs(ev.date);
         const dateStr = showFullDate
             ? d.date() + ' ' + MONTHS_SHORT[d.month()] + ' ' + d.year() + ' · ' + DAYS_FR[d.day()]
@@ -891,9 +901,15 @@
         const isContexte  = CONTEXTE_COLS.some(k => ev[k]?.toString().trim());
         const tagHtml = (isMarketing ? ' <span class="tag-marketing">marketing</span>' : '')
                       + (isContexte  ? ' <span class="tag-contexte">contexte</span>'  : '');
+        const btnHtml = regKey
+            ? `<span class="event-actions">
+                   <button type="button" class="btn-ev" data-key="${regKey}" title="Modifier">✏️</button>
+                   <button type="button" class="btn-ev del" data-key="${regKey}" title="Supprimer">🗑️</button>
+               </span>`
+            : '';
         return `<tr>
             <td class="date-cell">${dateStr}</td>
-            <td class="action-cell">${actions}${tagHtml}</td>
+            <td class="action-cell">${actions}${tagHtml}${btnHtml}</td>
             <td class="note-cell">${notes}</td>
         </tr>`;
     }
@@ -918,8 +934,13 @@
             document.getElementById('eventsBody').innerHTML = '<p class="warning-msg">Aucun événement ce mois</p>';
             return;
         }
+        eventRegistry.clear();
         let html = '<table class="mini-table"><thead><tr><th>Date</th><th>Action</th><th>Note</th></tr></thead><tbody>';
-        events.forEach(ev => { html += buildEventRow(ev, false); });
+        events.forEach((ev, i) => {
+            const key = `ev_${i}`;
+            eventRegistry.set(key, ev);
+            html += buildEventRow(ev, false, key);
+        });
         html += '</tbody></table>';
         document.getElementById('eventsBody').innerHTML = html;
     }
@@ -955,8 +976,13 @@
             document.getElementById('searchResultsBody').innerHTML = '<p class="warning-msg">Aucun événement trouvé.</p>';
             return;
         }
+        eventRegistry.clear();
         let html = '<table class="mini-table"><thead><tr><th>Date</th><th>Action</th><th>Note</th></tr></thead><tbody>';
-        filtered.forEach(ev => { html += buildEventRow(ev, true); });
+        filtered.forEach((ev, i) => {
+            const key = `ev_${i}`;
+            eventRegistry.set(key, ev);
+            html += buildEventRow(ev, true, key);
+        });
         html += '</tbody></table>';
         document.getElementById('searchResultsBody').innerHTML = html;
     }
@@ -1139,12 +1165,76 @@
 
     // Modal
     const modal = document.getElementById('eventModal');
-    document.getElementById('openModalBtn').onclick = () => modal.style.display = 'flex';
+
+    function openAddModal() {
+        document.getElementById('eventModalTitle').textContent = '+ Ajouter un événement marketing et contexte';
+        document.getElementById('eventMode').value = 'add';
+        document.getElementById('eventId').value = '';
+        document.getElementById('eventDateOriginal').value = '';
+        document.getElementById('eventActionOriginal').value = '';
+        document.getElementById('eventForm').reset();
+        document.getElementById('formMessage').innerHTML = '';
+        modal.style.display = 'flex';
+    }
+
+    function openEditModal(ev) {
+        const actionVal = ACTION_COLS.map(k => ev[k]?.toString().trim()).filter(Boolean).join(' · ') || '';
+        const noteVal   = [...CONTEXTE_COLS.map(k => ev[k]?.toString().trim()), ev.commentaires_notes?.toString().trim()].filter(Boolean).join(' · ');
+        document.getElementById('eventModalTitle').textContent = 'Modifier l\'événement';
+        document.getElementById('eventMode').value = 'edit';
+        document.getElementById('eventId').value = ev.event_id || '';
+        document.getElementById('eventDate').value = dayjs(ev.date).format('YYYY-MM-DD');
+        document.getElementById('eventDateOriginal').value = dayjs(ev.date).format('YYYY-MM-DD');
+        document.getElementById('eventAction').value = actionVal;
+        document.getElementById('eventActionOriginal').value = actionVal;
+        document.getElementById('eventNote').value = noteVal;
+        document.getElementById('formMessage').innerHTML = '';
+        modal.style.display = 'flex';
+    }
+
+    async function handleDeleteEvent(ev) {
+        const actionVal = ACTION_COLS.map(k => ev[k]?.toString().trim()).filter(Boolean).join(' · ') || '';
+        if (!confirm(`Supprimer cet événement ?\n\n${dayjs(ev.date).format('DD/MM/YYYY')} — ${actionVal}`)) return;
+        try {
+            await fetch(WEBHOOK_URL, {
+                method: 'POST', mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    type: 'delete',
+                    event_id: ev.event_id || '',
+                    date: dayjs(ev.date).format('YYYY-MM-DD'),
+                    action: actionVal
+                })
+            });
+            // Mise à jour optimiste : retirer l'événement et re-rendre
+            const idx = fullData.evenements.indexOf(ev);
+            if (idx !== -1) fullData.evenements.splice(idx, 1);
+            applyFiltersAndRender();
+        } catch(err) {
+            alert('Erreur réseau. Réessayez.');
+        }
+    }
+
+    document.getElementById('openModalBtn').onclick = openAddModal;
     document.getElementById('modalClose').onclick   = () => modal.style.display = 'none';
     window.onclick = e => { if (e.target === modal) modal.style.display = 'none'; };
 
+    // Délégation de clics pour les boutons modifier/supprimer dans le tableau
+    document.addEventListener('click', e => {
+        const btn = e.target.closest('.btn-ev');
+        if (!btn) return;
+        const ev = eventRegistry.get(btn.dataset.key);
+        if (!ev) return;
+        if (btn.classList.contains('del')) {
+            handleDeleteEvent(ev);
+        } else {
+            openEditModal(ev);
+        }
+    });
+
     document.getElementById('eventForm').onsubmit = async (e) => {
         e.preventDefault();
+        const mode      = document.getElementById('eventMode').value;
         const date      = document.getElementById('eventDate').value;
         const categorie = document.getElementById('eventCategorie').value;
         const action    = document.getElementById('eventAction').value.trim();
@@ -1152,14 +1242,43 @@
         if (!date || !action) return;
         document.getElementById('formMessage').innerHTML = 'Envoi en cours…';
         try {
-            await fetch(WEBHOOK_URL, {
-                method: 'POST', mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ date, categorie, action, note })
-            });
-            document.getElementById('formMessage').innerHTML = '<span style="color:#6ab04c;">✅ Événement ajouté ! Mise à jour dans quelques minutes.</span>';
+            if (mode === 'edit') {
+                const event_id    = document.getElementById('eventId').value;
+                const date_orig   = document.getElementById('eventDateOriginal').value;
+                const action_orig = document.getElementById('eventActionOriginal').value;
+                await fetch(WEBHOOK_URL, {
+                    method: 'POST', mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ type: 'update', event_id, date: date_orig, action: action_orig, date_new: date, action_new: action, note_new: note })
+                });
+                // Mise à jour optimiste
+                const target = fullData.evenements.find(v =>
+                    dayjs(v.date).format('YYYY-MM-DD') === date_orig &&
+                    (ACTION_COLS.map(k => v[k]?.toString().trim()).filter(Boolean).join(' · ') || '') === action_orig
+                );
+                if (target) {
+                    target.date = date;
+                    ACTION_COLS.forEach(k => { target[k] = ''; });
+                    target.lancement_produits_ateliers = action;
+                    target.commentaires_notes = note;
+                }
+                document.getElementById('formMessage').innerHTML = '<span style="color:#6ab04c;">✅ Événement modifié ! Mise à jour dans quelques minutes.</span>';
+            } else {
+                const event_id = String(Date.now());
+                await fetch(WEBHOOK_URL, {
+                    method: 'POST', mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ type: 'create', date, categorie, action, note, event_id })
+                });
+                document.getElementById('formMessage').innerHTML = '<span style="color:#6ab04c;">✅ Événement ajouté ! Mise à jour dans quelques minutes.</span>';
+            }
             document.getElementById('eventForm').reset();
-            setTimeout(() => { modal.style.display = 'none'; document.getElementById('formMessage').innerHTML = ''; }, 2500);
+            document.getElementById('eventMode').value = 'add';
+            setTimeout(() => {
+                modal.style.display = 'none';
+                document.getElementById('formMessage').innerHTML = '';
+                applyFiltersAndRender();
+            }, 2000);
         } catch(err) {
             document.getElementById('formMessage').innerHTML = '<span style="color:#ef4444;">Erreur réseau. Réessayez.</span>';
         }
