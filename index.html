@@ -743,7 +743,11 @@
 
         const prevYearMTD     = year - 1;
         const prevMonthKeyMTD = `${prevYearMTD}-${monthKey.split('-')[1]}`;
-        const lastDay         = ventes.length ? dayjs(ventes[ventes.length - 1].date).date() : 0;
+        const today           = dayjs();
+        const isCurrentMonth  = (monthKey === today.format('YYYY-MM'));
+        const rawLastDay      = ventes.length ? dayjs(ventes[ventes.length - 1].date).date() : 0;
+        // Pour le mois en cours : exclure la journée d'aujourd'hui (données incomplètes)
+        const lastDay         = isCurrentMonth ? Math.min(rawLastDay, today.subtract(1, 'day').date()) : rawLastDay;
         const prevVentesMTD   = fullData.ventes.filter(v =>
             dayjs(v.date).format('YYYY-MM') === prevMonthKeyMTD &&
             dayjs(v.date).date() <= lastDay
@@ -762,8 +766,11 @@
         const prevAvgCart  = prevCartCount ? prevCartSum / prevCartCount : 0;
 
         const hasPrev = prevVentesMTD.length > 0;
+        const cutoffNote = isCurrentMonth && lastDay > 0
+            ? ` — au ${lastDay} ${MONTHS_LONG[monthIdx].toLowerCase()} (j-1 exclu)`
+            : '';
         const prevMTDLabel = hasPrev
-            ? `${MONTHS_LONG[monthIdx].toUpperCase()} ${prevYearMTD} (MTD) : ${prevTotalMTD.toLocaleString('fr-CA')} $`
+            ? `${MONTHS_LONG[monthIdx].toUpperCase()} ${prevYearMTD} (MTD) : ${prevTotalMTD.toLocaleString('fr-CA')} $${cutoffNote}`
             : 'Données année précédente non disponibles';
 
         function applyPct(kpiN, currentVal, prevVal) {
