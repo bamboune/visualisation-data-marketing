@@ -26495,6 +26495,24 @@
       "precipitation_mm": 17.9,
       "snowfall_cm": 0.0,
       "weather_code": 63
+    },
+    {
+      "date": "2026-05-30",
+      "ventes_bel": 4076.29,
+      "ventes_boutique": 2407.8,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 6484.09,
+      "commandes_bel": 35.0,
+      "commandes_boutique": 51.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 86.0,
+      "panier_moyen_bel": 116.47,
+      "panier_moyen_boutique": 47.21,
+      "temp_max": 16.3,
+      "temp_min": 8.2,
+      "precipitation_mm": 7.4,
+      "snowfall_cm": 0.0,
+      "weather_code": 61
     }
   ],
   "infolettres": [
@@ -26555,6 +26573,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-05-30",
+      "plateforme": "facebook",
+      "description_courte": "Est-ce que les lilas sont en fleurs chez vous? Je repartage cette expérience que j'avais faite avec des fleurs de lilas : un soda pétillant naturel. Donne-moi des nouvelles en commentaire si tu testes",
+      "lien_post": "https://www.facebook.com/reel/921146914270245/"
+    },
     {
       "date": "2026-05-28",
       "plateforme": "facebook",
@@ -26632,6 +26656,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-05-30",
+      "plateforme": "instagram",
+      "description_courte": "Est-ce que les lilas sont en fleurs chez vous? Je repartage cette expérience que j'avais faite avec des fleurs de lilas : un soda pétillant naturel. Donne-moi des nouvelles en commentaire si tu tests!",
+      "lien_post": "https://www.instagram.com/reel/DY9uykokXib/"
     },
     {
       "date": "2026-05-28",
@@ -40773,12 +40803,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9713813.040000001,
-    "total_ventes_bel": 6725986.800000001,
-    "total_ventes_boutique": 2464705.33,
+    "total_ventes": 9720297.129999999,
+    "total_ventes_bel": 6730063.09,
+    "total_ventes_boutique": 2467113.13,
     "total_ventes_wholesale": 523120.91000000003,
-    "panier_moyen_bel": 95.28669157608697,
+    "panier_moyen_bel": 95.30107264086897,
     "date_min": "2021-11-01",
-    "date_max": "2026-05-29"
+    "date_max": "2026-05-30"
   }
 }
