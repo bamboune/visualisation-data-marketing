@@ -26513,6 +26513,24 @@
       "precipitation_mm": 7.4,
       "snowfall_cm": 0.0,
       "weather_code": 61
+    },
+    {
+      "date": "2026-05-31",
+      "ventes_bel": 9544.15,
+      "ventes_boutique": 1714.02,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 11258.17,
+      "commandes_bel": 82.0,
+      "commandes_boutique": 36.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 118.0,
+      "panier_moyen_bel": 116.39,
+      "panier_moyen_boutique": 47.61,
+      "temp_max": 17.4,
+      "temp_min": 10.8,
+      "precipitation_mm": 4.1,
+      "snowfall_cm": 0.0,
+      "weather_code": 61
     }
   ],
   "infolettres": [
@@ -26565,6 +26583,11 @@
       "date": "2026-05-25",
       "date_envoi": "2026-05-25",
       "sujet": "Baume des lunes mai 2026"
+    },
+    {
+      "date": "2026-05-28",
+      "date_envoi": "2026-05-28",
+      "sujet": "Last call code promo exclusif baume des lunes / 31 mai 2026 8h45"
     },
     {
       "date": "2026-05-28",
@@ -40803,12 +40826,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9720297.129999999,
-    "total_ventes_bel": 6730063.09,
-    "total_ventes_boutique": 2467113.13,
+    "total_ventes": 9731555.3,
+    "total_ventes_bel": 6739607.24,
+    "total_ventes_boutique": 2468827.15,
     "total_ventes_wholesale": 523120.91000000003,
-    "panier_moyen_bel": 95.30107264086897,
+    "panier_moyen_bel": 95.31537991858887,
     "date_min": "2021-11-01",
-    "date_max": "2026-05-30"
+    "date_max": "2026-05-31"
   }
 }
