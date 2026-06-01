@@ -812,12 +812,21 @@
         const diff     = avgDry > 0 ? ((avgRain-avgDry)/avgDry*100) : 0;
         const diffStr  = (diff >= 0 ? '+' : '') + diff.toFixed(1) + ' %';
         const diffCol  = diff >= 0 ? '#6ab04c' : '#ef4444';
+
+        const daysWithTemp = ventes.filter(v => v.temp_max != null && v.temp_min != null);
+        const avgTemp = daysWithTemp.length
+            ? daysWithTemp.reduce((a,v) => a + (parseFloat(v.temp_max) + parseFloat(v.temp_min)) / 2, 0) / daysWithTemp.length
+            : null;
+        const tempStr = avgTemp !== null ? avgTemp.toFixed(1).replace('.', ',') + ' °C' : null;
+        const tempEmoji = avgTemp === null ? '' : avgTemp >= 20 ? '🌡️' : avgTemp >= 10 ? '🌤️' : avgTemp >= 0 ? '🧥' : '❄️';
+
         const wb = document.getElementById('weatherBar');
         wb.style.display = 'flex';
         wb.innerHTML = `
             <span><strong>☔ Jours de pluie (${rainDays.length})</strong> → ${avgRain.toLocaleString('fr-CA',{maximumFractionDigits:0})} $ moy.</span>
             <span><strong>☀️ Jours secs (${dryDays.length})</strong> → ${avgDry.toLocaleString('fr-CA',{maximumFractionDigits:0})} $ moy.</span>
             <span style="color:${diffCol};font-weight:600;">Pluie = ${diffStr} de ventes</span>
+            ${tempStr ? `<span><strong>${tempEmoji} Temp. moy.</strong> ${tempStr}</span>` : ''}
         `;
 
         // Daily chart — barres empilées par canal
