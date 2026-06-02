@@ -26531,6 +26531,24 @@
       "precipitation_mm": 4.1,
       "snowfall_cm": 0.0,
       "weather_code": 61
+    },
+    {
+      "date": "2026-06-01",
+      "ventes_bel": 4337.05,
+      "ventes_boutique": 0.0,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 4337.05,
+      "commandes_bel": 39.0,
+      "commandes_boutique": 0.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 39.0,
+      "panier_moyen_bel": 111.21,
+      "panier_moyen_boutique": 0.0,
+      "temp_max": 19.1,
+      "temp_min": 8.2,
+      "precipitation_mm": 0.2,
+      "snowfall_cm": 0.0,
+      "weather_code": 51
     }
   ],
   "infolettres": [
@@ -26596,6 +26614,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-06-01",
+      "plateforme": "facebook",
+      "description_courte": "La saison 3 des capsules botaniques commencent bientôt! En attendant, on a besoin de votre aide pour décider par quelle plante on commence.",
+      "lien_post": "https://www.facebook.com/reel/1640366420524087/"
+    },
     {
       "date": "2026-05-30",
       "plateforme": "facebook",
@@ -26679,6 +26703,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-06-01",
+      "plateforme": "instagram",
+      "description_courte": "La saison 3 des capsules botaniques commencent bientôt! En attendant, on a besoin de votre aide pour décider par quelle plante on commence.",
+      "lien_post": "https://www.instagram.com/reel/DZDJicBB2m1/"
     },
     {
       "date": "2026-05-30",
@@ -40826,12 +40856,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9731555.3,
-    "total_ventes_bel": 6739607.24,
+    "total_ventes": 9735892.350000001,
+    "total_ventes_bel": 6743944.290000001,
     "total_ventes_boutique": 2468827.15,
     "total_ventes_wholesale": 523120.91000000003,
-    "panier_moyen_bel": 95.31537991858887,
+    "panier_moyen_bel": 95.3261559322034,
     "date_min": "2021-11-01",
-    "date_max": "2026-05-31"
+    "date_max": "2026-06-01"
   }
 }
