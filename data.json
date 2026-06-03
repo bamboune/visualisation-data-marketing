@@ -26633,6 +26633,12 @@
   ],
   "publications": [
     {
+      "date": "2026-06-03",
+      "plateforme": "facebook",
+      "description_courte": "Sommeil ou Sommeil? 😴\n\nToi tu choisis quoi?\n\n#rollon #dorsnroll #sommeil #bonnenuit",
+      "lien_post": "https://www.facebook.com/reel/4507020929517257/"
+    },
+    {
       "date": "2026-06-02",
       "plateforme": "facebook",
       "description_courte": "OUVERTURE OFFICIELLE DE NOTRE BAR À SÉRUM AUJOURD’HUI!!! 🥳\n\nVous avez été plusieurs à participer à notre devinette dans les derniers jours. Le mystère est enfin résolu : notre bar à sérum ouvre offici",
@@ -26727,6 +26733,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-06-03",
+      "plateforme": "instagram",
+      "description_courte": "Sommeil ou Sommeil? 😴\n\nToi tu choisis quoi?\n\n#rollon #dorsnroll #sommeil #bonnenuit",
+      "lien_post": "https://www.instagram.com/reel/DZITTAZsjL9/"
     },
     {
       "date": "2026-06-02",
@@ -40882,6 +40894,24 @@
       "fetes_feries_conges": "",
       "couvertures_mediatiques": "",
       "commentaires_notes": "Contre Lightning de Tampa Bay à Tampa - 19h30-22h30 / 4-3 pour Montréal, en prolongation",
+      "event_id": ""
+    },
+    {
+      "date": "2026-05-29",
+      "rabais_promos": "",
+      "lancement_produits_ateliers": "Séries Hockey Canadien",
+      "bis_alertes_back_in_stock": "",
+      "infolettre": "",
+      "push_notif": "",
+      "billet_blogue": "",
+      "webmestre_funnels": "",
+      "temperature": "",
+      "meteo_montreal": "",
+      "meteo_generale": "",
+      "politique_actualite": "",
+      "fetes_feries_conges": "",
+      "couvertures_mediatiques": "",
+      "commentaires_notes": "Contre Hurricanes, en Caroline, 20h - 6 à 1 pour la Caroline / Séries terminées pour le Canadien!",
       "event_id": ""
     }
   ],
