@@ -26549,6 +26549,24 @@
       "precipitation_mm": 0.2,
       "snowfall_cm": 0.0,
       "weather_code": 51
+    },
+    {
+      "date": "2026-06-02",
+      "ventes_bel": 4719.06,
+      "ventes_boutique": 2006.11,
+      "ventes_wholesale": 593.82,
+      "ventes_total": 7318.99,
+      "commandes_bel": 42.0,
+      "commandes_boutique": 38.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 81.0,
+      "panier_moyen_bel": 112.36,
+      "panier_moyen_boutique": 52.79,
+      "temp_max": 23.4,
+      "temp_min": 10.0,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -26614,6 +26632,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-06-02",
+      "plateforme": "facebook",
+      "description_courte": "OUVERTURE OFFICIELLE DE NOTRE BAR À SÉRUM AUJOURD’HUI!!! 🥳\n\nVous avez été plusieurs à participer à notre devinette dans les derniers jours. Le mystère est enfin résolu : notre bar à sérum ouvre offici",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1551793763000996"
+    },
     {
       "date": "2026-06-01",
       "plateforme": "facebook",
@@ -26703,6 +26727,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-06-02",
+      "plateforme": "instagram",
+      "description_courte": "OUVERTURE OFFICIELLE DE NOTRE BAR À SÉRUM AUJOURD’HUI!!! 🥳\n\nVous avez été plusieurs à participer à notre devinette dans les derniers jours. Le mystère est enfin résolu : notre bar à sérum ouvre offici",
+      "lien_post": "https://www.instagram.com/p/DZFz8AvlUgw/"
     },
     {
       "date": "2026-06-01",
@@ -40856,12 +40886,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9735892.350000001,
-    "total_ventes_bel": 6743944.290000001,
-    "total_ventes_boutique": 2468827.15,
-    "total_ventes_wholesale": 523120.91000000003,
-    "panier_moyen_bel": 95.3261559322034,
+    "total_ventes": 9743211.340000002,
+    "total_ventes_bel": 6748663.3500000015,
+    "total_ventes_boutique": 2470833.26,
+    "total_ventes_wholesale": 523714.73,
+    "panier_moyen_bel": 95.33769647696477,
     "date_min": "2021-11-01",
-    "date_max": "2026-06-01"
+    "date_max": "2026-06-02"
   }
 }
