@@ -26585,6 +26585,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 3
+    },
+    {
+      "date": "2026-06-04",
+      "ventes_bel": 3798.03,
+      "ventes_boutique": 1168.68,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 4966.71,
+      "commandes_bel": 39.0,
+      "commandes_boutique": 28.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 67.0,
+      "panier_moyen_bel": 97.39,
+      "panier_moyen_boutique": 41.74,
+      "temp_max": 27.6,
+      "temp_min": 15.4,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -26647,9 +26665,20 @@
       "date": "2026-05-28",
       "date_envoi": "2026-05-28",
       "sujet": "Baume des lunes mai 2026 - resend aux pas ouverts jeudi 28 mai 20h"
+    },
+    {
+      "date": "2026-06-03",
+      "date_envoi": "2026-06-03",
+      "sujet": "Bar à sérum au pignon Segment rayon 60km de la BP - jeudi 4 juin 20h"
     }
   ],
   "publications": [
+    {
+      "date": "2026-06-04",
+      "plateforme": "facebook",
+      "description_courte": "Marie a respiré de très proche les pissenlits en tournant cette capsule, comme vous pourrez le remarquer. 😆👃🌼\n\nPartagez-nous vos meilleures recettes avec du pissenlit en commentaire! \n\n⚠️ Avertissemen",
+      "lien_post": "https://www.facebook.com/reel/1041253384919750/"
+    },
     {
       "date": "2026-06-03",
       "plateforme": "facebook",
@@ -26751,6 +26780,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-06-04",
+      "plateforme": "instagram",
+      "description_courte": "Marie a respiré de très proche les pissenlits en tournant cette capsule, comme vous pourrez le remarquer. 😆👃🌼\n\nPartagez-nous vos meilleures recettes avec du pissenlit en commentaire! \n\n⚠️ Avertissemen",
+      "lien_post": "https://www.instagram.com/reel/DZK4AMxjStk/"
     },
     {
       "date": "2026-06-03",
@@ -40988,12 +41023,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9748777.71,
-    "total_ventes_bel": 6751752.380000001,
-    "total_ventes_boutique": 2472493.6799999997,
+    "total_ventes": 9753744.42,
+    "total_ventes_bel": 6755550.41,
+    "total_ventes_boutique": 2473662.36,
     "total_ventes_wholesale": 524531.65,
-    "panier_moyen_bel": 95.33652674339878,
+    "panier_moyen_bel": 95.33791610284167,
     "date_min": "2021-11-01",
-    "date_max": "2026-06-03"
+    "date_max": "2026-06-04"
   }
 }
