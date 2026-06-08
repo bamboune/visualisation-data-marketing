@@ -945,19 +945,22 @@
             afterDraw(chart) {
                 const ctx = chart.ctx;
                 const xScale = chart.scales.x;
-                const dotY = chart.chartArea.bottom + 10;
-                const DOTS = [
-                    { set: marketingDays,  color: '#5b21b6', offset: -5 },
-                    { set: infolettreDays, color: '#5a9e7a', offset:  0 },
-                    { set: socialDays,     color: '#c87f4a', offset:  5 },
+                // Points empilés verticalement sous les labels de date
+                const DOT_R = 3;
+                const DOT_GAP = 8; // espacement vertical entre les rangées
+                const baseY = chart.chartArea.bottom + 30; // sous les ticks x
+                const ROWS = [
+                    { set: marketingDays,  color: '#5b21b6' },
+                    { set: infolettreDays, color: '#5a9e7a' },
+                    { set: socialDays,     color: '#c87f4a' },
                 ];
                 ventes.forEach((v, i) => {
                     const dayNum = dayjs(v.date).date();
                     const x = xScale.getPixelForTick(i);
-                    DOTS.forEach(({ set, color, offset }) => {
+                    ROWS.forEach(({ set, color }, row) => {
                         if (!set.has(dayNum)) return;
                         ctx.beginPath();
-                        ctx.arc(x + offset, dotY, 3, 0, Math.PI * 2);
+                        ctx.arc(x, baseY + row * DOT_GAP, DOT_R, 0, Math.PI * 2);
                         ctx.fillStyle = color;
                         ctx.fill();
                     });
@@ -971,12 +974,13 @@
             plugins: [markerPlugin],
             options: {
                 responsive: true, maintainAspectRatio: true,
-                layout: { padding: { bottom: 22 } },
+                layout: { padding: { bottom: 50 } },
                 plugins: {
                     legend: {
                         display: channel === 'total' || prevVentes.length > 0,
-                        position: 'bottom',
-                        labels: { color: '#9ca3af', padding: 16, usePointStyle: true, pointStyleWidth: 12, font: { size: 11 } }
+                        position: 'top',
+                        align: 'start',
+                        labels: { color: '#9ca3af', padding: 16, usePointStyle: false, font: { size: 11 } }
                     },
                     tooltip: {
                         backgroundColor: '#ffffff', titleColor: '#1e2330', bodyColor: '#5a5f72',
