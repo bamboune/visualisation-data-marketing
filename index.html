@@ -925,25 +925,30 @@
             });
         }
 
-        // Sets de jours avec activité marketing pour les points de couleur
+        // Maps jour→labels pour les marqueurs + hover tooltip
         const monthEvts = (fullData.evenements || []).filter(ev => dayjs(ev.date).format('YYYY-MM') === monthKey);
-        const marketingDays = new Set(
-            monthEvts.filter(ev => ACTION_COLS.some(k => ev[k]?.toString().trim())).map(ev => dayjs(ev.date).date())
-        );
-        const infolettreDays = new Set(
-            (fullData.infolettres || [])
-                .filter(e => dayjs(e.date_envoi || e.date).format('YYYY-MM') === monthKey)
-                .map(e => dayjs(e.date_envoi || e.date).date())
-        );
-        const socialDays = new Set(
-            (fullData.publications || [])
-                .filter(p => dayjs(p.date).format('YYYY-MM') === monthKey)
-                .map(p => dayjs(p.date).date())
-        );
-        const holidayDays = new Set(
+        const marketingMap = new Map();
+        monthEvts.filter(ev => ACTION_COLS.some(k => ev[k]?.toString().trim())).forEach(ev => {
+            const d = dayjs(ev.date).date();
+            const labels = ACTION_COLS.map(k => ev[k]?.toString().trim()).filter(Boolean);
+            marketingMap.set(d, (marketingMap.get(d) || []).concat(labels));
+        });
+        const infolettreMap = new Map();
+        (fullData.infolettres || []).filter(e => dayjs(e.date_envoi || e.date).format('YYYY-MM') === monthKey).forEach(e => {
+            const d = dayjs(e.date_envoi || e.date).date();
+            infolettreMap.set(d, (infolettreMap.get(d) || []).concat([e.sujet || '—']));
+        });
+        const socialMap = new Map();
+        (fullData.publications || []).filter(p => dayjs(p.date).format('YYYY-MM') === monthKey).forEach(p => {
+            const d = dayjs(p.date).date();
+            const pl = (p.plateforme || '').toLowerCase();
+            const lbl = (pl === 'instagram' ? 'IG' : 'FB') + ' — ' + (p.description_courte || p.title || '').substring(0, 50);
+            socialMap.set(d, (socialMap.get(d) || []).concat([lbl]));
+        });
+        const holidayMap = new Map(
             getQuebecHolidays(parseInt(monthKey.split('-')[0]))
                 .filter(h => h.date.startsWith(monthKey))
-                .map(h => dayjs(h.date).date())
+                .map(h => [dayjs(h.date).date(), [h.name]])
         );
 
         const markerPlugin = {
@@ -955,16 +960,17 @@
                 const DOT_GAP = 8;
                 const baseY = chart.chartArea.bottom + 30;
                 const ROWS = [
-                    { set: marketingDays,  color: '#5b21b6', shape: 'circle' },
-                    { set: infolettreDays, color: '#5a9e7a', shape: 'circle' },
-                    { set: socialDays,     color: '#c87f4a', shape: 'circle' },
-                    { set: holidayDays,    color: '#dc2626', shape: 'diamond' },
+                    { map: marketingMap,  color: '#5b21b6', shape: 'circle' },
+                    { map: infolettreMap, color: '#5a9e7a', shape: 'circle' },
+                    { map: socialMap,     color: '#c87f4a', shape: 'circle' },
+                    { map: holidayMap,    color: '#dc2626', shape: 'diamond' },
                 ];
+                chart._markerHits = [];
                 ventes.forEach((v, i) => {
                     const dayNum = dayjs(v.date).date();
                     const x = xScale.getPixelForTick(i);
-                    ROWS.forEach(({ set, color, shape }, row) => {
-                        if (!set.has(dayNum)) return;
+                    ROWS.forEach(({ map, color, shape }, row) => {
+                        if (!map.has(dayNum)) return;
                         const y = baseY + row * DOT_GAP;
                         ctx.fillStyle = color;
                         if (shape === 'diamond') {
@@ -980,6 +986,7 @@
                             ctx.arc(x, y, DOT_R, 0, Math.PI * 2);
                         }
                         ctx.fill();
+                        chart._markerHits.push({ x, y, r: DOT_R + 4, labels: map.get(dayNum), color });
                     });
                 });
             }
@@ -1011,6 +1018,37 @@
                 }
             }
         });
+
+        // Tooltip hover sur les marqueurs
+        let markerTooltip = document.getElementById('markerTooltip');
+        if (!markerTooltip) {
+            markerTooltip = document.createElement('div');
+            markerTooltip.id = 'markerTooltip';
+            markerTooltip.style.cssText = 'position:fixed;background:#1e2330;color:#fff;padding:7px 11px;border-radius:8px;font-size:0.75rem;line-height:1.5;pointer-events:none;z-index:9999;max-width:260px;display:none;box-shadow:0 4px 12px rgba(0,0,0,0.2);';
+            document.body.appendChild(markerTooltip);
+        }
+        const canvas = document.getElementById('dailyChart');
+        canvas.onmousemove = (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const mx = e.clientX - rect.left;
+            const my = e.clientY - rect.top;
+            const hit = (dailyChart._markerHits || []).find(m => Math.hypot(mx - m.x, my - m.y) <= m.r);
+            if (hit) {
+                canvas.style.cursor = 'pointer';
+                markerTooltip.innerHTML = hit.labels.map(l => `<span style="display:block">${l}</span>`).join('');
+                markerTooltip.style.borderLeft = `3px solid ${hit.color}`;
+                markerTooltip.style.display = 'block';
+                markerTooltip.style.left = (e.clientX + 12) + 'px';
+                markerTooltip.style.top  = (e.clientY - 10) + 'px';
+            } else {
+                canvas.style.cursor = '';
+                markerTooltip.style.display = 'none';
+            }
+        };
+        canvas.onmouseleave = () => {
+            canvas.style.cursor = '';
+            markerTooltip.style.display = 'none';
+        };
 
         renderChannelBreakdown(ventes);
         renderEventsTable(monthKey);
