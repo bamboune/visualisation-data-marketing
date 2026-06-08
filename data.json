@@ -26639,6 +26639,24 @@
       "precipitation_mm": 14.7,
       "snowfall_cm": 0.0,
       "weather_code": 63
+    },
+    {
+      "date": "2026-06-07",
+      "ventes_bel": 3513.64,
+      "ventes_boutique": 1726.43,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 5240.07,
+      "commandes_bel": 38.0,
+      "commandes_boutique": 38.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 76.0,
+      "panier_moyen_bel": 92.46,
+      "panier_moyen_boutique": 45.43,
+      "temp_max": 18.3,
+      "temp_min": 15.3,
+      "precipitation_mm": 19.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 63
     }
   ],
   "infolettres": [
@@ -26706,6 +26724,11 @@
       "date": "2026-06-03",
       "date_envoi": "2026-06-03",
       "sujet": "Bar à sérum au pignon Segment rayon 60km de la BP - jeudi 4 juin 20h"
+    },
+    {
+      "date": "2026-06-07",
+      "date_envoi": "2026-06-07",
+      "sujet": "Resend aux pas ouverts Bar à sérum au pignon Segment rayon 60km de la BP - dimanche 7 juin 9h"
     }
   ],
   "publications": [
@@ -41071,12 +41094,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9766809.64,
-    "total_ventes_bel": 6764871.75,
-    "total_ventes_boutique": 2477406.24,
+    "total_ventes": 9772049.71,
+    "total_ventes_bel": 6768385.390000001,
+    "total_ventes_boutique": 2479132.67,
     "total_ventes_wholesale": 524531.65,
-    "panier_moyen_bel": 95.3618108108108,
+    "panier_moyen_bel": 95.35985145172181,
     "date_min": "2021-11-01",
-    "date_max": "2026-06-06"
+    "date_max": "2026-06-07"
   }
 }
