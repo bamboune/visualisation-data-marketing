@@ -161,6 +161,8 @@
         /* MONTHLY GRID */
         .monthly-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
         @media (max-width: 820px) { .monthly-grid { grid-template-columns: 1fr; } }
+        .monthly-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+        @media (max-width: 900px) { .monthly-grid-3 { grid-template-columns: 1fr; } }
 
         /* DATA CARDS */
         .data-card {
@@ -424,7 +426,17 @@
 
     <!-- VUE MENSUELLE -->
     <div id="monthlyView" style="display:none;">
-        <div class="monthly-grid">
+        <div class="chart-card" style="margin-bottom:14px;">
+            <div class="card-title-sm" id="dailyChartTitle">Ventes journalières</div>
+            <canvas id="dailyChart" height="280" style="max-height:320px;"></canvas>
+            <div id="markerLegend" style="display:flex;gap:16px;margin-top:10px;font-size:0.7rem;color:#8a8f9e;flex-wrap:wrap;">
+                <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#5b21b6;margin-right:5px;vertical-align:middle;"></span>Événement marketing</span>
+                <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#5a9e7a;margin-right:5px;vertical-align:middle;"></span>Infolettre</span>
+                <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#c87f4a;margin-right:5px;vertical-align:middle;"></span>Publication sociale</span>
+            </div>
+            <div id="holidaysBar" class="holidays-bar" style="display:none;"></div>
+        </div>
+        <div class="monthly-grid-3">
             <div class="data-card">
                 <div class="card-header">
                     <div class="card-title">⚡ Événements marketing et contexte</div>
@@ -432,13 +444,6 @@
                 </div>
                 <div id="eventsBody"></div>
             </div>
-            <div class="chart-card">
-                <div class="card-title-sm" id="dailyChartTitle">Ventes journalières</div>
-                <canvas id="dailyChart" height="280" style="max-height:320px;"></canvas>
-                <div id="holidaysBar" class="holidays-bar" style="display:none;"></div>
-            </div>
-        </div>
-        <div class="monthly-grid">
             <div class="data-card">
                 <div class="card-header">
                     <div class="card-title">📧 Infolettres</div>
@@ -919,11 +924,54 @@
             });
         }
 
+        // Sets de jours avec activité marketing pour les points de couleur
+        const monthEvts = (fullData.evenements || []).filter(ev => dayjs(ev.date).format('YYYY-MM') === monthKey);
+        const marketingDays = new Set(
+            monthEvts.filter(ev => ACTION_COLS.some(k => ev[k]?.toString().trim())).map(ev => dayjs(ev.date).date())
+        );
+        const infolettreDays = new Set(
+            (fullData.infolettres || [])
+                .filter(e => dayjs(e.date_envoi || e.date).format('YYYY-MM') === monthKey)
+                .map(e => dayjs(e.date_envoi || e.date).date())
+        );
+        const socialDays = new Set(
+            (fullData.publications || [])
+                .filter(p => dayjs(p.date).format('YYYY-MM') === monthKey)
+                .map(p => dayjs(p.date).date())
+        );
+
+        const markerPlugin = {
+            id: 'marketingMarkers',
+            afterDraw(chart) {
+                const ctx = chart.ctx;
+                const xScale = chart.scales.x;
+                const dotY = chart.chartArea.bottom + 10;
+                const DOTS = [
+                    { set: marketingDays,  color: '#5b21b6', offset: -5 },
+                    { set: infolettreDays, color: '#5a9e7a', offset:  0 },
+                    { set: socialDays,     color: '#c87f4a', offset:  5 },
+                ];
+                ventes.forEach((v, i) => {
+                    const dayNum = dayjs(v.date).date();
+                    const x = xScale.getPixelForTick(i);
+                    DOTS.forEach(({ set, color, offset }) => {
+                        if (!set.has(dayNum)) return;
+                        ctx.beginPath();
+                        ctx.arc(x + offset, dotY, 3, 0, Math.PI * 2);
+                        ctx.fillStyle = color;
+                        ctx.fill();
+                    });
+                });
+            }
+        };
+
         dailyChart = new Chart(document.getElementById('dailyChart').getContext('2d'), {
             type: 'bar',
             data: { labels: chartLabels, datasets: chartDatasets },
+            plugins: [markerPlugin],
             options: {
                 responsive: true, maintainAspectRatio: true,
+                layout: { padding: { bottom: 22 } },
                 plugins: {
                     legend: {
                         display: channel === 'total' || prevVentes.length > 0,
@@ -998,15 +1046,31 @@
             document.getElementById('eventsBody').innerHTML = '<p class="warning-msg">Aucun événement ce mois</p>';
             return;
         }
+        const EVENTS_LIMIT = 10;
         eventRegistry.clear();
-        let html = '<table class="mini-table"><thead><tr><th>Date</th><th>Action</th><th>Note</th></tr></thead><tbody>';
-        events.forEach((ev, i) => {
-            const key = `ev_${i}`;
-            eventRegistry.set(key, ev);
-            html += buildEventRow(ev, false, key);
-        });
+        function buildEventRows(list, startIdx) {
+            return list.map((ev, i) => {
+                const key = `ev_${startIdx + i}`;
+                eventRegistry.set(key, ev);
+                return buildEventRow(ev, false, key);
+            }).join('');
+        }
+        const remaining = events.length - EVENTS_LIMIT;
+        let html = '<table class="mini-table"><thead><tr><th>Date</th><th>Action</th><th>Note</th></tr></thead><tbody id="eventsTbody">';
+        html += buildEventRows(events.slice(0, EVENTS_LIMIT), 0);
         html += '</tbody></table>';
+        if (remaining > 0) {
+            html += `<span class="voir-plus" id="voirPlusEventsBtn">Voir ${remaining} de plus →</span>`;
+        }
         document.getElementById('eventsBody').innerHTML = html;
+        if (remaining > 0) {
+            document.getElementById('voirPlusEventsBtn').addEventListener('click', function() {
+                this.style.display = 'none';
+                document.getElementById('eventsTbody').insertAdjacentHTML(
+                    'beforeend', buildEventRows(events.slice(EVENTS_LIMIT), EVENTS_LIMIT)
+                );
+            });
+        }
     }
 
     // ── GLOBAL SEARCH ──
