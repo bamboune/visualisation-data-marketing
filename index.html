@@ -311,6 +311,14 @@
         /* CATEGORY TAGS */
         .tag-marketing { background: #ede9ff; color: #5b21b6; padding: 2px 8px; border-radius: 5px; font-size: 0.68rem; font-weight: 700; display: inline-block; }
         .tag-contexte { background: #fef3c7; color: #92400e; padding: 2px 8px; border-radius: 5px; font-size: 0.68rem; font-weight: 700; display: inline-block; }
+        /* ACTION TYPE TAGS */
+        .tag-type { padding: 2px 7px; border-radius: 5px; font-size: 0.65rem; font-weight: 800; display: inline-block; letter-spacing: 0.03em; margin-right: 2px; }
+        .tag-promo       { background: #fce7f3; color: #9d174d; }
+        .tag-lancement   { background: #dcfce7; color: #166534; }
+        .tag-bis         { background: #dbeafe; color: #1e40af; }
+        .tag-infolettre  { background: #f3e8ff; color: #6b21a8; }
+        .tag-push        { background: #ffedd5; color: #9a3412; }
+        .tag-blogue      { background: #e0f2fe; color: #075985; }
         .event-actions { display: inline-flex; gap: 2px; opacity: 0; transition: opacity 0.15s; vertical-align: middle; margin-left: 6px; }
         tr:hover .event-actions { opacity: 1; }
         .btn-ev { background: none; border: none; cursor: pointer; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; line-height: 1; color: #8a8f9e; }
@@ -490,6 +498,14 @@
     const MONTHS_LONG  = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
     const DAYS_FR = ['dim','lun','mar','mer','jeu','ven','sam'];
     const ACTION_COLS = ['rabais_promos','lancement_produits_ateliers','bis_alertes_back_in_stock','infolettre','push_notif','billet_blogue','webmestre_funnels'];
+    const ACTION_TAGS = {
+        rabais_promos:               { label: 'PROMO',       css: 'tag-promo' },
+        lancement_produits_ateliers: { label: 'LANCEMENT',   css: 'tag-lancement' },
+        bis_alertes_back_in_stock:   { label: 'BIS',         css: 'tag-bis' },
+        infolettre:                  { label: 'INFOLETTRE',  css: 'tag-infolettre' },
+        push_notif:                  { label: 'PUSH',        css: 'tag-push' },
+        billet_blogue:               { label: 'BLOGUE',      css: 'tag-blogue' },
+    };
     const CONTEXTE_COLS = ['temperature','meteo_montreal','meteo_generale','politique_actualite','fetes_feries_conges','couvertures_mediatiques'];
 
     let fullData = null;
@@ -930,10 +946,13 @@
             : d.format('DD/MM') + ' ' + DAYS_FR[d.day()];
         const actions = ACTION_COLS.map(k => ev[k]?.toString().trim()).filter(Boolean).join(' · ') || '—';
         const notes   = [...CONTEXTE_COLS.map(k => ev[k]?.toString().trim()), ev.commentaires_notes?.toString().trim()].filter(Boolean).join(' · ');
-        const isMarketing = ACTION_COLS.some(k => ev[k]?.toString().trim());
         const isContexte  = CONTEXTE_COLS.some(k => ev[k]?.toString().trim());
-        const tagHtml = (isMarketing ? ' <span class="tag-marketing">marketing</span>' : '')
-                      + (isContexte  ? ' <span class="tag-contexte">contexte</span>'  : '');
+        const actionTagsHtml = ACTION_COLS
+            .filter(k => ev[k]?.toString().trim() && ACTION_TAGS[k])
+            .map(k => `<span class="tag-type ${ACTION_TAGS[k].css}">${ACTION_TAGS[k].label}</span>`)
+            .join('');
+        const tagHtml = actionTagsHtml
+                      + (isContexte ? ' <span class="tag-contexte">contexte</span>' : '');
         const btnHtml = regKey
             ? `<span class="event-actions">
                    <button type="button" class="btn-ev" data-key="${regKey}" title="Modifier">✏️</button>
