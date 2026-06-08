@@ -1133,22 +1133,33 @@
             return;
         }
 
-        let html = '<table class="mini-table"><thead><tr><th>Date</th><th>Sujet</th></tr></thead><tbody>';
-        emails.forEach(e => {
+        const EMAIL_LIMIT = 10;
+        const remaining = emails.length - EMAIL_LIMIT;
+        let html = '<table class="mini-table"><thead><tr><th>Date</th><th>Sujet</th></tr></thead><tbody id="emailTbody">';
+        emails.slice(0, EMAIL_LIMIT).forEach(e => {
             const d = e.date_envoi || e.date;
-            const sujet  = (e.sujet||'').substring(0,60) + ((e.sujet||'').length>60?'…':'');
-            html += `<tr>
-                <td class="date-cell">${dayjs(d).format('DD/MM')}</td>
-                <td>${sujet}</td>
-            </tr>`;
+            const sujet = (e.sujet||'').substring(0,60) + ((e.sujet||'').length>60?'…':'');
+            html += `<tr><td class="date-cell">${dayjs(d).format('DD/MM')}</td><td>${sujet}</td></tr>`;
         });
         html += '</tbody></table>';
+        if (remaining > 0) html += `<span class="voir-plus" id="voirPlusEmailBtn">Voir ${remaining} de plus →</span>`;
         document.getElementById('emailBody').innerHTML = html;
+        if (remaining > 0) {
+            document.getElementById('voirPlusEmailBtn').addEventListener('click', function() {
+                this.style.display = 'none';
+                const extra = emails.slice(EMAIL_LIMIT).map(e => {
+                    const d = e.date_envoi || e.date;
+                    const sujet = (e.sujet||'').substring(0,60) + ((e.sujet||'').length>60?'…':'');
+                    return `<tr><td class="date-cell">${dayjs(d).format('DD/MM')}</td><td>${sujet}</td></tr>`;
+                }).join('');
+                document.getElementById('emailTbody').insertAdjacentHTML('beforeend', extra);
+            });
+        }
     }
 
     // ── SOCIAL TABLE ──
     function renderSocialTable(monthKey) {
-        const LIMIT = 5;
+        const LIMIT = 10;
         const posts = (fullData.publications || [])
             .filter(p => dayjs(p.date).format('YYYY-MM') === monthKey)
             .sort((a,b) => dayjs(a.date).diff(dayjs(b.date)));
