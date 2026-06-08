@@ -19,10 +19,11 @@ function doPost(e) {
     }
 
     // type === 'create'
-    const date     = data.date;
-    const action   = data.action;
-    const note     = data.note || '';
-    const event_id = data.event_id || String(Date.now());
+    const date        = data.date;
+    const action      = data.action;
+    const note        = data.note || '';
+    const event_id    = data.event_id || String(Date.now());
+    const type_action = data.type_action || 'autre';
 
     if (!date || !action) {
       return ContentService.createTextOutput(JSON.stringify({ status: 'error', message: 'Date et action requis' }))
@@ -31,7 +32,23 @@ function doPost(e) {
 
     const newRow = sheet.getLastRow() + 1;
     sheet.getRange(newRow, 1).setValue(date);
-    sheet.getRange(newRow, 3).setValue(action);
+
+    // Écrire dans la colonne correspondant au type d'action
+    const actionColNames = [
+      'rabais_promos', 'lancement_produits_ateliers', 'bis_alertes_back_in_stock',
+      'infolettre', 'push_notif', 'billet_blogue', 'reseaux_sociaux',
+    ];
+    if (actionColNames.includes(type_action)) {
+      const col = getColByHeader(sheet, type_action);
+      if (col > 0) {
+        sheet.getRange(newRow, col).setValue(action);
+      } else {
+        sheet.getRange(newRow, 3).setValue(action); // colonne générique si header introuvable
+      }
+    } else {
+      sheet.getRange(newRow, 3).setValue(action); // 'autre' ou 'contexte'
+    }
+
     sheet.getRange(newRow, 15).setValue(note);
     sheet.getRange(newRow, 16).setValue(event_id);
 
@@ -44,6 +61,12 @@ function doPost(e) {
     return ContentService.createTextOutput(JSON.stringify({ status: 'error', message: err.toString() }))
       .setMimeType(ContentService.MimeType.JSON);
   }
+}
+
+function getColByHeader(sheet, headerName) {
+  const headers = sheet.getRange(2, 1, 1, sheet.getLastColumn()).getValues()[0];
+  const idx = headers.findIndex(h => String(h).trim().toLowerCase() === headerName.toLowerCase());
+  return idx >= 0 ? idx + 1 : -1;
 }
 
 function findEventRow(sheet, event_id, date, action) {

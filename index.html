@@ -319,6 +319,8 @@
         .tag-infolettre  { background: #f3e8ff; color: #6b21a8; }
         .tag-push        { background: #ffedd5; color: #9a3412; }
         .tag-blogue      { background: #e0f2fe; color: #075985; }
+        .tag-reseaux     { background: #fdf4ff; color: #86198f; }
+        .tag-autre       { background: #f1f5f9; color: #475569; }
         .event-actions { display: inline-flex; gap: 2px; opacity: 0; transition: opacity 0.15s; vertical-align: middle; margin-left: 6px; }
         tr:hover .event-actions { opacity: 1; }
         .btn-ev { background: none; border: none; cursor: pointer; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; line-height: 1; color: #8a8f9e; }
@@ -476,13 +478,10 @@
             <input type="hidden" id="eventActionOriginal" value="">
             <label>Date</label>
             <input type="date" id="eventDate" required>
-            <label>Catégorie</label>
-            <select id="eventCategorie" style="width:100%;padding:10px 14px;margin-top:6px;border-radius:10px;border:1px solid #ddd8d0;background:#faf8f5;color:#1e2330;font-size:0.9rem;">
-                <option value="marketing">Marketing</option>
-                <option value="contexte">Contexte</option>
-            </select>
-            <label>Action</label>
-            <p style="font-size:0.75rem;color:#8a8f9e;margin-top:6px;margin-bottom:4px;line-height:1.5;">Un lancement? Un BIS? Un atelier? Une promo? Sois précise — plus c'est clair, plus c'est facile à retrouver plus tard.</p>
+            <label>Type</label>
+            <select id="eventCategorie" style="width:100%;padding:10px 14px;margin-top:6px;border-radius:10px;border:1px solid #ddd8d0;background:#faf8f5;color:#1e2330;font-size:0.9rem;"></select>
+            <label>Description</label>
+            <p style="font-size:0.75rem;color:#8a8f9e;margin-top:6px;margin-bottom:4px;line-height:1.5;">Sois précise — plus c'est clair, plus c'est facile à retrouver plus tard.</p>
             <input type="text" id="eventAction" placeholder="Ex: Lancement crème visage camomille, Promo -20% soins, Atelier savon…" required>
             <label>Note</label>
             <textarea id="eventNote" rows="3" placeholder="Détails supplémentaires..."></textarea>
@@ -497,15 +496,28 @@
     const MONTHS_SHORT = ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
     const MONTHS_LONG  = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
     const DAYS_FR = ['dim','lun','mar','mer','jeu','ven','sam'];
-    const ACTION_COLS = ['rabais_promos','lancement_produits_ateliers','bis_alertes_back_in_stock','infolettre','push_notif','billet_blogue','webmestre_funnels'];
+    const ACTION_COLS = ['rabais_promos','lancement_produits_ateliers','bis_alertes_back_in_stock','infolettre','push_notif','billet_blogue','reseaux_sociaux','webmestre_funnels'];
     const ACTION_TAGS = {
-        rabais_promos:               { label: 'PROMO',       css: 'tag-promo' },
-        lancement_produits_ateliers: { label: 'LANCEMENT',   css: 'tag-lancement' },
-        bis_alertes_back_in_stock:   { label: 'BIS',         css: 'tag-bis' },
-        infolettre:                  { label: 'INFOLETTRE',  css: 'tag-infolettre' },
-        push_notif:                  { label: 'PUSH',        css: 'tag-push' },
-        billet_blogue:               { label: 'BLOGUE',      css: 'tag-blogue' },
+        rabais_promos:               { label: 'PROMO',           css: 'tag-promo' },
+        lancement_produits_ateliers: { label: 'LANCEMENT',       css: 'tag-lancement' },
+        bis_alertes_back_in_stock:   { label: 'BIS',             css: 'tag-bis' },
+        infolettre:                  { label: 'INFOLETTRE',      css: 'tag-infolettre' },
+        push_notif:                  { label: 'PUSH',            css: 'tag-push' },
+        billet_blogue:               { label: 'BLOGUE',          css: 'tag-blogue' },
+        reseaux_sociaux:             { label: 'RÉSEAUX SOCIAUX', css: 'tag-reseaux' },
     };
+    // Options du dropdown type dans la modale
+    const TYPE_OPTIONS = [
+        { value: 'rabais_promos',               label: '🏷️ Promo / Rabais' },
+        { value: 'lancement_produits_ateliers', label: '🚀 Lancement / Atelier' },
+        { value: 'bis_alertes_back_in_stock',   label: '🔔 BIS (Back in stock)' },
+        { value: 'infolettre',                  label: '📧 Infolettre' },
+        { value: 'push_notif',                  label: '📲 Push notification' },
+        { value: 'billet_blogue',               label: '✍️ Billet de blogue' },
+        { value: 'reseaux_sociaux',             label: '📱 Réseaux sociaux' },
+        { value: 'autre',                       label: '📌 Autre (marketing)' },
+        { value: 'contexte',                    label: '🌤️ Contexte (météo, fête, actu…)' },
+    ];
     const CONTEXTE_COLS = ['temperature','meteo_montreal','meteo_generale','politique_actualite','fetes_feries_conges','couvertures_mediatiques'];
 
     let fullData = null;
@@ -1295,6 +1307,10 @@
         }
     }
 
+    // Peupler le dropdown de types
+    document.getElementById('eventCategorie').innerHTML =
+        TYPE_OPTIONS.map(o => `<option value="${o.value}">${o.label}</option>`).join('');
+
     document.getElementById('openModalBtn').onclick = openAddModal;
     document.getElementById('modalClose').onclick   = () => modal.style.display = 'none';
     window.onclick = e => { if (e.target === modal) modal.style.display = 'none'; };
@@ -1314,11 +1330,11 @@
 
     document.getElementById('eventForm').onsubmit = async (e) => {
         e.preventDefault();
-        const mode      = document.getElementById('eventMode').value;
-        const date      = document.getElementById('eventDate').value;
-        const categorie = document.getElementById('eventCategorie').value;
-        const action    = document.getElementById('eventAction').value.trim();
-        const note      = document.getElementById('eventNote').value.trim();
+        const mode        = document.getElementById('eventMode').value;
+        const date        = document.getElementById('eventDate').value;
+        const type_action = document.getElementById('eventCategorie').value;
+        const action      = document.getElementById('eventAction').value.trim();
+        const note        = document.getElementById('eventNote').value.trim();
         if (!date || !action) return;
         document.getElementById('formMessage').innerHTML = 'Envoi en cours…';
         try {
@@ -1329,7 +1345,7 @@
                 await fetch(WEBHOOK_URL, {
                     method: 'POST', mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ type: 'update', event_id, date: date_orig, action: action_orig, date_new: date, action_new: action, note_new: note })
+                    body: JSON.stringify({ type: 'update', event_id, date: date_orig, action: action_orig, date_new: date, action_new: action, note_new: note, type_action })
                 });
                 // Mise à jour optimiste
                 const target = fullData.evenements.find(v =>
@@ -1339,7 +1355,8 @@
                 if (target) {
                     target.date = date;
                     ACTION_COLS.forEach(k => { target[k] = ''; });
-                    target.lancement_produits_ateliers = action;
+                    if (ACTION_COLS.includes(type_action)) target[type_action] = action;
+                    else target.commentaires_notes = action;
                     target.commentaires_notes = note;
                 }
                 document.getElementById('formMessage').innerHTML = '<span style="color:#6ab04c;">✅ Événement modifié ! Mise à jour dans quelques minutes.</span>';
@@ -1348,7 +1365,7 @@
                 await fetch(WEBHOOK_URL, {
                     method: 'POST', mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ type: 'create', date, categorie, action, note, event_id })
+                    body: JSON.stringify({ type: 'create', date, type_action, action, note, event_id })
                 });
                 document.getElementById('formMessage').innerHTML = '<span style="color:#6ab04c;">✅ Événement ajouté ! Mise à jour dans quelques minutes.</span>';
             }
