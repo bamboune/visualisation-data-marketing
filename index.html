@@ -343,7 +343,7 @@
             gap: 12px;
         }
         .holiday-item { display: flex; align-items: center; gap: 5px; }
-        .holiday-dot { width: 6px; height: 6px; background: #c87f4a; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+        .holiday-dot { width: 7px; height: 7px; background: #dc2626; transform: rotate(45deg); border-radius: 1px; display: inline-block; flex-shrink: 0; }
     </style>
 </head>
 <body>
@@ -433,6 +433,7 @@
                 <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#5b21b6;margin-right:5px;vertical-align:middle;"></span>Événement marketing</span>
                 <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#5a9e7a;margin-right:5px;vertical-align:middle;"></span>Infolettre</span>
                 <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#c87f4a;margin-right:5px;vertical-align:middle;"></span>Publication sociale</span>
+                <span><span style="display:inline-block;width:8px;height:8px;background:#dc2626;transform:rotate(45deg);border-radius:1px;margin-right:5px;vertical-align:middle;"></span>Jour férié</span>
             </div>
             <div id="holidaysBar" class="holidays-bar" style="display:none;"></div>
         </div>
@@ -939,29 +940,45 @@
                 .filter(p => dayjs(p.date).format('YYYY-MM') === monthKey)
                 .map(p => dayjs(p.date).date())
         );
+        const holidayDays = new Set(
+            getQuebecHolidays(parseInt(monthKey.split('-')[0]))
+                .filter(h => h.date.startsWith(monthKey))
+                .map(h => dayjs(h.date).date())
+        );
 
         const markerPlugin = {
             id: 'marketingMarkers',
             afterDraw(chart) {
                 const ctx = chart.ctx;
                 const xScale = chart.scales.x;
-                // Points empilés verticalement sous les labels de date
                 const DOT_R = 3;
-                const DOT_GAP = 8; // espacement vertical entre les rangées
-                const baseY = chart.chartArea.bottom + 30; // sous les ticks x
+                const DOT_GAP = 8;
+                const baseY = chart.chartArea.bottom + 30;
                 const ROWS = [
-                    { set: marketingDays,  color: '#5b21b6' },
-                    { set: infolettreDays, color: '#5a9e7a' },
-                    { set: socialDays,     color: '#c87f4a' },
+                    { set: marketingDays,  color: '#5b21b6', shape: 'circle' },
+                    { set: infolettreDays, color: '#5a9e7a', shape: 'circle' },
+                    { set: socialDays,     color: '#c87f4a', shape: 'circle' },
+                    { set: holidayDays,    color: '#dc2626', shape: 'diamond' },
                 ];
                 ventes.forEach((v, i) => {
                     const dayNum = dayjs(v.date).date();
                     const x = xScale.getPixelForTick(i);
-                    ROWS.forEach(({ set, color }, row) => {
+                    ROWS.forEach(({ set, color, shape }, row) => {
                         if (!set.has(dayNum)) return;
-                        ctx.beginPath();
-                        ctx.arc(x, baseY + row * DOT_GAP, DOT_R, 0, Math.PI * 2);
+                        const y = baseY + row * DOT_GAP;
                         ctx.fillStyle = color;
+                        if (shape === 'diamond') {
+                            const s = DOT_R + 1;
+                            ctx.beginPath();
+                            ctx.moveTo(x,     y - s);
+                            ctx.lineTo(x + s, y    );
+                            ctx.lineTo(x,     y + s);
+                            ctx.lineTo(x - s, y    );
+                            ctx.closePath();
+                        } else {
+                            ctx.beginPath();
+                            ctx.arc(x, y, DOT_R, 0, Math.PI * 2);
+                        }
                         ctx.fill();
                     });
                 });
@@ -974,7 +991,7 @@
             plugins: [markerPlugin],
             options: {
                 responsive: true, maintainAspectRatio: true,
-                layout: { padding: { bottom: 50 } },
+                layout: { padding: { bottom: 60 } },
                 plugins: {
                     legend: {
                         display: channel === 'total' || prevVentes.length > 0,
