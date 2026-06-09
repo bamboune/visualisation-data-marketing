@@ -26657,6 +26657,24 @@
       "precipitation_mm": 19.0,
       "snowfall_cm": 0.0,
       "weather_code": 63
+    },
+    {
+      "date": "2026-06-08",
+      "ventes_bel": 5814.35,
+      "ventes_boutique": 0.0,
+      "ventes_wholesale": 798.92,
+      "ventes_total": 6613.27,
+      "commandes_bel": 53.0,
+      "commandes_boutique": 0.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 54.0,
+      "panier_moyen_bel": 109.7,
+      "panier_moyen_boutique": 0.0,
+      "temp_max": 24.3,
+      "temp_min": 12.5,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -26732,6 +26750,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-06-08",
+      "plateforme": "facebook",
+      "description_courte": "Est-ce qu'on devrait vraiment cueillir cette plante qui met 7 ans à fleurir? La réponse à la fin.\n\nP.S.: On déclare officiellement la saison 3 des capsules botaniques COMMENCÉE.\n\nP.P.S:  Cette vidéo e",
+      "lien_post": "https://www.facebook.com/reel/1539411727532768/"
+    },
     {
       "date": "2026-06-05",
       "plateforme": "facebook",
@@ -26845,6 +26869,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-06-08",
+      "plateforme": "instagram",
+      "description_courte": "Est-ce qu'on devrait vraiment cueillir cette plante qui met 7 ans à fleurir? La réponse à la fin.\n\nP.S.: On déclare officiellement la saison 3 des capsules botaniques COMMENCÉE.\n\nP.P.S:  Cette vidéo e",
+      "lien_post": "https://www.instagram.com/reel/DZVLGO5lJ98/"
     },
     {
       "date": "2026-06-05",
@@ -41094,12 +41124,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9772049.71,
-    "total_ventes_bel": 6768385.390000001,
+    "total_ventes": 9778662.98,
+    "total_ventes_bel": 6774199.74,
     "total_ventes_boutique": 2479132.67,
-    "total_ventes_wholesale": 524531.65,
-    "panier_moyen_bel": 95.35985145172181,
+    "total_ventes_wholesale": 525330.57,
+    "panier_moyen_bel": 95.36952766531715,
     "date_min": "2021-11-01",
-    "date_max": "2026-06-07"
+    "date_max": "2026-06-08"
   }
 }
