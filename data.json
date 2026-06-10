@@ -26749,6 +26749,11 @@
     {
       "date": "2026-05-28",
       "date_envoi": "2026-05-28",
+      "sujet": "Infolettre WS - meilleurs vendeurs du moment"
+    },
+    {
+      "date": "2026-05-28",
+      "date_envoi": "2026-05-28",
       "sujet": "Last call code promo exclusif baume des lunes / 31 mai 2026 8h45"
     },
     {
@@ -26768,6 +26773,18 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-06-10",
+      "plateforme": "facebook",
+      "description_courte": "Y’avait aussi 5318008 on vous laisse deviner c’était quoi 🤓",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1559011908945848"
+    },
+    {
+      "date": "2026-06-10",
+      "plateforme": "facebook",
+      "description_courte": "La fumée repousse les insectes, ça c'est connu. Est-ce que c'est spécifiquement les composés du café qui font le travail ou juste la fumée en général? Les études sont pas là encore. Mais ça marche, pi",
+      "lien_post": "https://www.facebook.com/reel/1743105533357005/"
+    },
     {
       "date": "2026-06-09",
       "plateforme": "facebook",
@@ -26893,6 +26910,30 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-06-10",
+      "plateforme": "instagram",
+      "description_courte": "Y’avait aussi 5318008 on vous laisse deviner c’était quoi 🤓",
+      "lien_post": "https://www.instagram.com/p/DZaueT5FQt7/"
+    },
+    {
+      "date": "2026-06-10",
+      "plateforme": "instagram",
+      "description_courte": "Du lait de magnésie comme déodorant? Oui.",
+      "lien_post": "https://www.instagram.com/reel/DZaUgwkMqCk/"
+    },
+    {
+      "date": "2026-06-10",
+      "plateforme": "instagram",
+      "description_courte": "Quand on a commencé à lire sur l’huile d’abyssinie, on pensait que c’était trop beau pour être vrai. Une huile légère qui absorbe en deux secondes, qui scelle l’hydratation sans transformer ta face en",
+      "lien_post": "https://www.instagram.com/reel/DZaQAITMXvN/"
+    },
+    {
+      "date": "2026-06-10",
+      "plateforme": "instagram",
+      "description_courte": "La fumée repousse les insectes, ça c’est connu. Est-ce que c’est spécifiquement les composés du café qui font le travail ou juste la fumée en général? Les études sont pas là encore. Mais ça marche, pi",
+      "lien_post": "https://www.instagram.com/reel/DZZ5QIGBE1k/"
     },
     {
       "date": "2026-06-09",
@@ -41192,6 +41233,24 @@
       "fetes_feries_conges": "",
       "couvertures_mediatiques": "",
       "commentaires_notes": "",
+      "event_id": ""
+    },
+    {
+      "date": "2026-06-11",
+      "rabais_promos": "",
+      "lancement_produits_ateliers": "Modification tarifs shipping",
+      "bis_alertes_back_in_stock": "",
+      "infolettre": "",
+      "push_notif": "",
+      "billet_blogue": "",
+      "webmestre_funnels": "",
+      "temperature": "",
+      "meteo_montreal": "",
+      "meteo_generale": "",
+      "politique_actualite": "",
+      "fetes_feries_conges": "",
+      "couvertures_mediatiques": "",
+      "commentaires_notes": "Offre estivale : 95$ pour gratuité, 8,99$ frais de base",
       "event_id": ""
     }
   ],
