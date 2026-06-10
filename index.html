@@ -892,21 +892,21 @@
         let chartDatasets;
         if (channel === 'bel') {
             chartDatasets = [{
-                label: 'BEL (online)', data: dataBEL,
+                label: `BEL — ${year}`, data: dataBEL,
                 borderColor: '#a89cc8', backgroundColor: 'transparent',
                 borderWidth: 2.5, tension: 0.3, pointRadius: 3, pointHoverRadius: 6,
                 pointBackgroundColor: '#a89cc8', pointBorderColor: '#fff', pointBorderWidth: 2,
             }];
         } else if (channel === 'boutique') {
             chartDatasets = [{
-                label: 'Boutique physique', data: dataBoutique,
+                label: `Boutique — ${year}`, data: dataBoutique,
                 borderColor: '#c87f4a', backgroundColor: 'transparent',
                 borderWidth: 2.5, tension: 0.3, pointRadius: 3, pointHoverRadius: 6,
                 pointBackgroundColor: '#c87f4a', pointBorderColor: '#fff', pointBorderWidth: 2,
             }];
         } else {
             chartDatasets = [{
-                label: 'Ventes totales', data: dataTotal,
+                label: `Ventes ${year}`, data: dataTotal,
                 borderColor: '#a89cc8', backgroundColor: 'rgba(168,156,200,0.08)',
                 borderWidth: 2.5, fill: true, tension: 0.3, pointRadius: 3, pointHoverRadius: 6,
                 pointBackgroundColor: '#a89cc8', pointBorderColor: '#fff', pointBorderWidth: 2,
@@ -928,7 +928,7 @@
             const prevLineData = ventes.map(v => prevByDay[dayjs(v.date).date()] ?? null);
             chartDatasets.push({
                 type: 'line',
-                label: `${MONTHS_LONG[monthIdx]} ${prevYear}`,
+                label: `N-1 — ${prevYear}`,
                 data: prevLineData,
                 borderColor: '#9ca3af', backgroundColor: 'transparent',
                 borderWidth: 2, borderDash: [6, 4], tension: 0.3,
@@ -1042,10 +1042,10 @@
                                     bou = parseFloat(pv.ventes_boutique)||0;
                                     who = parseFloat(pv.ventes_wholesale)||0;
                                 } else { return []; }
-                                const lines = ['   ──────────────────────'];
-                                lines.push(`   BEL (online)  : ${bel.toLocaleString('fr-CA')} $`);
-                                lines.push(`   Boutique      : ${bou.toLocaleString('fr-CA')} $`);
-                                if (who > 0) lines.push(`   Wholesale     : ${who.toLocaleString('fr-CA')} $`);
+                                const lines = [];
+                                lines.push(`   ↳ BEL (online)  : ${bel.toLocaleString('fr-CA')} $`);
+                                lines.push(`   ↳ Boutique      : ${bou.toLocaleString('fr-CA')} $`);
+                                if (who > 0) lines.push(`   ↳ Wholesale     : ${who.toLocaleString('fr-CA')} $`);
                                 return lines;
                             }
                         }
