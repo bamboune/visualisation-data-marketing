@@ -26675,6 +26675,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 3
+    },
+    {
+      "date": "2026-06-09",
+      "ventes_bel": 4439.52,
+      "ventes_boutique": 1255.75,
+      "ventes_wholesale": 477.6,
+      "ventes_total": 6172.87,
+      "commandes_bel": 44.0,
+      "commandes_boutique": 30.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 75.0,
+      "panier_moyen_bel": 100.9,
+      "panier_moyen_boutique": 41.86,
+      "temp_max": 26.2,
+      "temp_min": 14.3,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -26750,6 +26768,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-06-09",
+      "plateforme": "facebook",
+      "description_courte": "On te dit pas que c'est magique. MAIIIIS regarde les messages de nos clientes 👇\n\nJessica nous a écrit après une semaine d'utilisation de la crème bakuchiol + thé vert. Elle voulait juste nous dire qu'",
+      "lien_post": "https://www.facebook.com/reel/1562433935495476/"
+    },
     {
       "date": "2026-06-08",
       "plateforme": "facebook",
@@ -26869,6 +26893,36 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-06-09",
+      "plateforme": "instagram",
+      "description_courte": "Marie a respiré de très proche les pissenlits en tournant cette capsule, comme vous pourrez le remarquer. 😆👃🌼\n\nPartagez-nous vos meilleures recettes avec du pissenlit en commentaire! \n\n⚠️ Avertissemen",
+      "lien_post": "https://www.instagram.com/reel/DZX4gvLMJdn/"
+    },
+    {
+      "date": "2026-06-09",
+      "plateforme": "instagram",
+      "description_courte": "Est-ce qu’on devrait vraiment cueillir cette plante qui met 7 ans à fleurir? La réponse à la fin.\n\nP.S.: On déclare officiellement la saison 3 des capsules botaniques COMMENCÉE.\n\nP.P.S:  Cette vidéo e",
+      "lien_post": "https://www.instagram.com/reel/DZXuaLVsKqG/"
+    },
+    {
+      "date": "2026-06-09",
+      "plateforme": "instagram",
+      "description_courte": "Est-ce que les lilas sont en fleurs chez vous? Je repartage cette expérience que j’avais faite avec des fleurs de lilas : un soda pétillant naturel. Donne-moi des nouvelles en commentaire si tu testes",
+      "lien_post": "https://www.instagram.com/reel/DZXtB1UseGP/"
+    },
+    {
+      "date": "2026-06-09",
+      "plateforme": "instagram",
+      "description_courte": "On te dit pas que c'est magique. MAIIIIS regarde les messages de nos clientes 👇\n\nJessica nous a écrit après une semaine d'utilisation de la crème bakuchiol + thé vert. Elle voulait juste nous dire qu'",
+      "lien_post": "https://www.instagram.com/reel/DZXqVtuCXuR/"
+    },
+    {
+      "date": "2026-06-09",
+      "plateforme": "instagram",
+      "description_courte": "La fumée repousse les insectes, ça c’est connu. Est-ce que c’est spécifiquement les composés du café qui font le travail ou juste la fumée en général? Les études sont pas là encore. Mais ça marche, pi",
+      "lien_post": "https://www.instagram.com/reel/DZXolmxsGc2/"
     },
     {
       "date": "2026-06-08",
@@ -41142,12 +41196,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9778662.98,
-    "total_ventes_bel": 6774199.74,
-    "total_ventes_boutique": 2479132.67,
-    "total_ventes_wholesale": 525330.57,
-    "panier_moyen_bel": 95.36952766531715,
+    "total_ventes": 9784835.85,
+    "total_ventes_bel": 6778639.26,
+    "total_ventes_boutique": 2480388.42,
+    "total_ventes_wholesale": 525808.17,
+    "panier_moyen_bel": 95.37325691166554,
     "date_min": "2021-11-01",
-    "date_max": "2026-06-08"
+    "date_max": "2026-06-09"
   }
 }
