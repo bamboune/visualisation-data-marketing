@@ -883,22 +883,34 @@
         document.getElementById('dailyChartTitle').textContent = `VENTES JOURNALIÈRES — ${monthName.toUpperCase()}`;
         if (dailyChart) dailyChart.destroy();
 
-        const chartLabels    = ventes.map(v => dayjs(v.date).date() + ' ' + MONTHS_SHORT[dayjs(v.date).month()]);
-        const dataBEL        = ventes.map(v => parseFloat(v.ventes_bel)||0);
-        const dataBoutique   = ventes.map(v => parseFloat(v.ventes_boutique)||0);
-        const dataWholesale  = ventes.map(v => parseFloat(v.ventes_wholesale)||0);
+        const chartLabels   = ventes.map(v => dayjs(v.date).date() + ' ' + MONTHS_SHORT[dayjs(v.date).month()]);
+        const dataBEL       = ventes.map(v => parseFloat(v.ventes_bel)||0);
+        const dataBoutique  = ventes.map(v => parseFloat(v.ventes_boutique)||0);
+        const dataWholesale = ventes.map(v => parseFloat(v.ventes_wholesale)||0);
+        const dataTotal     = dataBEL.map((v,i) => v + dataBoutique[i] + dataWholesale[i]);
 
         let chartDatasets;
         if (channel === 'bel') {
-            chartDatasets = [{ label: 'BEL (online)', data: dataBEL, backgroundColor: '#a89cc8', borderRadius: 4 }];
+            chartDatasets = [{
+                label: 'BEL (online)', data: dataBEL,
+                borderColor: '#a89cc8', backgroundColor: 'transparent',
+                borderWidth: 2.5, tension: 0.3, pointRadius: 3, pointHoverRadius: 6,
+                pointBackgroundColor: '#a89cc8', pointBorderColor: '#fff', pointBorderWidth: 2,
+            }];
         } else if (channel === 'boutique') {
-            chartDatasets = [{ label: 'Boutique physique', data: dataBoutique, backgroundColor: '#c87f4a', borderRadius: 4 }];
+            chartDatasets = [{
+                label: 'Boutique physique', data: dataBoutique,
+                borderColor: '#c87f4a', backgroundColor: 'transparent',
+                borderWidth: 2.5, tension: 0.3, pointRadius: 3, pointHoverRadius: 6,
+                pointBackgroundColor: '#c87f4a', pointBorderColor: '#fff', pointBorderWidth: 2,
+            }];
         } else {
-            chartDatasets = [
-                { label: 'BEL (online)',      data: dataBEL,       backgroundColor: '#a89cc8' },
-                { label: 'Boutique physique', data: dataBoutique,  backgroundColor: '#c87f4a' },
-                { label: 'Wholesale',         data: dataWholesale, backgroundColor: '#5a9e7a' },
-            ];
+            chartDatasets = [{
+                label: 'Ventes totales', data: dataTotal,
+                borderColor: '#a89cc8', backgroundColor: 'rgba(168,156,200,0.08)',
+                borderWidth: 2.5, fill: true, tension: 0.3, pointRadius: 3, pointHoverRadius: 6,
+                pointBackgroundColor: '#a89cc8', pointBorderColor: '#fff', pointBorderWidth: 2,
+            }];
         }
 
         // Ligne pointillée — même mois, année précédente
@@ -913,15 +925,10 @@
                 type: 'line',
                 label: `${MONTHS_LONG[monthIdx]} ${prevYear}`,
                 data: prevLineData,
-                borderColor: '#9ca3af',
-                backgroundColor: 'transparent',
-                borderWidth: 2,
-                borderDash: [6, 4],
-                tension: 0.3,
-                pointRadius: 2,
-                pointBackgroundColor: '#9ca3af',
-                yAxisID: 'y',
-                order: 0,
+                borderColor: '#9ca3af', backgroundColor: 'transparent',
+                borderWidth: 2, borderDash: [6, 4], tension: 0.3,
+                pointRadius: 2, pointBackgroundColor: '#9ca3af',
+                yAxisID: 'y', order: 0,
             });
         }
 
@@ -993,28 +1000,44 @@
         };
 
         dailyChart = new Chart(document.getElementById('dailyChart').getContext('2d'), {
-            type: 'bar',
+            type: 'line',
             data: { labels: chartLabels, datasets: chartDatasets },
             plugins: [markerPlugin],
             options: {
                 responsive: true, maintainAspectRatio: true,
                 layout: { padding: { bottom: 60 } },
+                interaction: { mode: 'index', intersect: false },
                 plugins: {
                     legend: {
-                        display: channel === 'total' || prevVentes.length > 0,
+                        display: prevVentes.length > 0,
                         position: 'top',
                         align: 'start',
-                        labels: { color: '#9ca3af', padding: 16, usePointStyle: false, font: { size: 11 } }
+                        labels: { color: '#9ca3af', padding: 16, usePointStyle: true, pointStyleWidth: 12, font: { size: 11 } }
                     },
                     tooltip: {
                         backgroundColor: '#ffffff', titleColor: '#1e2330', bodyColor: '#5a5f72',
                         borderColor: '#e8e3db', borderWidth: 1,
-                        callbacks: { label: ctx => ` ${ctx.dataset.label} : ${(ctx.raw ?? 0).toLocaleString('fr-CA')} $` }
+                        callbacks: {
+                            label: ctx => ` ${ctx.dataset.label} : ${(ctx.raw ?? 0).toLocaleString('fr-CA')} $`,
+                            afterBody: items => {
+                                if (channel !== 'total') return [];
+                                const v = ventes[items[0].dataIndex];
+                                if (!v) return [];
+                                const bel = parseFloat(v.ventes_bel)||0;
+                                const bou = parseFloat(v.ventes_boutique)||0;
+                                const who = parseFloat(v.ventes_wholesale)||0;
+                                const lines = ['  ─────────────────────'];
+                                lines.push(`  BEL (online)  : ${bel.toLocaleString('fr-CA')} $`);
+                                lines.push(`  Boutique      : ${bou.toLocaleString('fr-CA')} $`);
+                                if (who > 0) lines.push(`  Wholesale     : ${who.toLocaleString('fr-CA')} $`);
+                                return lines;
+                            }
+                        }
                     }
                 },
                 scales: {
-                    x: { stacked: true, ticks: { color: '#8a8f9e', font: { size: 11 } }, grid: { color: '#f0ece6' } },
-                    y: { stacked: true, ticks: { color: '#8a8f9e', callback: v => v>=1000?Math.round(v/1000)+'k $':v+' $' }, grid: { color: '#f0ece6' } }
+                    x: { ticks: { color: '#8a8f9e', font: { size: 11 } }, grid: { color: '#f0ece6' } },
+                    y: { ticks: { color: '#8a8f9e', callback: v => v>=1000?Math.round(v/1000)+'k $':v+' $' }, grid: { color: '#f0ece6' } }
                 }
             }
         });
