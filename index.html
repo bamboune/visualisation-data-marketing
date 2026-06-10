@@ -917,9 +917,14 @@
         const prevYear     = year - 1;
         const prevMonthKey = `${prevYear}-${monthKey.split('-')[1]}`;
         const prevVentes   = fullData.ventes.filter(v => dayjs(v.date).format('YYYY-MM') === prevMonthKey);
+        const prevRowByDay = {};
         if (prevVentes.length) {
             const prevByDay = {};
-            prevVentes.forEach(v => { prevByDay[dayjs(v.date).date()] = getSalesValue(v, channel); });
+            prevVentes.forEach(v => {
+                const d = dayjs(v.date).date();
+                prevByDay[d] = getSalesValue(v, channel);
+                prevRowByDay[d] = v;
+            });
             const prevLineData = ventes.map(v => prevByDay[dayjs(v.date).date()] ?? null);
             chartDatasets.push({
                 type: 'line',
@@ -1019,17 +1024,28 @@
                         borderColor: '#e8e3db', borderWidth: 1,
                         callbacks: {
                             label: ctx => ` ${ctx.dataset.label} : ${(ctx.raw ?? 0).toLocaleString('fr-CA')} $`,
-                            afterBody: items => {
+                            afterLabel: ctx => {
                                 if (channel !== 'total') return [];
-                                const v = ventes[items[0].dataIndex];
-                                if (!v) return [];
-                                const bel = parseFloat(v.ventes_bel)||0;
-                                const bou = parseFloat(v.ventes_boutique)||0;
-                                const who = parseFloat(v.ventes_wholesale)||0;
-                                const lines = ['  ─────────────────────'];
-                                lines.push(`  BEL (online)  : ${bel.toLocaleString('fr-CA')} $`);
-                                lines.push(`  Boutique      : ${bou.toLocaleString('fr-CA')} $`);
-                                if (who > 0) lines.push(`  Wholesale     : ${who.toLocaleString('fr-CA')} $`);
+                                const idx = ctx.dataIndex;
+                                let bel, bou, who;
+                                if (ctx.datasetIndex === 0) {
+                                    const v = ventes[idx];
+                                    if (!v) return [];
+                                    bel = parseFloat(v.ventes_bel)||0;
+                                    bou = parseFloat(v.ventes_boutique)||0;
+                                    who = parseFloat(v.ventes_wholesale)||0;
+                                } else if (ctx.datasetIndex === 1) {
+                                    const dayNum = dayjs(ventes[idx]?.date).date();
+                                    const pv = prevRowByDay[dayNum];
+                                    if (!pv) return [];
+                                    bel = parseFloat(pv.ventes_bel)||0;
+                                    bou = parseFloat(pv.ventes_boutique)||0;
+                                    who = parseFloat(pv.ventes_wholesale)||0;
+                                } else { return []; }
+                                const lines = ['   ──────────────────────'];
+                                lines.push(`   BEL (online)  : ${bel.toLocaleString('fr-CA')} $`);
+                                lines.push(`   Boutique      : ${bou.toLocaleString('fr-CA')} $`);
+                                if (who > 0) lines.push(`   Wholesale     : ${who.toLocaleString('fr-CA')} $`);
                                 return lines;
                             }
                         }
