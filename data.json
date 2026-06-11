@@ -26708,9 +26708,9 @@
       "panier_moyen_boutique": 47.98,
       "temp_max": 26.6,
       "temp_min": 16.8,
-      "precipitation_mm": 7.0,
+      "precipitation_mm": 4.8,
       "snowfall_cm": 0.0,
-      "weather_code": 63
+      "weather_code": 61
     }
   ],
   "infolettres": [
@@ -26928,6 +26928,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-06-11",
+      "plateforme": "instagram",
+      "description_courte": "La fumée repousse les insectes. Ça veut-tu dire que ça marche toujours, ultra efficacement, peu importe où tu es? \n\nNon. Ça dépend du vent, de la quantité de fumée, pis de plein d’autres facteurs.\n\nMa",
+      "lien_post": "https://www.instagram.com/reel/DZcj7J2sr_B/"
     },
     {
       "date": "2026-06-10",
@@ -41269,6 +41275,24 @@
       "fetes_feries_conges": "",
       "couvertures_mediatiques": "",
       "commentaires_notes": "Offre estivale : 95$ pour gratuité, 8,99$ frais de base",
+      "event_id": ""
+    },
+    {
+      "date": "2026-06-10",
+      "rabais_promos": "",
+      "lancement_produits_ateliers": "Retour en stock masque de nuit",
+      "bis_alertes_back_in_stock": "",
+      "infolettre": "",
+      "push_notif": "",
+      "billet_blogue": "",
+      "webmestre_funnels": "",
+      "temperature": "",
+      "meteo_montreal": "",
+      "meteo_generale": "",
+      "politique_actualite": "",
+      "fetes_feries_conges": "",
+      "couvertures_mediatiques": "",
+      "commentaires_notes": "",
       "event_id": ""
     }
   ],
