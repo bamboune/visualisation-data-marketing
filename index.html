@@ -309,22 +309,18 @@
         .btn-submit:hover { background: #6a5e8c; }
 
         /* Hint bouton + rappel modale */
-        .add-hint { position: relative; display: inline-flex; align-items: center; }
+        .add-hint {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: #faf7ff; border: 1px solid #ddd6f5;
+            border-radius: 8px; padding: 5px 10px;
+            font-size: 0.75rem; color: #5b21b6; line-height: 1.4;
+        }
         .add-hint-icon {
-            width: 18px; height: 18px; border-radius: 50%;
-            background: #ede9ff; color: #5b21b6;
-            font-size: 0.7rem; font-weight: 700;
+            width: 16px; height: 16px; border-radius: 50%;
+            background: #5b21b6; color: #fff;
+            font-size: 0.65rem; font-weight: 700; flex-shrink: 0;
             display: inline-flex; align-items: center; justify-content: center;
-            cursor: default; user-select: none;
         }
-        .add-hint-popup {
-            display: none; position: absolute; right: 0; top: calc(100% + 6px);
-            background: #fff; border: 1px solid #e8e3db; border-radius: 10px;
-            padding: 10px 14px; width: 230px; font-size: 0.78rem; color: #5a5f72;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08); z-index: 200; line-height: 1.6;
-        }
-        .add-hint:hover .add-hint-popup { display: block; }
-        .add-hint-popup strong { color: #1e2330; display: block; margin-bottom: 4px; }
         .modal-reminder {
             background: #faf7ff; border: 1px solid #ede9ff; border-radius: 10px;
             padding: 10px 14px; margin-bottom: 18px;
@@ -405,13 +401,7 @@
             <button class="btn-add" id="openModalBtn">+ Événement</button>
             <span class="add-hint">
                 <span class="add-hint-icon">i</span>
-                <div class="add-hint-popup">
-                    <strong>À saisir manuellement</strong>
-                    Actualité &amp; contexte ext.<br>
-                    Back in stock (BIS)<br>
-                    Push notif<br>
-                    <span style="color:#9ca3af;font-size:0.72rem;">Les infolettres et posts IG/FB sont automatisés.</span>
-                </div>
+                Saisir manuellement&nbsp;: Actualité &nbsp;·&nbsp; BIS &nbsp;·&nbsp; Push notif
             </span>
         </div>
     </div>
