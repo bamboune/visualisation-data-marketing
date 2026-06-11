@@ -310,10 +310,11 @@
 
         /* Hint bouton + rappel modale */
         .add-hint {
-            display: inline-flex; align-items: center; gap: 6px;
+            display: flex; align-items: center; gap: 7px;
             background: #faf7ff; border: 1px solid #ddd6f5;
-            border-radius: 8px; padding: 5px 10px;
+            border-radius: 8px; padding: 7px 14px;
             font-size: 0.75rem; color: #5b21b6; line-height: 1.4;
+            margin-bottom: 16px;
         }
         .add-hint-icon {
             width: 16px; height: 16px; border-radius: 50%;
@@ -399,11 +400,12 @@
             <input type="text" id="globalSearch" class="search-input" placeholder="🔍 Rechercher un événement…">
             <button class="btn-reset" id="resetBtn">Réinitialiser</button>
             <button class="btn-add" id="openModalBtn">+ Événement</button>
-            <span class="add-hint">
-                <span class="add-hint-icon">i</span>
-                Saisir manuellement&nbsp;: Actualité &nbsp;·&nbsp; BIS &nbsp;·&nbsp; Push notif
-            </span>
         </div>
+    </div>
+
+    <div class="add-hint">
+        <span class="add-hint-icon">i</span>
+        Saisir manuellement dans les événements&nbsp;: Actualité &amp; contexte &nbsp;·&nbsp; Back in stock (BIS) &nbsp;·&nbsp; Push notif
     </div>
 
     <div class="toolbar">
