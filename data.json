@@ -26711,6 +26711,24 @@
       "precipitation_mm": 4.8,
       "snowfall_cm": 0.0,
       "weather_code": 61
+    },
+    {
+      "date": "2026-06-11",
+      "ventes_bel": 5765.67,
+      "ventes_boutique": 1272.45,
+      "ventes_wholesale": 640.56,
+      "ventes_total": 7678.68,
+      "commandes_bel": 58.0,
+      "commandes_boutique": 26.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 85.0,
+      "panier_moyen_bel": 99.41,
+      "panier_moyen_boutique": 48.94,
+      "temp_max": 27.3,
+      "temp_min": 20.2,
+      "precipitation_mm": 3.4,
+      "snowfall_cm": 0.0,
+      "weather_code": 55
     }
   ],
   "infolettres": [
@@ -26788,9 +26806,20 @@
       "date": "2026-06-07",
       "date_envoi": "2026-06-07",
       "sujet": "Resend aux pas ouverts Bar à sérum au pignon Segment rayon 60km de la BP - dimanche 7 juin 9h"
+    },
+    {
+      "date": "2026-06-11",
+      "date_envoi": "2026-06-11",
+      "sujet": "Lotion citronnelle, produits saisonniers, pommade jardinière + frais de shipping - jeudi 11 juin 20h"
     }
   ],
   "publications": [
+    {
+      "date": "2026-06-11",
+      "plateforme": "facebook",
+      "description_courte": "Bonne nouvelle pour ton panier d'été : on a réduit nos frais de transport pour la saison. Seuil maintenant à 95$ pour avoir la livraison gratuite et livraison à 8,99$. Pour une durée limitée!",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1559878688859170"
+    },
     {
       "date": "2026-06-11",
       "plateforme": "facebook",
@@ -26934,6 +26963,18 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-06-11",
+      "plateforme": "instagram",
+      "description_courte": "Bonne nouvelle pour ton panier d'été : on a réduit nos frais de transport pour la saison. Seuil maintenant à 95$ pour avoir la livraison gratuite et livraison à 8,99$. Pour une durée limitée!",
+      "lien_post": "https://www.instagram.com/p/DZdU9W4CJ4g/"
+    },
+    {
+      "date": "2026-06-11",
+      "plateforme": "instagram",
+      "description_courte": "Savoir reconnaître le plantain majeur, c’est vraiment pratique en été. C’est une plante hyper commune, pis c’est probablement dans ton gazon en ce moment.\n\nMais si t’as pas de gazon, pas de forêt à po",
+      "lien_post": "https://www.instagram.com/reel/DZdBXgQscvs/"
     },
     {
       "date": "2026-06-11",
@@ -41351,12 +41392,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9790200.26,
-    "total_ventes_bel": 6782804.210000001,
-    "total_ventes_boutique": 2481587.88,
-    "total_ventes_wholesale": 525808.17,
-    "panier_moyen_bel": 95.37915094339621,
+    "total_ventes": 9797878.940000001,
+    "total_ventes_bel": 6788569.880000001,
+    "total_ventes_boutique": 2482860.33,
+    "total_ventes_wholesale": 526448.73,
+    "panier_moyen_bel": 95.38186531986533,
     "date_min": "2021-11-01",
-    "date_max": "2026-06-10"
+    "date_max": "2026-06-11"
   }
 }
