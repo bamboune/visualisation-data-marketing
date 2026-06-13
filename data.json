@@ -26729,6 +26729,24 @@
       "precipitation_mm": 3.4,
       "snowfall_cm": 0.0,
       "weather_code": 55
+    },
+    {
+      "date": "2026-06-12",
+      "ventes_bel": 5766.5,
+      "ventes_boutique": 1719.85,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 7486.35,
+      "commandes_bel": 51.0,
+      "commandes_boutique": 35.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 86.0,
+      "panier_moyen_bel": 113.07,
+      "panier_moyen_boutique": 49.14,
+      "temp_max": 29.3,
+      "temp_min": 20.3,
+      "precipitation_mm": 14.6,
+      "snowfall_cm": 0.0,
+      "weather_code": 65
     }
   ],
   "infolettres": [
@@ -26814,6 +26832,18 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-06-12",
+      "plateforme": "facebook",
+      "description_courte": "Quand tu nous appelles « les magiciennes alchimistes du Québec »\nAvec ta commande..\n\nOn ferait l’tour des planétariums\nPour te dire merci, Mathieu\n\nUne chance qu’on s’a 🌝",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1560770062103366"
+    },
+    {
+      "date": "2026-06-12",
+      "plateforme": "facebook",
+      "description_courte": "Quand tu nous appelles \"les magiciennes alchimistes du Québec\"\nAvec ta commande..\n\nOn ferait l’tour des planétariums\nPour te dire merci, Mathieu\n\nUne chance qu’on s’a 🌝",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1560768672103505"
+    },
     {
       "date": "2026-06-11",
       "plateforme": "facebook",
@@ -26963,6 +26993,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-06-12",
+      "plateforme": "instagram",
+      "description_courte": "Quand tu nous appelles « les magiciennes alchimistes du Québec »\nAvec ta commande..\n\nOn ferait l’tour des planétariums\nPour te dire merci, Mathieu\n\nUne chance qu’on s’a 🌝",
+      "lien_post": "https://www.instagram.com/p/DZgF2MnsyBe/"
     },
     {
       "date": "2026-06-11",
@@ -41392,12 +41428,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9797878.940000001,
-    "total_ventes_bel": 6788569.880000001,
-    "total_ventes_boutique": 2482860.33,
+    "total_ventes": 9805365.290000001,
+    "total_ventes_bel": 6794336.380000001,
+    "total_ventes_boutique": 2484580.1799999997,
     "total_ventes_wholesale": 526448.73,
-    "panier_moyen_bel": 95.38186531986533,
+    "panier_moyen_bel": 95.39376850605653,
     "date_min": "2021-11-01",
-    "date_max": "2026-06-11"
+    "date_max": "2026-06-12"
   }
 }
