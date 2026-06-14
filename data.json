@@ -26747,6 +26747,24 @@
       "precipitation_mm": 14.6,
       "snowfall_cm": 0.0,
       "weather_code": 65
+    },
+    {
+      "date": "2026-06-13",
+      "ventes_bel": 4845.51,
+      "ventes_boutique": 2771.04,
+      "ventes_wholesale": 437.36,
+      "ventes_total": 8053.91,
+      "commandes_bel": 52.0,
+      "commandes_boutique": 65.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 118.0,
+      "panier_moyen_bel": 93.18,
+      "panier_moyen_boutique": 42.63,
+      "temp_max": 25.9,
+      "temp_min": 17.3,
+      "precipitation_mm": 0.6,
+      "snowfall_cm": 0.0,
+      "weather_code": 51
     }
   ],
   "infolettres": [
@@ -26773,22 +26791,22 @@
     {
       "date": "2026-05-14",
       "date_envoi": "2026-05-14",
-      "sujet": "Rappel participantes produits ménagers 16 mai 2026"
+      "sujet": "Promo baku + petite crème / retour baume des Lunes - jeudi 14 mai 19h"
     },
     {
       "date": "2026-05-14",
       "date_envoi": "2026-05-14",
-      "sujet": "Promo baku + petite crème / retour baume des Lunes - jeudi 14 mai 19h"
-    },
-    {
-      "date": "2026-05-18",
-      "date_envoi": "2026-05-18",
-      "sujet": "Resend to non openers Promo baku + petite crème / retour baume des Lunes - jeudi 14 mai 19h"
+      "sujet": "Rappel participantes produits ménagers 16 mai 2026"
     },
     {
       "date": "2026-05-18",
       "date_envoi": "2026-05-18",
       "sujet": "Resend Promo baku + petite crème / retour baume des Lunes - jeudi 14 mai 19h"
+    },
+    {
+      "date": "2026-05-18",
+      "date_envoi": "2026-05-18",
+      "sujet": "Resend to non openers Promo baku + petite crème / retour baume des Lunes - jeudi 14 mai 19h"
     },
     {
       "date": "2026-05-22",
@@ -26803,7 +26821,7 @@
     {
       "date": "2026-05-28",
       "date_envoi": "2026-05-28",
-      "sujet": "Infolettre WS - meilleurs vendeurs du moment"
+      "sujet": "Baume des lunes mai 2026 - resend aux pas ouverts jeudi 28 mai 20h"
     },
     {
       "date": "2026-05-28",
@@ -26813,7 +26831,7 @@
     {
       "date": "2026-05-28",
       "date_envoi": "2026-05-28",
-      "sujet": "Baume des lunes mai 2026 - resend aux pas ouverts jeudi 28 mai 20h"
+      "sujet": "Infolettre WS - meilleurs vendeurs du moment"
     },
     {
       "date": "2026-06-03",
@@ -26829,9 +26847,20 @@
       "date": "2026-06-11",
       "date_envoi": "2026-06-11",
       "sujet": "Lotion citronnelle, produits saisonniers, pommade jardinière + frais de shipping - jeudi 11 juin 20h"
+    },
+    {
+      "date": "2026-06-12",
+      "date_envoi": "2026-06-12",
+      "sujet": "Resend pas ouverts - Lotion citronnelle, produits saisonniers, pommade jardinière + frais de shipping - samedi 13 juin 9h"
     }
   ],
   "publications": [
+    {
+      "date": "2026-06-13",
+      "plateforme": "facebook",
+      "description_courte": "Ceci n'est pas une publication, ni un prétexte pour te parler de nos nouveaux prix de livraison pour la période estivale : livraison gratuite à partir de 95$ (à la place de 129,99$) et frais de livrai",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1561281952052177"
+    },
     {
       "date": "2026-06-12",
       "plateforme": "facebook",
@@ -26993,6 +27022,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-06-13",
+      "plateforme": "instagram",
+      "description_courte": "Ceci n'est pas une publication, ni un prétexte pour te parler de nos nouveaux prix de livraison pour la période estivale : livraison gratuite à partir de 95$ (à la place de 129,99$) et frais de livrai",
+      "lien_post": "https://www.instagram.com/p/DZhufToDb2p/"
     },
     {
       "date": "2026-06-12",
@@ -41428,12 +41463,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9805365.290000001,
-    "total_ventes_bel": 6794336.380000001,
-    "total_ventes_boutique": 2484580.1799999997,
-    "total_ventes_wholesale": 526448.73,
-    "panier_moyen_bel": 95.39376850605653,
+    "total_ventes": 9813419.2,
+    "total_ventes_bel": 6799181.890000001,
+    "total_ventes_boutique": 2487351.2199999997,
+    "total_ventes_wholesale": 526886.09,
+    "panier_moyen_bel": 95.39227975790182,
     "date_min": "2021-11-01",
-    "date_max": "2026-06-12"
+    "date_max": "2026-06-13"
   }
 }
