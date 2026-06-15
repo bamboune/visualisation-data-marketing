@@ -26765,6 +26765,24 @@
       "precipitation_mm": 0.6,
       "snowfall_cm": 0.0,
       "weather_code": 51
+    },
+    {
+      "date": "2026-06-14",
+      "ventes_bel": 8170.49,
+      "ventes_boutique": 2253.18,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 10423.67,
+      "commandes_bel": 72.0,
+      "commandes_boutique": 40.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 112.0,
+      "panier_moyen_bel": 113.48,
+      "panier_moyen_boutique": 56.33,
+      "temp_max": 20.7,
+      "temp_min": 16.7,
+      "precipitation_mm": 23.1,
+      "snowfall_cm": 0.0,
+      "weather_code": 63
     }
   ],
   "infolettres": [
@@ -26855,6 +26873,18 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-06-14",
+      "plateforme": "facebook",
+      "description_courte": "Ton score? 👀",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1562410271939345"
+    },
+    {
+      "date": "2026-06-14",
+      "plateforme": "facebook",
+      "description_courte": "Savoir reconnaître le plantain majeur, c'est vraiment pratique en été. C'est une plante hyper commune, pis c'est probablement dans ton gazon en ce moment.\n\nMais si t'as pas de gazon, pas de forêt à po",
+      "lien_post": "https://www.facebook.com/reel/26494119750265045/"
+    },
     {
       "date": "2026-06-13",
       "plateforme": "facebook",
@@ -27024,6 +27054,24 @@
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
     },
     {
+      "date": "2026-06-14",
+      "plateforme": "instagram",
+      "description_courte": "Ton score? 👀",
+      "lien_post": "https://www.instagram.com/p/DZlEKNWFYBs/"
+    },
+    {
+      "date": "2026-06-14",
+      "plateforme": "instagram",
+      "description_courte": "Savoir reconnaître le plantain majeur, c’est vraiment pratique en été. C’est une plante hyper commune, pis c’est probablement dans ton gazon en ce moment.\n\nMais si t’as pas de gazon, pas de forêt à po",
+      "lien_post": "https://www.instagram.com/reel/DZkTZjXDGQh/"
+    },
+    {
+      "date": "2026-06-14",
+      "plateforme": "instagram",
+      "description_courte": "Savoir reconnaître le plantain majeur, c’est vraiment pratique en été. C’est une plante hyper commune, pis c’est probablement dans ton gazon en ce moment.\n\nMais si t’as pas de gazon, pas de forêt à po",
+      "lien_post": "https://www.instagram.com/reel/DZdBXgQscvs/"
+    },
+    {
       "date": "2026-06-13",
       "plateforme": "instagram",
       "description_courte": "Ceci n'est pas une publication, ni un prétexte pour te parler de nos nouveaux prix de livraison pour la période estivale : livraison gratuite à partir de 95$ (à la place de 129,99$) et frais de livrai",
@@ -27040,12 +27088,6 @@
       "plateforme": "instagram",
       "description_courte": "Bonne nouvelle pour ton panier d'été : on a réduit nos frais de transport pour la saison. Seuil maintenant à 95$ pour avoir la livraison gratuite et livraison à 8,99$. Pour une durée limitée!",
       "lien_post": "https://www.instagram.com/p/DZdU9W4CJ4g/"
-    },
-    {
-      "date": "2026-06-11",
-      "plateforme": "instagram",
-      "description_courte": "Savoir reconnaître le plantain majeur, c’est vraiment pratique en été. C’est une plante hyper commune, pis c’est probablement dans ton gazon en ce moment.\n\nMais si t’as pas de gazon, pas de forêt à po",
-      "lien_post": "https://www.instagram.com/reel/DZdBXgQscvs/"
     },
     {
       "date": "2026-06-11",
@@ -41463,12 +41505,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9813419.2,
-    "total_ventes_bel": 6799181.890000001,
-    "total_ventes_boutique": 2487351.2199999997,
+    "total_ventes": 9823842.870000001,
+    "total_ventes_bel": 6807352.380000001,
+    "total_ventes_boutique": 2489604.4000000004,
     "total_ventes_wholesale": 526886.09,
-    "panier_moyen_bel": 95.39227975790182,
+    "panier_moyen_bel": 95.40443548387096,
     "date_min": "2021-11-01",
-    "date_max": "2026-06-13"
+    "date_max": "2026-06-14"
   }
 }
