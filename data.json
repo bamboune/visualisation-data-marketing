@@ -26783,6 +26783,24 @@
       "precipitation_mm": 23.1,
       "snowfall_cm": 0.0,
       "weather_code": 63
+    },
+    {
+      "date": "2026-06-15",
+      "ventes_bel": 4009.37,
+      "ventes_boutique": 0.0,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 4009.37,
+      "commandes_bel": 45.0,
+      "commandes_boutique": 0.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 45.0,
+      "panier_moyen_bel": 89.1,
+      "panier_moyen_boutique": 0.0,
+      "temp_max": 19.2,
+      "temp_min": 14.4,
+      "precipitation_mm": 0.9,
+      "snowfall_cm": 0.0,
+      "weather_code": 51
     }
   ],
   "infolettres": [
@@ -26839,17 +26857,17 @@
     {
       "date": "2026-05-28",
       "date_envoi": "2026-05-28",
-      "sujet": "Baume des lunes mai 2026 - resend aux pas ouverts jeudi 28 mai 20h"
-    },
-    {
-      "date": "2026-05-28",
-      "date_envoi": "2026-05-28",
       "sujet": "Last call code promo exclusif baume des lunes / 31 mai 2026 8h45"
     },
     {
       "date": "2026-05-28",
       "date_envoi": "2026-05-28",
       "sujet": "Infolettre WS - meilleurs vendeurs du moment"
+    },
+    {
+      "date": "2026-05-28",
+      "date_envoi": "2026-05-28",
+      "sujet": "Baume des lunes mai 2026 - resend aux pas ouverts jeudi 28 mai 20h"
     },
     {
       "date": "2026-06-03",
@@ -26870,9 +26888,20 @@
       "date": "2026-06-12",
       "date_envoi": "2026-06-12",
       "sujet": "Resend pas ouverts - Lotion citronnelle, produits saisonniers, pommade jardinière + frais de shipping - samedi 13 juin 9h"
+    },
+    {
+      "date": "2026-06-15",
+      "date_envoi": "2026-06-15",
+      "sujet": "Auto resend of Infolettre WS - meilleurs vendeurs du moment"
     }
   ],
   "publications": [
+    {
+      "date": "2026-06-15",
+      "plateforme": "facebook",
+      "description_courte": "Cette année encore, on se doit d'empêcher cette tragédie dans vos plates-bandes : passer à côté des propriétés culinaires et médicinales de vos hémérocalles. \n\nElles commencent à fleurir bientôt, si c",
+      "lien_post": "https://www.facebook.com/reel/1727558155039589/"
+    },
     {
       "date": "2026-06-14",
       "plateforme": "facebook",
@@ -27052,6 +27081,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-06-15",
+      "plateforme": "instagram",
+      "description_courte": "Cette année encore, on se doit d'empêcher cette tragédie dans vos plates-bandes : passer à côté des propriétés culinaires et médicinales de vos hémérocalles. \n\nElles commencent à fleurir bientôt, si c",
+      "lien_post": "https://www.instagram.com/reel/DZnM0uHj8vI/"
     },
     {
       "date": "2026-06-14",
@@ -41505,12 +41540,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9823842.870000001,
-    "total_ventes_bel": 6807352.380000001,
+    "total_ventes": 9827852.24,
+    "total_ventes_bel": 6811361.75,
     "total_ventes_boutique": 2489604.4000000004,
     "total_ventes_wholesale": 526886.09,
-    "panier_moyen_bel": 95.40443548387096,
+    "panier_moyen_bel": 95.40020147750168,
     "date_min": "2021-11-01",
-    "date_max": "2026-06-14"
+    "date_max": "2026-06-15"
   }
 }
