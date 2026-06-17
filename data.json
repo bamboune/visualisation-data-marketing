@@ -26917,6 +26917,12 @@
     {
       "date": "2026-06-17",
       "plateforme": "facebook",
+      "description_courte": "T’as pas demandé de surprise, mais on t’en fait une pareil. On est d’même! \n\n5 produits mystère. Toi tu sais pas c’est quoi. Nous on sait, mais on dit rien, c’est ça le concept.\n\nValeur de 128,45$ pou",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1564920541688318"
+    },
+    {
+      "date": "2026-06-17",
+      "plateforme": "facebook",
       "description_courte": "La fumée repousse les insectes. Ça veut-tu dire que ça marche toujours, ultra efficacement, peu importe où tu es? Non. Ça dépend du vent, de la quantité de fumée, pis de plein d'autres facteurs. \n\nMai",
       "lien_post": "https://www.facebook.com/reel/855395677632092/"
     },
@@ -27111,6 +27117,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-06-17",
+      "plateforme": "instagram",
+      "description_courte": "T’as pas demandé de surprise, mais on t’en fait une pareil. On est d’même! \n\n5 produits mystère. Toi tu sais pas c’est quoi. Nous on sait, mais on dit rien, c’est ça le concept.\n\nValeur de 128,45$ pou",
+      "lien_post": "https://www.instagram.com/p/DZswfFgsLQZ/"
     },
     {
       "date": "2026-06-17",
@@ -41620,6 +41632,24 @@
       "fetes_feries_conges": "",
       "couvertures_mediatiques": "",
       "commentaires_notes": "envoyée entre 12h45 et 13h",
+      "event_id": ""
+    },
+    {
+      "date": "2026-06-12",
+      "rabais_promos": "",
+      "lancement_produits_ateliers": "Francos 12 au 20 juin",
+      "bis_alertes_back_in_stock": "",
+      "infolettre": "",
+      "push_notif": "",
+      "billet_blogue": "",
+      "webmestre_funnels": "",
+      "temperature": "",
+      "meteo_montreal": "",
+      "meteo_generale": "",
+      "politique_actualite": "",
+      "fetes_feries_conges": "",
+      "couvertures_mediatiques": "",
+      "commentaires_notes": "",
       "event_id": ""
     }
   ],
