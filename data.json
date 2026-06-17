@@ -26801,6 +26801,24 @@
       "precipitation_mm": 0.9,
       "snowfall_cm": 0.0,
       "weather_code": 51
+    },
+    {
+      "date": "2026-06-16",
+      "ventes_bel": 3958.08,
+      "ventes_boutique": 1054.14,
+      "ventes_wholesale": 647.84,
+      "ventes_total": 5660.06,
+      "commandes_bel": 46.0,
+      "commandes_boutique": 25.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 72.0,
+      "panier_moyen_bel": 86.05,
+      "panier_moyen_boutique": 42.17,
+      "temp_max": 21.3,
+      "temp_min": 12.0,
+      "precipitation_mm": 0.9,
+      "snowfall_cm": 0.0,
+      "weather_code": 53
     }
   ],
   "infolettres": [
@@ -26896,6 +26914,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-06-16",
+      "plateforme": "facebook",
+      "description_courte": "Tu pars au Grand air, t’amènes quel(s) numéro(s)? 🧳\n\nLE STARTER PACK GRAND AIR 🌿\n\n1. Savon de Castille\npour laver la vaisselle, les vêtements, le corps… bref, un produit qui évite de traîner 3 bouteil",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1564069165106789"
+    },
     {
       "date": "2026-06-15",
       "plateforme": "facebook",
@@ -27081,6 +27105,18 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-06-16",
+      "plateforme": "instagram",
+      "description_courte": "Tu pars au Grand air, t’amènes quel(s) numéro(s)? 🧳\n\nLE STARTER PACK GRAND AIR 🌿\n\n1. Savon de Castille\npour laver la vaisselle, les vêtements, le corps… bref, un produit qui évite de traîner 3 bouteil",
+      "lien_post": "https://www.instagram.com/p/DZqKChXMGzz/"
+    },
+    {
+      "date": "2026-06-16",
+      "plateforme": "instagram",
+      "description_courte": "Cette année encore, on se doit d’empêcher cette tragédie dans vos plates-bandes : passer à côté des propriétés culinaires et médicinales de vos hémérocalles. \n\nElles commencent à fleurir bientôt, si c",
+      "lien_post": "https://www.instagram.com/reel/DZp4bmMMy_N/"
     },
     {
       "date": "2026-06-15",
@@ -41540,12 +41576,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9827852.24,
-    "total_ventes_bel": 6811361.75,
-    "total_ventes_boutique": 2489604.4000000004,
-    "total_ventes_wholesale": 526886.09,
-    "panier_moyen_bel": 95.40020147750168,
+    "total_ventes": 9833512.3,
+    "total_ventes_bel": 6815319.83,
+    "total_ventes_boutique": 2490658.54,
+    "total_ventes_wholesale": 527533.9299999999,
+    "panier_moyen_bel": 95.39392617449666,
     "date_min": "2021-11-01",
-    "date_max": "2026-06-15"
+    "date_max": "2026-06-16"
   }
 }
