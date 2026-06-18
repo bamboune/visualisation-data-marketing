@@ -26819,6 +26819,24 @@
       "precipitation_mm": 0.9,
       "snowfall_cm": 0.0,
       "weather_code": 53
+    },
+    {
+      "date": "2026-06-17",
+      "ventes_bel": 7112.53,
+      "ventes_boutique": 1764.45,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 8876.98,
+      "commandes_bel": 65.0,
+      "commandes_boutique": 33.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 98.0,
+      "panier_moyen_bel": 109.42,
+      "panier_moyen_boutique": 53.47,
+      "temp_max": 22.6,
+      "temp_min": 12.9,
+      "precipitation_mm": 1.3,
+      "snowfall_cm": 0.0,
+      "weather_code": 51
     }
   ],
   "infolettres": [
@@ -26911,6 +26929,11 @@
       "date": "2026-06-15",
       "date_envoi": "2026-06-15",
       "sujet": "Auto resend of Infolettre WS - meilleurs vendeurs du moment"
+    },
+    {
+      "date": "2026-06-17",
+      "date_envoi": "2026-06-17",
+      "sujet": "Boîtes surprises - juin 2026 | mercredi 17 juin 20h"
     }
   ],
   "publications": [
@@ -41654,12 +41677,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9833512.3,
-    "total_ventes_bel": 6815319.83,
-    "total_ventes_boutique": 2490658.54,
+    "total_ventes": 9842389.28,
+    "total_ventes_bel": 6822432.359999999,
+    "total_ventes_boutique": 2492422.99,
     "total_ventes_wholesale": 527533.9299999999,
-    "panier_moyen_bel": 95.39392617449666,
+    "panier_moyen_bel": 95.40333333333334,
     "date_min": "2021-11-01",
-    "date_max": "2026-06-16"
+    "date_max": "2026-06-17"
   }
 }
