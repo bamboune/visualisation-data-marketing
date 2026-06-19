@@ -26837,6 +26837,24 @@
       "precipitation_mm": 1.3,
       "snowfall_cm": 0.0,
       "weather_code": 51
+    },
+    {
+      "date": "2026-06-18",
+      "ventes_bel": 7038.47,
+      "ventes_boutique": 880.37,
+      "ventes_wholesale": 555.34,
+      "ventes_total": 8474.18,
+      "commandes_bel": 68.0,
+      "commandes_boutique": 26.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 95.0,
+      "panier_moyen_bel": 103.51,
+      "panier_moyen_boutique": 33.86,
+      "temp_max": 21.6,
+      "temp_min": 14.3,
+      "precipitation_mm": 32.3,
+      "snowfall_cm": 0.0,
+      "weather_code": 63
     }
   ],
   "infolettres": [
@@ -26893,7 +26911,7 @@
     {
       "date": "2026-05-28",
       "date_envoi": "2026-05-28",
-      "sujet": "Last call code promo exclusif baume des lunes / 31 mai 2026 8h45"
+      "sujet": "Baume des lunes mai 2026 - resend aux pas ouverts jeudi 28 mai 20h"
     },
     {
       "date": "2026-05-28",
@@ -26903,7 +26921,7 @@
     {
       "date": "2026-05-28",
       "date_envoi": "2026-05-28",
-      "sujet": "Baume des lunes mai 2026 - resend aux pas ouverts jeudi 28 mai 20h"
+      "sujet": "Last call code promo exclusif baume des lunes / 31 mai 2026 8h45"
     },
     {
       "date": "2026-06-03",
@@ -26934,9 +26952,26 @@
       "date": "2026-06-17",
       "date_envoi": "2026-06-17",
       "sujet": "Boîtes surprises - juin 2026 | mercredi 17 juin 20h"
+    },
+    {
+      "date": "2026-06-18",
+      "date_envoi": "2026-06-18",
+      "sujet": "Resend aux pas ouverts - Boîtes surprises - juin 2026 | jeudi 18 juin 12h15"
     }
   ],
   "publications": [
+    {
+      "date": "2026-06-18",
+      "plateforme": "facebook",
+      "description_courte": "On a annoncé le retour des boîtes surprises hier.\n\nSpoiler alert: y’en reste déjà pu beaucoup!\n\n(On comprend un peu pourquoi, ceci dit)\n\nDans chaque boîte, y’a 5 produits mystère choisis par notre équ",
+      "lien_post": "https://www.facebook.com/reel/989658150310133/"
+    },
+    {
+      "date": "2026-06-18",
+      "plateforme": "facebook",
+      "description_courte": "La prêle des champs, on pourrait l'appeler la coquerelle des plantes.\n\nParce qu'elle a vu naître, vivre, pis disparaître les dinosaures...pis elle, elle est encore là!\n\nSes rhizomes s'enfoncent à plus",
+      "lien_post": "https://www.facebook.com/reel/5395564700669291/"
+    },
     {
       "date": "2026-06-17",
       "plateforme": "facebook",
@@ -27140,6 +27175,24 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-06-18",
+      "plateforme": "instagram",
+      "description_courte": "On a annoncé le retour des boîtes surprises hier.\n\nSpoiler alert: y’en reste déjà pu beaucoup!\n\n(On comprend un peu pourquoi, ceci dit)\n\nDans chaque boîte, y’a 5 produits mystère choisis par notre équ",
+      "lien_post": "https://www.instagram.com/reel/DZvUXEkM78m/"
+    },
+    {
+      "date": "2026-06-18",
+      "plateforme": "instagram",
+      "description_courte": "La prêle des champs, on pourrait l'appeler la coquerelle des plantes.\n\nParce qu'elle a vu naître, vivre, pis disparaître les dinosaures...pis elle, elle est encore là!\n\nSes rhizomes s'enfoncent à plus",
+      "lien_post": "https://www.instagram.com/reel/DZu7QxmkRJX/"
+    },
+    {
+      "date": "2026-06-18",
+      "plateforme": "instagram",
+      "description_courte": "La prêle des champs, on pourrait l’appeler la coquerelle des plantes.\n\nParce qu’elle a vu naître, vivre, pis disparaître les dinosaures...pis elle, elle est encore là!\n\nSes rhizomes s’enfoncent à plus",
+      "lien_post": "https://www.instagram.com/reel/DZu4jlbBwcB/"
     },
     {
       "date": "2026-06-17",
@@ -41677,12 +41730,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9842389.28,
-    "total_ventes_bel": 6822432.359999999,
-    "total_ventes_boutique": 2492422.99,
-    "total_ventes_wholesale": 527533.9299999999,
-    "panier_moyen_bel": 95.40333333333334,
+    "total_ventes": 9850863.46,
+    "total_ventes_bel": 6829470.83,
+    "total_ventes_boutique": 2493303.3600000003,
+    "total_ventes_wholesale": 528089.27,
+    "panier_moyen_bel": 95.40876675603218,
     "date_min": "2021-11-01",
-    "date_max": "2026-06-17"
+    "date_max": "2026-06-18"
   }
 }
