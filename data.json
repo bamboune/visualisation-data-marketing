@@ -26855,6 +26855,24 @@
       "precipitation_mm": 32.3,
       "snowfall_cm": 0.0,
       "weather_code": 63
+    },
+    {
+      "date": "2026-06-19",
+      "ventes_bel": 5205.39,
+      "ventes_boutique": 2413.31,
+      "ventes_wholesale": 482.48,
+      "ventes_total": 8101.18,
+      "commandes_bel": 51.0,
+      "commandes_boutique": 46.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 98.0,
+      "panier_moyen_bel": 102.07,
+      "panier_moyen_boutique": 52.46,
+      "temp_max": 18.8,
+      "temp_min": 14.8,
+      "precipitation_mm": 14.2,
+      "snowfall_cm": 0.0,
+      "weather_code": 63
     }
   ],
   "infolettres": [
@@ -26960,6 +26978,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-06-19",
+      "plateforme": "facebook",
+      "description_courte": "Au moment d’écrire ces lignes, ces boîtes surprises auront peut-être disparu.\n\nOn prend quand même la chance, d’in coup que!\n\nPremier arrivé, premier surpris.",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1566492268197812"
+    },
     {
       "date": "2026-06-18",
       "plateforme": "facebook",
@@ -27175,6 +27199,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-06-19",
+      "plateforme": "instagram",
+      "description_courte": "Au moment d’écrire ces lignes, ces boîtes surprises auront peut-être disparu.\n\nOn prend quand même la chance, d’in coup que!\n\nPremier arrivé, premier surpris.\n(Exclusivité en ligne)",
+      "lien_post": "https://www.instagram.com/p/DZxn89AFWKD/"
     },
     {
       "date": "2026-06-18",
@@ -41730,12 +41760,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9850863.46,
-    "total_ventes_bel": 6829470.83,
-    "total_ventes_boutique": 2493303.3600000003,
-    "total_ventes_wholesale": 528089.27,
-    "panier_moyen_bel": 95.40876675603218,
+    "total_ventes": 9858964.64,
+    "total_ventes_bel": 6834676.220000001,
+    "total_ventes_boutique": 2495716.67,
+    "total_ventes_wholesale": 528571.75,
+    "panier_moyen_bel": 95.41322839919626,
     "date_min": "2021-11-01",
-    "date_max": "2026-06-18"
+    "date_max": "2026-06-19"
   }
 }
