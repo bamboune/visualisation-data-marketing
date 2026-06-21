@@ -26873,6 +26873,24 @@
       "precipitation_mm": 14.2,
       "snowfall_cm": 0.0,
       "weather_code": 63
+    },
+    {
+      "date": "2026-06-20",
+      "ventes_bel": 6265.14,
+      "ventes_boutique": 2182.75,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 8447.89,
+      "commandes_bel": 63.0,
+      "commandes_boutique": 48.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 111.0,
+      "panier_moyen_bel": 99.45,
+      "panier_moyen_boutique": 45.47,
+      "temp_max": 21.1,
+      "temp_min": 14.3,
+      "precipitation_mm": 10.5,
+      "snowfall_cm": 0.0,
+      "weather_code": 63
     }
   ],
   "infolettres": [
@@ -26975,9 +26993,26 @@
       "date": "2026-06-18",
       "date_envoi": "2026-06-18",
       "sujet": "Resend aux pas ouverts - Boîtes surprises - juin 2026 | jeudi 18 juin 12h15"
+    },
+    {
+      "date": "2026-06-19",
+      "date_envoi": "2026-06-19",
+      "sujet": "Avis crème camo et crème contour + boîtes surprises + diy anti-moustiques naturel - samedi 20 juin 9h"
     }
   ],
   "publications": [
+    {
+      "date": "2026-06-20",
+      "plateforme": "facebook",
+      "description_courte": "Idées de cadeaux dernière minute pour la fête des pères?\nInformation pour satisfaire votre curiosité?\n\nÀ utiliser comme bon vous semble :)\n\n• Lotion après-rasage(multifonctions en vrai)\n• Sérum cheveu",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1567347991445573"
+    },
+    {
+      "date": "2026-06-20",
+      "plateforme": "facebook",
+      "description_courte": "Oui on le sait, le savon à vaisselle et le bicarbonate de soude c'est pas gratuit. Mais t'en as déjà chez toi, enh?\n\nÇa enlève le gras, les taches collées, le cramé dans le fond des chaudrons…aussi ef",
+      "lien_post": "https://www.facebook.com/reel/1547546850068734/"
+    },
     {
       "date": "2026-06-19",
       "plateforme": "facebook",
@@ -27199,6 +27234,24 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-06-20",
+      "plateforme": "instagram",
+      "description_courte": "Idées de cadeaux dernière minute pour la fête des pères?\nInformation pour satisfaire votre curiosité?\n\nÀ utiliser comme bon vous semble :)\n\n• Lotion après-rasage(multifonctions en vrai)\n• Sérum cheveu",
+      "lien_post": "https://www.instagram.com/p/DZ0Swx8FYGi/"
+    },
+    {
+      "date": "2026-06-20",
+      "plateforme": "instagram",
+      "description_courte": "Oui on le sait, le savon à vaisselle et le bicarbonate de soude c’est pas gratuit. Mais t’en as déjà chez toi, enh?\n\nÇa enlève le gras, les taches collées, le cramé dans le fond des chaudrons, pis c’e",
+      "lien_post": "https://www.instagram.com/reel/DZzwBxKBoAP/"
+    },
+    {
+      "date": "2026-06-20",
+      "plateforme": "instagram",
+      "description_courte": "Oui on le sait, le savon à vaisselle et le bicarbonate de soude c’est pas gratuit. Mais t’en as déjà chez toi, enh?\n\nÇa enlève le gras, les taches collées, le cramé dans le fond des chaudrons, pis c’e",
+      "lien_post": "https://www.instagram.com/reel/DZzuUQ1h5eo/"
     },
     {
       "date": "2026-06-19",
@@ -41760,12 +41813,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9858964.64,
-    "total_ventes_bel": 6834676.220000001,
-    "total_ventes_boutique": 2495716.67,
+    "total_ventes": 9867412.53,
+    "total_ventes_bel": 6840941.359999999,
+    "total_ventes_boutique": 2497899.42,
     "total_ventes_wholesale": 528571.75,
-    "panier_moyen_bel": 95.41322839919626,
+    "panier_moyen_bel": 95.41593038821954,
     "date_min": "2021-11-01",
-    "date_max": "2026-06-19"
+    "date_max": "2026-06-20"
   }
 }
