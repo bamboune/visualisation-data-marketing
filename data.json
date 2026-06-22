@@ -26891,6 +26891,24 @@
       "precipitation_mm": 10.5,
       "snowfall_cm": 0.0,
       "weather_code": 63
+    },
+    {
+      "date": "2026-06-21",
+      "ventes_bel": 5205.85,
+      "ventes_boutique": 1718.37,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 6924.22,
+      "commandes_bel": 50.0,
+      "commandes_boutique": 39.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 89.0,
+      "panier_moyen_bel": 104.12,
+      "panier_moyen_boutique": 44.06,
+      "temp_max": 21.6,
+      "temp_min": 14.1,
+      "precipitation_mm": 4.7,
+      "snowfall_cm": 0.0,
+      "weather_code": 61
     }
   ],
   "infolettres": [
@@ -41813,12 +41831,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9867412.53,
-    "total_ventes_bel": 6840941.359999999,
-    "total_ventes_boutique": 2497899.42,
+    "total_ventes": 9874336.75,
+    "total_ventes_bel": 6846147.210000001,
+    "total_ventes_boutique": 2499617.79,
     "total_ventes_wholesale": 528571.75,
-    "panier_moyen_bel": 95.41593038821954,
+    "panier_moyen_bel": 95.42175250836122,
     "date_min": "2021-11-01",
-    "date_max": "2026-06-20"
+    "date_max": "2026-06-21"
   }
 }
