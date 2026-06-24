@@ -26924,9 +26924,27 @@
       "panier_moyen_boutique": 0.0,
       "temp_max": 22.3,
       "temp_min": 14.9,
-      "precipitation_mm": 0.7,
+      "precipitation_mm": 0.5,
       "snowfall_cm": 0.0,
-      "weather_code": 53
+      "weather_code": 51
+    },
+    {
+      "date": "2026-06-23",
+      "ventes_bel": 2574.64,
+      "ventes_boutique": 1749.66,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 4324.3,
+      "commandes_bel": 25.0,
+      "commandes_boutique": 36.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 61.0,
+      "panier_moyen_bel": 102.99,
+      "panier_moyen_boutique": 48.6,
+      "temp_max": 23.2,
+      "temp_min": 16.2,
+      "precipitation_mm": 1.2,
+      "snowfall_cm": 0.0,
+      "weather_code": 51
     }
   ],
   "infolettres": [
@@ -27037,6 +27055,18 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-06-23",
+      "plateforme": "facebook",
+      "description_courte": "Profitez-en pour aller au Grand air 🌿🌞\n(on a une lotion citronnelle et un baume apaisant pour vous accompagner)",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1570055267841512"
+    },
+    {
+      "date": "2026-06-23",
+      "plateforme": "facebook",
+      "description_courte": "Qu’est-ce que c’est, selon toi? 🕵️‍♀️",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1569784457868593"
+    },
     {
       "date": "2026-06-22",
       "plateforme": "facebook",
@@ -27278,16 +27308,28 @@
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
     },
     {
-      "date": "2026-06-22",
+      "date": "2026-06-23",
       "plateforme": "instagram",
-      "description_courte": "Une plante capable de traverser l'asphalte et de détruire les fondations d'une maison…La renouée japonaise, aka le cauchemar des courtiers immobiliers.\n\nMais (plot twist) : elle a des propriétés médic",
-      "lien_post": "https://www.instagram.com/reel/DZ5OVXNjB4d/"
+      "description_courte": "Profitez-en pour aller au Grand air 🌿🌞\n(on a une lotion citronnelle et un baume apaisant pour vous accompagner)",
+      "lien_post": "https://www.instagram.com/p/DZ8LLL7Mob4/"
+    },
+    {
+      "date": "2026-06-23",
+      "plateforme": "instagram",
+      "description_courte": "Une plante capable de traverser l’asphalte et de détruire les fondations d’une maison… 😱\n\nLa renouée japonaise, aka le cauchemar des courtiers immobiliers.\n\nMais (plot twist) : elle a des propriétés m",
+      "lien_post": "https://www.instagram.com/reel/DZ8DsTtMbTG/"
+    },
+    {
+      "date": "2026-06-23",
+      "plateforme": "instagram",
+      "description_courte": "Qu’est-ce que c’est, selon toi? 🕵️‍♀️",
+      "lien_post": "https://www.instagram.com/p/DZ7dDSBFW0r/"
     },
     {
       "date": "2026-06-22",
       "plateforme": "instagram",
-      "description_courte": "Une plante capable de traverser l’asphalte et de détruire les fondations d’une maison… 😱\n\nLa renouée japonaise, aka le cauchemar des courtiers immobiliers.\n\nMais (plot twist) : elle a des propriétés m",
-      "lien_post": "https://www.instagram.com/reel/DZ5OM76pPa0/"
+      "description_courte": "Une plante capable de traverser l'asphalte et de détruire les fondations d'une maison…La renouée japonaise, aka le cauchemar des courtiers immobiliers.\n\nMais (plot twist) : elle a des propriétés médic",
+      "lien_post": "https://www.instagram.com/reel/DZ5OVXNjB4d/"
     },
     {
       "date": "2026-06-20",
@@ -41867,12 +41909,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9877544.84,
-    "total_ventes_bel": 6849355.300000001,
-    "total_ventes_boutique": 2499617.79,
+    "total_ventes": 9881869.14,
+    "total_ventes_bel": 6851929.9399999995,
+    "total_ventes_boutique": 2501367.45,
     "total_ventes_wholesale": 528571.75,
-    "panier_moyen_bel": 95.42714572192514,
+    "panier_moyen_bel": 95.43219772879091,
     "date_min": "2021-11-01",
-    "date_max": "2026-06-22"
+    "date_max": "2026-06-23"
   }
 }
