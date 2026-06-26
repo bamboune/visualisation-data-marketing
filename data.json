@@ -26963,6 +26963,24 @@
       "precipitation_mm": 1.0,
       "snowfall_cm": 0.0,
       "weather_code": 51
+    },
+    {
+      "date": "2026-06-25",
+      "ventes_bel": 4990.74,
+      "ventes_boutique": 1543.55,
+      "ventes_wholesale": 363.34,
+      "ventes_total": 6897.63,
+      "commandes_bel": 59.0,
+      "commandes_boutique": 38.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 98.0,
+      "panier_moyen_bel": 84.59,
+      "panier_moyen_boutique": 40.62,
+      "temp_max": 24.8,
+      "temp_min": 15.9,
+      "precipitation_mm": 3.5,
+      "snowfall_cm": 0.0,
+      "weather_code": 61
     }
   ],
   "infolettres": [
@@ -27024,12 +27042,12 @@
     {
       "date": "2026-05-28",
       "date_envoi": "2026-05-28",
-      "sujet": "Infolettre WS - meilleurs vendeurs du moment"
+      "sujet": "Last call code promo exclusif baume des lunes / 31 mai 2026 8h45"
     },
     {
       "date": "2026-05-28",
       "date_envoi": "2026-05-28",
-      "sujet": "Last call code promo exclusif baume des lunes / 31 mai 2026 8h45"
+      "sujet": "Infolettre WS - meilleurs vendeurs du moment"
     },
     {
       "date": "2026-06-03",
@@ -27070,9 +27088,20 @@
       "date": "2026-06-19",
       "date_envoi": "2026-06-19",
       "sujet": "Avis crème camo et crème contour + boîtes surprises + diy anti-moustiques naturel - samedi 20 juin 9h"
+    },
+    {
+      "date": "2026-06-23",
+      "date_envoi": "2026-06-23",
+      "sujet": "Nouveautés : baumes à lèvres (dont un TEINTÉ!)"
     }
   ],
   "publications": [
+    {
+      "date": "2026-06-25",
+      "plateforme": "facebook",
+      "description_courte": "Il était une fois : les hostas. Cette plante de plate-bande un peu \"banale\" qu'on plante dans nos coins d'ombre sans trop y penser.\n\nElles sont originaires du Japon. Là-bas, ça décore les jardins de t",
+      "lien_post": "https://www.facebook.com/reel/1525552672633452/"
+    },
     {
       "date": "2026-06-25",
       "plateforme": "facebook",
@@ -27330,6 +27359,24 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-06-25",
+      "plateforme": "instagram",
+      "description_courte": "Oui, c’est juste une huile.\n\nMais avec la plus forte concentration d’acide érucique, elle crée une barrière contre la déshydratation sans être grasse. Elle aide aussi à faire pénétrer tes autres actif",
+      "lien_post": "https://www.instagram.com/reel/DaBSbLRMppU/"
+    },
+    {
+      "date": "2026-06-25",
+      "plateforme": "instagram",
+      "description_courte": "Il était une fois : les hostas. Cette plante de plate-bande un peu « banale » qu’on plante dans nos coins d’ombre sans trop y penser.\n\nElles sont originaires du Japon. Là-bas, ça décore les jardins de",
+      "lien_post": "https://www.instagram.com/reel/DaBBjz2MxgA/"
+    },
+    {
+      "date": "2026-06-25",
+      "plateforme": "instagram",
+      "description_courte": "Il était une fois : les hostas. Cette plante de plate-bande un peu \"banale\" qu'on plante dans nos coins d'ombre sans trop y penser.\n\nElles sont originaires du Japon. Là-bas, ça décore les jardins de t",
+      "lien_post": "https://www.instagram.com/reel/DaA8u9ygW_a/"
     },
     {
       "date": "2026-06-25",
@@ -41981,12 +42028,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9885172.41,
-    "total_ventes_bel": 6855233.210000001,
-    "total_ventes_boutique": 2501367.45,
-    "total_ventes_wholesale": 528571.75,
-    "panier_moyen_bel": 95.42974632843793,
+    "total_ventes": 9892070.04,
+    "total_ventes_bel": 6860223.95,
+    "total_ventes_boutique": 2502911.0,
+    "total_ventes_wholesale": 528935.09,
+    "panier_moyen_bel": 95.42251501000668,
     "date_min": "2021-11-01",
-    "date_max": "2026-06-24"
+    "date_max": "2026-06-25"
   }
 }
