@@ -26999,6 +26999,24 @@
       "precipitation_mm": 4.1,
       "snowfall_cm": 0.0,
       "weather_code": 53
+    },
+    {
+      "date": "2026-06-27",
+      "ventes_bel": 3491.41,
+      "ventes_boutique": 2137.18,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 5628.59,
+      "commandes_bel": 35.0,
+      "commandes_boutique": 50.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 85.0,
+      "panier_moyen_bel": 99.75,
+      "panier_moyen_boutique": 42.74,
+      "temp_max": 24.8,
+      "temp_min": 15.1,
+      "precipitation_mm": 0.5,
+      "snowfall_cm": 0.0,
+      "weather_code": 51
     }
   ],
   "infolettres": [
@@ -27055,17 +27073,17 @@
     {
       "date": "2026-05-28",
       "date_envoi": "2026-05-28",
+      "sujet": "Infolettre WS - meilleurs vendeurs du moment"
+    },
+    {
+      "date": "2026-05-28",
+      "date_envoi": "2026-05-28",
       "sujet": "Baume des lunes mai 2026 - resend aux pas ouverts jeudi 28 mai 20h"
     },
     {
       "date": "2026-05-28",
       "date_envoi": "2026-05-28",
       "sujet": "Last call code promo exclusif baume des lunes / 31 mai 2026 8h45"
-    },
-    {
-      "date": "2026-05-28",
-      "date_envoi": "2026-05-28",
-      "sujet": "Infolettre WS - meilleurs vendeurs du moment"
     },
     {
       "date": "2026-06-03",
@@ -27116,6 +27134,11 @@
       "date": "2026-06-26",
       "date_envoi": "2026-06-26",
       "sujet": "Infolettre WS - baumes à lèvres"
+    },
+    {
+      "date": "2026-06-27",
+      "date_envoi": "2026-06-27",
+      "sujet": "Auto resend of Nouveautés : baumes à lèvres (dont un TEINTÉ!)"
     }
   ],
   "publications": [
@@ -42051,12 +42074,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9900366.2,
-    "total_ventes_bel": 6866347.9399999995,
-    "total_ventes_boutique": 2504640.67,
+    "total_ventes": 9905994.79,
+    "total_ventes_bel": 6869839.35,
+    "total_ventes_boutique": 2506777.85,
     "total_ventes_wholesale": 529377.59,
-    "panier_moyen_bel": 95.43450666666668,
+    "panier_moyen_bel": 95.437381745503,
     "date_min": "2021-11-01",
-    "date_max": "2026-06-26"
+    "date_max": "2026-06-27"
   }
 }
