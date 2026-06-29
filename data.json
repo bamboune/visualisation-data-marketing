@@ -27017,6 +27017,24 @@
       "precipitation_mm": 0.5,
       "snowfall_cm": 0.0,
       "weather_code": 51
+    },
+    {
+      "date": "2026-06-28",
+      "ventes_bel": 3411.53,
+      "ventes_boutique": 1332.79,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 4744.32,
+      "commandes_bel": 33.0,
+      "commandes_boutique": 36.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 69.0,
+      "panier_moyen_bel": 103.38,
+      "panier_moyen_boutique": 37.02,
+      "temp_max": 26.5,
+      "temp_min": 16.4,
+      "precipitation_mm": 0.9,
+      "snowfall_cm": 0.0,
+      "weather_code": 53
     }
   ],
   "infolettres": [
@@ -27142,6 +27160,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-06-29",
+      "plateforme": "facebook",
+      "description_courte": "Nous aussi on vient de regarder la météo de la semaine and WE GOT YOU! 🥵🙌\n\nPromo duo:\n• Limonade arc-en-ciel pour égayer vos yeux et vos papilles \n• Thé glacé hibiscus & mélisse pour se désaltérer tou",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1574483244065381"
+    },
     {
       "date": "2026-06-25",
       "plateforme": "facebook",
@@ -27405,6 +27429,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-06-29",
+      "plateforme": "instagram",
+      "description_courte": "Nous aussi on vient de regarder la météo de la semaine and WE GOT YOU! 🥵🙌\n\nPromo duo:\n• Limonade arc-en-ciel pour égayer vos yeux et vos papilles \n• Thé glacé hibiscus & mélisse pour se désaltérer tou",
+      "lien_post": "https://www.instagram.com/p/DaJw6qUM0N3/"
     },
     {
       "date": "2026-06-25",
@@ -42074,12 +42104,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9905994.79,
-    "total_ventes_bel": 6869839.35,
-    "total_ventes_boutique": 2506777.85,
+    "total_ventes": 9910739.110000001,
+    "total_ventes_bel": 6873250.880000001,
+    "total_ventes_boutique": 2508110.64,
     "total_ventes_wholesale": 529377.59,
-    "panier_moyen_bel": 95.437381745503,
+    "panier_moyen_bel": 95.44266977363515,
     "date_min": "2021-11-01",
-    "date_max": "2026-06-27"
+    "date_max": "2026-06-28"
   }
 }
