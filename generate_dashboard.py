@@ -1,4 +1,5 @@
 import json
+import math
 import os
 import pandas as pd
 import requests
@@ -50,6 +51,16 @@ def convert_to_serializable(obj):
         return obj.strftime('%Y-%m-%d')
     if isinstance(obj, datetime):
         return obj.strftime('%Y-%m-%d')
+    return obj
+
+def sanitize_nan(obj):
+    """Remplace NaN/Infinity par None (null JSON) — Python les écrit comme NaN sinon."""
+    if isinstance(obj, float) and (math.isnan(obj) or math.isinf(obj)):
+        return None
+    if isinstance(obj, dict):
+        return {k: sanitize_nan(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [sanitize_nan(v) for v in obj]
     return obj
 
 def get_google_sheet(sheet_name, header_row=1):
@@ -399,7 +410,7 @@ def main():
     }
     
     with open('data.json', 'w', encoding='utf-8') as f:
-        json.dump(dashboard_data, f, ensure_ascii=False, indent=2, default=convert_to_serializable)
+        json.dump(sanitize_nan(dashboard_data), f, ensure_ascii=False, indent=2, default=convert_to_serializable)
     
     print(f"\n✅ SUCCÈS ! data.json généré")
     print(f"   📅 {len(ventes)} jours du {start_date} au {end_date}")

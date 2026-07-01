@@ -595,9 +595,7 @@
         try {
             const r = await fetch('./data.json?v=' + Date.now());
             if (!r.ok) throw new Error('data.json introuvable (' + r.status + ')');
-            const rawText = await r.text();
-            if (!rawText.startsWith('{')) throw new Error('data.json contenu inattendu : ' + rawText.slice(0, 120));
-            fullData = JSON.parse(rawText);
+            fullData = await r.json();
             initFilters();
             applyFiltersAndRender();
         } catch(err) {
