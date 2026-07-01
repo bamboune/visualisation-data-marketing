@@ -369,17 +369,42 @@
 </head>
 <body>
 
+<div id="loginOverlay" style="display:none;position:fixed;inset:0;background:rgba(17,24,39,0.97);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:#1f2937;border-radius:12px;padding:2.5rem;width:320px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.5);">
+    <div style="font-size:2rem;margin-bottom:0.5rem;">🔒</div>
+    <h2 style="color:#f9fafb;margin:0 0 0.25rem;font-size:1.25rem;">LMH Dashboard</h2>
+    <p style="color:#9ca3af;margin:0 0 1.5rem;font-size:0.875rem;">Accès sécurisé</p>
+    <input type="password" id="loginInput" placeholder="Mot de passe"
+      style="width:100%;box-sizing:border-box;padding:0.75rem 1rem;border-radius:8px;border:1px solid #374151;background:#111827;color:#f9fafb;font-size:1rem;margin-bottom:0.75rem;outline:none;"
+      autocomplete="current-password">
+    <button onclick="checkLogin()"
+      style="width:100%;padding:0.75rem;background:#7c6fad;color:#fff;border:none;border-radius:8px;font-size:1rem;cursor:pointer;font-weight:600;">
+      Connexion
+    </button>
+    <p id="loginError" style="color:#f87171;margin:0.75rem 0 0;font-size:0.875rem;display:none;">Mot de passe incorrect.</p>
+  </div>
+</div>
 <script>
-    (function() {
-        if (sessionStorage.getItem('lmh_auth') !== 'LMH2026') {
-            const pw = prompt('🔒 Accès sécurisé — Mot de passe :');
-            if (pw !== 'LMH2026') {
-                document.body.innerHTML = '<div style="text-align:center;padding:3rem;color:#6b7280;"><h2 style="color:#fff">Accès refusé</h2><p>Mot de passe incorrect.</p></div>';
-                throw new Error('Non autorisé');
-            }
-            sessionStorage.setItem('lmh_auth', 'LMH2026');
-        }
-    })();
+  (function() {
+    if (sessionStorage.getItem('lmh_auth') !== 'LMH2026') {
+      const overlay = document.getElementById('loginOverlay');
+      overlay.style.display = 'flex';
+      document.getElementById('loginInput').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') checkLogin();
+      });
+    }
+  })();
+  function checkLogin() {
+    const pw = document.getElementById('loginInput').value;
+    if (pw === 'LMH2026') {
+      sessionStorage.setItem('lmh_auth', 'LMH2026');
+      document.getElementById('loginOverlay').style.display = 'none';
+    } else {
+      document.getElementById('loginError').style.display = 'block';
+      document.getElementById('loginInput').value = '';
+      document.getElementById('loginInput').focus();
+    }
+  }
 </script>
 
 <div class="container">
