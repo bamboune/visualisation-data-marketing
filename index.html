@@ -369,6 +369,8 @@
 </head>
 <body>
 
+<div id="dashboardError" style="display:none;position:fixed;top:0;left:0;right:0;background:#fef2f2;color:#ef4444;padding:12px 20px;font-size:0.82rem;z-index:10000;border-bottom:1px solid #fecaca;"></div>
+
 <div id="loginOverlay" style="display:none;position:fixed;inset:0;background:rgba(17,24,39,0.97);z-index:9999;align-items:center;justify-content:center;">
   <div style="background:#1f2937;border-radius:12px;padding:2.5rem;width:320px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.5);">
     <div style="font-size:2rem;margin-bottom:0.5rem;">🔒</div>
@@ -597,7 +599,14 @@
             initFilters();
             applyFiltersAndRender();
         } catch(err) {
-            document.body.innerHTML = `<div style="padding:2rem;text-align:center;color:#ef4444;">❌ ${err.message}</div>`;
+            console.error('Dashboard error:', err.name, err.message, err.stack);
+            const errEl = document.getElementById('dashboardError');
+            if (errEl) {
+                errEl.style.display = 'block';
+                errEl.innerHTML = `<strong>❌ Erreur</strong> [${err.name}]: ${err.message}<br><small style="opacity:0.7">${(err.stack||'').split('\n').slice(0,3).join(' | ')}</small>`;
+            } else {
+                document.body.innerHTML = `<div style="padding:2rem;text-align:center;color:#ef4444;">❌ [${err.name}] ${err.message}<br><small>${(err.stack||'').split('\n').slice(0,3).join('<br>')}</small></div>`;
+            }
         }
     }
 
