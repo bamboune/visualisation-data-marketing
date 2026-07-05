@@ -27125,6 +27125,24 @@
       "precipitation_mm": 0.1,
       "snowfall_cm": 0.0,
       "weather_code": 51
+    },
+    {
+      "date": "2026-07-04",
+      "ventes_bel": 3489.86,
+      "ventes_boutique": 1904.89,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 5394.75,
+      "commandes_bel": 39.0,
+      "commandes_boutique": 46.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 85.0,
+      "panier_moyen_bel": 89.48,
+      "panier_moyen_boutique": 41.41,
+      "temp_max": 27.3,
+      "temp_min": 21.5,
+      "precipitation_mm": 0.1,
+      "snowfall_cm": 0.0,
+      "weather_code": 51
     }
   ],
   "infolettres": [
@@ -27257,9 +27275,20 @@
       "date": "2026-06-30",
       "date_envoi": "2026-06-30",
       "sujet": "canicule à la lmh: limonade + thé glacé + tonique express + vidéo baume teinté + promo tampons | jeudi 2 juillet 20h"
+    },
+    {
+      "date": "2026-07-03",
+      "date_envoi": "2026-07-03",
+      "sujet": "Resend aux pas ouverts - canicule à la lmh: limonade + thé glacé + tonique express + vidéo baume teinté + promo tampons | jeudi 2 juillet 20h"
     }
   ],
   "publications": [
+    {
+      "date": "2026-07-04",
+      "plateforme": "facebook",
+      "description_courte": "Choisir son baume à lèvres: l’ultime dilemme…\n\nJusqu’à ce que t’apprennes que tu peux les acheter en duo et même en quatuor 😱\n\n• Baume TEINTÉ hibiscus & rose\n• Baume mandarine & calendula\n• Baume bleu",
+      "lien_post": "https://www.facebook.com/reel/2578845419179972/"
+    },
     {
       "date": "2026-07-04",
       "plateforme": "facebook",
@@ -27565,6 +27594,18 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-07-04",
+      "plateforme": "instagram",
+      "description_courte": "Choisir son baume à lèvres: l’ultime dilemme…\n\nJusqu’à ce que t’apprennes que tu peux les acheter en duo et même en quatuor 😱\n\n• Baume TEINTÉ hibiscus & rose\n• Baume mandarine & calendula\n• Baume bleu",
+      "lien_post": "https://www.instagram.com/reel/DaX2i7dhLAS/"
+    },
+    {
+      "date": "2026-07-04",
+      "plateforme": "instagram",
+      "description_courte": "Choisir son baume à lèvres: l’ultime dilemme…\n\nJusqu’à ce que t’apprennes que tu peux les acheter en duo et même en quatuor\n\n• Baume TEINTÉ hibiscus & rose\n• Baume mandarine & calendula\n• Baume bleuet",
+      "lien_post": "https://www.instagram.com/reel/DaX2n2aBMfB/"
     },
     {
       "date": "2026-07-03",
@@ -42306,12 +42347,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9940685.459999999,
-    "total_ventes_bel": 6896171.289999999,
-    "total_ventes_boutique": 2513355.34,
+    "total_ventes": 9946080.209999999,
+    "total_ventes_bel": 6899661.149999999,
+    "total_ventes_boutique": 2515260.23,
     "total_ventes_wholesale": 531158.83,
-    "panier_moyen_bel": 95.44329794293297,
+    "panier_moyen_bel": 95.43934350132626,
     "date_min": "2021-11-01",
-    "date_max": "2026-07-03"
+    "date_max": "2026-07-04"
   }
 }
