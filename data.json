@@ -27143,6 +27143,24 @@
       "precipitation_mm": 0.1,
       "snowfall_cm": 0.0,
       "weather_code": 51
+    },
+    {
+      "date": "2026-07-05",
+      "ventes_bel": 3437.56,
+      "ventes_boutique": 1451.82,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 4889.38,
+      "commandes_bel": 37.0,
+      "commandes_boutique": 31.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 68.0,
+      "panier_moyen_bel": 92.91,
+      "panier_moyen_boutique": 46.83,
+      "temp_max": 28.4,
+      "temp_min": 17.9,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -27283,6 +27301,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-07-05",
+      "plateforme": "facebook",
+      "description_courte": "🥂🌸☀️",
+      "lien_post": "https://www.facebook.com/reel/1001180692678502/"
+    },
     {
       "date": "2026-07-04",
       "plateforme": "facebook",
@@ -27594,6 +27618,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-07-05",
+      "plateforme": "instagram",
+      "description_courte": "🥂🌸☀️",
+      "lien_post": "https://www.instagram.com/reel/DaaX-dhpOeb/"
     },
     {
       "date": "2026-07-04",
@@ -42347,12 +42377,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9946080.209999999,
-    "total_ventes_bel": 6899661.149999999,
-    "total_ventes_boutique": 2515260.23,
+    "total_ventes": 9950969.59,
+    "total_ventes_bel": 6903098.71,
+    "total_ventes_boutique": 2516712.05,
     "total_ventes_wholesale": 531158.83,
-    "panier_moyen_bel": 95.43934350132626,
+    "panier_moyen_bel": 95.4376673293572,
     "date_min": "2021-11-01",
-    "date_max": "2026-07-04"
+    "date_max": "2026-07-05"
   }
 }
