@@ -27161,6 +27161,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 3
+    },
+    {
+      "date": "2026-07-06",
+      "ventes_bel": 5623.88,
+      "ventes_boutique": 0.0,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 5623.88,
+      "commandes_bel": 56.0,
+      "commandes_boutique": 0.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 56.0,
+      "panier_moyen_bel": 100.43,
+      "panier_moyen_boutique": 0.0,
+      "temp_max": 29.3,
+      "temp_min": 17.8,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -27301,6 +27319,18 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-07-06",
+      "plateforme": "facebook",
+      "description_courte": "",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1581397820040590"
+    },
+    {
+      "date": "2026-07-06",
+      "plateforme": "facebook",
+      "description_courte": "En 2005, Agriculture et Agroalimentaire Canada a officiellement désigné LE phragmite comme la pire espèce végétale invasive au pays. La pire. Pas top 10. La première. J'ai mis LE en majuscule parce qu",
+      "lien_post": "https://www.facebook.com/reel/1572060544282199/"
+    },
     {
       "date": "2026-07-05",
       "plateforme": "facebook",
@@ -27618,6 +27648,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-07-06",
+      "plateforme": "instagram",
+      "description_courte": "En 2005, Agriculture et Agroalimentaire Canada a officiellement désigné LE phragmite comme la pire espèce végétale invasive au pays. La pire. Pas top 10. La première. J'ai mis LE en majuscule parce qu",
+      "lien_post": "https://www.instagram.com/reel/DadRlmyCJ3p/"
     },
     {
       "date": "2026-07-05",
@@ -42377,12 +42413,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9950969.59,
-    "total_ventes_bel": 6903098.71,
+    "total_ventes": 9956593.47,
+    "total_ventes_bel": 6908722.59,
     "total_ventes_boutique": 2516712.05,
     "total_ventes_wholesale": 531158.83,
-    "panier_moyen_bel": 95.4376673293572,
+    "panier_moyen_bel": 95.44097350993377,
     "date_min": "2021-11-01",
-    "date_max": "2026-07-05"
+    "date_max": "2026-07-06"
   }
 }
