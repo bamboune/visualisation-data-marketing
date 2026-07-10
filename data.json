@@ -27215,6 +27215,24 @@
       "precipitation_mm": 2.3,
       "snowfall_cm": 0.0,
       "weather_code": 53
+    },
+    {
+      "date": "2026-07-09",
+      "ventes_bel": 6240.74,
+      "ventes_boutique": 3796.58,
+      "ventes_wholesale": 742.58,
+      "ventes_total": 10779.9,
+      "commandes_bel": 59.0,
+      "commandes_boutique": 60.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 120.0,
+      "panier_moyen_bel": 105.78,
+      "panier_moyen_boutique": 63.28,
+      "temp_max": 25.4,
+      "temp_min": 19.7,
+      "precipitation_mm": 16.9,
+      "snowfall_cm": 0.0,
+      "weather_code": 63
     }
   ],
   "infolettres": [
@@ -27360,6 +27378,24 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-07-10",
+      "plateforme": "facebook",
+      "description_courte": "",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1583999173113788"
+    },
+    {
+      "date": "2026-07-09",
+      "plateforme": "facebook",
+      "description_courte": "Quand je dis que ça sent l'ananas, l'internet s'enflamme. Certains s'insurgent : NON ÇA SENT LA POMME! NON ÇA SENT LA CAMOMILLE! \n\nTout le monde a raison. L'odorat est probablement le sens le plus sub",
+      "lien_post": "https://www.facebook.com/reel/27910309538581965/"
+    },
+    {
+      "date": "2026-07-09",
+      "plateforme": "facebook",
+      "description_courte": "VENTE-TROTTOIR AU PIGN! \nAu pignon sur rue! Le pign, c'est le p'tit surnom qu'on lui donne. Viens fouiner au pign du 9 au 12 juillet et profite d'un 20% DE RABAIS SUR TOUT (tout, touuut, toooouuuut - ",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1583608686486170"
+    },
     {
       "date": "2026-07-06",
       "plateforme": "facebook",
@@ -27689,6 +27725,18 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-07-09",
+      "plateforme": "instagram",
+      "description_courte": "Quand je dis que ça sent l'ananas, l'internet s'enflamme. Certains s'insurgent : NON ÇA SENT LA POMME! NON ÇA SENT LA CAMOMILLE! \n\nTout le monde a raison. L'odorat est probablement le sens le plus sub",
+      "lien_post": "https://www.instagram.com/reel/Dak_ycBFIXz/"
+    },
+    {
+      "date": "2026-07-09",
+      "plateforme": "instagram",
+      "description_courte": "VENTE-TROTTOIR AU PIGN! \nAu pignon sur rue! Le pign, c'est le p'tit surnom qu'on lui donne. Viens fouiner au pign du 9 au 12 juillet et profite d'un 20% DE RABAIS SUR TOUT (tout, touuut, toooouuuut - ",
+      "lien_post": "https://www.instagram.com/p/DakrGxkjUTY/"
     },
     {
       "date": "2026-07-08",
@@ -42466,12 +42514,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9970082.41,
-    "total_ventes_bel": 6919058.25,
-    "total_ventes_boutique": 2519442.1100000003,
-    "total_ventes_wholesale": 531582.0499999999,
-    "panier_moyen_bel": 95.44375661375663,
+    "total_ventes": 9980862.31,
+    "total_ventes_bel": 6925298.99,
+    "total_ventes_boutique": 2523238.69,
+    "total_ventes_wholesale": 532324.63,
+    "panier_moyen_bel": 95.4505882352941,
     "date_min": "2021-11-01",
-    "date_max": "2026-07-08"
+    "date_max": "2026-07-09"
   }
 }
