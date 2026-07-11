@@ -27233,6 +27233,24 @@
       "precipitation_mm": 16.9,
       "snowfall_cm": 0.0,
       "weather_code": 63
+    },
+    {
+      "date": "2026-07-10",
+      "ventes_bel": 4901.21,
+      "ventes_boutique": 5146.84,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 10048.05,
+      "commandes_bel": 51.0,
+      "commandes_boutique": 89.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 140.0,
+      "panier_moyen_bel": 96.1,
+      "panier_moyen_boutique": 57.83,
+      "temp_max": 25.8,
+      "temp_min": 17.8,
+      "precipitation_mm": 0.7,
+      "snowfall_cm": 0.0,
+      "weather_code": 51
     }
   ],
   "infolettres": [
@@ -27378,6 +27396,18 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-07-10",
+      "plateforme": "facebook",
+      "description_courte": "Ça pis le baume apaisant dans ton sac de camping = t’es en affaires 😎\n\nBonne aventure au Grand air! 🌞",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1584761869704185"
+    },
+    {
+      "date": "2026-07-10",
+      "plateforme": "facebook",
+      "description_courte": "On répète : de la slush à la limonade arc-en-ciel (à base de lavande, romarin et fleur de pois bleu!)🪻🍹",
+      "lien_post": "https://www.facebook.com/reel/1066935479340942/"
+    },
     {
       "date": "2026-07-10",
       "plateforme": "facebook",
@@ -27727,6 +27757,24 @@
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
     },
     {
+      "date": "2026-07-10",
+      "plateforme": "instagram",
+      "description_courte": "Ça pis le baume apaisant dans ton sac de camping = t’es en affaires 😎\n\nBonne aventure au Grand air! 🌞",
+      "lien_post": "https://www.instagram.com/p/DaoZDcXlYeu/"
+    },
+    {
+      "date": "2026-07-10",
+      "plateforme": "instagram",
+      "description_courte": "On répète : de la slush à la limonade arc-en-ciel (à base de lavande, romarin et fleur de pois bleu!)🪻🍹",
+      "lien_post": "https://www.instagram.com/reel/Danr52AMNzL/"
+    },
+    {
+      "date": "2026-07-10",
+      "plateforme": "instagram",
+      "description_courte": "Pour quand t’as plus d’aloès : l’avoine est ton meilleur ami! Oui, celui de ton garde-manger, que tu utilises pour faire du gruau.\n\nUn trempage de 15-20 min et ce sera officiellement ton nouveau réfle",
+      "lien_post": "https://www.instagram.com/reel/DandUz-MgrT/"
+    },
+    {
       "date": "2026-07-09",
       "plateforme": "instagram",
       "description_courte": "Quand je dis que ça sent l'ananas, l'internet s'enflamme. Certains s'insurgent : NON ÇA SENT LA POMME! NON ÇA SENT LA CAMOMILLE! \n\nTout le monde a raison. L'odorat est probablement le sens le plus sub",
@@ -27767,12 +27815,6 @@
       "plateforme": "instagram",
       "description_courte": "Choisir son baume à lèvres: l’ultime dilemme…\n\nJusqu’à ce que t’apprennes que tu peux les acheter en duo et même en quatuor 😱\n\n• Baume TEINTÉ hibiscus & rose\n• Baume mandarine & calendula\n• Baume bleu",
       "lien_post": "https://www.instagram.com/reel/DaX2i7dhLAS/"
-    },
-    {
-      "date": "2026-07-04",
-      "plateforme": "instagram",
-      "description_courte": "Choisir son baume à lèvres: l’ultime dilemme…\n\nJusqu’à ce que t’apprennes que tu peux les acheter en duo et même en quatuor\n\n• Baume TEINTÉ hibiscus & rose\n• Baume mandarine & calendula\n• Baume bleuet",
-      "lien_post": "https://www.instagram.com/reel/DaX2n2aBMfB/"
     },
     {
       "date": "2026-07-03",
@@ -42514,12 +42556,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9980862.31,
-    "total_ventes_bel": 6925298.99,
-    "total_ventes_boutique": 2523238.69,
+    "total_ventes": 9990910.360000001,
+    "total_ventes_bel": 6930200.199999999,
+    "total_ventes_boutique": 2528385.5300000003,
     "total_ventes_wholesale": 532324.63,
-    "panier_moyen_bel": 95.4505882352941,
+    "panier_moyen_bel": 95.45101717305151,
     "date_min": "2021-11-01",
-    "date_max": "2026-07-09"
+    "date_max": "2026-07-10"
   }
 }
