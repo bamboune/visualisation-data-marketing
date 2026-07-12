@@ -27251,6 +27251,24 @@
       "precipitation_mm": 0.7,
       "snowfall_cm": 0.0,
       "weather_code": 51
+    },
+    {
+      "date": "2026-07-11",
+      "ventes_bel": 3554.2,
+      "ventes_boutique": 5551.27,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 9105.47,
+      "commandes_bel": 32.0,
+      "commandes_boutique": 132.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 164.0,
+      "panier_moyen_bel": 111.07,
+      "panier_moyen_boutique": 42.06,
+      "temp_max": 25.6,
+      "temp_min": 15.4,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -27393,9 +27411,20 @@
       "date": "2026-07-03",
       "date_envoi": "2026-07-03",
       "sujet": "Vente-trottoir 9 au 12 juillet | mercredi 8 juillet 19h30"
+    },
+    {
+      "date": "2026-07-11",
+      "date_envoi": "2026-07-11",
+      "sujet": "Auto resend of Vente-trottoir 9 au 12 juillet | mercredi 8 juillet 19h30"
     }
   ],
   "publications": [
+    {
+      "date": "2026-07-11",
+      "plateforme": "facebook",
+      "description_courte": "ON FAIT JAMAIS ÇA.\nVente-trottoir au pignon sur rue = 20% DE RABAIS SUR TOUT. Ça finit ce dimanche. Pis on est samedi.\n\n20% DE RABAIS SUR TOUT, ça veut dire ta crème visage moins 20%, ton baume à lèvr",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1585223566324682"
+    },
     {
       "date": "2026-07-10",
       "plateforme": "facebook",
@@ -27755,6 +27784,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-07-11",
+      "plateforme": "instagram",
+      "description_courte": "ON FAIT JAMAIS ÇA.\nVente-trottoir au pignon sur rue = 20% DE RABAIS SUR TOUT. Ça finit ce dimanche. Pis on est samedi.\n\n20% DE RABAIS SUR TOUT, ça veut dire ta crème visage moins 20%, ton baume à lèvr",
+      "lien_post": "https://www.instagram.com/p/Dap7mVwlD1U/"
     },
     {
       "date": "2026-07-10",
@@ -42556,12 +42591,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 9990910.360000001,
-    "total_ventes_bel": 6930200.199999999,
-    "total_ventes_boutique": 2528385.5300000003,
+    "total_ventes": 10000015.83,
+    "total_ventes_bel": 6933754.4,
+    "total_ventes_boutique": 2533936.8,
     "total_ventes_wholesale": 532324.63,
-    "panier_moyen_bel": 95.45101717305151,
+    "panier_moyen_bel": 95.46132673267327,
     "date_min": "2021-11-01",
-    "date_max": "2026-07-10"
+    "date_max": "2026-07-11"
   }
 }
