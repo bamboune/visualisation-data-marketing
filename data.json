@@ -27269,6 +27269,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 3
+    },
+    {
+      "date": "2026-07-12",
+      "ventes_bel": 4919.85,
+      "ventes_boutique": 4372.41,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 9292.26,
+      "commandes_bel": 49.0,
+      "commandes_boutique": 95.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 144.0,
+      "panier_moyen_bel": 100.41,
+      "panier_moyen_boutique": 46.03,
+      "temp_max": 27.3,
+      "temp_min": 16.5,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -27419,6 +27437,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-07-12",
+      "plateforme": "facebook",
+      "description_courte": "Pour quand t’as plus d’aloès : l’avoine est ton meilleur ami! Oui, celui de ton garde-manger, que tu utilises pour faire du gruau.\n\nUn trempage de 15-20 min et ce sera officiellement ton nouveau réfle",
+      "lien_post": "https://www.facebook.com/reel/4469034006672493/"
+    },
     {
       "date": "2026-07-11",
       "plateforme": "facebook",
@@ -27784,6 +27808,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-07-12",
+      "plateforme": "instagram",
+      "description_courte": "Pour quand t’as plus d’aloès : l’avoine est ton meilleur ami! Oui, celui de ton garde-manger, que tu utilises pour faire du gruau.\n\nUn trempage de 15-20 min et ce sera officiellement ton nouveau réfle",
+      "lien_post": "https://www.instagram.com/reel/DasZjRjBpSu/"
     },
     {
       "date": "2026-07-11",
@@ -42591,12 +42621,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10000015.83,
-    "total_ventes_bel": 6933754.4,
-    "total_ventes_boutique": 2533936.8,
+    "total_ventes": 10009308.090000002,
+    "total_ventes_bel": 6938674.25,
+    "total_ventes_boutique": 2538309.21,
     "total_ventes_wholesale": 532324.63,
-    "panier_moyen_bel": 95.46132673267327,
+    "panier_moyen_bel": 95.46459102902375,
     "date_min": "2021-11-01",
-    "date_max": "2026-07-11"
+    "date_max": "2026-07-12"
   }
 }
