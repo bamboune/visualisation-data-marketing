@@ -27305,6 +27305,24 @@
       "precipitation_mm": 0.4,
       "snowfall_cm": 0.0,
       "weather_code": 51
+    },
+    {
+      "date": "2026-07-14",
+      "ventes_bel": 3195.27,
+      "ventes_boutique": 920.05,
+      "ventes_wholesale": 2746.62,
+      "ventes_total": 6861.94,
+      "commandes_bel": 36.0,
+      "commandes_boutique": 25.0,
+      "commandes_wholesale": 3.0,
+      "commandes_total": 64.0,
+      "panier_moyen_bel": 88.76,
+      "panier_moyen_boutique": 36.8,
+      "temp_max": 29.7,
+      "temp_min": 21.3,
+      "precipitation_mm": 1.6,
+      "snowfall_cm": 0.0,
+      "weather_code": 53
     }
   ],
   "infolettres": [
@@ -27455,6 +27473,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-07-14",
+      "plateforme": "facebook",
+      "description_courte": "\"Marie, faudrait faire un dévoilement graduel de notre nouveau sérum 5 huiles anti-âge pour le black friday du campeur, genre avec ta tente pis des décos de Noël\".\n\nMarie : \n\n*sort ses décos les plus ",
+      "lien_post": "https://www.facebook.com/reel/1359358712794818/"
+    },
     {
       "date": "2026-07-13",
       "plateforme": "facebook",
@@ -27838,6 +27862,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-07-14",
+      "plateforme": "instagram",
+      "description_courte": "\"Marie, faudrait faire un dévoilement graduel de notre nouveau sérum 5 huiles anti-âge pour le black friday du campeur, genre avec ta tente pis des décos de Noël\".\n\nMarie : \n\n*sort ses décos les plus ",
+      "lien_post": "https://www.instagram.com/reel/DaxgD_DCpxH/"
     },
     {
       "date": "2026-07-13",
@@ -42753,12 +42783,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10015130.790000001,
-    "total_ventes_bel": 6944436.46,
-    "total_ventes_boutique": 2538369.7,
-    "total_ventes_wholesale": 532324.63,
-    "panier_moyen_bel": 95.47332893869478,
+    "total_ventes": 10021992.73,
+    "total_ventes_bel": 6947631.7299999995,
+    "total_ventes_boutique": 2539289.75,
+    "total_ventes_wholesale": 535071.25,
+    "panier_moyen_bel": 95.46890645586296,
     "date_min": "2021-11-01",
-    "date_max": "2026-07-13"
+    "date_max": "2026-07-14"
   }
 }
