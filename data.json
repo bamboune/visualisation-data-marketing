@@ -27323,6 +27323,24 @@
       "precipitation_mm": 1.6,
       "snowfall_cm": 0.0,
       "weather_code": 53
+    },
+    {
+      "date": "2026-07-15",
+      "ventes_bel": 3760.66,
+      "ventes_boutique": 1597.63,
+      "ventes_wholesale": 677.24,
+      "ventes_total": 6035.53,
+      "commandes_bel": 42.0,
+      "commandes_boutique": 33.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 76.0,
+      "panier_moyen_bel": 89.54,
+      "panier_moyen_boutique": 48.41,
+      "temp_max": 26.8,
+      "temp_min": 21.0,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -27473,6 +27491,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-07-15",
+      "plateforme": "facebook",
+      "description_courte": "Le code promo est dans la description plus bas 👇\n\nNotre nouveau sérum 5 huiles anti-âge (valeur 48,99$) va être gratuit. Oui oui!\nMais pas tout de suite là! L'offre commence le 17 juillet (ça c'est ve",
+      "lien_post": "https://www.facebook.com/reel/2341120246418930/"
+    },
     {
       "date": "2026-07-14",
       "plateforme": "facebook",
@@ -27862,6 +27886,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-07-15",
+      "plateforme": "instagram",
+      "description_courte": "Le code promo est dans la description plus bas 👇\n\nNotre nouveau sérum 5 huiles anti-âge (valeur 48,99$) va être gratuit. Oui oui!\nMais pas tout de suite là! L'offre commence le 17 juillet (ça c'est ve",
+      "lien_post": "https://www.instagram.com/reel/Da0E89IFXck/"
     },
     {
       "date": "2026-07-14",
@@ -42783,12 +42813,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10021992.73,
-    "total_ventes_bel": 6947631.7299999995,
-    "total_ventes_boutique": 2539289.75,
-    "total_ventes_wholesale": 535071.25,
-    "panier_moyen_bel": 95.46890645586296,
+    "total_ventes": 10028028.26,
+    "total_ventes_bel": 6951392.39,
+    "total_ventes_boutique": 2540887.38,
+    "total_ventes_wholesale": 535748.49,
+    "panier_moyen_bel": 95.46500329163923,
     "date_min": "2021-11-01",
-    "date_max": "2026-07-14"
+    "date_max": "2026-07-15"
   }
 }
