@@ -27341,6 +27341,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 3
+    },
+    {
+      "date": "2026-07-16",
+      "ventes_bel": 4438.64,
+      "ventes_boutique": 2009.53,
+      "ventes_wholesale": 589.84,
+      "ventes_total": 7038.01,
+      "commandes_bel": 51.0,
+      "commandes_boutique": 38.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 90.0,
+      "panier_moyen_bel": 87.03,
+      "panier_moyen_boutique": 52.88,
+      "temp_max": 23.9,
+      "temp_min": 18.1,
+      "precipitation_mm": 2.6,
+      "snowfall_cm": 0.0,
+      "weather_code": 61
     }
   ],
   "infolettres": [
@@ -27488,9 +27506,26 @@
       "date": "2026-07-11",
       "date_envoi": "2026-07-11",
       "sujet": "Auto resend of Vente-trottoir 9 au 12 juillet | mercredi 8 juillet 19h30"
+    },
+    {
+      "date": "2026-07-16",
+      "date_envoi": "2026-07-16",
+      "sujet": "BF des campeurs - prépare-toi | 16 juillet 2026"
     }
   ],
   "publications": [
+    {
+      "date": "2026-07-16",
+      "plateforme": "facebook",
+      "description_courte": "Si t’as vu la routine de Marie aujourd’hui (avec la narration la plus mignonne du monde 🥹), t’as déjà rencontré notre nouveau sérum.\n\nCe qu’on ne t’a peut-être pas dit, c’est qu’il est pensé dans un e",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1589437102569995"
+    },
+    {
+      "date": "2026-07-16",
+      "plateforme": "facebook",
+      "description_courte": "Juliette (6 ans) voulait vous parler. Pis vous rappeler que dès minuit ce soir la promotion du black friday des campeurs commence. \n\nComment l'avoir, du 17 juillet (minuit) au 19 juillet 23h59 :\n\n- Re",
+      "lien_post": "https://www.facebook.com/reel/1029287996177675/"
+    },
     {
       "date": "2026-07-15",
       "plateforme": "facebook",
@@ -27886,6 +27921,30 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-07-16",
+      "plateforme": "instagram",
+      "description_courte": "Oui oui, tu as bien entendu dans la vidéo. Le framboisier, ça se fume aussi. \n\nOn n’a pas insisté là-dessus parce que, de la fumée pour tes poumons, c’est jamais bon. Mais certaines personnes l’utilis",
+      "lien_post": "https://www.instagram.com/reel/Da3eHZgMZH7/"
+    },
+    {
+      "date": "2026-07-16",
+      "plateforme": "instagram",
+      "description_courte": "Des choses TRÈS TRÈS importantes à faire cette été. \n\n(pis oui, je le sais, c’est le nombre de bébés qu’on va avoir les ti fleurons jaune de marguerite, mais moi a famille est terminé 😆)",
+      "lien_post": "https://www.instagram.com/reel/Da3dbUfMYOb/"
+    },
+    {
+      "date": "2026-07-16",
+      "plateforme": "instagram",
+      "description_courte": "Si t’as vu la routine de Marie aujourd’hui (avec la narration la plus mignonne du monde 🥹), t’as déjà rencontré notre nouveau sérum.\n\nCe qu’on ne t’a peut-être pas dit, c’est qu’il est pensé dans un e",
+      "lien_post": "https://www.instagram.com/p/Da3UhPDsweg/"
+    },
+    {
+      "date": "2026-07-16",
+      "plateforme": "instagram",
+      "description_courte": "Juliette (6 ans) voulait vous parler. Pis vous rappeler que dès minuit ce soir la promotion du black friday des campeurs commence. \n\nComment l'avoir, du 17 juillet (minuit) au 19 juillet 23h59 :\n\n- Re",
+      "lien_post": "https://www.instagram.com/reel/Da2psKqiSu4/"
     },
     {
       "date": "2026-07-15",
@@ -42813,12 +42872,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10028028.26,
-    "total_ventes_bel": 6951392.39,
-    "total_ventes_boutique": 2540887.38,
-    "total_ventes_wholesale": 535748.49,
-    "panier_moyen_bel": 95.46500329163923,
+    "total_ventes": 10035066.270000001,
+    "total_ventes_bel": 6955831.03,
+    "total_ventes_boutique": 2542896.91,
+    "total_ventes_wholesale": 536338.3300000001,
+    "panier_moyen_bel": 95.45945394736842,
     "date_min": "2021-11-01",
-    "date_max": "2026-07-15"
+    "date_max": "2026-07-16"
   }
 }
