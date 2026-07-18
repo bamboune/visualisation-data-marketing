@@ -27359,6 +27359,24 @@
       "precipitation_mm": 2.6,
       "snowfall_cm": 0.0,
       "weather_code": 61
+    },
+    {
+      "date": "2026-07-17",
+      "ventes_bel": 39399.31,
+      "ventes_boutique": 1774.22,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 41173.53,
+      "commandes_bel": 363.0,
+      "commandes_boutique": 45.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 408.0,
+      "panier_moyen_bel": 108.54,
+      "panier_moyen_boutique": 39.43,
+      "temp_max": 24.8,
+      "temp_min": 15.1,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -27511,9 +27529,26 @@
       "date": "2026-07-16",
       "date_envoi": "2026-07-16",
       "sujet": "BF des campeurs - prépare-toi | 16 juillet 2026"
+    },
+    {
+      "date": "2026-07-17",
+      "date_envoi": "2026-07-17",
+      "sujet": "BF des campeurs resend aux pas ouverts | 17 juillet 2026 10h"
     }
   ],
   "publications": [
+    {
+      "date": "2026-07-18",
+      "plateforme": "facebook",
+      "description_courte": "Une de vos chouchous : notre crème visage Camomille 💛\n\nElle s’intègre hyper bien avec notre nouveau sérum 5 huiles anti-âge 👯‍♀️\n\n(Marie a publié récemment une vidéo routine skincare avec ces 2 produi",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1590468555800183"
+    },
+    {
+      "date": "2026-07-17",
+      "plateforme": "facebook",
+      "description_courte": "CODE PROMO ci-bas 👇\n\nOn emballe les tout premiers sérums 5 huiles anti-âge 🥹\n\nPendant qu’on prépare vos commandes… notre Black Friday des campeurs bat son plein 🎄🏕️\n\n🎁 Reçois le nouveau sérum 5 huiles",
+      "lien_post": "https://www.facebook.com/reel/1032472452856351/"
+    },
     {
       "date": "2026-07-16",
       "plateforme": "facebook",
@@ -27921,6 +27956,18 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-07-18",
+      "plateforme": "instagram",
+      "description_courte": "Une de vos chouchous : notre crème visage Camomille 💛\n\nElle s’intègre hyper bien avec notre nouveau sérum 5 huiles anti-âge 👯‍♀️\n\n(Marie a publié récemment une vidéo routine skincare avec ces 2 produi",
+      "lien_post": "https://www.instagram.com/p/Da6rdChFV9d/"
+    },
+    {
+      "date": "2026-07-17",
+      "plateforme": "instagram",
+      "description_courte": "CODE PROMO ci-bas 👇\n\nOn emballe les tout premiers sérums 5 huiles anti-âge 🥹\n\nPendant qu’on prépare vos commandes… notre Black Friday des campeurs bat son plein 🎄🏕️\n\n🎁 Reçois le nouveau sérum 5 huiles",
+      "lien_post": "https://www.instagram.com/reel/Da5xZFCMxMn/"
     },
     {
       "date": "2026-07-16",
@@ -42944,12 +42991,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10035066.270000001,
-    "total_ventes_bel": 6955831.03,
-    "total_ventes_boutique": 2542896.91,
+    "total_ventes": 10076239.799999999,
+    "total_ventes_bel": 6995230.34,
+    "total_ventes_boutique": 2544671.13,
     "total_ventes_wholesale": 536338.3300000001,
-    "panier_moyen_bel": 95.45945394736842,
+    "panier_moyen_bel": 95.46805391190007,
     "date_min": "2021-11-01",
-    "date_max": "2026-07-16"
+    "date_max": "2026-07-17"
   }
 }
