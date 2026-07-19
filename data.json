@@ -27377,6 +27377,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 3
+    },
+    {
+      "date": "2026-07-18",
+      "ventes_bel": 33489.61,
+      "ventes_boutique": 2222.55,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 35712.16,
+      "commandes_bel": 317.0,
+      "commandes_boutique": 36.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 353.0,
+      "panier_moyen_bel": 105.65,
+      "panier_moyen_boutique": 61.74,
+      "temp_max": 20.7,
+      "temp_min": 15.9,
+      "precipitation_mm": 11.6,
+      "snowfall_cm": 0.0,
+      "weather_code": 63
     }
   ],
   "infolettres": [
@@ -27534,9 +27552,26 @@
       "date": "2026-07-17",
       "date_envoi": "2026-07-17",
       "sujet": "BF des campeurs resend aux pas ouverts | 17 juillet 2026 10h"
+    },
+    {
+      "date": "2026-07-17",
+      "date_envoi": "2026-07-17",
+      "sujet": "BF des campeurs routine Marie (Juliette) | 18 juillet 2026 9h"
     }
   ],
   "publications": [
+    {
+      "date": "2026-07-19",
+      "plateforme": "facebook",
+      "description_courte": "Notre sérum gratuit n'est plus disponible, la promo a fermé un jour d'avance. Nos faces sont comme ça : 🤯🥳🥵\n\nOn avait-tu envisagé que notre Black Friday du campeur pouvait pogner autant que le vrai Bl",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1591245299055842"
+    },
+    {
+      "date": "2026-07-18",
+      "plateforme": "facebook",
+      "description_courte": "🚨 MISE À JOUR : LE SÉRUM EST EN RUPTURE.\n\nLa promotion s'est écourtée d'une journée, parce que vous êtes complètement INCROYABLES. Les dernières 48h ont dépassé toutes nos prévisions. De stock. De sta",
+      "lien_post": "https://www.facebook.com/reel/1006665582269045/"
+    },
     {
       "date": "2026-07-18",
       "plateforme": "facebook",
@@ -27956,6 +27991,18 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-07-19",
+      "plateforme": "instagram",
+      "description_courte": "Notre sérum gratuit n’est plus disponible, la promo a fermé un jour d’avance. Nos faces sont comme ça : 🤯🥳🥵\n\nOn avait-tu envisagé que notre Black Friday du campeur pouvait pogner autant que le vrai Bl",
+      "lien_post": "https://www.instagram.com/p/Da9LlYUsdEr/"
+    },
+    {
+      "date": "2026-07-18",
+      "plateforme": "instagram",
+      "description_courte": "C'est encore le Black Friday du campeur jusqu'à dimanche 23h59 🎄⛺️. T'as encore le temps de devenir toi aussi mieux que tout le monde avec ton nouveau sérum gratuit des Mauvaises Herbes.\n\nComment l'av",
+      "lien_post": "https://www.instagram.com/reel/Da72UwtjA6d/"
     },
     {
       "date": "2026-07-18",
@@ -42991,12 +43038,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10076239.799999999,
-    "total_ventes_bel": 6995230.34,
-    "total_ventes_boutique": 2544671.13,
+    "total_ventes": 10111951.959999999,
+    "total_ventes_bel": 7028719.95,
+    "total_ventes_boutique": 2546893.6799999997,
     "total_ventes_wholesale": 536338.3300000001,
-    "panier_moyen_bel": 95.46805391190007,
+    "panier_moyen_bel": 95.47474375821288,
     "date_min": "2021-11-01",
-    "date_max": "2026-07-17"
+    "date_max": "2026-07-18"
   }
 }
