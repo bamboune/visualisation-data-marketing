@@ -27413,6 +27413,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 3
+    },
+    {
+      "date": "2026-07-20",
+      "ventes_bel": 1858.19,
+      "ventes_boutique": 0.0,
+      "ventes_wholesale": 917.32,
+      "ventes_total": 2775.51,
+      "commandes_bel": 21.0,
+      "commandes_boutique": 0.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 22.0,
+      "panier_moyen_bel": 88.49,
+      "panier_moyen_boutique": 0.0,
+      "temp_max": 24.1,
+      "temp_min": 15.1,
+      "precipitation_mm": 0.2,
+      "snowfall_cm": 0.0,
+      "weather_code": 51
     }
   ],
   "infolettres": [
@@ -27578,6 +27596,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-07-20",
+      "plateforme": "facebook",
+      "description_courte": "Une « limonade » rose faite avec une plante d'ici? Oh que oui! Avec le sumac vinaigrier.\n\nCet arbuste qui pousse le long des autoroutes, tu l'as sûrement déjà croisé sans savoir que ses fruits font un",
+      "lien_post": "https://www.facebook.com/reel/1379007337730161/"
+    },
     {
       "date": "2026-07-19",
       "plateforme": "facebook",
@@ -28009,6 +28033,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-07-20",
+      "plateforme": "instagram",
+      "description_courte": "Une « limonade » rose faite avec une plante d'ici? Oh que oui! Avec le sumac vinaigrier.\n\nCet arbuste qui pousse le long des autoroutes, tu l'as sûrement déjà croisé sans savoir que ses fruits font un",
+      "lien_post": "https://www.instagram.com/reel/DbBUis_CMco/"
     },
     {
       "date": "2026-07-19",
@@ -43056,12 +43086,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10119415.51,
-    "total_ventes_bel": 7032999.460000001,
+    "total_ventes": 10122191.020000001,
+    "total_ventes_bel": 7034857.65,
     "total_ventes_boutique": 2550077.7199999997,
-    "total_ventes_wholesale": 536338.3300000001,
-    "panier_moyen_bel": 95.49233749179253,
+    "total_ventes_wholesale": 537255.65,
+    "panier_moyen_bel": 95.48774278215224,
     "date_min": "2021-11-01",
-    "date_max": "2026-07-19"
+    "date_max": "2026-07-20"
   }
 }
