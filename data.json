@@ -27449,6 +27449,24 @@
       "precipitation_mm": 5.1,
       "snowfall_cm": 0.0,
       "weather_code": 61
+    },
+    {
+      "date": "2026-07-22",
+      "ventes_bel": 4604.84,
+      "ventes_boutique": 1614.77,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 6219.61,
+      "commandes_bel": 46.0,
+      "commandes_boutique": 36.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 82.0,
+      "panier_moyen_bel": 100.11,
+      "panier_moyen_boutique": 44.85,
+      "temp_max": 20.4,
+      "temp_min": 14.8,
+      "precipitation_mm": 2.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 53
     }
   ],
   "infolettres": [
@@ -27614,6 +27632,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-07-22",
+      "plateforme": "facebook",
+      "description_courte": "C’est le moment de siroter des limonades qui changent de couleur, de respirer le Grand air et d’explorer les plantes des capsules botaniques dans la vraie vie 🍹🌱\n\nOn est toujours là, juste un peu plus",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1594122975434741"
+    },
     {
       "date": "2026-07-21",
       "plateforme": "facebook",
@@ -28063,6 +28087,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-07-22",
+      "plateforme": "instagram",
+      "description_courte": "C’est le moment de siroter des limonades qui changent de couleur, de respirer le Grand air et d’explorer les plantes des capsules botaniques dans la vraie vie 🍹🌱\n\nOn est toujours là, juste un peu plus",
+      "lien_post": "https://www.instagram.com/p/DbGfUOWlUt6/"
     },
     {
       "date": "2026-07-21",
@@ -43128,12 +43158,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10126744.430000002,
-    "total_ventes_bel": 7037891.04,
-    "total_ventes_boutique": 2551597.74,
+    "total_ventes": 10132964.040000001,
+    "total_ventes_bel": 7042495.880000001,
+    "total_ventes_boutique": 2553212.51,
     "total_ventes_wholesale": 537255.65,
-    "panier_moyen_bel": 95.4819606557377,
+    "panier_moyen_bel": 95.48499344692004,
     "date_min": "2021-11-01",
-    "date_max": "2026-07-21"
+    "date_max": "2026-07-22"
   }
 }
