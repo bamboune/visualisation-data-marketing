@@ -27467,6 +27467,24 @@
       "precipitation_mm": 2.0,
       "snowfall_cm": 0.0,
       "weather_code": 53
+    },
+    {
+      "date": "2026-07-23",
+      "ventes_bel": 2295.79,
+      "ventes_boutique": 1443.43,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 3739.22,
+      "commandes_bel": 28.0,
+      "commandes_boutique": 32.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 60.0,
+      "panier_moyen_bel": 81.99,
+      "panier_moyen_boutique": 45.11,
+      "temp_max": 23.0,
+      "temp_min": 12.3,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -27632,6 +27650,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-07-23",
+      "plateforme": "facebook",
+      "description_courte": "Tu la tonds chaque semaine sans savoir c’que t’as sous les pieds.\n\nLe lierre terrestre, c’est une petite plante rampante qu’on ignore souvent… pis pourtant. Elle soigne, elle se mange, elle a déjà été",
+      "lien_post": "https://www.facebook.com/reel/963503183372952/"
+    },
     {
       "date": "2026-07-22",
       "plateforme": "facebook",
@@ -28087,6 +28111,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-07-23",
+      "plateforme": "instagram",
+      "description_courte": "Tu la tonds chaque semaine sans savoir c’que t’as sous les pieds.\n\nLe lierre terrestre, c’est une petite plante rampante qu’on ignore souvent… pis pourtant. Elle soigne, elle se mange, elle a déjà été",
+      "lien_post": "https://www.instagram.com/reel/DbJHrGIsbVM/"
     },
     {
       "date": "2026-07-22",
@@ -43158,12 +43188,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10132964.040000001,
-    "total_ventes_bel": 7042495.880000001,
-    "total_ventes_boutique": 2553212.51,
+    "total_ventes": 10136703.26,
+    "total_ventes_bel": 7044791.67,
+    "total_ventes_boutique": 2554655.94,
     "total_ventes_wholesale": 537255.65,
-    "panier_moyen_bel": 95.48499344692004,
+    "panier_moyen_bel": 95.47615586116568,
     "date_min": "2021-11-01",
-    "date_max": "2026-07-22"
+    "date_max": "2026-07-23"
   }
 }
