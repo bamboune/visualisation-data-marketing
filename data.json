@@ -27485,6 +27485,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 3
+    },
+    {
+      "date": "2026-07-24",
+      "ventes_bel": 2593.2,
+      "ventes_boutique": 1819.6,
+      "ventes_wholesale": 563.72,
+      "ventes_total": 4976.52,
+      "commandes_bel": 34.0,
+      "commandes_boutique": 44.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 79.0,
+      "panier_moyen_bel": 76.27,
+      "panier_moyen_boutique": 41.35,
+      "temp_max": 25.1,
+      "temp_min": 15.1,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -27650,6 +27668,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-07-24",
+      "plateforme": "facebook",
+      "description_courte": "Un peu comme si tu venais de manger des bonbons aux pétales d’hibiscus 🌺💋\n\n(Bon, on précise quand même : nos baumes à lèvres botaniques, c’est pas fait pour être mangé... mais on comprend la tentation",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1595737061939999"
+    },
     {
       "date": "2026-07-23",
       "plateforme": "facebook",
@@ -28111,6 +28135,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-07-24",
+      "plateforme": "instagram",
+      "description_courte": "Un peu comme si tu venais de manger des bonbons aux pétales d’hibiscus 🌺💋\n\n(Bon, on précise quand même : nos baumes à lèvres botaniques, c’est pas fait pour être mangé... mais on comprend la tentation",
+      "lien_post": "https://www.instagram.com/p/DbLtGSpFbKx/"
     },
     {
       "date": "2026-07-23",
@@ -43242,12 +43272,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10136703.26,
-    "total_ventes_bel": 7044791.67,
-    "total_ventes_boutique": 2554655.94,
-    "total_ventes_wholesale": 537255.65,
-    "panier_moyen_bel": 95.47615586116568,
+    "total_ventes": 10141679.78,
+    "total_ventes_bel": 7047384.869999999,
+    "total_ventes_boutique": 2556475.54,
+    "total_ventes_wholesale": 537819.37,
+    "panier_moyen_bel": 95.46358638743455,
     "date_min": "2021-11-01",
-    "date_max": "2026-07-23"
+    "date_max": "2026-07-24"
   }
 }
