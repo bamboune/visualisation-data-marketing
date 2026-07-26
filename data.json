@@ -27503,6 +27503,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 3
+    },
+    {
+      "date": "2026-07-25",
+      "ventes_bel": 2804.41,
+      "ventes_boutique": 1400.56,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 4204.97,
+      "commandes_bel": 33.0,
+      "commandes_boutique": 35.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 68.0,
+      "panier_moyen_bel": 84.98,
+      "panier_moyen_boutique": 40.02,
+      "temp_max": 27.2,
+      "temp_min": 16.2,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -27665,9 +27683,20 @@
       "date": "2026-07-17",
       "date_envoi": "2026-07-17",
       "sujet": "BF des campeurs routine Marie (Juliette) | 18 juillet 2026 9h"
+    },
+    {
+      "date": "2026-07-24",
+      "date_envoi": "2026-07-24",
+      "sujet": "Sérum visage 5 huiles dispo (nos vieilles face, Josée) | samedi 25 juillet 9h"
     }
   ],
   "publications": [
+    {
+      "date": "2026-07-25",
+      "plateforme": "facebook",
+      "description_courte": "Un petit tour de magie, ça te dit?\n\nNotre limonade arc-en-ciel lavande & romarin change de couleur sous tes yeux.\nTout ce qu’il te faut, c’est... du jus de citron. 💙➡️🩷\n\nMarche à suivre :\n💧Verse 1 L d",
+      "lien_post": "https://www.facebook.com/reel/1377597917675593/"
+    },
     {
       "date": "2026-07-24",
       "plateforme": "facebook",
@@ -28135,6 +28164,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-07-25",
+      "plateforme": "instagram",
+      "description_courte": "Un petit tour de magie, ça te dit?\n\nNotre limonade arc-en-ciel lavande & romarin change de couleur sous tes yeux.\nTout ce qu’il te faut, c’est... du jus de citron. 💙➡️🩷\n\nMarche à suivre :\n💧Verse 1 L d",
+      "lien_post": "https://www.instagram.com/reel/DbO1wiGsoL0/"
     },
     {
       "date": "2026-07-24",
@@ -43272,12 +43307,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10141679.78,
-    "total_ventes_bel": 7047384.869999999,
-    "total_ventes_boutique": 2556475.54,
+    "total_ventes": 10145884.749999998,
+    "total_ventes_bel": 7050189.279999999,
+    "total_ventes_boutique": 2557876.1,
     "total_ventes_wholesale": 537819.37,
-    "panier_moyen_bel": 95.46358638743455,
+    "panier_moyen_bel": 95.45672988881621,
     "date_min": "2021-11-01",
-    "date_max": "2026-07-24"
+    "date_max": "2026-07-25"
   }
 }
