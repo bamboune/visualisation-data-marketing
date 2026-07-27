@@ -27521,6 +27521,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 3
+    },
+    {
+      "date": "2026-07-26",
+      "ventes_bel": 3355.91,
+      "ventes_boutique": 1497.99,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 4853.9,
+      "commandes_bel": 35.0,
+      "commandes_boutique": 33.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 68.0,
+      "panier_moyen_bel": 95.88,
+      "panier_moyen_boutique": 45.39,
+      "temp_max": 28.0,
+      "temp_min": 17.4,
+      "precipitation_mm": 0.3,
+      "snowfall_cm": 0.0,
+      "weather_code": 51
     }
   ],
   "infolettres": [
@@ -27691,6 +27709,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-07-26",
+      "plateforme": "facebook",
+      "description_courte": "La cataire (l'herbe à chats, oui oui) contient de la népetalactone, un composé répulsif tellement puissant que des études le classent plus efficace que le DEET à concentration équivalente. La bonne no",
+      "lien_post": "https://www.facebook.com/reel/1699861147964311/"
+    },
     {
       "date": "2026-07-25",
       "plateforme": "facebook",
@@ -28164,6 +28188,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-07-26",
+      "plateforme": "instagram",
+      "description_courte": "La cataire (l'herbe à chats, oui oui) contient de la népetalactone, un composé répulsif tellement puissant que des études le classent plus efficace que le DEET à concentration équivalente. La bonne no",
+      "lien_post": "https://www.instagram.com/reel/DbQjjVoj5i6/"
     },
     {
       "date": "2026-07-25",
@@ -43307,12 +43337,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10145884.749999998,
-    "total_ventes_bel": 7050189.279999999,
-    "total_ventes_boutique": 2557876.1,
+    "total_ventes": 10150738.649999999,
+    "total_ventes_bel": 7053545.1899999995,
+    "total_ventes_boutique": 2559374.09,
     "total_ventes_wholesale": 537819.37,
-    "panier_moyen_bel": 95.45672988881621,
+    "panier_moyen_bel": 95.45700653594771,
     "date_min": "2021-11-01",
-    "date_max": "2026-07-25"
+    "date_max": "2026-07-26"
   }
 }
