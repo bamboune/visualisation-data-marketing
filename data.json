@@ -27539,6 +27539,24 @@
       "precipitation_mm": 0.3,
       "snowfall_cm": 0.0,
       "weather_code": 51
+    },
+    {
+      "date": "2026-07-27",
+      "ventes_bel": 2036.89,
+      "ventes_boutique": 0.0,
+      "ventes_wholesale": 556.56,
+      "ventes_total": 2593.45,
+      "commandes_bel": 22.0,
+      "commandes_boutique": 0.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 23.0,
+      "panier_moyen_bel": 92.59,
+      "panier_moyen_boutique": 0.0,
+      "temp_max": 28.4,
+      "temp_min": 18.7,
+      "precipitation_mm": 1.6,
+      "snowfall_cm": 0.0,
+      "weather_code": 55
     }
   ],
   "infolettres": [
@@ -27709,6 +27727,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-07-27",
+      "plateforme": "facebook",
+      "description_courte": "Fun fact qu'on a pas eu le temps de dire : la molène a déjà servi à isoler des bottes.\n\nAutre détail côté médicinal qu'on a pas eu le temps de couvrir : l'usage traditionnel se fait pas juste en tisan",
+      "lien_post": "https://www.facebook.com/reel/1712212169924492/"
+    },
     {
       "date": "2026-07-26",
       "plateforme": "facebook",
@@ -28188,6 +28212,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-07-27",
+      "plateforme": "instagram",
+      "description_courte": "Fun fact qu'on a pas eu le temps de dire : la molène a déjà servi à isoler des bottes.\n\nAutre détail côté médicinal qu'on a pas eu le temps de couvrir : l'usage traditionnel se fait pas juste en tisan",
+      "lien_post": "https://www.instagram.com/reel/DbTWLqWCL4B/"
     },
     {
       "date": "2026-07-26",
@@ -43337,12 +43367,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10150738.649999999,
-    "total_ventes_bel": 7053545.1899999995,
+    "total_ventes": 10153332.1,
+    "total_ventes_bel": 7055582.08,
     "total_ventes_boutique": 2559374.09,
-    "total_ventes_wholesale": 537819.37,
-    "panier_moyen_bel": 95.45700653594771,
+    "total_ventes_wholesale": 538375.93,
+    "panier_moyen_bel": 95.45513389941215,
     "date_min": "2021-11-01",
-    "date_max": "2026-07-26"
+    "date_max": "2026-07-27"
   }
 }
