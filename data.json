@@ -27557,6 +27557,24 @@
       "precipitation_mm": 1.6,
       "snowfall_cm": 0.0,
       "weather_code": 55
+    },
+    {
+      "date": "2026-07-28",
+      "ventes_bel": 3746.5,
+      "ventes_boutique": 2194.68,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 5941.18,
+      "commandes_bel": 34.0,
+      "commandes_boutique": 43.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 77.0,
+      "panier_moyen_bel": 110.19,
+      "panier_moyen_boutique": 51.04,
+      "temp_max": 23.7,
+      "temp_min": 19.3,
+      "precipitation_mm": 10.3,
+      "snowfall_cm": 0.0,
+      "weather_code": 61
     }
   ],
   "infolettres": [
@@ -27727,6 +27745,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-07-29",
+      "plateforme": "facebook",
+      "description_courte": "DERNIÈRE CHANCE 🏕️\nIl ne reste que quelques produits Grand air avant la fin de notre production estivale.\nSi tu veux en glisser un dans ton sac de rando en prévision des prochaines escapades, c’est le",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1599323441581361"
+    },
     {
       "date": "2026-07-27",
       "plateforme": "facebook",
@@ -28212,6 +28236,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-07-29",
+      "plateforme": "instagram",
+      "description_courte": "DERNIÈRE CHANCE 🏕️\nIl ne reste que quelques produits Grand air avant la fin de notre production estivale.\nSi tu veux en glisser un dans ton sac de rando en prévision des prochaines escapades, c’est le",
+      "lien_post": "https://www.instagram.com/p/DbWyr8BsB1f/"
     },
     {
       "date": "2026-07-27",
@@ -43367,12 +43397,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10153332.1,
-    "total_ventes_bel": 7055582.08,
-    "total_ventes_boutique": 2559374.09,
+    "total_ventes": 10159273.28,
+    "total_ventes_bel": 7059328.58,
+    "total_ventes_boutique": 2561568.77,
     "total_ventes_wholesale": 538375.93,
-    "panier_moyen_bel": 95.45513389941215,
+    "panier_moyen_bel": 95.46475195822454,
     "date_min": "2021-11-01",
-    "date_max": "2026-07-27"
+    "date_max": "2026-07-28"
   }
 }
