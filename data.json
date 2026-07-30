@@ -27575,6 +27575,24 @@
       "precipitation_mm": 10.3,
       "snowfall_cm": 0.0,
       "weather_code": 61
+    },
+    {
+      "date": "2026-07-29",
+      "ventes_bel": 3082.37,
+      "ventes_boutique": 1533.86,
+      "ventes_wholesale": 404.9,
+      "ventes_total": 5021.13,
+      "commandes_bel": 28.0,
+      "commandes_boutique": 35.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 64.0,
+      "panier_moyen_bel": 110.08,
+      "panier_moyen_boutique": 43.82,
+      "temp_max": 24.4,
+      "temp_min": 18.2,
+      "precipitation_mm": 3.9,
+      "snowfall_cm": 0.0,
+      "weather_code": 53
     }
   ],
   "infolettres": [
@@ -27745,6 +27763,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-07-29",
+      "plateforme": "facebook",
+      "description_courte": "ON RECRUTE! 🌿\n\nAvis aux personnes qui aiment les plantes presque autant que les humains (ou le contraire?)\n\nOn cherche quelqu’un pour prendre soin de notre boutique… et des personnes qui y entrent.\n\nS",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1600027094844329"
+    },
     {
       "date": "2026-07-29",
       "plateforme": "facebook",
@@ -28236,6 +28260,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-07-29",
+      "plateforme": "instagram",
+      "description_courte": "ON RECRUTE! 🌿\n\nAvis aux personnes qui aiment les plantes presque autant que les humains (ou le contraire?)\n\nOn cherche quelqu’un pour prendre soin de notre boutique… et des personnes qui y entrent.\n\nS",
+      "lien_post": "https://www.instagram.com/p/DbYvcy2stqv/"
     },
     {
       "date": "2026-07-29",
@@ -43397,12 +43427,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10159273.28,
-    "total_ventes_bel": 7059328.58,
-    "total_ventes_boutique": 2561568.77,
-    "total_ventes_wholesale": 538375.93,
-    "panier_moyen_bel": 95.46475195822454,
+    "total_ventes": 10164294.409999998,
+    "total_ventes_bel": 7062410.949999999,
+    "total_ventes_boutique": 2563102.63,
+    "total_ventes_wholesale": 538780.8300000001,
+    "panier_moyen_bel": 95.4742857142857,
     "date_min": "2021-11-01",
-    "date_max": "2026-07-28"
+    "date_max": "2026-07-29"
   }
 }
