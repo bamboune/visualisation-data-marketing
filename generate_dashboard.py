@@ -1,10 +1,12 @@
 import json
 import math
 import os
+import time
 import pandas as pd
 import requests
 from datetime import date, datetime
 import gspread
+from gspread.exceptions import APIError
 from oauth2client.service_account import ServiceAccountCredentials
 import re
 
@@ -63,11 +65,21 @@ def sanitize_nan(obj):
         return [sanitize_nan(v) for v in obj]
     return obj
 
-def get_google_sheet(sheet_name, header_row=1):
+def get_google_sheet(sheet_name, header_row=1, retries=4):
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
     creds = ServiceAccountCredentials.from_json_keyfile_name(SERVICE_ACCOUNT_FILE, scope)
     client = gspread.authorize(creds)
-    sheet = client.open_by_key(SPREADSHEET_ID).worksheet(sheet_name)
+    for attempt in range(retries):
+        try:
+            sheet = client.open_by_key(SPREADSHEET_ID).worksheet(sheet_name)
+            break
+        except APIError as e:
+            if attempt < retries - 1 and e.response.status_code in (429, 500, 502, 503, 504):
+                wait = 2 ** attempt
+                print(f"   ⚠️ Google Sheets API erreur {e.response.status_code}, retry dans {wait}s…")
+                time.sleep(wait)
+            else:
+                raise
     
     all_values = sheet.get_all_values()
     if not all_values or len(all_values) < header_row:
