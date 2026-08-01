@@ -27593,6 +27593,42 @@
       "precipitation_mm": 3.9,
       "snowfall_cm": 0.0,
       "weather_code": 53
+    },
+    {
+      "date": "2026-07-30",
+      "ventes_bel": 2280.88,
+      "ventes_boutique": 2232.45,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 4513.33,
+      "commandes_bel": 29.0,
+      "commandes_boutique": 43.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 72.0,
+      "panier_moyen_bel": 78.65,
+      "panier_moyen_boutique": 51.92,
+      "temp_max": 24.0,
+      "temp_min": 18.2,
+      "precipitation_mm": 3.9,
+      "snowfall_cm": 0.0,
+      "weather_code": 61
+    },
+    {
+      "date": "2026-07-31",
+      "ventes_bel": 3596.25,
+      "ventes_boutique": 1861.05,
+      "ventes_wholesale": 966.16,
+      "ventes_total": 6423.46,
+      "commandes_bel": 35.0,
+      "commandes_boutique": 46.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 82.0,
+      "panier_moyen_bel": 102.75,
+      "panier_moyen_boutique": 40.46,
+      "temp_max": 25.6,
+      "temp_min": 17.7,
+      "precipitation_mm": 2.2,
+      "snowfall_cm": 0.0,
+      "weather_code": 53
     }
   ],
   "infolettres": [
@@ -27763,6 +27799,18 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-07-31",
+      "plateforme": "facebook",
+      "description_courte": "Des fois, ça fait du bien de pas trop se casser l’bécyk!\n\nC’est exactement la philosophie de notre nouveau sérum visage 5 huiles anti-âge: aller à l’essentiel 🌱\n\nIl ne contient que 7 ingrédients.\nChan",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1600959804751058"
+    },
+    {
+      "date": "2026-07-30",
+      "plateforme": "facebook",
+      "description_courte": "La pruche du Canada, ce conifère discret qu'on confond souvent avec le sapin ou l'épinette, peut vivre jusqu'à 800 ans. \n\nLe mot \"peut\", ici, est important : c'est le maximum documenté. Ça place la pr",
+      "lien_post": "https://www.facebook.com/reel/1053190927186097/"
+    },
     {
       "date": "2026-07-29",
       "plateforme": "facebook",
@@ -28260,6 +28308,18 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-07-31",
+      "plateforme": "instagram",
+      "description_courte": "Des fois, ça fait du bien de pas trop se casser l’bécyk!\n\nC’est exactement la philosophie de notre nouveau sérum visage 5 huiles anti-âge: aller à l’essentiel 🌱\n\nIl ne contient que 7 ingrédients.\nChan",
+      "lien_post": "https://www.instagram.com/p/Dbbex7rMU8g/"
+    },
+    {
+      "date": "2026-07-30",
+      "plateforme": "instagram",
+      "description_courte": "La pruche du Canada, ce conifère discret qu'on confond souvent avec le sapin ou l'épinette, peut vivre jusqu'à 800 ans. \n\nLe mot \"peut\", ici, est important : c'est le maximum documenté. Ça place la pr",
+      "lien_post": "https://www.instagram.com/reel/DbbEeH_jC_F/"
     },
     {
       "date": "2026-07-29",
@@ -43427,12 +43487,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10164294.409999998,
-    "total_ventes_bel": 7062410.949999999,
-    "total_ventes_boutique": 2563102.63,
-    "total_ventes_wholesale": 538780.8300000001,
-    "panier_moyen_bel": 95.4742857142857,
+    "total_ventes": 10175231.200000001,
+    "total_ventes_bel": 7068288.08,
+    "total_ventes_boutique": 2567196.13,
+    "total_ventes_wholesale": 539746.99,
+    "panier_moyen_bel": 95.46806514657979,
     "date_min": "2021-11-01",
-    "date_max": "2026-07-29"
+    "date_max": "2026-07-31"
   }
 }
