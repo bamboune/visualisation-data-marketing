@@ -27629,6 +27629,24 @@
       "precipitation_mm": 2.2,
       "snowfall_cm": 0.0,
       "weather_code": 53
+    },
+    {
+      "date": "2026-08-01",
+      "ventes_bel": 3888.01,
+      "ventes_boutique": 924.48,
+      "ventes_wholesale": 734.74,
+      "ventes_total": 5547.23,
+      "commandes_bel": 43.0,
+      "commandes_boutique": 30.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 74.0,
+      "panier_moyen_bel": 90.42,
+      "panier_moyen_boutique": 30.82,
+      "temp_max": 25.9,
+      "temp_min": 18.8,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -27796,9 +27814,20 @@
       "date": "2026-07-24",
       "date_envoi": "2026-07-24",
       "sujet": "Sérum visage 5 huiles dispo (nos vieilles face, Josée) | samedi 25 juillet 9h"
+    },
+    {
+      "date": "2026-07-31",
+      "date_envoi": "2026-07-31",
+      "sujet": "Gatorade maison et savon camping (recettes!) + lecture de vacances (baku 10 produits) | samedi 1er août 9h + resend dimanche 19h"
     }
   ],
   "publications": [
+    {
+      "date": "2026-08-01",
+      "plateforme": "facebook",
+      "description_courte": "Tu crois qu’on a réussi? 😅",
+      "lien_post": "https://www.facebook.com/reel/1542576700947064/"
+    },
     {
       "date": "2026-07-31",
       "plateforme": "facebook",
@@ -28308,6 +28337,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-08-01",
+      "plateforme": "instagram",
+      "description_courte": "Tu crois qu’on a réussi? 😅",
+      "lien_post": "https://www.instagram.com/reel/DbgA1BThVY4/"
     },
     {
       "date": "2026-07-31",
@@ -43487,12 +43522,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10175231.200000001,
-    "total_ventes_bel": 7068288.08,
-    "total_ventes_boutique": 2567196.13,
-    "total_ventes_wholesale": 539746.99,
-    "panier_moyen_bel": 95.46806514657979,
+    "total_ventes": 10180778.43,
+    "total_ventes_bel": 7072176.09,
+    "total_ventes_boutique": 2568120.61,
+    "total_ventes_wholesale": 540481.73,
+    "panier_moyen_bel": 95.46477864583335,
     "date_min": "2021-11-01",
-    "date_max": "2026-07-31"
+    "date_max": "2026-08-01"
   }
 }
