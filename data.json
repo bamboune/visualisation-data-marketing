@@ -27665,6 +27665,24 @@
       "precipitation_mm": 18.6,
       "snowfall_cm": 0.0,
       "weather_code": 63
+    },
+    {
+      "date": "2026-08-03",
+      "ventes_bel": 4482.26,
+      "ventes_boutique": 0.0,
+      "ventes_wholesale": 597.32,
+      "ventes_total": 5079.58,
+      "commandes_bel": 45.0,
+      "commandes_boutique": 0.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 46.0,
+      "panier_moyen_bel": 99.61,
+      "panier_moyen_boutique": 0.0,
+      "temp_max": 22.5,
+      "temp_min": 19.3,
+      "precipitation_mm": 17.9,
+      "snowfall_cm": 0.0,
+      "weather_code": 63
     }
   ],
   "infolettres": [
@@ -27845,6 +27863,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-08-03",
+      "plateforme": "facebook",
+      "description_courte": "De l'asclépiade/petits cochons : ça se mange tu? Oui, avec un gros gros MAIS. On t'explique pourquoi!",
+      "lien_post": "https://www.facebook.com/reel/1515578549846433/"
+    },
     {
       "date": "2026-08-02",
       "plateforme": "facebook",
@@ -28366,6 +28390,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-08-03",
+      "plateforme": "instagram",
+      "description_courte": "De l'asclépiade/petits cochons : ça se mange tu? Oui, avec un gros gros MAIS. On t'explique pourquoi!",
+      "lien_post": "https://www.instagram.com/reel/DblXtrdj5gI/"
     },
     {
       "date": "2026-08-02",
@@ -43563,12 +43593,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10186313.580000002,
-    "total_ventes_bel": 7076418.0600000005,
+    "total_ventes": 10191393.16,
+    "total_ventes_bel": 7080900.32,
     "total_ventes_boutique": 2569413.79,
-    "total_ventes_wholesale": 540481.73,
-    "panier_moyen_bel": 95.46998048145737,
+    "total_ventes_wholesale": 541079.05,
+    "panier_moyen_bel": 95.47267230169051,
     "date_min": "2021-11-01",
-    "date_max": "2026-08-02"
+    "date_max": "2026-08-03"
   }
 }
