@@ -27701,6 +27701,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 1
+    },
+    {
+      "date": "2026-08-05",
+      "ventes_bel": 3839.52,
+      "ventes_boutique": 1563.11,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 5402.63,
+      "commandes_bel": 37.0,
+      "commandes_boutique": 31.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 68.0,
+      "panier_moyen_bel": 103.77,
+      "panier_moyen_boutique": 50.42,
+      "temp_max": 27.9,
+      "temp_min": 17.2,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -27881,6 +27899,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-08-05",
+      "plateforme": "facebook",
+      "description_courte": "Une boisson hydratante simple, colorée et parfaite pour les journées chaudes! 🥵\n\nPourquoi on l’aime?\n💧 Rafraîchissante\n🥥 Source d’électrolytes\n🌿 Sans colorants artificiels\n💙 Une magnifique couleur nat",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1606246320889073"
+    },
     {
       "date": "2026-08-04",
       "plateforme": "facebook",
@@ -28414,6 +28438,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-08-05",
+      "plateforme": "instagram",
+      "description_courte": "Une boisson hydratante simple, colorée et parfaite pour les journées chaudes! 🥵\n\nPourquoi on l’aime?\n💧 Rafraîchissante\n🥥 Source d’électrolytes\n🌿 Sans colorants artificiels\n💙 Une magnifique couleur nat",
+      "lien_post": "https://www.instagram.com/p/DbrMCIvsamc/"
     },
     {
       "date": "2026-08-04",
@@ -43623,12 +43653,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10195674.9,
-    "total_ventes_bel": 7083933.869999999,
-    "total_ventes_boutique": 2570661.98,
+    "total_ventes": 10201077.530000001,
+    "total_ventes_bel": 7087773.390000001,
+    "total_ventes_boutique": 2572225.09,
     "total_ventes_wholesale": 541079.05,
-    "panier_moyen_bel": 95.48103313840156,
+    "panier_moyen_bel": 95.4864155844156,
     "date_min": "2021-11-01",
-    "date_max": "2026-08-04"
+    "date_max": "2026-08-05"
   }
 }
