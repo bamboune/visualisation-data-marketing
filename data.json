@@ -27719,6 +27719,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 3
+    },
+    {
+      "date": "2026-08-06",
+      "ventes_bel": 2970.43,
+      "ventes_boutique": 1309.44,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 4279.87,
+      "commandes_bel": 26.0,
+      "commandes_boutique": 24.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 50.0,
+      "panier_moyen_bel": 114.25,
+      "panier_moyen_boutique": 54.56,
+      "temp_max": 28.0,
+      "temp_min": 19.3,
+      "precipitation_mm": 2.7,
+      "snowfall_cm": 0.0,
+      "weather_code": 61
     }
   ],
   "infolettres": [
@@ -27899,6 +27917,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-08-06",
+      "plateforme": "facebook",
+      "description_courte": "Cette petite plante-là est mêlée à la découverte d'un des médicaments les plus prescrits au monde.\n\nLe mélilot, tu l'as sûrement senti sans le savoir. Une odeur de foin sucré vanillé, qui se dégage en",
+      "lien_post": "https://www.facebook.com/reel/923994973394111/"
+    },
     {
       "date": "2026-08-05",
       "plateforme": "facebook",
@@ -28438,6 +28462,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-08-06",
+      "plateforme": "instagram",
+      "description_courte": "Cette petite plante-là est mêlée à la découverte d'un des médicaments les plus prescrits au monde.\n\nLe mélilot, tu l'as sûrement senti sans le savoir. Une odeur de foin sucré vanillé, qui se dégage en",
+      "lien_post": "https://www.instagram.com/reel/DbtGC_5jODY/"
     },
     {
       "date": "2026-08-05",
@@ -43653,12 +43683,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10201077.530000001,
-    "total_ventes_bel": 7087773.390000001,
-    "total_ventes_boutique": 2572225.09,
+    "total_ventes": 10205357.4,
+    "total_ventes_bel": 7090743.82,
+    "total_ventes_boutique": 2573534.53,
     "total_ventes_wholesale": 541079.05,
-    "panier_moyen_bel": 95.4864155844156,
+    "panier_moyen_bel": 95.49859182349125,
     "date_min": "2021-11-01",
-    "date_max": "2026-08-05"
+    "date_max": "2026-08-06"
   }
 }
