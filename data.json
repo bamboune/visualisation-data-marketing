@@ -27737,6 +27737,24 @@
       "precipitation_mm": 2.7,
       "snowfall_cm": 0.0,
       "weather_code": 61
+    },
+    {
+      "date": "2026-08-07",
+      "ventes_bel": 3372.38,
+      "ventes_boutique": 1749.03,
+      "ventes_wholesale": 602.16,
+      "ventes_total": 5723.57,
+      "commandes_bel": 28.0,
+      "commandes_boutique": 34.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 63.0,
+      "panier_moyen_bel": 120.44,
+      "panier_moyen_boutique": 51.44,
+      "temp_max": 28.0,
+      "temp_min": 20.8,
+      "precipitation_mm": 0.1,
+      "snowfall_cm": 0.0,
+      "weather_code": 51
     }
   ],
   "infolettres": [
@@ -27917,6 +27935,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-08-07",
+      "plateforme": "facebook",
+      "description_courte": "Et toi, ton produit zen par excellence?",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1607999014047137"
+    },
     {
       "date": "2026-08-06",
       "plateforme": "facebook",
@@ -28462,6 +28486,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-08-07",
+      "plateforme": "instagram",
+      "description_courte": "Et toi, ton produit zen par excellence?",
+      "lien_post": "https://www.instagram.com/p/DbwYx71FU9q/"
     },
     {
       "date": "2026-08-06",
@@ -43683,12 +43713,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10205357.4,
-    "total_ventes_bel": 7090743.82,
-    "total_ventes_boutique": 2573534.53,
-    "total_ventes_wholesale": 541079.05,
-    "panier_moyen_bel": 95.49859182349125,
+    "total_ventes": 10211080.969999999,
+    "total_ventes_bel": 7094116.199999999,
+    "total_ventes_boutique": 2575283.5599999996,
+    "total_ventes_wholesale": 541681.2100000001,
+    "panier_moyen_bel": 95.514766536965,
     "date_min": "2021-11-01",
-    "date_max": "2026-08-06"
+    "date_max": "2026-08-07"
   }
 }
