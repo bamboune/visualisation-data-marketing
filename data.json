@@ -27770,9 +27770,27 @@
       "panier_moyen_boutique": 53.33,
       "temp_max": 26.9,
       "temp_min": 19.7,
-      "precipitation_mm": 8.6,
+      "precipitation_mm": 8.5,
       "snowfall_cm": 0.0,
       "weather_code": 63
+    },
+    {
+      "date": "2026-08-09",
+      "ventes_bel": 3958.42,
+      "ventes_boutique": 472.29,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 4430.71,
+      "commandes_bel": 44.0,
+      "commandes_boutique": 11.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 55.0,
+      "panier_moyen_bel": 89.96,
+      "panier_moyen_boutique": 42.94,
+      "temp_max": 26.0,
+      "temp_min": 20.0,
+      "precipitation_mm": 1.9,
+      "snowfall_cm": 0.0,
+      "weather_code": 53
     }
   ],
   "infolettres": [
@@ -27955,6 +27973,11 @@
       "date": "2026-08-02",
       "date_envoi": "2026-08-02",
       "sujet": "Auto resend of Gatorade maison et savon camping (recettes!) + lecture de vacances (baku 10 produits) | samedi 1er août 9h + resend dimanche 19h"
+    },
+    {
+      "date": "2026-08-09",
+      "date_envoi": "2026-08-09",
+      "sujet": "Auto resend of Routine de Gen contour des yeux - 5 huiles + crème contour + abyssinie / offre d'emploi | samedi 8 août 9h + resend dimanche soir 19h"
     }
   ],
   "publications": [
@@ -43748,12 +43771,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10216552.43,
-    "total_ventes_bel": 7097401.209999999,
-    "total_ventes_boutique": 2577470.01,
+    "total_ventes": 10220983.14,
+    "total_ventes_bel": 7101359.630000001,
+    "total_ventes_boutique": 2577942.3,
     "total_ventes_wholesale": 541681.2100000001,
-    "panier_moyen_bel": 95.51369410239793,
+    "panier_moyen_bel": 95.51009715025907,
     "date_min": "2021-11-01",
-    "date_max": "2026-08-08"
+    "date_max": "2026-08-09"
   }
 }
