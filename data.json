@@ -27791,6 +27791,24 @@
       "precipitation_mm": 1.9,
       "snowfall_cm": 0.0,
       "weather_code": 53
+    },
+    {
+      "date": "2026-08-10",
+      "ventes_bel": 3223.07,
+      "ventes_boutique": 0.0,
+      "ventes_wholesale": 1368.84,
+      "ventes_total": 4591.91,
+      "commandes_bel": 33.0,
+      "commandes_boutique": 0.0,
+      "commandes_wholesale": 2.0,
+      "commandes_total": 35.0,
+      "panier_moyen_bel": 97.67,
+      "panier_moyen_boutique": 0.0,
+      "temp_max": 26.0,
+      "temp_min": 19.2,
+      "precipitation_mm": 9.4,
+      "snowfall_cm": 0.0,
+      "weather_code": 63
     }
   ],
   "infolettres": [
@@ -27981,6 +27999,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-08-10",
+      "plateforme": "facebook",
+      "description_courte": "Bref, la verge d’or est innocente (tu vas comprendre dans la vidéo.)\n\nCe qu’on a pas eu le temps de dire : pendant qu’on l’accuse pour rien, elle nourrit une tonne de pollinisateurs en fin de saison, ",
+      "lien_post": "https://www.facebook.com/reel/1365759948369482/"
+    },
     {
       "date": "2026-08-08",
       "plateforme": "facebook",
@@ -28538,6 +28562,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-08-10",
+      "plateforme": "instagram",
+      "description_courte": "Bref, la verge d’or est innocente (tu vas comprendre dans la vidéo.)\n\nCe qu’on a pas eu le temps de dire : pendant qu’on l’accuse pour rien, elle nourrit une tonne de pollinisateurs en fin de saison, ",
+      "lien_post": "https://www.instagram.com/reel/Db3ZRA3gRiK/"
     },
     {
       "date": "2026-08-08",
@@ -43771,12 +43801,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10220983.14,
-    "total_ventes_bel": 7101359.630000001,
+    "total_ventes": 10225575.05,
+    "total_ventes_bel": 7104582.699999999,
     "total_ventes_boutique": 2577942.3,
-    "total_ventes_wholesale": 541681.2100000001,
-    "panier_moyen_bel": 95.51009715025907,
+    "total_ventes_wholesale": 543050.05,
+    "panier_moyen_bel": 95.51149514563107,
     "date_min": "2021-11-01",
-    "date_max": "2026-08-09"
+    "date_max": "2026-08-10"
   }
 }
