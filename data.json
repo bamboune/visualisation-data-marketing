@@ -43990,6 +43990,24 @@
       "couvertures_mediatiques": "",
       "commentaires_notes": "",
       "event_id": ""
+    },
+    {
+      "date": "2026-08-12",
+      "rabais_promos": "",
+      "lancement_produits_ateliers": "test",
+      "bis_alertes_back_in_stock": "",
+      "infolettre": "",
+      "push_notif": "",
+      "billet_blogue": "",
+      "webmestre_funnels": "",
+      "temperature": "",
+      "meteo_montreal": "",
+      "meteo_generale": "",
+      "politique_actualite": "",
+      "fetes_feries_conges": "",
+      "couvertures_mediatiques": "",
+      "commentaires_notes": "test",
+      "event_id": ""
     }
   ],
   "stats": {
