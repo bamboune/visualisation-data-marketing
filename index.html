@@ -485,8 +485,16 @@
             <input type="date" id="eventDate" required>
             <label>Catégorie</label>
             <select id="eventCategorie" style="width:100%;padding:10px 14px;margin-top:6px;border-radius:10px;border:1px solid #ddd8d0;background:#faf8f5;color:#1e2330;font-size:0.9rem;">
-                <option value="marketing">Marketing</option>
+                <option value="rabais_promos">Rabais / Promo</option>
+                <option value="lancement_produits_ateliers">Lancement produit / Atelier</option>
+                <option value="bis_alertes_back_in_stock">BIS / Back in stock</option>
+                <option value="infolettre">Infolettre</option>
+                <option value="push_notif">Push notification</option>
+                <option value="billet_blogue">Billet de blogue</option>
+                <option value="reseaux_sociaux">Réseaux sociaux</option>
+                <option value="webmestre_funnels">Webmestre / Funnels</option>
                 <option value="contexte">Contexte</option>
+                <option value="autre">Autre</option>
             </select>
             <label>Action</label>
             <p style="font-size:0.75rem;color:#8a8f9e;margin-top:6px;margin-bottom:4px;line-height:1.5;">Un lancement? Un BIS? Un atelier? Une promo? Sois précise — plus c'est clair, plus c'est facile à retrouver plus tard.</p>
@@ -500,12 +508,23 @@
 </div>
 
 <script>
-    const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbxR-QpfTDuUJOnGAmDFyI8K20csya70Wxz6Y7MDuKIHjpsM5vNBNEnwru4VyaDJeO_UbQ/exec';
+    const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzfag6UzQWchuxY9DU1rn3u9JY7jj3ZA9krltDAsGkVHYU0c8MyVUBApDrU4mUZvCZeLQ/exec';
     const MONTHS_SHORT = ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
     const MONTHS_LONG  = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
     const DAYS_FR = ['dim','lun','mar','mer','jeu','ven','sam'];
-    const ACTION_COLS = ['rabais_promos','lancement_produits_ateliers','bis_alertes_back_in_stock','infolettre','push_notif','billet_blogue','webmestre_funnels'];
-    const CONTEXTE_COLS = ['temperature','meteo_montreal','meteo_generale','politique_actualite','fetes_feries_conges','couvertures_mediatiques'];
+    const ACTION_TAGS = {
+        'rabais_promos':               { label: 'Promo',      css: 'tag-marketing' },
+        'lancement_produits_ateliers': { label: 'Lancement',  css: 'tag-marketing' },
+        'bis_alertes_back_in_stock':   { label: 'BIS',        css: 'tag-marketing' },
+        'infolettre':                  { label: 'Infolettre', css: 'tag-marketing' },
+        'push_notif':                  { label: 'Push',       css: 'tag-marketing' },
+        'billet_blogue':               { label: 'Blogue',     css: 'tag-marketing' },
+        'reseaux_sociaux':             { label: 'Réseaux',    css: 'tag-marketing' },
+        'webmestre_funnels':           { label: 'Web',        css: 'tag-marketing' },
+        'contexte':                    { label: 'Contexte',   css: 'tag-contexte'  },
+        'marketing':                   { label: 'Marketing',  css: 'tag-marketing' },
+        'autre':                       { label: 'Autre',      css: 'tag-contexte'  },
+    };
 
     let fullData = null;
     let annualChart = null;
@@ -618,7 +637,7 @@
         const totalEmails = monthlyEmails.reduce((a,b)=>a+b,0);
         const totalEvents = (fullData.evenements || []).filter(ev => {
             if (dayjs(ev.date).year() !== year) return false;
-            return ACTION_COLS.some(k => ev[k]?.toString().trim()) || (ev.commentaires_notes?.toString().trim());
+            return ev.description?.toString().trim() || ev.note?.toString().trim();
         }).length;
 
         // Period label
@@ -890,12 +909,10 @@
         const dateStr = showFullDate
             ? d.date() + ' ' + MONTHS_SHORT[d.month()] + ' ' + d.year() + ' · ' + DAYS_FR[d.day()]
             : d.format('DD/MM') + ' ' + DAYS_FR[d.day()];
-        const actions = ACTION_COLS.map(k => ev[k]?.toString().trim()).filter(Boolean).join(' · ') || '—';
-        const notes   = [...CONTEXTE_COLS.map(k => ev[k]?.toString().trim()), ev.commentaires_notes?.toString().trim()].filter(Boolean).join(' · ');
-        const isMarketing = ACTION_COLS.some(k => ev[k]?.toString().trim());
-        const isContexte  = CONTEXTE_COLS.some(k => ev[k]?.toString().trim());
-        const tagHtml = (isMarketing ? ' <span class="tag-marketing">marketing</span>' : '')
-                      + (isContexte  ? ' <span class="tag-contexte">contexte</span>'  : '');
+        const actions = ev.description?.toString().trim() || '—';
+        const notes   = ev.note?.toString().trim() || '';
+        const evTag   = ACTION_TAGS[ev.type];
+        const tagHtml = evTag ? ` <span class="${evTag.css}">${evTag.label}</span>` : '';
         return `<tr>
             <td class="date-cell">${dateStr}</td>
             <td class="action-cell">${actions}${tagHtml}</td>
@@ -910,11 +927,7 @@
 
         const events = (fullData.evenements || [])
             .filter(ev => { const d = dayjs(ev.date).format('YYYY-MM-DD'); return d >= start && d <= end; })
-            .filter(ev =>
-                ACTION_COLS.some(k => ev[k]?.toString().trim()) ||
-                CONTEXTE_COLS.some(k => ev[k]?.toString().trim()) ||
-                ev.commentaires_notes?.toString().trim()
-            )
+            .filter(ev => ev.description?.toString().trim() || ev.note?.toString().trim())
             .sort((a,b) => dayjs(a.date).diff(dayjs(b.date)));
 
         document.getElementById('eventsCount').textContent = events.length;
@@ -939,17 +952,12 @@
         document.getElementById('searchView').style.display  = 'block';
 
         const filtered = (fullData.evenements || [])
-            .filter(ev =>
-                ACTION_COLS.some(k => ev[k]?.toString().trim()) ||
-                CONTEXTE_COLS.some(k => ev[k]?.toString().trim()) ||
-                ev.commentaires_notes?.toString().trim()
-            )
+            .filter(ev => ev.description?.toString().trim() || ev.note?.toString().trim())
             .filter(ev => {
                 const d = dayjs(ev.date);
                 const dateStr = d.date() + ' ' + MONTHS_SHORT[d.month()] + ' ' + d.year();
-                const actions = ACTION_COLS.map(k => ev[k]?.toString().trim()).filter(Boolean).join(' ');
-                const notes   = [...CONTEXTE_COLS.map(k => ev[k]?.toString().trim()), ev.commentaires_notes?.toString().trim()].filter(Boolean).join(' ');
-                return (dateStr + ' ' + actions + ' ' + notes).toLowerCase().includes(q);
+                const text = (ev.description?.toString() || '') + ' ' + (ev.note?.toString() || '') + ' ' + (ev.type || '');
+                return (dateStr + ' ' + text).toLowerCase().includes(q);
             })
             .sort((a,b) => dayjs(b.date).diff(dayjs(a.date)));
 
@@ -1160,7 +1168,7 @@
             await fetch(WEBHOOK_URL, {
                 method: 'POST', mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ date, categorie, action, note })
+                body: JSON.stringify({ date, type_action: categorie, action, note })
             });
             document.getElementById('formMessage').innerHTML = '<span style="color:#6ab04c;">✅ Événement ajouté ! Mise à jour dans quelques minutes.</span>';
             document.getElementById('eventForm').reset();
