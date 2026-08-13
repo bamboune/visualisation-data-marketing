@@ -1,12 +1,9 @@
 import json
-import math
 import os
-import time
 import pandas as pd
 import requests
 from datetime import date, datetime
 import gspread
-from gspread.exceptions import APIError
 from oauth2client.service_account import ServiceAccountCredentials
 import re
 
@@ -55,31 +52,11 @@ def convert_to_serializable(obj):
         return obj.strftime('%Y-%m-%d')
     return obj
 
-def sanitize_nan(obj):
-    """Remplace NaN/Infinity par None (null JSON) — Python les écrit comme NaN sinon."""
-    if isinstance(obj, float) and (math.isnan(obj) or math.isinf(obj)):
-        return None
-    if isinstance(obj, dict):
-        return {k: sanitize_nan(v) for k, v in obj.items()}
-    if isinstance(obj, list):
-        return [sanitize_nan(v) for v in obj]
-    return obj
-
-def get_google_sheet(sheet_name, header_row=1, retries=4):
+def get_google_sheet(sheet_name, header_row=1, col_aliases=None):
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
     creds = ServiceAccountCredentials.from_json_keyfile_name(SERVICE_ACCOUNT_FILE, scope)
     client = gspread.authorize(creds)
-    for attempt in range(retries):
-        try:
-            sheet = client.open_by_key(SPREADSHEET_ID).worksheet(sheet_name)
-            break
-        except APIError as e:
-            if attempt < retries - 1 and e.response.status_code in (429, 500, 502, 503, 504):
-                wait = 2 ** attempt
-                print(f"   ⚠️ Google Sheets API erreur {e.response.status_code}, retry dans {wait}s…")
-                time.sleep(wait)
-            else:
-                raise
+    sheet = client.open_by_key(SPREADSHEET_ID).worksheet(sheet_name)
     
     all_values = sheet.get_all_values()
     if not all_values or len(all_values) < header_row:
@@ -89,7 +66,7 @@ def get_google_sheet(sheet_name, header_row=1, retries=4):
     clean_headers = []
     for i, h in enumerate(headers):
         if not h or h.strip() == "":
-            clean_headers.append(f"col_{i}")
+            clean_headers.append((col_aliases or {}).get(i, f"col_{i}"))
         else:
             clean_headers.append(h.strip().lower())
     
@@ -313,7 +290,11 @@ def main():
     print("📁 Lecture des données...")
     ventes = get_google_sheet("ventes_quotidiennes", header_row=1)
     infolettres = get_mailerlite_campaigns()
-    evenements = get_google_sheet("evenements_marketing", header_row=1)  # en-têtes ligne 1 (nouveau format)
+    # col_aliases: positional fallback when header cells are empty (e.g. after migration glitch)
+    evenements = get_google_sheet(
+        "evenements_marketing", header_row=1,
+        col_aliases={2: 'description', 3: 'note', 4: 'event_id'}
+    )
 
     print("📱 Récupération des publications Facebook/Instagram...")
     fb_posts = get_facebook_posts()
@@ -327,9 +308,6 @@ def main():
     print(f"   📧 Infolettres : {len(infolettres)} lignes")
     print(f"   📱 Publications : {len(publications)} lignes")
     print(f"   ⚡ Événements : {len(evenements)} lignes")
-    
-    if len(evenements) > 0:
-        print(f"   🔍 Colonnes événements : {list(evenements.columns[:5])}")
     
     if ventes.empty:
         print("❌ Aucune donnée de ventes")
@@ -403,7 +381,7 @@ def main():
     }
     
     with open('data.json', 'w', encoding='utf-8') as f:
-        json.dump(sanitize_nan(dashboard_data), f, ensure_ascii=False, indent=2, default=convert_to_serializable)
+        json.dump(dashboard_data, f, ensure_ascii=False, indent=2, default=convert_to_serializable)
     
     print(f"\n✅ SUCCÈS ! data.json généré")
     print(f"   📅 {len(ventes)} jours du {start_date} au {end_date}")
