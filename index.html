@@ -518,6 +518,17 @@
             const r = await fetch('data.json?v=' + Date.now());
             if (!r.ok) throw new Error('data.json introuvable');
             fullData = await r.json();
+            // Normalise evenements: mapping col_N → named fields when headers were missing from sheet
+            if (fullData.evenements) {
+                fullData.evenements = fullData.evenements.map(ev => {
+                    if ('description' in ev) return ev;
+                    const out = Object.assign({}, ev);
+                    if (!out.description && out.col_2 !== undefined) { out.description = out.col_2; delete out.col_2; }
+                    if (!out.note      && out.col_3 !== undefined) { out.note      = out.col_3; delete out.col_3; }
+                    if (!out.event_id  && out.col_4 !== undefined) { out.event_id  = out.col_4; delete out.col_4; }
+                    return out;
+                });
+            }
             initFilters();
             applyFiltersAndRender();
         } catch(err) {

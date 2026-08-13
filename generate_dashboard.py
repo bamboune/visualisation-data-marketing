@@ -52,7 +52,7 @@ def convert_to_serializable(obj):
         return obj.strftime('%Y-%m-%d')
     return obj
 
-def get_google_sheet(sheet_name, header_row=1):
+def get_google_sheet(sheet_name, header_row=1, col_aliases=None):
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
     creds = ServiceAccountCredentials.from_json_keyfile_name(SERVICE_ACCOUNT_FILE, scope)
     client = gspread.authorize(creds)
@@ -66,7 +66,7 @@ def get_google_sheet(sheet_name, header_row=1):
     clean_headers = []
     for i, h in enumerate(headers):
         if not h or h.strip() == "":
-            clean_headers.append(f"col_{i}")
+            clean_headers.append((col_aliases or {}).get(i, f"col_{i}"))
         else:
             clean_headers.append(h.strip().lower())
     
@@ -290,7 +290,11 @@ def main():
     print("📁 Lecture des données...")
     ventes = get_google_sheet("ventes_quotidiennes", header_row=1)
     infolettres = get_mailerlite_campaigns()
-    evenements = get_google_sheet("evenements_marketing", header_row=2)  # ← en-têtes ligne 2
+    # col_aliases: positional fallback when header cells are empty (e.g. after migration glitch)
+    evenements = get_google_sheet(
+        "evenements_marketing", header_row=1,
+        col_aliases={2: 'description', 3: 'note', 4: 'event_id'}
+    )
 
     print("📱 Récupération des publications Facebook/Instagram...")
     fb_posts = get_facebook_posts()
@@ -304,28 +308,6 @@ def main():
     print(f"   📧 Infolettres : {len(infolettres)} lignes")
     print(f"   📱 Publications : {len(publications)} lignes")
     print(f"   ⚡ Événements : {len(evenements)} lignes")
-    
-    # ==================== DIAGNOSTIC ====================
-        # Afficher les 5 dernières lignes brutes de la feuille (pour debug)
-    try:
-        scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-        creds = ServiceAccountCredentials.from_json_keyfile_name(SERVICE_ACCOUNT_FILE, scope)
-        client = gspread.authorize(creds)
-        sheet_raw = client.open_by_key(SPREADSHEET_ID).worksheet("evenements_marketing")
-        all_raw = sheet_raw.get_all_values()
-        print("\n🔍 Dernières lignes brutes de evenements_marketing :")
-        for i in range(max(0, len(all_raw)-5), len(all_raw)):
-            print(f"   Ligne {i+1}: {all_raw[i][:5]}")  # affiche les 5 premières colonnes
-    except Exception as e:
-        print(f"   ❌ Erreur affichage brut: {e}")
-    
-    # Afficher les 5 derniers événements lus dans le DataFrame
-    if len(evenements) > 0:
-        print("\n🔍 Derniers événements dans le DataFrame :")
-        for i in range(max(0, len(evenements)-5), len(evenements)):
-            row = evenements.iloc[i]
-            print(f"   date={row.get('date', '?')}, rabais={row.get('rabais_promos', '')}, lancement={row.get('lancement_produits_ateliers', '')}")
-    # ====================================================
     
     if ventes.empty:
         print("❌ Aucune donnée de ventes")
