@@ -702,6 +702,7 @@
         const totalPubs   = monthlyPubs.reduce((a,b)=>a+b,0);
         const totalEmails = monthlyEmails.reduce((a,b)=>a+b,0);
         const totalEvents = (fullData.evenements || []).filter(ev => {
+            if (!ev.date || !dayjs(ev.date).isValid()) return false;
             if (dayjs(ev.date).year() !== year) return false;
             return ev.description?.toString().trim() || ev.note?.toString().trim();
         }).length;
@@ -1203,6 +1204,7 @@
         const end   = dayjs(new Date(y, m, 0)).format('YYYY-MM-DD');
 
         const events = (fullData.evenements || [])
+            .filter(ev => ev.date && dayjs(ev.date).isValid())
             .filter(ev => { const d = dayjs(ev.date).format('YYYY-MM-DD'); return d >= start && d <= end; })
             .filter(ev => ev.description?.toString().trim() || ev.note?.toString().trim())
             .sort((a,b) => dayjs(a.date).diff(dayjs(b.date)));
@@ -1250,6 +1252,7 @@
         document.getElementById('searchView').style.display  = 'block';
 
         const filtered = (fullData.evenements || [])
+            .filter(ev => ev.date && dayjs(ev.date).isValid())
             .filter(ev => ev.description?.toString().trim() || ev.note?.toString().trim())
             .filter(ev => {
                 const d = dayjs(ev.date);
