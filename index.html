@@ -161,6 +161,8 @@
         /* MONTHLY GRID */
         .monthly-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
         @media (max-width: 820px) { .monthly-grid { grid-template-columns: 1fr; } }
+        .monthly-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+        @media (max-width: 900px) { .monthly-grid-3 { grid-template-columns: 1fr; } }
 
         /* DATA CARDS */
         .data-card {
@@ -305,12 +307,48 @@
             font-weight: 600;
         }
         .btn-submit:hover { background: #6a5e8c; }
+
+        /* Hint bouton + rappel modale */
+        .add-hint {
+            display: flex; align-items: center; gap: 7px;
+            background: #faf7ff; border: 1px solid #ddd6f5;
+            border-radius: 8px; padding: 7px 14px;
+            font-size: 0.75rem; color: #5b21b6; line-height: 1.4;
+            margin-bottom: 16px;
+        }
+        .add-hint-icon {
+            width: 16px; height: 16px; border-radius: 50%;
+            background: #5b21b6; color: #fff;
+            font-size: 0.65rem; font-weight: 700; flex-shrink: 0;
+            display: inline-flex; align-items: center; justify-content: center;
+        }
+        .modal-reminder {
+            background: #faf7ff; border: 1px solid #ede9ff; border-radius: 10px;
+            padding: 10px 14px; margin-bottom: 18px;
+            font-size: 0.78rem; color: #5a5f72; line-height: 1.6;
+        }
+        .modal-reminder strong { color: #5b21b6; }
         .modal-close { float: right; font-size: 1.3rem; cursor: pointer; color: #8a8f9e; line-height: 1; }
         .modal-close:hover { color: #1e2330; }
 
         /* CATEGORY TAGS */
         .tag-marketing { background: #ede9ff; color: #5b21b6; padding: 2px 8px; border-radius: 5px; font-size: 0.68rem; font-weight: 700; display: inline-block; }
         .tag-contexte { background: #fef3c7; color: #92400e; padding: 2px 8px; border-radius: 5px; font-size: 0.68rem; font-weight: 700; display: inline-block; }
+        /* ACTION TYPE TAGS */
+        .tag-type { padding: 2px 7px; border-radius: 5px; font-size: 0.65rem; font-weight: 800; display: inline-block; letter-spacing: 0.03em; margin-right: 2px; }
+        .tag-promo       { background: #fce7f3; color: #9d174d; }
+        .tag-lancement   { background: #dcfce7; color: #166534; }
+        .tag-bis         { background: #dbeafe; color: #1e40af; }
+        .tag-infolettre  { background: #f3e8ff; color: #6b21a8; }
+        .tag-push        { background: #ffedd5; color: #9a3412; }
+        .tag-blogue      { background: #e0f2fe; color: #075985; }
+        .tag-reseaux     { background: #fdf4ff; color: #86198f; }
+        .tag-autre       { background: #f1f5f9; color: #475569; }
+        .event-actions { display: inline-flex; gap: 2px; opacity: 0; transition: opacity 0.15s; vertical-align: middle; margin-left: 6px; }
+        tr:hover .event-actions { opacity: 1; }
+        .btn-ev { background: none; border: none; cursor: pointer; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; line-height: 1; color: #8a8f9e; }
+        .btn-ev:hover { background: #f0ece6; }
+        .btn-ev.del:hover { background: #fee2e2; color: #ef4444; }
 
         /* HOLIDAYS BAR */
         .holidays-bar {
@@ -326,10 +364,12 @@
             gap: 12px;
         }
         .holiday-item { display: flex; align-items: center; gap: 5px; }
-        .holiday-dot { width: 6px; height: 6px; background: #c87f4a; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+        .holiday-dot { width: 7px; height: 7px; background: #dc2626; transform: rotate(45deg); border-radius: 1px; display: inline-block; flex-shrink: 0; }
     </style>
 </head>
 <body>
+
+<div id="dashboardError" style="display:none;position:fixed;top:0;left:0;right:0;background:#fef2f2;color:#ef4444;padding:12px 20px;font-size:0.82rem;z-index:10000;border-bottom:1px solid #fecaca;"></div>
 
 <div id="loginOverlay" style="display:none;position:fixed;inset:0;background:rgba(17,24,39,0.97);z-index:9999;align-items:center;justify-content:center;">
   <div style="background:#1f2937;border-radius:12px;padding:2.5rem;width:320px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.5);">
@@ -390,6 +430,11 @@
         </div>
     </div>
 
+    <div class="add-hint">
+        <span class="add-hint-icon">i</span>
+        Saisir manuellement dans les événements&nbsp;: Actualité &amp; contexte &nbsp;·&nbsp; Back in stock (BIS) &nbsp;·&nbsp; Push notif
+    </div>
+
     <div class="toolbar">
         <div class="view-toggles" id="viewToggles">
             <button class="btn-view active" id="viewAnnualBtn">Vue annuelle</button>
@@ -420,6 +465,7 @@
         </div>
     </div>
 
+    <div id="channelBreakdown" class="weather-bar" style="display:none;"></div>
     <div id="weatherBar" class="weather-bar" style="display:none;"></div>
 
     <!-- VUE ANNUELLE -->
@@ -433,7 +479,18 @@
 
     <!-- VUE MENSUELLE -->
     <div id="monthlyView" style="display:none;">
-        <div class="monthly-grid">
+        <div class="chart-card" style="margin-bottom:14px;">
+            <div class="card-title-sm" id="dailyChartTitle">Ventes journalières</div>
+            <canvas id="dailyChart" height="280" style="max-height:320px;"></canvas>
+            <div id="markerLegend" style="display:flex;gap:16px;margin-top:10px;font-size:0.7rem;color:#8a8f9e;flex-wrap:wrap;">
+                <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#5b21b6;margin-right:5px;vertical-align:middle;"></span>Événement marketing</span>
+                <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#5a9e7a;margin-right:5px;vertical-align:middle;"></span>Infolettre</span>
+                <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#c87f4a;margin-right:5px;vertical-align:middle;"></span>Publication sociale</span>
+                <span><span style="display:inline-block;width:8px;height:8px;background:#dc2626;transform:rotate(45deg);border-radius:1px;margin-right:5px;vertical-align:middle;"></span>Jour férié</span>
+            </div>
+            <div id="holidaysBar" class="holidays-bar" style="display:none;"></div>
+        </div>
+        <div class="monthly-grid-3">
             <div class="data-card">
                 <div class="card-header">
                     <div class="card-title">⚡ Événements marketing et contexte</div>
@@ -441,13 +498,6 @@
                 </div>
                 <div id="eventsBody"></div>
             </div>
-            <div class="chart-card">
-                <div class="card-title-sm" id="dailyChartTitle">Ventes journalières</div>
-                <canvas id="dailyChart" height="280" style="max-height:320px;"></canvas>
-                <div id="holidaysBar" class="holidays-bar" style="display:none;"></div>
-            </div>
-        </div>
-        <div class="monthly-grid">
             <div class="data-card">
                 <div class="card-header">
                     <div class="card-title">📧 Infolettres</div>
@@ -479,25 +529,23 @@
 <div id="eventModal" class="modal">
     <div class="modal-content">
         <span class="modal-close" id="modalClose">&times;</span>
-        <h2>+ Ajouter un événement marketing et contexte</h2>
+        <h2 id="eventModalTitle">+ Ajouter un événement marketing et contexte</h2>
+        <div class="modal-reminder" id="modalReminder">
+            <strong>À saisir manuellement ici</strong>
+            Actualité &amp; contexte externe &nbsp;·&nbsp; Back in stock (BIS) &nbsp;·&nbsp; Push notif<br>
+            <span style="color:#9ca3af;">Les infolettres et posts IG/FB sont automatisés — pas besoin de les ajouter.</span>
+        </div>
         <form id="eventForm">
+            <input type="hidden" id="eventMode" value="add">
+            <input type="hidden" id="eventId" value="">
+            <input type="hidden" id="eventDateOriginal" value="">
+            <input type="hidden" id="eventActionOriginal" value="">
             <label>Date</label>
             <input type="date" id="eventDate" required>
-            <label>Catégorie</label>
-            <select id="eventCategorie" style="width:100%;padding:10px 14px;margin-top:6px;border-radius:10px;border:1px solid #ddd8d0;background:#faf8f5;color:#1e2330;font-size:0.9rem;">
-                <option value="rabais_promos">Rabais / Promo</option>
-                <option value="lancement_produits_ateliers">Lancement produit / Atelier</option>
-                <option value="bis_alertes_back_in_stock">BIS / Back in stock</option>
-                <option value="infolettre">Infolettre</option>
-                <option value="push_notif">Push notification</option>
-                <option value="billet_blogue">Billet de blogue</option>
-                <option value="reseaux_sociaux">Réseaux sociaux</option>
-                <option value="webmestre_funnels">Webmestre / Funnels</option>
-                <option value="contexte">Contexte</option>
-                <option value="autre">Autre</option>
-            </select>
-            <label>Action</label>
-            <p style="font-size:0.75rem;color:#8a8f9e;margin-top:6px;margin-bottom:4px;line-height:1.5;">Un lancement? Un BIS? Un atelier? Une promo? Sois précise — plus c'est clair, plus c'est facile à retrouver plus tard.</p>
+            <label>Type</label>
+            <select id="eventCategorie" style="width:100%;padding:10px 14px;margin-top:6px;border-radius:10px;border:1px solid #ddd8d0;background:#faf8f5;color:#1e2330;font-size:0.9rem;"></select>
+            <label>Description</label>
+            <p style="font-size:0.75rem;color:#8a8f9e;margin-top:6px;margin-bottom:4px;line-height:1.5;">Sois précise — plus c'est clair, plus c'est facile à retrouver plus tard.</p>
             <input type="text" id="eventAction" placeholder="Ex: Lancement crème visage camomille, Promo -20% soins, Atelier savon…" required>
             <label>Note</label>
             <textarea id="eventNote" rows="3" placeholder="Détails supplémentaires..."></textarea>
@@ -513,45 +561,63 @@
     const MONTHS_LONG  = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
     const DAYS_FR = ['dim','lun','mar','mer','jeu','ven','sam'];
     const ACTION_TAGS = {
-        'rabais_promos':               { label: 'Promo',      css: 'tag-marketing' },
-        'lancement_produits_ateliers': { label: 'Lancement',  css: 'tag-marketing' },
-        'bis_alertes_back_in_stock':   { label: 'BIS',        css: 'tag-marketing' },
-        'infolettre':                  { label: 'Infolettre', css: 'tag-marketing' },
-        'push_notif':                  { label: 'Push',       css: 'tag-marketing' },
-        'billet_blogue':               { label: 'Blogue',     css: 'tag-marketing' },
-        'reseaux_sociaux':             { label: 'Réseaux',    css: 'tag-marketing' },
-        'webmestre_funnels':           { label: 'Web',        css: 'tag-marketing' },
-        'contexte':                    { label: 'Contexte',   css: 'tag-contexte'  },
-        'marketing':                   { label: 'Marketing',  css: 'tag-marketing' },
-        'autre':                       { label: 'Autre',      css: 'tag-contexte'  },
+        rabais_promos:               { label: 'PROMO',           css: 'tag-promo' },
+        lancement_produits_ateliers: { label: 'LANCEMENT',       css: 'tag-lancement' },
+        bis_alertes_back_in_stock:   { label: 'BIS',             css: 'tag-bis' },
+        infolettre:                  { label: 'INFOLETTRE',      css: 'tag-infolettre' },
+        push_notif:                  { label: 'PUSH',            css: 'tag-push' },
+        billet_blogue:               { label: 'BLOGUE',          css: 'tag-blogue' },
+        reseaux_sociaux:             { label: 'RÉSEAUX SOCIAUX', css: 'tag-reseaux' },
+        webmestre_funnels:           { label: 'WEB',             css: 'tag-blogue' },
     };
+    const TYPE_OPTIONS = [
+        { value: 'rabais_promos',               label: '🏷️ Promo / Rabais' },
+        { value: 'lancement_produits_ateliers', label: '🚀 Lancement / Atelier' },
+        { value: 'bis_alertes_back_in_stock',   label: '🔔 BIS (Back in stock)' },
+        { value: 'infolettre',                  label: '📧 Infolettre' },
+        { value: 'push_notif',                  label: '📲 Push notification' },
+        { value: 'billet_blogue',               label: '✍️ Billet de blogue' },
+        { value: 'reseaux_sociaux',             label: '📱 Réseaux sociaux' },
+        { value: 'webmestre_funnels',           label: '🌐 Web / Funnels' },
+        { value: 'autre',                       label: '📌 Autre (marketing)' },
+        { value: 'contexte',                    label: '🌤️ Contexte (météo, fête, actu…)' },
+    ];
 
     let fullData = null;
     let annualChart = null;
     let dailyChart = null;
     let currentView = 'annual';
+    let eventRegistry = new Map();
 
     // ── LOAD ──
     async function loadData() {
         try {
-            const r = await fetch('data.json?v=' + Date.now());
-            if (!r.ok) throw new Error('data.json introuvable');
+            const r = await fetch('./data.json?v=' + Date.now());
+            if (!r.ok) throw new Error('data.json introuvable (' + r.status + ')');
             fullData = await r.json();
-            // Normalise evenements: mapping col_N → named fields when headers were missing from sheet
+            // Normalise evenements: col_N → named fields si en-têtes manquants dans le Sheet
             if (fullData.evenements) {
                 fullData.evenements = fullData.evenements.map(ev => {
                     if ('description' in ev) return ev;
                     const out = Object.assign({}, ev);
-                    if (!out.description && out.col_2 !== undefined) { out.description = out.col_2; delete out.col_2; }
-                    if (!out.note      && out.col_3 !== undefined) { out.note      = out.col_3; delete out.col_3; }
-                    if (!out.event_id  && out.col_4 !== undefined) { out.event_id  = out.col_4; delete out.col_4; }
+                    if (out.col_2 !== undefined) { out.description = out.col_2; delete out.col_2; }
+                    if (out.col_3 !== undefined) { out.note      = out.col_3; delete out.col_3; }
+                    if (out.col_4 !== undefined) { out.event_id  = out.col_4; delete out.col_4; }
                     return out;
                 });
             }
             initFilters();
             applyFiltersAndRender();
         } catch(err) {
-            document.body.innerHTML = `<div style="padding:2rem;text-align:center;color:#ef4444;">❌ ${err.message}</div>`;
+            console.error('Dashboard error:', err.name, err.message, err.stack);
+            const errEl = document.getElementById('dashboardError');
+            const detail = '[' + err.name + '] ' + err.message + ' — ' + (err.stack||'').split('\n').slice(1,3).join(' | ');
+            if (errEl) {
+                errEl.style.display = 'block';
+                errEl.textContent = '❌ ' + detail;
+            } else {
+                document.body.innerHTML = '<div style="padding:2rem;text-align:center;color:#ef4444;">❌ ' + detail + '</div>';
+            }
         }
     }
 
@@ -687,6 +753,7 @@
         setKPI(4, 'Événements marketing', totalEvents, 'Promos & campagnes');
 
         document.getElementById('weatherBar').style.display = 'none';
+        renderChannelBreakdown(ventes);
         document.getElementById('annualChartTitle').textContent = `VENTES MENSUELLES VS ACTIVITÉ MARKETING — ${year}`;
 
         // Datasets du graphique — ajout de la ligne N-1 pour l'année en cours
@@ -788,18 +855,47 @@
 
         const prevYearMTD     = year - 1;
         const prevMonthKeyMTD = `${prevYearMTD}-${monthKey.split('-')[1]}`;
-        const lastDay         = ventes.length ? dayjs(ventes[ventes.length - 1].date).date() : 0;
+        const today           = dayjs();
+        const isCurrentMonth  = (monthKey === today.format('YYYY-MM'));
+        const rawLastDay      = ventes.length ? dayjs(ventes[ventes.length - 1].date).date() : 0;
+        // Pour le mois en cours : exclure la journée d'aujourd'hui (données incomplètes)
+        const lastDay         = isCurrentMonth ? Math.min(rawLastDay, today.subtract(1, 'day').date()) : rawLastDay;
         const prevVentesMTD   = fullData.ventes.filter(v =>
             dayjs(v.date).format('YYYY-MM') === prevMonthKeyMTD &&
             dayjs(v.date).date() <= lastDay
         );
         const prevTotalMTD    = prevVentesMTD.reduce((s, v) => s + getSalesValue(v, channel), 0);
-        const prevMTDLabel    = prevVentesMTD.length
-            ? `${MONTHS_LONG[monthIdx].toUpperCase()} ${prevYearMTD} (MTD) : ${prevTotalMTD.toLocaleString('fr-CA')} $`
+
+        // Métriques N-1 pour panier moyen, moy/jour et commandes
+        let prevOrders = 0, prevCartSum = 0, prevCartCount = 0;
+        prevVentesMTD.forEach(v => {
+            prevOrders += parseInt(v.commandes_total)||0;
+            const panierField = channel === 'boutique' ? 'panier_moyen_boutique' : 'panier_moyen_bel';
+            const p = parseFloat(v[panierField])||0;
+            if (p > 0) { prevCartSum += p; prevCartCount++; }
+        });
+        const prevAvgDaily = prevVentesMTD.length ? prevTotalMTD / prevVentesMTD.length : 0;
+        const prevAvgCart  = prevCartCount ? prevCartSum / prevCartCount : 0;
+
+        const hasPrev = prevVentesMTD.length > 0;
+        const cutoffNote = isCurrentMonth && lastDay > 0
+            ? ` — au ${lastDay} ${MONTHS_LONG[monthIdx].toLowerCase()} (j-1 exclu)`
+            : '';
+        const prevMTDLabel = hasPrev
+            ? `${MONTHS_LONG[monthIdx].toUpperCase()} ${prevYearMTD} (MTD) : ${prevTotalMTD.toLocaleString('fr-CA')} $${cutoffNote}`
             : 'Données année précédente non disponibles';
-        const pctVsN1 = prevVentesMTD.length && prevTotalMTD > 0
-            ? (totalVentes - prevTotalMTD) / prevTotalMTD * 100
-            : null;
+
+        function applyPct(kpiN, currentVal, prevVal) {
+            if (!hasPrev || prevVal <= 0) return;
+            const pct = (currentVal - prevVal) / prevVal * 100;
+            const pctStr   = (pct >= 0 ? '+' : '') + pct.toFixed(1).replace('.', ',') + ' %';
+            const pctColor = pct >= 0 ? '#6ab04c' : '#ef4444';
+            const el = document.getElementById(`kpi${kpiN}Value`);
+            el.innerHTML = el.textContent + ` <span style="font-size:1rem;font-weight:600;color:${pctColor};">${pctStr}</span>`;
+        }
+
+        const pctVsN1 = hasPrev && prevTotalMTD > 0
+            ? (totalVentes - prevTotalMTD) / prevTotalMTD * 100 : null;
         setKPI(1, `Ventes totales nettes — ${monthName.toUpperCase()}`, totalVentes.toLocaleString('fr-CA') + ' $', prevMTDLabel);
         if (pctVsN1 !== null) {
             const pctStr   = (pctVsN1 >= 0 ? '+' : '') + pctVsN1.toFixed(1).replace('.', ',') + ' %';
@@ -807,96 +903,269 @@
             document.getElementById('kpi1Value').innerHTML =
                 `${totalVentes.toLocaleString('fr-CA')} $ <span style="font-size:1rem;font-weight:600;color:${pctColor};">${pctStr}</span>`;
         }
-        setKPI(2, 'Panier moyen', avgCart.toLocaleString('fr-CA', {minimumFractionDigits:2,maximumFractionDigits:2}) + ' $', panierLabel);
-        setKPI(3, 'Moy. / jour', avgDaily.toLocaleString('fr-CA', {maximumFractionDigits:0}) + ' $', '');
-        setKPI(4, 'Commandes', totalOrders.toLocaleString('fr-CA'), '');
+
+        setKPI(2, 'Panier moyen', avgCart.toLocaleString('fr-CA', {minimumFractionDigits:2,maximumFractionDigits:2}) + ' $',
+            hasPrev && prevAvgCart > 0 ? `N-1 : ${prevAvgCart.toLocaleString('fr-CA', {minimumFractionDigits:2,maximumFractionDigits:2})} $` : panierLabel);
+        applyPct(2, avgCart, prevAvgCart);
+
+        setKPI(3, 'Moy. / jour', avgDaily.toLocaleString('fr-CA', {maximumFractionDigits:0}) + ' $',
+            hasPrev && prevAvgDaily > 0 ? `N-1 : ${prevAvgDaily.toLocaleString('fr-CA', {maximumFractionDigits:0})} $` : '');
+        applyPct(3, avgDaily, prevAvgDaily);
+
+        setKPI(4, 'Commandes', totalOrders.toLocaleString('fr-CA'),
+            hasPrev && prevOrders > 0 ? `N-1 : ${prevOrders.toLocaleString('fr-CA')}` : '');
+        applyPct(4, totalOrders, prevOrders);
 
         // Weather
-        const rainDays = ventes.filter(v => (parseFloat(v.precipitation_mm)||0) > 0.5);
-        const dryDays  = ventes.filter(v => (parseFloat(v.precipitation_mm)||0) <= 0.5);
-        const avgRain  = rainDays.length ? rainDays.reduce((a,v)=>a+getSalesValue(v,channel),0)/rainDays.length : 0;
-        const avgDry   = dryDays.length  ? dryDays.reduce((a,v)=>a+getSalesValue(v,channel),0)/dryDays.length   : 0;
-        const diff     = avgDry > 0 ? ((avgRain-avgDry)/avgDry*100) : 0;
-        const diffStr  = (diff >= 0 ? '+' : '') + diff.toFixed(1) + ' %';
-        const diffCol  = diff >= 0 ? '#6ab04c' : '#ef4444';
+        const SUNNY_CODES  = new Set([0, 1, 2]);
+        const CLOUDY_CODES = new Set([3, 45, 48]);
+        // codes >= 51 = précipitations (pluie, neige, orage…)
+
+        const sunnyDays  = ventes.filter(v => SUNNY_CODES.has(parseInt(v.weather_code)));
+        const cloudyDays = ventes.filter(v => CLOUDY_CODES.has(parseInt(v.weather_code)));
+        const precipDays = ventes.filter(v => parseInt(v.weather_code) >= 51);
+        const snowDays   = ventes.filter(v => { const c = parseInt(v.weather_code); return (c >= 71 && c <= 77) || c === 85 || c === 86; });
+
+        const avgSunny  = sunnyDays.length  ? sunnyDays.reduce((a,v)=>a+getSalesValue(v,channel),0)/sunnyDays.length   : null;
+        const avgCloudy = cloudyDays.length ? cloudyDays.reduce((a,v)=>a+getSalesValue(v,channel),0)/cloudyDays.length : null;
+        const avgPrecip = precipDays.length ? precipDays.reduce((a,v)=>a+getSalesValue(v,channel),0)/precipDays.length : null;
+
+        const precipLabel = snowDays.length > precipDays.length / 2 ? '❄️ Neige/verglas' : '🌧️ Précipitations';
+
+        const pctSunnyVsPrecip = avgSunny && avgPrecip
+            ? ((avgSunny - avgPrecip) / avgPrecip * 100) : null;
+        const pctStr = pctSunnyVsPrecip !== null
+            ? (pctSunnyVsPrecip >= 0 ? '+' : '') + pctSunnyVsPrecip.toFixed(1) + ' %' : null;
+        const pctCol = pctSunnyVsPrecip >= 0 ? '#6ab04c' : '#ef4444';
+
+        const daysWithTemp = ventes.filter(v => v.temp_max != null && v.temp_min != null);
+        const avgTemp = daysWithTemp.length
+            ? daysWithTemp.reduce((a,v) => a + (parseFloat(v.temp_max) + parseFloat(v.temp_min)) / 2, 0) / daysWithTemp.length
+            : null;
+        const tempStr  = avgTemp !== null ? avgTemp.toFixed(1).replace('.', ',') + ' °C' : null;
+        const tempEmoji = avgTemp === null ? '' : avgTemp >= 20 ? '🌡️' : avgTemp >= 10 ? '🌤️' : avgTemp >= 0 ? '🧥' : '❄️';
+
         const wb = document.getElementById('weatherBar');
         wb.style.display = 'flex';
         wb.innerHTML = `
-            <span><strong>☔ Jours de pluie (${rainDays.length})</strong> → ${avgRain.toLocaleString('fr-CA',{maximumFractionDigits:0})} $ moy.</span>
-            <span><strong>☀️ Jours secs (${dryDays.length})</strong> → ${avgDry.toLocaleString('fr-CA',{maximumFractionDigits:0})} $ moy.</span>
-            <span style="color:${diffCol};font-weight:600;">Pluie = ${diffStr} de ventes</span>
+            ${sunnyDays.length  ? `<span><strong>☀️ Beau (${sunnyDays.length}j)</strong> → ${avgSunny.toLocaleString('fr-CA',{maximumFractionDigits:0})} $ moy.</span>` : ''}
+            ${cloudyDays.length ? `<span><strong>☁️ Nuageux (${cloudyDays.length}j)</strong> → ${avgCloudy.toLocaleString('fr-CA',{maximumFractionDigits:0})} $ moy.</span>` : ''}
+            ${precipDays.length ? `<span><strong>${precipLabel} (${precipDays.length}j)</strong> → ${avgPrecip.toLocaleString('fr-CA',{maximumFractionDigits:0})} $ moy.</span>` : ''}
+            ${pctStr ? `<span style="color:${pctCol};font-weight:600;">Beau vs précip. : ${pctStr}</span>` : ''}
+            ${tempStr ? `<span><strong>${tempEmoji} Temp. moy.</strong> ${tempStr}</span>` : ''}
         `;
 
         // Daily chart — barres empilées par canal
         document.getElementById('dailyChartTitle').textContent = `VENTES JOURNALIÈRES — ${monthName.toUpperCase()}`;
         if (dailyChart) dailyChart.destroy();
 
-        const chartLabels    = ventes.map(v => dayjs(v.date).date() + ' ' + MONTHS_SHORT[dayjs(v.date).month()]);
-        const dataBEL        = ventes.map(v => parseFloat(v.ventes_bel)||0);
-        const dataBoutique   = ventes.map(v => parseFloat(v.ventes_boutique)||0);
-        const dataWholesale  = ventes.map(v => parseFloat(v.ventes_wholesale)||0);
+        const chartLabels   = ventes.map(v => dayjs(v.date).date() + ' ' + MONTHS_SHORT[dayjs(v.date).month()]);
+        const dataBEL       = ventes.map(v => parseFloat(v.ventes_bel)||0);
+        const dataBoutique  = ventes.map(v => parseFloat(v.ventes_boutique)||0);
+        const dataWholesale = ventes.map(v => parseFloat(v.ventes_wholesale)||0);
+        const dataTotal     = dataBEL.map((v,i) => v + dataBoutique[i] + dataWholesale[i]);
 
         let chartDatasets;
         if (channel === 'bel') {
-            chartDatasets = [{ label: 'BEL (online)', data: dataBEL, backgroundColor: '#a89cc8', borderRadius: 4 }];
+            chartDatasets = [{
+                label: `BEL — ${year}`, data: dataBEL,
+                borderColor: '#a89cc8', backgroundColor: 'transparent',
+                borderWidth: 2.5, tension: 0.3, pointRadius: 3, pointHoverRadius: 6,
+                pointBackgroundColor: '#a89cc8', pointBorderColor: '#fff', pointBorderWidth: 2,
+            }];
         } else if (channel === 'boutique') {
-            chartDatasets = [{ label: 'Boutique physique', data: dataBoutique, backgroundColor: '#c87f4a', borderRadius: 4 }];
+            chartDatasets = [{
+                label: `Boutique — ${year}`, data: dataBoutique,
+                borderColor: '#c87f4a', backgroundColor: 'transparent',
+                borderWidth: 2.5, tension: 0.3, pointRadius: 3, pointHoverRadius: 6,
+                pointBackgroundColor: '#c87f4a', pointBorderColor: '#fff', pointBorderWidth: 2,
+            }];
         } else {
-            chartDatasets = [
-                { label: 'BEL (online)',      data: dataBEL,       backgroundColor: '#a89cc8' },
-                { label: 'Boutique physique', data: dataBoutique,  backgroundColor: '#c87f4a' },
-                { label: 'Wholesale',         data: dataWholesale, backgroundColor: '#5a9e7a' },
-            ];
+            chartDatasets = [{
+                label: `Ventes ${year}`, data: dataTotal,
+                borderColor: '#a89cc8', backgroundColor: 'rgba(168,156,200,0.08)',
+                borderWidth: 2.5, fill: true, tension: 0.3, pointRadius: 3, pointHoverRadius: 6,
+                pointBackgroundColor: '#a89cc8', pointBorderColor: '#fff', pointBorderWidth: 2,
+            }];
         }
 
         // Ligne pointillée — même mois, année précédente
         const prevYear     = year - 1;
         const prevMonthKey = `${prevYear}-${monthKey.split('-')[1]}`;
         const prevVentes   = fullData.ventes.filter(v => dayjs(v.date).format('YYYY-MM') === prevMonthKey);
+        const prevRowByDay = {};
         if (prevVentes.length) {
             const prevByDay = {};
-            prevVentes.forEach(v => { prevByDay[dayjs(v.date).date()] = getSalesValue(v, channel); });
+            prevVentes.forEach(v => {
+                const d = dayjs(v.date).date();
+                prevByDay[d] = getSalesValue(v, channel);
+                prevRowByDay[d] = v;
+            });
             const prevLineData = ventes.map(v => prevByDay[dayjs(v.date).date()] ?? null);
             chartDatasets.push({
                 type: 'line',
-                label: `${MONTHS_LONG[monthIdx]} ${prevYear}`,
+                label: `N-1 — ${prevYear}`,
                 data: prevLineData,
-                borderColor: '#9ca3af',
-                backgroundColor: 'transparent',
-                borderWidth: 2,
-                borderDash: [6, 4],
-                tension: 0.3,
-                pointRadius: 2,
-                pointBackgroundColor: '#9ca3af',
-                yAxisID: 'y',
-                order: 0,
+                borderColor: '#9ca3af', backgroundColor: 'transparent',
+                borderWidth: 2, borderDash: [6, 4], tension: 0.3,
+                pointRadius: 2, pointBackgroundColor: '#9ca3af',
+                yAxisID: 'y', order: 0,
             });
         }
 
+        // Maps jour→labels pour les marqueurs + hover tooltip
+        const monthEvts = (fullData.evenements || []).filter(ev => dayjs(ev.date).format('YYYY-MM') === monthKey);
+        const marketingMap = new Map();
+        monthEvts.filter(ev => ev.type !== 'contexte').forEach(ev => {
+            const d = dayjs(ev.date).date();
+            const lbl = ev.description?.toString().trim() || ev.type || '';
+            if (lbl) marketingMap.set(d, (marketingMap.get(d) || []).concat([lbl]));
+        });
+        const infolettreMap = new Map();
+        (fullData.infolettres || []).filter(e => dayjs(e.date_envoi || e.date).format('YYYY-MM') === monthKey).forEach(e => {
+            const d = dayjs(e.date_envoi || e.date).date();
+            infolettreMap.set(d, (infolettreMap.get(d) || []).concat([e.sujet || '—']));
+        });
+        const socialMap = new Map();
+        (fullData.publications || []).filter(p => dayjs(p.date).format('YYYY-MM') === monthKey).forEach(p => {
+            const d = dayjs(p.date).date();
+            const pl = (p.plateforme || '').toLowerCase();
+            const lbl = (pl === 'instagram' ? 'IG' : 'FB') + ' — ' + (p.description_courte || p.title || '').substring(0, 50);
+            socialMap.set(d, (socialMap.get(d) || []).concat([lbl]));
+        });
+        const holidayMap = new Map(
+            getQuebecHolidays(parseInt(monthKey.split('-')[0]))
+                .filter(h => h.date.startsWith(monthKey))
+                .map(h => [dayjs(h.date).date(), [h.name]])
+        );
+
+        const markerPlugin = {
+            id: 'marketingMarkers',
+            afterDraw(chart) {
+                const ctx = chart.ctx;
+                const xScale = chart.scales.x;
+                const DOT_R = 3;
+                const DOT_GAP = 8;
+                const baseY = chart.chartArea.bottom + 30;
+                const ROWS = [
+                    { map: marketingMap,  color: '#5b21b6', shape: 'circle' },
+                    { map: infolettreMap, color: '#5a9e7a', shape: 'circle' },
+                    { map: socialMap,     color: '#c87f4a', shape: 'circle' },
+                    { map: holidayMap,    color: '#dc2626', shape: 'diamond' },
+                ];
+                chart._markerHits = [];
+                ventes.forEach((v, i) => {
+                    const dayNum = dayjs(v.date).date();
+                    const x = xScale.getPixelForTick(i);
+                    ROWS.forEach(({ map, color, shape }, row) => {
+                        if (!map.has(dayNum)) return;
+                        const y = baseY + row * DOT_GAP;
+                        ctx.fillStyle = color;
+                        if (shape === 'diamond') {
+                            const s = DOT_R + 1;
+                            ctx.beginPath();
+                            ctx.moveTo(x,     y - s);
+                            ctx.lineTo(x + s, y    );
+                            ctx.lineTo(x,     y + s);
+                            ctx.lineTo(x - s, y    );
+                            ctx.closePath();
+                        } else {
+                            ctx.beginPath();
+                            ctx.arc(x, y, DOT_R, 0, Math.PI * 2);
+                        }
+                        ctx.fill();
+                        chart._markerHits.push({ x, y, r: DOT_R + 4, labels: map.get(dayNum), color });
+                    });
+                });
+            }
+        };
+
         dailyChart = new Chart(document.getElementById('dailyChart').getContext('2d'), {
-            type: 'bar',
+            type: 'line',
             data: { labels: chartLabels, datasets: chartDatasets },
+            plugins: [markerPlugin],
             options: {
                 responsive: true, maintainAspectRatio: true,
+                layout: { padding: { bottom: 60 } },
+                interaction: { mode: 'index', intersect: false },
                 plugins: {
                     legend: {
-                        display: channel === 'total' || prevVentes.length > 0,
-                        position: 'bottom',
+                        display: prevVentes.length > 0,
+                        position: 'top',
+                        align: 'start',
                         labels: { color: '#9ca3af', padding: 16, usePointStyle: true, pointStyleWidth: 12, font: { size: 11 } }
                     },
                     tooltip: {
                         backgroundColor: '#ffffff', titleColor: '#1e2330', bodyColor: '#5a5f72',
                         borderColor: '#e8e3db', borderWidth: 1,
-                        callbacks: { label: ctx => ` ${ctx.dataset.label} : ${(ctx.raw ?? 0).toLocaleString('fr-CA')} $` }
+                        callbacks: {
+                            label: ctx => ` ${ctx.dataset.label} : ${(ctx.raw ?? 0).toLocaleString('fr-CA')} $`,
+                            afterLabel: ctx => {
+                                if (channel !== 'total') return [];
+                                const idx = ctx.dataIndex;
+                                let bel, bou, who;
+                                if (ctx.datasetIndex === 0) {
+                                    const v = ventes[idx];
+                                    if (!v) return [];
+                                    bel = parseFloat(v.ventes_bel)||0;
+                                    bou = parseFloat(v.ventes_boutique)||0;
+                                    who = parseFloat(v.ventes_wholesale)||0;
+                                } else if (ctx.datasetIndex === 1) {
+                                    const dayNum = dayjs(ventes[idx]?.date).date();
+                                    const pv = prevRowByDay[dayNum];
+                                    if (!pv) return [];
+                                    bel = parseFloat(pv.ventes_bel)||0;
+                                    bou = parseFloat(pv.ventes_boutique)||0;
+                                    who = parseFloat(pv.ventes_wholesale)||0;
+                                } else { return []; }
+                                const lines = [];
+                                lines.push(`   ↳ BEL (online)  : ${bel.toLocaleString('fr-CA')} $`);
+                                lines.push(`   ↳ Boutique      : ${bou.toLocaleString('fr-CA')} $`);
+                                if (who > 0) lines.push(`   ↳ Wholesale     : ${who.toLocaleString('fr-CA')} $`);
+                                return lines;
+                            }
+                        }
                     }
                 },
                 scales: {
-                    x: { stacked: true, ticks: { color: '#8a8f9e', font: { size: 11 } }, grid: { color: '#f0ece6' } },
-                    y: { stacked: true, ticks: { color: '#8a8f9e', callback: v => v>=1000?Math.round(v/1000)+'k $':v+' $' }, grid: { color: '#f0ece6' } }
+                    x: { ticks: { color: '#8a8f9e', font: { size: 11 } }, grid: { color: '#f0ece6' } },
+                    y: { ticks: { color: '#8a8f9e', callback: v => v>=1000?Math.round(v/1000)+'k $':v+' $' }, grid: { color: '#f0ece6' } }
                 }
             }
         });
 
+        // Tooltip hover sur les marqueurs
+        let markerTooltip = document.getElementById('markerTooltip');
+        if (!markerTooltip) {
+            markerTooltip = document.createElement('div');
+            markerTooltip.id = 'markerTooltip';
+            markerTooltip.style.cssText = 'position:fixed;background:#1e2330;color:#fff;padding:7px 11px;border-radius:8px;font-size:0.75rem;line-height:1.5;pointer-events:none;z-index:9999;max-width:260px;display:none;box-shadow:0 4px 12px rgba(0,0,0,0.2);';
+            document.body.appendChild(markerTooltip);
+        }
+        const canvas = document.getElementById('dailyChart');
+        canvas.onmousemove = (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const mx = e.clientX - rect.left;
+            const my = e.clientY - rect.top;
+            const hit = (dailyChart._markerHits || []).find(m => Math.hypot(mx - m.x, my - m.y) <= m.r);
+            if (hit) {
+                canvas.style.cursor = 'pointer';
+                markerTooltip.innerHTML = hit.labels.map(l => `<span style="display:block">${l}</span>`).join('');
+                markerTooltip.style.borderLeft = `3px solid ${hit.color}`;
+                markerTooltip.style.display = 'block';
+                markerTooltip.style.left = (e.clientX + 12) + 'px';
+                markerTooltip.style.top  = (e.clientY - 10) + 'px';
+            } else {
+                canvas.style.cursor = '';
+                markerTooltip.style.display = 'none';
+            }
+        };
+        canvas.onmouseleave = () => {
+            canvas.style.cursor = '';
+            markerTooltip.style.display = 'none';
+        };
+
+        renderChannelBreakdown(ventes);
         renderEventsTable(monthKey);
         renderEmailTable(monthKey);
         renderSocialTable(monthKey);
@@ -904,7 +1173,7 @@
     }
 
     // ── EVENTS TABLE ──
-    function buildEventRow(ev, showFullDate) {
+    function buildEventRow(ev, showFullDate, regKey) {
         const d = dayjs(ev.date);
         const dateStr = showFullDate
             ? d.date() + ' ' + MONTHS_SHORT[d.month()] + ' ' + d.year() + ' · ' + DAYS_FR[d.day()]
@@ -912,10 +1181,18 @@
         const actions = ev.description?.toString().trim() || '—';
         const notes   = ev.note?.toString().trim() || '';
         const evTag   = ACTION_TAGS[ev.type];
-        const tagHtml = evTag ? ` <span class="${evTag.css}">${evTag.label}</span>` : '';
+        const tagHtml = evTag
+            ? `<span class="tag-type ${evTag.css}">${evTag.label}</span>`
+            : (ev.type === 'contexte' ? ' <span class="tag-contexte">contexte</span>' : '');
+        const btnHtml = regKey
+            ? `<span class="event-actions">
+                   <button type="button" class="btn-ev" data-key="${regKey}" title="Modifier">✏️</button>
+                   <button type="button" class="btn-ev del" data-key="${regKey}" title="Supprimer">🗑️</button>
+               </span>`
+            : '';
         return `<tr>
             <td class="date-cell">${dateStr}</td>
-            <td class="action-cell">${actions}${tagHtml}</td>
+            <td class="action-cell">${actions}${tagHtml}${btnHtml}</td>
             <td class="note-cell">${notes}</td>
         </tr>`;
     }
@@ -936,10 +1213,31 @@
             document.getElementById('eventsBody').innerHTML = '<p class="warning-msg">Aucun événement ce mois</p>';
             return;
         }
-        let html = '<table class="mini-table"><thead><tr><th>Date</th><th>Action</th><th>Note</th></tr></thead><tbody>';
-        events.forEach(ev => { html += buildEventRow(ev, false); });
+        const EVENTS_LIMIT = 10;
+        eventRegistry.clear();
+        function buildEventRows(list, startIdx) {
+            return list.map((ev, i) => {
+                const key = `ev_${startIdx + i}`;
+                eventRegistry.set(key, ev);
+                return buildEventRow(ev, false, key);
+            }).join('');
+        }
+        const remaining = events.length - EVENTS_LIMIT;
+        let html = '<table class="mini-table"><thead><tr><th>Date</th><th>Action</th><th>Note</th></tr></thead><tbody id="eventsTbody">';
+        html += buildEventRows(events.slice(0, EVENTS_LIMIT), 0);
         html += '</tbody></table>';
+        if (remaining > 0) {
+            html += `<span class="voir-plus" id="voirPlusEventsBtn">Voir ${remaining} de plus →</span>`;
+        }
         document.getElementById('eventsBody').innerHTML = html;
+        if (remaining > 0) {
+            document.getElementById('voirPlusEventsBtn').addEventListener('click', function() {
+                this.style.display = 'none';
+                document.getElementById('eventsTbody').insertAdjacentHTML(
+                    'beforeend', buildEventRows(events.slice(EVENTS_LIMIT), EVENTS_LIMIT)
+                );
+            });
+        }
     }
 
     // ── GLOBAL SEARCH ──
@@ -968,8 +1266,13 @@
             document.getElementById('searchResultsBody').innerHTML = '<p class="warning-msg">Aucun événement trouvé.</p>';
             return;
         }
+        eventRegistry.clear();
         let html = '<table class="mini-table"><thead><tr><th>Date</th><th>Action</th><th>Note</th></tr></thead><tbody>';
-        filtered.forEach(ev => { html += buildEventRow(ev, true); });
+        filtered.forEach((ev, i) => {
+            const key = `ev_${i}`;
+            eventRegistry.set(key, ev);
+            html += buildEventRow(ev, true, key);
+        });
         html += '</tbody></table>';
         document.getElementById('searchResultsBody').innerHTML = html;
     }
@@ -988,22 +1291,33 @@
             return;
         }
 
-        let html = '<table class="mini-table"><thead><tr><th>Date</th><th>Sujet</th></tr></thead><tbody>';
-        emails.forEach(e => {
+        const EMAIL_LIMIT = 10;
+        const remaining = emails.length - EMAIL_LIMIT;
+        let html = '<table class="mini-table"><thead><tr><th>Date</th><th>Sujet</th></tr></thead><tbody id="emailTbody">';
+        emails.slice(0, EMAIL_LIMIT).forEach(e => {
             const d = e.date_envoi || e.date;
-            const sujet  = (e.sujet||'').substring(0,60) + ((e.sujet||'').length>60?'…':'');
-            html += `<tr>
-                <td class="date-cell">${dayjs(d).format('DD/MM')}</td>
-                <td>${sujet}</td>
-            </tr>`;
+            const sujet = (e.sujet||'').substring(0,60) + ((e.sujet||'').length>60?'…':'');
+            html += `<tr><td class="date-cell">${dayjs(d).format('DD/MM')}</td><td>${sujet}</td></tr>`;
         });
         html += '</tbody></table>';
+        if (remaining > 0) html += `<span class="voir-plus" id="voirPlusEmailBtn">Voir ${remaining} de plus →</span>`;
         document.getElementById('emailBody').innerHTML = html;
+        if (remaining > 0) {
+            document.getElementById('voirPlusEmailBtn').addEventListener('click', function() {
+                this.style.display = 'none';
+                const extra = emails.slice(EMAIL_LIMIT).map(e => {
+                    const d = e.date_envoi || e.date;
+                    const sujet = (e.sujet||'').substring(0,60) + ((e.sujet||'').length>60?'…':'');
+                    return `<tr><td class="date-cell">${dayjs(d).format('DD/MM')}</td><td>${sujet}</td></tr>`;
+                }).join('');
+                document.getElementById('emailTbody').insertAdjacentHTML('beforeend', extra);
+            });
+        }
     }
 
     // ── SOCIAL TABLE ──
     function renderSocialTable(monthKey) {
-        const LIMIT = 5;
+        const LIMIT = 10;
         const posts = (fullData.publications || [])
             .filter(p => dayjs(p.date).format('YYYY-MM') === monthKey)
             .sort((a,b) => dayjs(a.date).diff(dayjs(b.date)));
@@ -1106,6 +1420,34 @@
         }).join('');
     }
 
+    // ── CHANNEL BREAKDOWN ──
+    function renderChannelBreakdown(ventes) {
+        const el = document.getElementById('channelBreakdown');
+        const belTotal  = ventes.reduce((a,v) => a + (parseFloat(v.ventes_bel)||0), 0);
+        const bouTotal  = ventes.reduce((a,v) => a + (parseFloat(v.ventes_boutique)||0), 0);
+        const whoTotal  = ventes.reduce((a,v) => a + (parseFloat(v.ventes_wholesale)||0), 0);
+        const grand     = belTotal + bouTotal + whoTotal;
+        if (grand === 0) { el.style.display = 'none'; return; }
+
+        const pBEL = belTotal / grand * 100;
+        const pBou = bouTotal / grand * 100;
+        const pWho = whoTotal / grand * 100;
+
+        el.style.display = 'flex';
+        el.style.alignItems = 'center';
+        el.innerHTML = `
+            <span style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#8a8f9e;white-space:nowrap;">Répartition canaux</span>
+            <div style="flex:1;min-width:140px;height:8px;border-radius:4px;overflow:hidden;display:flex;margin:0 4px;">
+                <div style="width:${pBEL}%;background:#a89cc8;" title="BEL ${pBEL.toFixed(1)}%"></div>
+                <div style="width:${pBou}%;background:#c87f4a;" title="Boutique ${pBou.toFixed(1)}%"></div>
+                <div style="width:${pWho}%;background:#5a9e7a;" title="Wholesale ${pWho.toFixed(1)}%"></div>
+            </div>
+            <span style="color:#a89cc8;font-weight:600;">BEL&nbsp;${pBEL.toFixed(0)}&thinsp;%</span>
+            <span style="color:#c87f4a;font-weight:600;">Boutique&nbsp;${pBou.toFixed(0)}&thinsp;%</span>
+            ${pWho > 0 ? `<span style="color:#5a9e7a;font-weight:600;">Wholesale&nbsp;${pWho.toFixed(0)}&thinsp;%</span>` : ''}
+        `;
+    }
+
     // ── KPI HELPER ──
     function setKPI(n, label, value, sub) {
         document.getElementById(`kpi${n}Label`).textContent = label;
@@ -1152,27 +1494,127 @@
 
     // Modal
     const modal = document.getElementById('eventModal');
-    document.getElementById('openModalBtn').onclick = () => modal.style.display = 'flex';
-    document.getElementById('modalClose').onclick   = () => modal.style.display = 'none';
-    window.onclick = e => { if (e.target === modal) modal.style.display = 'none'; };
 
-    document.getElementById('eventForm').onsubmit = async (e) => {
-        e.preventDefault();
-        const date      = document.getElementById('eventDate').value;
-        const categorie = document.getElementById('eventCategorie').value;
-        const action    = document.getElementById('eventAction').value.trim();
-        const note      = document.getElementById('eventNote').value.trim();
-        if (!date || !action) return;
-        document.getElementById('formMessage').innerHTML = 'Envoi en cours…';
+    function openAddModal() {
+        document.getElementById('eventModalTitle').textContent = '+ Ajouter un événement marketing et contexte';
+        document.getElementById('eventMode').value = 'add';
+        document.getElementById('eventId').value = '';
+        document.getElementById('eventDateOriginal').value = '';
+        document.getElementById('eventActionOriginal').value = '';
+        document.getElementById('eventForm').reset();
+        document.getElementById('formMessage').innerHTML = '';
+        document.getElementById('modalReminder').style.display = 'block';
+        modal.style.display = 'flex';
+    }
+
+    function openEditModal(ev) {
+        const actionVal = ev.description?.toString().trim() || '';
+        const noteVal   = ev.note?.toString().trim() || '';
+        document.getElementById('eventModalTitle').textContent = 'Modifier l\'événement';
+        document.getElementById('modalReminder').style.display = 'none';
+        document.getElementById('eventMode').value = 'edit';
+        document.getElementById('eventId').value = ev.event_id || '';
+        document.getElementById('eventDate').value = dayjs(ev.date).format('YYYY-MM-DD');
+        document.getElementById('eventDateOriginal').value = dayjs(ev.date).format('YYYY-MM-DD');
+        document.getElementById('eventCategorie').value = ev.type || 'autre';
+        document.getElementById('eventAction').value = actionVal;
+        document.getElementById('eventActionOriginal').value = actionVal;
+        document.getElementById('eventNote').value = noteVal;
+        document.getElementById('formMessage').innerHTML = '';
+        modal.style.display = 'flex';
+    }
+
+    async function handleDeleteEvent(ev) {
+        const actionVal = ev.description?.toString().trim() || '';
+        if (!confirm(`Supprimer cet événement ?\n\n${dayjs(ev.date).format('DD/MM/YYYY')} — ${actionVal}`)) return;
         try {
             await fetch(WEBHOOK_URL, {
                 method: 'POST', mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ date, type_action: categorie, action, note })
+                body: JSON.stringify({
+                    type: 'delete',
+                    event_id: ev.event_id || '',
+                    date: dayjs(ev.date).format('YYYY-MM-DD'),
+                    action: actionVal
+                })
             });
-            document.getElementById('formMessage').innerHTML = '<span style="color:#6ab04c;">✅ Événement ajouté ! Mise à jour dans quelques minutes.</span>';
+            // Mise à jour optimiste : retirer l'événement et re-rendre
+            const idx = fullData.evenements.indexOf(ev);
+            if (idx !== -1) fullData.evenements.splice(idx, 1);
+            applyFiltersAndRender();
+        } catch(err) {
+            alert('Erreur réseau. Réessayez.');
+        }
+    }
+
+    // Peupler le dropdown de types
+    document.getElementById('eventCategorie').innerHTML =
+        TYPE_OPTIONS.map(o => `<option value="${o.value}">${o.label}</option>`).join('');
+
+    document.getElementById('openModalBtn').onclick = openAddModal;
+    document.getElementById('modalClose').onclick   = () => modal.style.display = 'none';
+    window.onclick = e => { if (e.target === modal) modal.style.display = 'none'; };
+
+    // Délégation de clics pour les boutons modifier/supprimer dans le tableau
+    document.addEventListener('click', e => {
+        const btn = e.target.closest('.btn-ev');
+        if (!btn) return;
+        const ev = eventRegistry.get(btn.dataset.key);
+        if (!ev) return;
+        if (btn.classList.contains('del')) {
+            handleDeleteEvent(ev);
+        } else {
+            openEditModal(ev);
+        }
+    });
+
+    document.getElementById('eventForm').onsubmit = async (e) => {
+        e.preventDefault();
+        const mode        = document.getElementById('eventMode').value;
+        const date        = document.getElementById('eventDate').value;
+        const type_action = document.getElementById('eventCategorie').value;
+        const action      = document.getElementById('eventAction').value.trim();
+        const note        = document.getElementById('eventNote').value.trim();
+        if (!date || !action) return;
+        document.getElementById('formMessage').innerHTML = 'Envoi en cours…';
+        try {
+            if (mode === 'edit') {
+                const event_id    = document.getElementById('eventId').value;
+                const date_orig   = document.getElementById('eventDateOriginal').value;
+                const action_orig = document.getElementById('eventActionOriginal').value;
+                await fetch(WEBHOOK_URL, {
+                    method: 'POST', mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ type: 'update', event_id, date: date_orig, action: action_orig, date_new: date, action_new: action, note_new: note, type_action })
+                });
+                // Mise à jour optimiste
+                const target = fullData.evenements.find(v =>
+                    dayjs(v.date).format('YYYY-MM-DD') === date_orig &&
+                    (v.description?.toString().trim() || '') === action_orig
+                );
+                if (target) {
+                    target.date        = date;
+                    target.type        = type_action;
+                    target.description = action;
+                    target.note        = note;
+                }
+                document.getElementById('formMessage').innerHTML = '<span style="color:#6ab04c;">✅ Événement modifié ! Mise à jour dans quelques minutes.</span>';
+            } else {
+                const event_id = String(Date.now());
+                await fetch(WEBHOOK_URL, {
+                    method: 'POST', mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ type: 'create', date, type_action, action, note, event_id })
+                });
+                document.getElementById('formMessage').innerHTML = '<span style="color:#6ab04c;">✅ Événement ajouté ! Mise à jour dans quelques minutes.</span>';
+            }
             document.getElementById('eventForm').reset();
-            setTimeout(() => { modal.style.display = 'none'; document.getElementById('formMessage').innerHTML = ''; }, 2500);
+            document.getElementById('eventMode').value = 'add';
+            setTimeout(() => {
+                modal.style.display = 'none';
+                document.getElementById('formMessage').innerHTML = '';
+                applyFiltersAndRender();
+            }, 2000);
         } catch(err) {
             document.getElementById('formMessage').innerHTML = '<span style="color:#ef4444;">Erreur réseau. Réessayez.</span>';
         }
