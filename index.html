@@ -560,7 +560,6 @@
     const MONTHS_SHORT = ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
     const MONTHS_LONG  = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
     const DAYS_FR = ['dim','lun','mar','mer','jeu','ven','sam'];
-    const ACTION_COLS = ['rabais_promos','lancement_produits_ateliers','bis_alertes_back_in_stock','infolettre','push_notif','billet_blogue','reseaux_sociaux','webmestre_funnels'];
     const ACTION_TAGS = {
         rabais_promos:               { label: 'PROMO',           css: 'tag-promo' },
         lancement_produits_ateliers: { label: 'LANCEMENT',       css: 'tag-lancement' },
@@ -569,8 +568,8 @@
         push_notif:                  { label: 'PUSH',            css: 'tag-push' },
         billet_blogue:               { label: 'BLOGUE',          css: 'tag-blogue' },
         reseaux_sociaux:             { label: 'RÉSEAUX SOCIAUX', css: 'tag-reseaux' },
+        webmestre_funnels:           { label: 'WEB',             css: 'tag-blogue' },
     };
-    // Options du dropdown type dans la modale
     const TYPE_OPTIONS = [
         { value: 'rabais_promos',               label: '🏷️ Promo / Rabais' },
         { value: 'lancement_produits_ateliers', label: '🚀 Lancement / Atelier' },
@@ -579,10 +578,10 @@
         { value: 'push_notif',                  label: '📲 Push notification' },
         { value: 'billet_blogue',               label: '✍️ Billet de blogue' },
         { value: 'reseaux_sociaux',             label: '📱 Réseaux sociaux' },
+        { value: 'webmestre_funnels',           label: '🌐 Web / Funnels' },
         { value: 'autre',                       label: '📌 Autre (marketing)' },
         { value: 'contexte',                    label: '🌤️ Contexte (météo, fête, actu…)' },
     ];
-    const CONTEXTE_COLS = ['temperature','meteo_montreal','meteo_generale','politique_actualite','fetes_feries_conges','couvertures_mediatiques'];
 
     let fullData = null;
     let annualChart = null;
@@ -693,7 +692,7 @@
         const totalEmails = monthlyEmails.reduce((a,b)=>a+b,0);
         const totalEvents = (fullData.evenements || []).filter(ev => {
             if (dayjs(ev.date).year() !== year) return false;
-            return ACTION_COLS.some(k => ev[k]?.toString().trim()) || (ev.commentaires_notes?.toString().trim());
+            return ev.description?.toString().trim() || ev.note?.toString().trim();
         }).length;
 
         // Period label
@@ -1006,10 +1005,10 @@
         // Maps jour→labels pour les marqueurs + hover tooltip
         const monthEvts = (fullData.evenements || []).filter(ev => dayjs(ev.date).format('YYYY-MM') === monthKey);
         const marketingMap = new Map();
-        monthEvts.filter(ev => ACTION_COLS.some(k => ev[k]?.toString().trim())).forEach(ev => {
+        monthEvts.filter(ev => ev.type !== 'contexte').forEach(ev => {
             const d = dayjs(ev.date).date();
-            const labels = ACTION_COLS.map(k => ev[k]?.toString().trim()).filter(Boolean);
-            marketingMap.set(d, (marketingMap.get(d) || []).concat(labels));
+            const lbl = ev.description?.toString().trim() || ev.type || '';
+            if (lbl) marketingMap.set(d, (marketingMap.get(d) || []).concat([lbl]));
         });
         const infolettreMap = new Map();
         (fullData.infolettres || []).filter(e => dayjs(e.date_envoi || e.date).format('YYYY-MM') === monthKey).forEach(e => {
@@ -1168,15 +1167,12 @@
         const dateStr = showFullDate
             ? d.date() + ' ' + MONTHS_SHORT[d.month()] + ' ' + d.year() + ' · ' + DAYS_FR[d.day()]
             : d.format('DD/MM') + ' ' + DAYS_FR[d.day()];
-        const actions = ACTION_COLS.map(k => ev[k]?.toString().trim()).filter(Boolean).join(' · ') || '—';
-        const notes   = [...CONTEXTE_COLS.map(k => ev[k]?.toString().trim()), ev.commentaires_notes?.toString().trim()].filter(Boolean).join(' · ');
-        const isContexte  = CONTEXTE_COLS.some(k => ev[k]?.toString().trim());
-        const actionTagsHtml = ACTION_COLS
-            .filter(k => ev[k]?.toString().trim() && ACTION_TAGS[k])
-            .map(k => `<span class="tag-type ${ACTION_TAGS[k].css}">${ACTION_TAGS[k].label}</span>`)
-            .join('');
-        const tagHtml = actionTagsHtml
-                      + (isContexte ? ' <span class="tag-contexte">contexte</span>' : '');
+        const actions = ev.description?.toString().trim() || '—';
+        const notes   = ev.note?.toString().trim() || '';
+        const evTag   = ACTION_TAGS[ev.type];
+        const tagHtml = evTag
+            ? `<span class="tag-type ${evTag.css}">${evTag.label}</span>`
+            : (ev.type === 'contexte' ? ' <span class="tag-contexte">contexte</span>' : '');
         const btnHtml = regKey
             ? `<span class="event-actions">
                    <button type="button" class="btn-ev" data-key="${regKey}" title="Modifier">✏️</button>
@@ -1197,11 +1193,7 @@
 
         const events = (fullData.evenements || [])
             .filter(ev => { const d = dayjs(ev.date).format('YYYY-MM-DD'); return d >= start && d <= end; })
-            .filter(ev =>
-                ACTION_COLS.some(k => ev[k]?.toString().trim()) ||
-                CONTEXTE_COLS.some(k => ev[k]?.toString().trim()) ||
-                ev.commentaires_notes?.toString().trim()
-            )
+            .filter(ev => ev.description?.toString().trim() || ev.note?.toString().trim())
             .sort((a,b) => dayjs(a.date).diff(dayjs(b.date)));
 
         document.getElementById('eventsCount').textContent = events.length;
@@ -1247,17 +1239,12 @@
         document.getElementById('searchView').style.display  = 'block';
 
         const filtered = (fullData.evenements || [])
-            .filter(ev =>
-                ACTION_COLS.some(k => ev[k]?.toString().trim()) ||
-                CONTEXTE_COLS.some(k => ev[k]?.toString().trim()) ||
-                ev.commentaires_notes?.toString().trim()
-            )
+            .filter(ev => ev.description?.toString().trim() || ev.note?.toString().trim())
             .filter(ev => {
                 const d = dayjs(ev.date);
                 const dateStr = d.date() + ' ' + MONTHS_SHORT[d.month()] + ' ' + d.year();
-                const actions = ACTION_COLS.map(k => ev[k]?.toString().trim()).filter(Boolean).join(' ');
-                const notes   = [...CONTEXTE_COLS.map(k => ev[k]?.toString().trim()), ev.commentaires_notes?.toString().trim()].filter(Boolean).join(' ');
-                return (dateStr + ' ' + actions + ' ' + notes).toLowerCase().includes(q);
+                const text = (ev.description?.toString() || '') + ' ' + (ev.note?.toString() || '') + ' ' + (ev.type || '');
+                return (dateStr + ' ' + text).toLowerCase().includes(q);
             })
             .sort((a,b) => dayjs(b.date).diff(dayjs(a.date)));
 
@@ -1510,14 +1497,15 @@
     }
 
     function openEditModal(ev) {
-        const actionVal = ACTION_COLS.map(k => ev[k]?.toString().trim()).filter(Boolean).join(' · ') || '';
-        const noteVal   = [...CONTEXTE_COLS.map(k => ev[k]?.toString().trim()), ev.commentaires_notes?.toString().trim()].filter(Boolean).join(' · ');
+        const actionVal = ev.description?.toString().trim() || '';
+        const noteVal   = ev.note?.toString().trim() || '';
         document.getElementById('eventModalTitle').textContent = 'Modifier l\'événement';
         document.getElementById('modalReminder').style.display = 'none';
         document.getElementById('eventMode').value = 'edit';
         document.getElementById('eventId').value = ev.event_id || '';
         document.getElementById('eventDate').value = dayjs(ev.date).format('YYYY-MM-DD');
         document.getElementById('eventDateOriginal').value = dayjs(ev.date).format('YYYY-MM-DD');
+        document.getElementById('eventCategorie').value = ev.type || 'autre';
         document.getElementById('eventAction').value = actionVal;
         document.getElementById('eventActionOriginal').value = actionVal;
         document.getElementById('eventNote').value = noteVal;
@@ -1526,7 +1514,7 @@
     }
 
     async function handleDeleteEvent(ev) {
-        const actionVal = ACTION_COLS.map(k => ev[k]?.toString().trim()).filter(Boolean).join(' · ') || '';
+        const actionVal = ev.description?.toString().trim() || '';
         if (!confirm(`Supprimer cet événement ?\n\n${dayjs(ev.date).format('DD/MM/YYYY')} — ${actionVal}`)) return;
         try {
             await fetch(WEBHOOK_URL, {
@@ -1591,14 +1579,13 @@
                 // Mise à jour optimiste
                 const target = fullData.evenements.find(v =>
                     dayjs(v.date).format('YYYY-MM-DD') === date_orig &&
-                    (ACTION_COLS.map(k => v[k]?.toString().trim()).filter(Boolean).join(' · ') || '') === action_orig
+                    (v.description?.toString().trim() || '') === action_orig
                 );
                 if (target) {
-                    target.date = date;
-                    ACTION_COLS.forEach(k => { target[k] = ''; });
-                    if (ACTION_COLS.includes(type_action)) target[type_action] = action;
-                    else target.commentaires_notes = action;
-                    target.commentaires_notes = note;
+                    target.date        = date;
+                    target.type        = type_action;
+                    target.description = action;
+                    target.note        = note;
                 }
                 document.getElementById('formMessage').innerHTML = '<span style="color:#6ab04c;">✅ Événement modifié ! Mise à jour dans quelques minutes.</span>';
             } else {

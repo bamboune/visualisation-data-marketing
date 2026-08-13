@@ -313,7 +313,7 @@ def main():
     print("📁 Lecture des données...")
     ventes = get_google_sheet("ventes_quotidiennes", header_row=1)
     infolettres = get_mailerlite_campaigns()
-    evenements = get_google_sheet("evenements_marketing", header_row=2)  # ← en-têtes ligne 2
+    evenements = get_google_sheet("evenements_marketing", header_row=1)  # en-têtes ligne 1 (nouveau format)
 
     print("📱 Récupération des publications Facebook/Instagram...")
     fb_posts = get_facebook_posts()
@@ -328,27 +328,8 @@ def main():
     print(f"   📱 Publications : {len(publications)} lignes")
     print(f"   ⚡ Événements : {len(evenements)} lignes")
     
-    # ==================== DIAGNOSTIC ====================
-        # Afficher les 5 dernières lignes brutes de la feuille (pour debug)
-    try:
-        scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-        creds = ServiceAccountCredentials.from_json_keyfile_name(SERVICE_ACCOUNT_FILE, scope)
-        client = gspread.authorize(creds)
-        sheet_raw = client.open_by_key(SPREADSHEET_ID).worksheet("evenements_marketing")
-        all_raw = sheet_raw.get_all_values()
-        print("\n🔍 Dernières lignes brutes de evenements_marketing :")
-        for i in range(max(0, len(all_raw)-5), len(all_raw)):
-            print(f"   Ligne {i+1}: {all_raw[i][:5]}")  # affiche les 5 premières colonnes
-    except Exception as e:
-        print(f"   ❌ Erreur affichage brut: {e}")
-    
-    # Afficher les 5 derniers événements lus dans le DataFrame
     if len(evenements) > 0:
-        print("\n🔍 Derniers événements dans le DataFrame :")
-        for i in range(max(0, len(evenements)-5), len(evenements)):
-            row = evenements.iloc[i]
-            print(f"   date={row.get('date', '?')}, rabais={row.get('rabais_promos', '')}, lancement={row.get('lancement_produits_ateliers', '')}")
-    # ====================================================
+        print(f"   🔍 Colonnes événements : {list(evenements.columns[:5])}")
     
     if ventes.empty:
         print("❌ Aucune donnée de ventes")

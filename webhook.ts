@@ -1,19 +1,11 @@
-// Mapping fixe catégorie → numéro de colonne (structure immuable de la feuille)
-var COL_MAP = {
-  'rabais_promos':               2,   // B
-  'lancement_produits_ateliers': 3,   // C
-  'bis_alertes_back_in_stock':   4,   // D
-  'infolettre':                  5,   // E
-  'push_notif':                  6,   // F
-  'billet_blogue':               7,   // G
-  'webmestre_funnels':           8,   // H
-};
-// 'reseaux_sociaux', 'autre', 'contexte' → pas de colonne dédiée → commentaires_notes (O = 15)
+// Nouvelle structure : date | type | description | note | event_id
+// Ligne 1 = en-têtes, données à partir de la ligne 2
 
 function doPost(e) {
   try {
     const data  = JSON.parse(e.postData.contents);
-    const sheet = SpreadsheetApp.openById('1vYqgbiiYDnJONtFCx11LkTdPUM14fCf0IG1L7P2O4ro').getSheetByName('evenements_marketing');
+    const ss    = SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID);
+    const sheet = ss.getSheetByName(CONFIG.SHEETS.EVENEMENTS);
     const type  = data.type || 'create';
 
     if (type === 'delete') {
@@ -31,7 +23,7 @@ function doPost(e) {
         .setMimeType(ContentService.MimeType.JSON);
     }
 
-    // type === 'create'
+    // CREATE
     const date        = data.date;
     const action      = data.action;
     const note        = data.note || '';
@@ -43,22 +35,7 @@ function doPost(e) {
         .setMimeType(ContentService.MimeType.JSON);
     }
 
-    const newRow   = sheet.getLastRow() + 1;
-    const actionCol = COL_MAP[type_action];
-
-    sheet.getRange(newRow, 1).setValue(date);       // A : date
-
-    if (actionCol) {
-      sheet.getRange(newRow, actionCol).setValue(action);
-      if (note) sheet.getRange(newRow, 15).setValue(note);  // O : commentaires_notes
-    } else {
-      // Pas de colonne dédiée (réseaux sociaux, autre, contexte…) → tout dans commentaires_notes
-      const combined = note ? action + ' — ' + note : action;
-      sheet.getRange(newRow, 15).setValue(combined);
-    }
-
-    sheet.getRange(newRow, 16).setValue(event_id);  // P : event_id
-
+    sheet.appendRow([date, type_action, action, note, event_id]);
     triggerWorkflow();
 
     return ContentService.createTextOutput(JSON.stringify({ status: 'success' }))
@@ -74,29 +51,19 @@ function findEventRow(sheet, event_id, date, action) {
   const lastRow = sheet.getLastRow();
   if (lastRow < 2) return -1;
 
-  // Cherche d'abord par event_id (colonne P = 16)
   if (event_id) {
-    const idValues = sheet.getRange(2, 16, lastRow - 1, 1).getValues();
-    for (let i = 0; i < idValues.length; i++) {
-      if (String(idValues[i][0]).trim() === String(event_id).trim()) return i + 2;
+    const ids = sheet.getRange(2, 5, lastRow - 1, 1).getValues();
+    for (let i = 0; i < ids.length; i++) {
+      if (String(ids[i][0]).trim() === String(event_id).trim()) return i + 2;
     }
   }
 
-  // Repli : date (col A) + description (colonnes B–H ou O)
   if (date && action) {
-    const dateKey   = String(date).substring(0, 10);
-    const dateVals  = sheet.getRange(2, 1, lastRow - 1, 1).getValues();
-    // Cherche dans toutes les colonnes d'action (B à H) + commentaires (O)
-    const allCols   = sheet.getRange(2, 1, lastRow - 1, 15).getValues();
-    for (let i = 0; i < allCols.length; i++) {
-      const rowDate = String(allCols[i][0]).substring(0, 10);
-      if (rowDate !== dateKey) continue;
-      // Vérifie si l'action correspond à n'importe quelle colonne d'action
-      for (let c = 1; c <= 7; c++) {
-        if (String(allCols[i][c]).trim() === String(action).trim()) return i + 2;
-      }
-      // Vérifie la colonne commentaires (O = index 14)
-      if (String(allCols[i][14]).trim() === String(action).trim()) return i + 2;
+    const dateKey = String(date).substring(0, 10);
+    const rows = sheet.getRange(2, 1, lastRow - 1, 3).getValues();
+    for (let i = 0; i < rows.length; i++) {
+      if (String(rows[i][0]).substring(0, 10) === dateKey &&
+          String(rows[i][2]).trim() === String(action).trim()) return i + 2;
     }
   }
 
@@ -110,29 +77,13 @@ function deleteEvent(sheet, event_id, date, action) {
   return true;
 }
 
-function updateEvent(sheet, event_id, date, action, date_new, action_new, note_new, type_action_new) {
-  const row = findEventRow(sheet, event_id, date, action);
+function updateEvent(sheet, event_id, date_orig, action_orig, date_new, action_new, note_new, type_action_new) {
+  const row = findEventRow(sheet, event_id, date_orig, action_orig);
   if (row === -1) return false;
-
-  if (date_new) sheet.getRange(row, 1).setValue(date_new);
-
-  if (action_new) {
-    // Effacer toutes les colonnes d'action de cette ligne
-    [2, 3, 4, 5, 6, 7, 8].forEach(col => sheet.getRange(row, col).setValue(''));
-
-    const actionCol = COL_MAP[type_action_new || 'autre'];
-    if (actionCol) {
-      sheet.getRange(row, actionCol).setValue(action_new);
-      sheet.getRange(row, 15).setValue(note_new || '');
-    } else {
-      // Pas de colonne dédiée → commentaires_notes
-      const combined = note_new ? action_new + ' — ' + note_new : action_new;
-      sheet.getRange(row, 15).setValue(combined);
-    }
-  } else {
-    sheet.getRange(row, 15).setValue(note_new || '');
-  }
-
+  if (date_new)        sheet.getRange(row, 1).setValue(date_new);
+  if (type_action_new) sheet.getRange(row, 2).setValue(type_action_new);
+  if (action_new)      sheet.getRange(row, 3).setValue(action_new);
+  sheet.getRange(row, 4).setValue(note_new || '');
   return true;
 }
 
@@ -149,4 +100,75 @@ function triggerWorkflow() {
     payload: JSON.stringify({ ref: 'main' }),
     muteHttpExceptions: true
   });
+}
+
+// ── À EXÉCUTER UNE SEULE FOIS pour migrer l'ancienne structure ──
+function migrateEvenementsToLongFormat() {
+  const ss    = SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID);
+  const sheet = ss.getSheetByName(CONFIG.SHEETS.EVENEMENTS);
+
+  // Backup
+  const backup = sheet.copyTo(ss);
+  backup.setName('evenements_backup_' + new Date().toISOString().substring(0, 10));
+  Logger.log('✅ Backup créé : ' + backup.getName());
+
+  const all = sheet.getDataRange().getValues();
+
+  // L'ancienne structure a les en-têtes en ligne 2 (index 1)
+  // Les données commencent à la ligne 3 (index 2)
+  const HEADERS = all[1] || [];
+  const colIdx  = name => HEADERS.findIndex(h => String(h).trim().toLowerCase() === name.toLowerCase());
+
+  const ACTION_TYPES = [
+    'rabais_promos', 'lancement_produits_ateliers', 'bis_alertes_back_in_stock',
+    'infolettre', 'push_notif', 'billet_blogue', 'reseaux_sociaux', 'webmestre_funnels',
+  ];
+  const CONTEXTE_TYPES = ['politique_actualite', 'fetes_feries_conges', 'couvertures_mediatiques'];
+
+  const iDate = colIdx('date');
+  const iNote = colIdx('commentaires_notes');
+  const iId   = colIdx('event_id');
+
+  const newRows = [['date', 'type', 'description', 'note', 'event_id']];
+  let count = 0;
+
+  for (let r = 2; r < all.length; r++) {
+    const row  = all[r];
+    const date = row[iDate];
+    if (!date || String(date).trim() === '') continue;
+
+    const note = String(iNote >= 0 ? row[iNote] : '').trim();
+    const eid  = String(iId   >= 0 ? row[iId]   : '').trim();
+
+    let first = true;
+
+    for (const t of ACTION_TYPES) {
+      const ci  = colIdx(t);
+      if (ci < 0) continue;
+      const val = String(row[ci]).trim();
+      if (!val) continue;
+      newRows.push([date, t, val, first ? note : '', first && eid ? eid : String(Date.now()) + '_' + r + '_' + ci]);
+      first = false;
+      count++;
+    }
+
+    for (const t of CONTEXTE_TYPES) {
+      const ci  = colIdx(t);
+      if (ci < 0) continue;
+      const val = String(row[ci]).trim();
+      if (!val) continue;
+      newRows.push([date, 'contexte', t.replace(/_/g,' ') + ' : ' + val, '', String(Date.now()) + '_' + r + '_' + ci]);
+      count++;
+    }
+
+    // Ligne avec une note mais aucune action
+    if (first && note) {
+      newRows.push([date, 'autre', note, '', eid || String(Date.now()) + '_' + r]);
+      count++;
+    }
+  }
+
+  sheet.clearContents();
+  sheet.getRange(1, 1, newRows.length, 5).setValues(newRows);
+  Logger.log(`✅ Migration terminée : ${count} événements dans ${newRows.length - 1} lignes.`);
 }
