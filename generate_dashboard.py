@@ -304,6 +304,13 @@ def main():
     if not publications.empty:
         publications["date"] = pd.to_datetime(publications["date"], errors="coerce")
 
+    # Filtrer événements avec date nulle ou future
+    if not evenements.empty and 'date' in evenements.columns:
+        evenements = evenements[
+            evenements['date'].notna() &
+            (evenements['date'] <= pd.Timestamp(date.today()))
+        ]
+
     print(f"   📊 Ventes brutes : {len(ventes)} lignes")
     print(f"   📧 Infolettres : {len(infolettres)} lignes")
     print(f"   📱 Publications : {len(publications)} lignes")
