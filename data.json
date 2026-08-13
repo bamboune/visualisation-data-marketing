@@ -27827,6 +27827,24 @@
       "precipitation_mm": 0.1,
       "snowfall_cm": 0.0,
       "weather_code": 51
+    },
+    {
+      "date": "2026-08-12",
+      "ventes_bel": 3015.31,
+      "ventes_boutique": 1633.61,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 4648.92,
+      "commandes_bel": 30.0,
+      "commandes_boutique": 33.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 63.0,
+      "panier_moyen_bel": 100.51,
+      "panier_moyen_boutique": 49.5,
+      "temp_max": 23.4,
+      "temp_min": 16.6,
+      "precipitation_mm": 1.9,
+      "snowfall_cm": 0.0,
+      "weather_code": 53
     }
   ],
   "infolettres": [
@@ -28017,6 +28035,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-08-12",
+      "plateforme": "facebook",
+      "description_courte": "Le petit poush poush qu’on aime avoir sous la main après une journée au soleil ☀️💦\n\nVAPO MENTHOLÉ\n🌿 Hydrolat de menthe poivrée (ou de lavande vraie)\n🌿 Jus d’aloès\n🌿 Huile essentielle de lavande aspic\n",
+      "lien_post": "https://www.facebook.com/reel/1775153620596784/"
+    },
     {
       "date": "2026-08-12",
       "plateforme": "facebook",
@@ -28586,6 +28610,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-08-12",
+      "plateforme": "instagram",
+      "description_courte": "Le petit poush poush qu’on aime avoir sous la main après une journée au soleil ☀️💦\n\nVAPO MENTHOLÉ\n🌿 Hydrolat de menthe poivrée (ou de lavande vraie)\n🌿 Jus d’aloès\n🌿 Huile essentielle de lavande aspic\n",
+      "lien_post": "https://www.instagram.com/reel/Db9BJF0sLy-/"
     },
     {
       "date": "2026-08-12",
@@ -44065,12 +44095,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10230757.8,
-    "total_ventes_bel": 7107952.119999999,
-    "total_ventes_boutique": 2579755.63,
+    "total_ventes": 10235406.72,
+    "total_ventes_bel": 7110967.43,
+    "total_ventes_boutique": 2581389.2399999998,
     "total_ventes_wholesale": 543050.05,
-    "panier_moyen_bel": 95.51381630012936,
+    "panier_moyen_bel": 95.51704589528119,
     "date_min": "2021-11-01",
-    "date_max": "2026-08-11"
+    "date_max": "2026-08-12"
   }
 }
