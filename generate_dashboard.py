@@ -14,6 +14,27 @@ FACEBOOK_PAGE_TOKEN = os.environ.get("FACEBOOK_PAGE_TOKEN", "")
 FACEBOOK_PAGE_ID = "164239587106721"
 SERVICE_ACCOUNT_FILE = "service_account.json"
 
+# Date de la migration wide→long du sheet evenements_marketing.
+# Événements à cette date ou avant : utiliser events_reference.json (dates correctes).
+# Événements après cette date : lire depuis le sheet (nouveaux événements).
+MIGRATION_DATE = '2026-08-13'
+EVENTS_REFERENCE_FILE = 'events_reference.json'
+
+# Préfixes injectés lors de la migration (format "colonne : contenu")
+_MIGRATION_PREFIX_RE = re.compile(
+    r'^(?:rabais[ _]promos|lancement[ _]produits[ _]ateliers|'
+    r'bis[ _]alertes[ _]back[ _]in[ _]stock|infolettre|push[ _]notif|'
+    r'billet[ _]blogue|webmestre[ _]funnels|politique[ _]actualite|'
+    r'fetes[ _]feries[ _]conges|couvertures[ _]mediatiques|'
+    r'commentaires[ _]notes|temperature|meteo[ _]montreal|meteo[ _]generale)'
+    r'\s*[: ]\s*',
+    re.IGNORECASE
+)
+
+def _strip_event_prefix(text):
+    m = _MIGRATION_PREFIX_RE.match(str(text or ''))
+    return text[m.end():] if m else text
+
 def super_clean_numeric(value):
     """Version ultra-agressive pour nettoyer les nombres"""
     if value is None or pd.isna(value):
@@ -284,17 +305,62 @@ def get_weather_data(start_date, end_date, lat=45.5, lon=-73.6):
         print(f"   ❌ Erreur météo : {e}")
         return None
 
+def get_evenements_corrected(sheet_df):
+    """Retourne les événements combinés :
+    - événements historiques (≤ MIGRATION_DATE) → events_reference.json (dates correctes)
+    - nouveaux événements (> MIGRATION_DATE) → lus depuis le sheet
+    """
+    try:
+        with open(EVENTS_REFERENCE_FILE, 'r', encoding='utf-8') as f:
+            reference = json.load(f)
+        print(f"   📚 Référence chargée : {len(reference)} événements historiques")
+    except FileNotFoundError:
+        print(f"   ⚠️  {EVENTS_REFERENCE_FILE} introuvable — données du sheet utilisées directement")
+        return sheet_df
+
+    new_events = []
+    if not sheet_df.empty and 'date' in sheet_df.columns:
+        for _, row in sheet_df.iterrows():
+            dt = row['date']
+            if pd.isna(dt):
+                continue
+            dt_str = dt.strftime('%Y-%m-%d') if hasattr(dt, 'strftime') else str(dt)[:10]
+            if dt_str <= MIGRATION_DATE:
+                continue
+            desc_raw = str(row.get('description') or row.get('col_2') or '')
+            desc = _strip_event_prefix(desc_raw).strip()
+            if not desc or len(desc) < 2:
+                continue
+            new_events.append({
+                'date': dt_str,
+                'type': str(row.get('type') or ''),
+                'description': desc,
+                'note': str(row.get('note') or row.get('col_3') or ''),
+                'event_id': str(row.get('event_id') or row.get('col_4') or ''),
+            })
+
+    all_events = reference + new_events
+    all_events.sort(key=lambda e: str(e.get('date') or ''))
+    print(f"   ✅ {len(reference)} historiques + {len(new_events)} nouveaux = {len(all_events)} événements")
+
+    df = pd.DataFrame(all_events)
+    if not df.empty:
+        df['date'] = pd.to_datetime(df['date'], errors='coerce')
+    return df
+
+
 def main():
     print("📊 Génération du dashboard LMH...")
-    
+
     print("📁 Lecture des données...")
     ventes = get_google_sheet("ventes_quotidiennes", header_row=1)
     infolettres = get_mailerlite_campaigns()
     # col_aliases: positional fallback when header cells are empty (e.g. after migration glitch)
-    evenements = get_google_sheet(
+    evenements_sheet = get_google_sheet(
         "evenements_marketing", header_row=1,
         col_aliases={2: 'description', 3: 'note', 4: 'event_id'}
     )
+    evenements = get_evenements_corrected(evenements_sheet)
 
     print("📱 Récupération des publications Facebook/Instagram...")
     fb_posts = get_facebook_posts()

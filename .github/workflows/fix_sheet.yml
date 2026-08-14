@@ -1,0 +1,24 @@
+name: Corriger le sheet evenements_marketing
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fix-sheet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Créer fichier service account
+        run: echo '${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}' > service_account.json
+
+      - name: Corriger les dates du sheet
+        run: python fix_sheet_events.py
