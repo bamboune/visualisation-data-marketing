@@ -35,6 +35,44 @@ def _strip_event_prefix(text):
     m = _MIGRATION_PREFIX_RE.match(str(text or ''))
     return text[m.end():] if m else text
 
+# Normalisation des types saisis librement dans le sheet
+_TYPE_ALIASES = {
+    'web': 'webmestre_funnels',
+    'web/funnel': 'webmestre_funnels',
+    'web/funnels': 'webmestre_funnels',
+    'webmestre': 'webmestre_funnels',
+    'funnel': 'webmestre_funnels',
+    'funnels': 'webmestre_funnels',
+    'promo': 'rabais_promos',
+    'rabais': 'rabais_promos',
+    'promotion': 'rabais_promos',
+    'lancement': 'lancement_produits_ateliers',
+    'atelier': 'lancement_produits_ateliers',
+    'blogue': 'billet_blogue',
+    'blog': 'billet_blogue',
+    'push': 'push_notif',
+    'reseaux': 'reseaux_sociaux',
+    'réseaux': 'reseaux_sociaux',
+    'social': 'reseaux_sociaux',
+    'sociaux': 'reseaux_sociaux',
+    'commentaire': 'commentaires',
+    'note': 'commentaires',
+    'notes': 'commentaires',
+}
+_KNOWN_TYPES = {
+    'rabais_promos', 'lancement_produits_ateliers', 'bis_alertes_back_in_stock', 'bis',
+    'infolettre', 'push_notif', 'billet_blogue', 'reseaux_sociaux', 'webmestre_funnels',
+    'contexte', 'commentaires', 'commentaires_notes', 'autre',
+}
+
+def _normalize_event_type(t):
+    if not t:
+        return ''
+    clean = str(t).strip()
+    if clean in _KNOWN_TYPES:
+        return clean
+    return _TYPE_ALIASES.get(clean.lower(), clean)
+
 def super_clean_numeric(value):
     """Version ultra-agressive pour nettoyer les nombres"""
     if value is None or pd.isna(value):
@@ -333,7 +371,7 @@ def get_evenements_corrected(sheet_df):
                 continue
             new_events.append({
                 'date': dt_str,
-                'type': str(row.get('type') or ''),
+                'type': _normalize_event_type(row.get('type') or ''),
                 'description': desc,
                 'note': str(row.get('note') or row.get('col_3') or ''),
                 'event_id': str(row.get('event_id') or row.get('col_4') or ''),
