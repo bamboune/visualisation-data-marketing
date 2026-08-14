@@ -27881,6 +27881,24 @@
       "precipitation_mm": 1.9,
       "snowfall_cm": 0.0,
       "weather_code": 53
+    },
+    {
+      "date": "2026-08-13",
+      "ventes_bel": 2737.08,
+      "ventes_boutique": 1797.21,
+      "ventes_wholesale": 574.6,
+      "ventes_total": 5108.89,
+      "commandes_bel": 33.0,
+      "commandes_boutique": 35.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 69.0,
+      "panier_moyen_bel": 82.94,
+      "panier_moyen_boutique": 51.35,
+      "temp_max": 23.6,
+      "temp_min": 16.9,
+      "precipitation_mm": 1.6,
+      "snowfall_cm": 0.0,
+      "weather_code": 53
     }
   ],
   "infolettres": [
@@ -28071,6 +28089,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-08-13",
+      "plateforme": "facebook",
+      "description_courte": "On s’appelle les Mauvaises herbes et non, on ne fait pas de tonte de gazon 🫠",
+      "lien_post": "https://www.facebook.com/reel/4381796548750732/"
+    },
     {
       "date": "2026-08-13",
       "plateforme": "facebook",
@@ -28652,6 +28676,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-08-13",
+      "plateforme": "instagram",
+      "description_courte": "On s’appelle les Mauvaises herbes et non, on ne fait pas de tonte de gazon 🫠",
+      "lien_post": "https://www.instagram.com/reel/Db_1QkNsCIM/"
     },
     {
       "date": "2026-08-13",
@@ -29368,15 +29398,6 @@
       "lien_post": "https://www.instagram.com/p/DX7qngPFYq9/"
     }
   ],
-  "stats": {
-    "total_ventes": 10244704.560000002,
-    "total_ventes_bel": 7116998.050000001,
-    "total_ventes_boutique": 2584656.46,
-    "total_ventes_wholesale": 543050.05,
-    "panier_moyen_bel": 95.5234925758554,
-    "date_min": "2021-11-01",
-    "date_max": "2026-08-12"
-  },
   "evenements": [
     {
       "date": "2021-07-01",
@@ -37777,6 +37798,22 @@
       "description": "ahhhhhhhhh",
       "note": "",
       "event_id": ""
+    },
+    {
+      "date": "2026-08-14",
+      "type": "",
+      "description": "Test final",
+      "note": "",
+      "event_id": ""
     }
-  ]
+  ],
+  "stats": {
+    "total_ventes": 10249813.450000001,
+    "total_ventes_bel": 7119735.130000001,
+    "total_ventes_boutique": 2586453.67,
+    "total_ventes_wholesale": 543624.65,
+    "panier_moyen_bel": 95.5153741935484,
+    "date_min": "2021-11-01",
+    "date_max": "2026-08-13"
+  }
 }
