@@ -593,6 +593,45 @@
     let currentView = 'annual';
     let eventRegistry = new Map();
 
+    // ── PERSISTANCE LOCALE (localStorage) ──
+    // Les ajouts et suppressions faits dans le dashboard sont mémorisés localement.
+    // Ils s'effacent automatiquement une fois synchronisés dans data.json par GitHub Actions.
+
+    function evKey(ev) {
+        const d = ev.date ? dayjs(ev.date).format('YYYY-MM-DD') : '';
+        const desc = (ev.description || '').toString().trim().toLowerCase().slice(0, 80);
+        return `${d}|${desc}`;
+    }
+    function getLocalDeleted() {
+        try { return new Set(JSON.parse(localStorage.getItem('lmh_events_deleted') || '[]')); }
+        catch { return new Set(); }
+    }
+    function saveLocalDeleted(s) {
+        localStorage.setItem('lmh_events_deleted', JSON.stringify([...s]));
+    }
+    function getLocalAdded() {
+        try { return JSON.parse(localStorage.getItem('lmh_events_added') || '[]'); }
+        catch { return []; }
+    }
+    function saveLocalAdded(arr) {
+        localStorage.setItem('lmh_events_added', JSON.stringify(arr));
+    }
+    function applyLocalChanges() {
+        if (!fullData.evenements) return;
+        const deleted = getLocalDeleted();
+        // Filtrer les suppressions locales
+        fullData.evenements = fullData.evenements.filter(ev => !deleted.has(evKey(ev)));
+        // Ajouter les créations locales pas encore dans data.json
+        const existingKeys = new Set(fullData.evenements.map(evKey));
+        const stillPending = [];
+        for (const ev of getLocalAdded()) {
+            if (existingKeys.has(evKey(ev))) continue; // déjà synchronisé → ignorer
+            stillPending.push(ev);
+            fullData.evenements.push(ev);
+        }
+        saveLocalAdded(stillPending);
+    }
+
     // ── LOAD ──
     async function loadData() {
         try {
@@ -610,6 +649,7 @@
                     return out;
                 });
             }
+            applyLocalChanges();
             initFilters();
             applyFiltersAndRender();
         } catch(err) {
@@ -1534,24 +1574,25 @@
     async function handleDeleteEvent(ev) {
         const actionVal = ev.description?.toString().trim() || '';
         if (!confirm(`Supprimer cet événement ?\n\n${dayjs(ev.date).format('DD/MM/YYYY')} — ${actionVal}`)) return;
-        try {
-            await fetch(WEBHOOK_URL, {
-                method: 'POST', mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    type: 'delete',
-                    event_id: ev.event_id || '',
-                    date: dayjs(ev.date).format('YYYY-MM-DD'),
-                    action: actionVal
-                })
-            });
-            // Mise à jour optimiste : retirer l'événement et re-rendre
-            const idx = fullData.evenements.indexOf(ev);
-            if (idx !== -1) fullData.evenements.splice(idx, 1);
-            applyFiltersAndRender();
-        } catch(err) {
-            alert('Erreur réseau. Réessayez.');
-        }
+        // Persistance locale immédiate
+        const deleted = getLocalDeleted();
+        deleted.add(evKey(ev));
+        saveLocalDeleted(deleted);
+        // Retirer de la mémoire et re-rendre
+        const idx = fullData.evenements.indexOf(ev);
+        if (idx !== -1) fullData.evenements.splice(idx, 1);
+        applyFiltersAndRender();
+        // Envoyer au webhook (fire and forget)
+        fetch(WEBHOOK_URL, {
+            method: 'POST', mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                type: 'delete',
+                event_id: ev.event_id || '',
+                date: dayjs(ev.date).format('YYYY-MM-DD'),
+                action: actionVal
+            })
+        }).catch(() => {});
     }
 
     // Peupler le dropdown de types
@@ -1608,12 +1649,19 @@
                 document.getElementById('formMessage').innerHTML = '<span style="color:#6ab04c;">✅ Événement modifié ! Mise à jour dans quelques minutes.</span>';
             } else {
                 const event_id = String(Date.now());
+                const newEv = { date, type: type_action, description: action, note, event_id };
+                // Persistance locale + mise à jour immédiate
+                const added = getLocalAdded();
+                added.push(newEv);
+                saveLocalAdded(added);
+                fullData.evenements.push(newEv);
+                // Envoyer au webhook
                 await fetch(WEBHOOK_URL, {
                     method: 'POST', mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ type: 'create', date, type_action, action, note, event_id })
                 });
-                document.getElementById('formMessage').innerHTML = '<span style="color:#6ab04c;">✅ Événement ajouté ! Mise à jour dans quelques minutes.</span>';
+                document.getElementById('formMessage').innerHTML = '<span style="color:#6ab04c;">✅ Événement ajouté !</span>';
             }
             document.getElementById('eventForm').reset();
             document.getElementById('eventMode').value = 'add';
