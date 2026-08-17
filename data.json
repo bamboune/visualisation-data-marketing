@@ -27917,6 +27917,42 @@
       "precipitation_mm": 0.5,
       "snowfall_cm": 0.0,
       "weather_code": 51
+    },
+    {
+      "date": "2026-08-15",
+      "ventes_bel": 4226.62,
+      "ventes_boutique": 2244.57,
+      "ventes_wholesale": 429.28,
+      "ventes_total": 6900.47,
+      "commandes_bel": 36.0,
+      "commandes_boutique": 49.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 86.0,
+      "panier_moyen_bel": 117.41,
+      "panier_moyen_boutique": 45.81,
+      "temp_max": 23.3,
+      "temp_min": 12.6,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
+    },
+    {
+      "date": "2026-08-16",
+      "ventes_bel": 5274.87,
+      "ventes_boutique": 1194.03,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 6468.9,
+      "commandes_bel": 53.0,
+      "commandes_boutique": 29.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 82.0,
+      "panier_moyen_bel": 99.53,
+      "panier_moyen_boutique": 41.17,
+      "temp_max": 22.4,
+      "temp_min": 14.9,
+      "precipitation_mm": 5.6,
+      "snowfall_cm": 0.0,
+      "weather_code": 63
     }
   ],
   "infolettres": [
@@ -28107,6 +28143,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-08-16",
+      "plateforme": "facebook",
+      "description_courte": "L’huile d’Abyssinie, cette petite merveille polyvalente! 😍\n\nPour le visage, elle laisse la peau satinée, souple et lumineuse, sans fini gras. Elle aide à renforcer l’hydratation et à optimiser l’absor",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1615714649942240"
+    },
     {
       "date": "2026-08-13",
       "plateforme": "facebook",
@@ -28694,6 +28736,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-08-16",
+      "plateforme": "instagram",
+      "description_courte": "L’huile d’Abyssinie, cette petite merveille polyvalente! 😍\n\nPour le visage, elle laisse la peau satinée, souple et lumineuse, sans fini gras. Elle aide à renforcer l’hydratation et à optimiser l’absor",
+      "lien_post": "https://www.instagram.com/p/DcHZt_Qs6Q6/"
     },
     {
       "date": "2026-08-13",
@@ -37833,12 +37881,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10255926.280000001,
-    "total_ventes_bel": 7123758.460000001,
-    "total_ventes_boutique": 2587726.3499999996,
-    "total_ventes_wholesale": 544441.47,
-    "panier_moyen_bel": 95.51555125725338,
+    "total_ventes": 10269295.649999999,
+    "total_ventes_bel": 7133259.949999999,
+    "total_ventes_boutique": 2591164.95,
+    "total_ventes_wholesale": 544870.75,
+    "panier_moyen_bel": 95.53223438506117,
     "date_min": "2021-11-01",
-    "date_max": "2026-08-14"
+    "date_max": "2026-08-16"
   }
 }
