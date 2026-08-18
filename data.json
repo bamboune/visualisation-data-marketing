@@ -27950,9 +27950,9 @@
       "panier_moyen_boutique": 41.17,
       "temp_max": 22.4,
       "temp_min": 14.9,
-      "precipitation_mm": 5.6,
+      "precipitation_mm": 1.5,
       "snowfall_cm": 0.0,
-      "weather_code": 63
+      "weather_code": 53
     }
   ],
   "infolettres": [
@@ -28143,6 +28143,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-08-17",
+      "plateforme": "facebook",
+      "description_courte": "L'achillée, c'est une pro pour stopper les saignements, une alliée merveilleuse aussi pour le cycle menstruel, en plus d'être comestible. T'sais! Elle a tout pour elle ou quoi?\n\n🎶Elle a quelque chose ",
+      "lien_post": "https://www.facebook.com/reel/2130608991211895/"
+    },
     {
       "date": "2026-08-16",
       "plateforme": "facebook",
@@ -28736,6 +28742,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-08-17",
+      "plateforme": "instagram",
+      "description_courte": "L'achillée, c'est une pro pour stopper les saignements, une alliée merveilleuse aussi pour le cycle menstruel, en plus d'être comestible. T'sais! Elle a tout pour elle ou quoi?\n\n🎶Elle a quelque chose ",
+      "lien_post": "https://www.instagram.com/reel/DcJa487CRWU/"
     },
     {
       "date": "2026-08-16",
