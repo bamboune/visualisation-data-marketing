@@ -27971,6 +27971,24 @@
       "precipitation_mm": 9.3,
       "snowfall_cm": 0.0,
       "weather_code": 61
+    },
+    {
+      "date": "2026-08-18",
+      "ventes_bel": 2963.89,
+      "ventes_boutique": 1368.73,
+      "ventes_wholesale": 442.38,
+      "ventes_total": 4775.0,
+      "commandes_bel": 31.0,
+      "commandes_boutique": 31.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 63.0,
+      "panier_moyen_bel": 95.61,
+      "panier_moyen_boutique": 44.15,
+      "temp_max": 24.9,
+      "temp_min": 16.2,
+      "precipitation_mm": 0.9,
+      "snowfall_cm": 0.0,
+      "weather_code": 51
     }
   ],
   "infolettres": [
@@ -28176,6 +28194,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-08-19",
+      "plateforme": "facebook",
+      "description_courte": "ON FAIT JAMAIS ÇA… 🤭\n\nBon. On l’a déjà dit en juillet.\n\nEt vous avez tellement aimé ça qu’on a décidé de… ne jamais le refaire 🙄\n\n👉 20% de rabais sur TOUT, du 20 au 23 août au Pignon sur rue\n(oui oui ",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1618119813035057"
+    },
     {
       "date": "2026-08-18",
       "plateforme": "facebook",
@@ -28781,6 +28805,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-08-19",
+      "plateforme": "instagram",
+      "description_courte": "ON FAIT JAMAIS ÇA… 🤭\n\nBon. On l’a déjà dit en juillet.\n\nEt vous avez tellement aimé ça qu’on a décidé de… ne jamais le refaire 🙄\n\n👉 20% de rabais sur TOUT, du 20 au 23 août au Pignon sur rue\n(oui oui ",
+      "lien_post": "https://www.instagram.com/p/DcOwiWkMB4e/"
     },
     {
       "date": "2026-08-18",
@@ -37938,12 +37968,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10273275.64,
-    "total_ventes_bel": 7137239.9399999995,
-    "total_ventes_boutique": 2591164.95,
-    "total_ventes_wholesale": 544870.75,
-    "panier_moyen_bel": 95.53478764478764,
+    "total_ventes": 10278050.64,
+    "total_ventes_bel": 7140203.83,
+    "total_ventes_boutique": 2592533.68,
+    "total_ventes_wholesale": 545313.13,
+    "panier_moyen_bel": 95.53483601286173,
     "date_min": "2021-11-01",
-    "date_max": "2026-08-17"
+    "date_max": "2026-08-18"
   }
 }
