@@ -27953,6 +27953,24 @@
       "precipitation_mm": 1.5,
       "snowfall_cm": 0.0,
       "weather_code": 53
+    },
+    {
+      "date": "2026-08-17",
+      "ventes_bel": 3979.99,
+      "ventes_boutique": 0.0,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 3979.99,
+      "commandes_bel": 40.0,
+      "commandes_boutique": 0.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 40.0,
+      "panier_moyen_bel": 99.5,
+      "panier_moyen_boutique": 0.0,
+      "temp_max": 24.4,
+      "temp_min": 18.6,
+      "precipitation_mm": 9.3,
+      "snowfall_cm": 0.0,
+      "weather_code": 61
     }
   ],
   "infolettres": [
@@ -28009,7 +28027,7 @@
     {
       "date": "2026-05-28",
       "date_envoi": "2026-05-28",
-      "sujet": "Baume des lunes mai 2026 - resend aux pas ouverts jeudi 28 mai 20h"
+      "sujet": "Infolettre WS - meilleurs vendeurs du moment"
     },
     {
       "date": "2026-05-28",
@@ -28019,7 +28037,7 @@
     {
       "date": "2026-05-28",
       "date_envoi": "2026-05-28",
-      "sujet": "Infolettre WS - meilleurs vendeurs du moment"
+      "sujet": "Baume des lunes mai 2026 - resend aux pas ouverts jeudi 28 mai 20h"
     },
     {
       "date": "2026-06-03",
@@ -28109,12 +28127,12 @@
     {
       "date": "2026-07-17",
       "date_envoi": "2026-07-17",
-      "sujet": "BF des campeurs resend aux pas ouverts | 17 juillet 2026 10h"
+      "sujet": "BF des campeurs routine Marie (Juliette) | 18 juillet 2026 9h"
     },
     {
       "date": "2026-07-17",
       "date_envoi": "2026-07-17",
-      "sujet": "BF des campeurs routine Marie (Juliette) | 18 juillet 2026 9h"
+      "sujet": "BF des campeurs resend aux pas ouverts | 17 juillet 2026 10h"
     },
     {
       "date": "2026-07-24",
@@ -28140,9 +28158,30 @@
       "date": "2026-08-09",
       "date_envoi": "2026-08-09",
       "sujet": "Auto resend of Routine de Gen contour des yeux - 5 huiles + crème contour + abyssinie / offre d'emploi | samedi 8 août 9h + resend dimanche soir 19h"
+    },
+    {
+      "date": "2026-08-13",
+      "date_envoi": "2026-08-13",
+      "sujet": "BIS atelier crème automne 2026"
+    },
+    {
+      "date": "2026-08-17",
+      "date_envoi": "2026-08-17",
+      "sujet": "Bis sérum automne 2026"
+    },
+    {
+      "date": "2026-08-17",
+      "date_envoi": "2026-08-17",
+      "sujet": "Bis atelier shampoing automne 1016"
     }
   ],
   "publications": [
+    {
+      "date": "2026-08-18",
+      "plateforme": "facebook",
+      "description_courte": "On rigole mais… 👀",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1617432556437116"
+    },
     {
       "date": "2026-08-17",
       "plateforme": "facebook",
@@ -28742,6 +28781,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-08-18",
+      "plateforme": "instagram",
+      "description_courte": "On rigole mais… 👀",
+      "lien_post": "https://www.instagram.com/p/DcMqvXksOhg/"
     },
     {
       "date": "2026-08-17",
@@ -37893,12 +37938,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10269295.649999999,
-    "total_ventes_bel": 7133259.949999999,
+    "total_ventes": 10273275.64,
+    "total_ventes_bel": 7137239.9399999995,
     "total_ventes_boutique": 2591164.95,
     "total_ventes_wholesale": 544870.75,
-    "panier_moyen_bel": 95.53223438506117,
+    "panier_moyen_bel": 95.53478764478764,
     "date_min": "2021-11-01",
-    "date_max": "2026-08-16"
+    "date_max": "2026-08-17"
   }
 }
