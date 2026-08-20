@@ -28191,6 +28191,11 @@
       "date": "2026-08-17",
       "date_envoi": "2026-08-17",
       "sujet": "Bis atelier shampoing automne 1016"
+    },
+    {
+      "date": "2026-08-19",
+      "date_envoi": "2026-08-19",
+      "sujet": "Vente-trottoir 27 au 30 août 2026 | mercredi soir + resend samedi matin"
     }
   ],
   "publications": [
@@ -37963,6 +37968,13 @@
       "date": "2026-08-14",
       "type": "",
       "description": "test push notif",
+      "note": "",
+      "event_id": ""
+    },
+    {
+      "date": "2026-08-20",
+      "type": "",
+      "description": "20 au 23: vente-trottoir",
       "note": "",
       "event_id": ""
     }
