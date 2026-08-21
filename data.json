@@ -27989,6 +27989,24 @@
       "precipitation_mm": 0.9,
       "snowfall_cm": 0.0,
       "weather_code": 51
+    },
+    {
+      "date": "2026-08-19",
+      "ventes_bel": 3377.53,
+      "ventes_boutique": 990.53,
+      "ventes_wholesale": 640.54,
+      "ventes_total": 5008.6,
+      "commandes_bel": 35.0,
+      "commandes_boutique": 26.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 62.0,
+      "panier_moyen_bel": 96.5,
+      "panier_moyen_boutique": 38.1,
+      "temp_max": 20.7,
+      "temp_min": 17.6,
+      "precipitation_mm": 6.9,
+      "snowfall_cm": 0.0,
+      "weather_code": 61
     }
   ],
   "infolettres": [
@@ -28199,6 +28217,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-08-20",
+      "plateforme": "facebook",
+      "description_courte": "L’Impatiente du Cap, ou Impatiens capensis, est une plante unique (et surprenante) qu'on trouve facilement au Québec. Connue pour ses propriétés apaisantes, elle est idéale pour soulager les démangeai",
+      "lien_post": "https://www.facebook.com/reel/1075263721856094/"
+    },
     {
       "date": "2026-08-19",
       "plateforme": "facebook",
@@ -28810,6 +28834,24 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-08-20",
+      "plateforme": "instagram",
+      "description_courte": "L’achillée, c’est une pro pour stopper les saignements, une alliée merveilleuse aussi pour le cycle menstruel, en plus d’être comestible. T’sais! Elle a tout pour elle ou quoi?\n\n🎶Elle a quelque chose ",
+      "lien_post": "https://www.instagram.com/reel/DcRJzU9sjEl/"
+    },
+    {
+      "date": "2026-08-20",
+      "plateforme": "instagram",
+      "description_courte": "L’Impatiente du Cap, ou Impatiens capensis, est une plante unique (et surprenante) qu'on trouve facilement au Québec. Connue pour ses propriétés apaisantes, elle est idéale pour soulager les démangeai",
+      "lien_post": "https://www.instagram.com/reel/DcRJNy-AX8T/"
+    },
+    {
+      "date": "2026-08-20",
+      "plateforme": "instagram",
+      "description_courte": "Fun fact qu’on a pas eu le temps de dire : la molène a déjà servi à isoler des bottes.\n\nAutre détail côté médicinal qu’on a pas eu le temps de couvrir : l’usage traditionnel se fait pas juste en tisan",
+      "lien_post": "https://www.instagram.com/reel/DcRJB_usZqf/"
     },
     {
       "date": "2026-08-19",
@@ -37980,12 +38022,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10278050.64,
-    "total_ventes_bel": 7140203.83,
-    "total_ventes_boutique": 2592533.68,
-    "total_ventes_wholesale": 545313.13,
-    "panier_moyen_bel": 95.53483601286173,
+    "total_ventes": 10283059.24,
+    "total_ventes_bel": 7143581.359999999,
+    "total_ventes_boutique": 2593524.21,
+    "total_ventes_wholesale": 545953.67,
+    "panier_moyen_bel": 95.5354562982005,
     "date_min": "2021-11-01",
-    "date_max": "2026-08-18"
+    "date_max": "2026-08-19"
   }
 }
