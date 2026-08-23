@@ -28025,6 +28025,24 @@
       "precipitation_mm": 0.1,
       "snowfall_cm": 0.0,
       "weather_code": 51
+    },
+    {
+      "date": "2026-08-21",
+      "ventes_bel": 3865.98,
+      "ventes_boutique": 2829.36,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 6695.34,
+      "commandes_bel": 35.0,
+      "commandes_boutique": 65.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 100.0,
+      "panier_moyen_bel": 110.46,
+      "panier_moyen_boutique": 43.53,
+      "temp_max": 23.3,
+      "temp_min": 12.7,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 2
     }
   ],
   "infolettres": [
@@ -28181,12 +28199,12 @@
     {
       "date": "2026-07-17",
       "date_envoi": "2026-07-17",
-      "sujet": "BF des campeurs routine Marie (Juliette) | 18 juillet 2026 9h"
+      "sujet": "BF des campeurs resend aux pas ouverts | 17 juillet 2026 10h"
     },
     {
       "date": "2026-07-17",
       "date_envoi": "2026-07-17",
-      "sujet": "BF des campeurs resend aux pas ouverts | 17 juillet 2026 10h"
+      "sujet": "BF des campeurs routine Marie (Juliette) | 18 juillet 2026 9h"
     },
     {
       "date": "2026-07-24",
@@ -28196,12 +28214,12 @@
     {
       "date": "2026-07-31",
       "date_envoi": "2026-07-31",
-      "sujet": "Gatorade maison et savon camping (recettes!) + lecture de vacances (baku 10 produits) | samedi 1er août 9h + resend dimanche 19h"
+      "sujet": "Routine de Gen contour des yeux - 5 huiles + crème contour + abyssinie / offre d'emploi | samedi 8 août 9h + resend dimanche soir 19h"
     },
     {
       "date": "2026-07-31",
       "date_envoi": "2026-07-31",
-      "sujet": "Routine de Gen contour des yeux - 5 huiles + crème contour + abyssinie / offre d'emploi | samedi 8 août 9h + resend dimanche soir 19h"
+      "sujet": "Gatorade maison et savon camping (recettes!) + lecture de vacances (baku 10 produits) | samedi 1er août 9h + resend dimanche 19h"
     },
     {
       "date": "2026-08-02",
@@ -28232,9 +28250,26 @@
       "date": "2026-08-19",
       "date_envoi": "2026-08-19",
       "sujet": "Vente-trottoir 27 au 30 août 2026 | mercredi soir + resend samedi matin"
+    },
+    {
+      "date": "2026-08-22",
+      "date_envoi": "2026-08-22",
+      "sujet": "Auto resend of Vente-trottoir 27 au 30 août 2026 | mercredi soir + resend samedi matin"
     }
   ],
   "publications": [
+    {
+      "date": "2026-08-22",
+      "plateforme": "facebook",
+      "description_courte": "C’est la fiesta latina à la Plaza St-Hubert 💃\n\nPour l’occasion, on vous invite à nous rejoindre à notre dernier party d’été avant de ranger nos ballons de piscine et de sortir nos tites laines!\n\n20% s",
+      "lien_post": "https://www.facebook.com/reel/1421320600194748/"
+    },
+    {
+      "date": "2026-08-22",
+      "plateforme": "facebook",
+      "description_courte": "C’est la fiesta latina à la Plaza St-Hubert 💃\n\nPour l’occasion, on vous invite à nous rejoindre à notre dernier party d’été avant de ranger nos ballons de piscine et de sortir nos tites laines!\n\n20% s",
+      "lien_post": "https://www.facebook.com/reel/936707695623964/"
+    },
     {
       "date": "2026-08-21",
       "plateforme": "facebook",
@@ -28858,6 +28893,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-08-22",
+      "plateforme": "instagram",
+      "description_courte": "C’est la fiesta latina à la @plazasthubert 💃\n\nPour l’occasion, on vous invite à nous rejoindre à notre dernier party d’été avant de ranger nos ballons de piscine et de sortir nos tites laines!\n\n20% su",
+      "lien_post": "https://www.instagram.com/reel/DcV-KBvhNRe/"
     },
     {
       "date": "2026-08-21",
@@ -38052,12 +38093,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10293329.35,
-    "total_ventes_bel": 7148531.359999999,
-    "total_ventes_boutique": 2598844.3200000003,
+    "total_ventes": 10300024.69,
+    "total_ventes_bel": 7152397.34,
+    "total_ventes_boutique": 2601673.68,
     "total_ventes_wholesale": 545953.67,
-    "panier_moyen_bel": 95.54174052665381,
+    "panier_moyen_bel": 95.55131578947369,
     "date_min": "2021-11-01",
-    "date_max": "2026-08-20"
+    "date_max": "2026-08-21"
   }
 }
