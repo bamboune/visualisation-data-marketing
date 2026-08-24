@@ -28043,6 +28043,42 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 2
+    },
+    {
+      "date": "2026-08-22",
+      "ventes_bel": 3712.57,
+      "ventes_boutique": 4625.84,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 8338.41,
+      "commandes_bel": 36.0,
+      "commandes_boutique": 92.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 128.0,
+      "panier_moyen_bel": 103.13,
+      "panier_moyen_boutique": 50.28,
+      "temp_max": 24.7,
+      "temp_min": 13.4,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 1
+    },
+    {
+      "date": "2026-08-23",
+      "ventes_bel": 5105.77,
+      "ventes_boutique": 3799.5,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 8905.27,
+      "commandes_bel": 43.0,
+      "commandes_boutique": 79.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 122.0,
+      "panier_moyen_bel": 118.74,
+      "panier_moyen_boutique": 48.09,
+      "temp_max": 23.4,
+      "temp_min": 17.2,
+      "precipitation_mm": 8.9,
+      "snowfall_cm": 0.0,
+      "weather_code": 63
     }
   ],
   "infolettres": [
@@ -28258,6 +28294,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-08-23",
+      "plateforme": "facebook",
+      "description_courte": "Si je te dis que t’as 20% de rabais pour ton panier, tu mets quoi dedans?\n\n(True story jusqu’au dimanche 23 août à 17h au pignon)\n\n📍6260 rue St-Hubert\n\n💃🥳",
+      "lien_post": "https://www.facebook.com/reel/1579353320589644/"
+    },
     {
       "date": "2026-08-22",
       "plateforme": "facebook",
@@ -28893,6 +28935,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-08-23",
+      "plateforme": "instagram",
+      "description_courte": "Si je te dis que t’as 20% de rabais pour ton panier, tu mets quoi dedans?\n\n(True story jusqu’au dimanche 23 août à 17h au pignon)\n\n📍6260 rue St-Hubert\n\n💃🥳",
+      "lien_post": "https://www.instagram.com/reel/DcY6JpQsNEv/"
     },
     {
       "date": "2026-08-22",
@@ -38093,12 +38141,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10300024.69,
-    "total_ventes_bel": 7152397.34,
-    "total_ventes_boutique": 2601673.68,
+    "total_ventes": 10317268.37,
+    "total_ventes_bel": 7161215.68,
+    "total_ventes_boutique": 2610099.02,
     "total_ventes_wholesale": 545953.67,
-    "panier_moyen_bel": 95.55131578947369,
+    "panier_moyen_bel": 95.57103846153846,
     "date_min": "2021-11-01",
-    "date_max": "2026-08-21"
+    "date_max": "2026-08-23"
   }
 }
