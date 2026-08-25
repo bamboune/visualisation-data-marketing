@@ -28079,6 +28079,24 @@
       "precipitation_mm": 8.8,
       "snowfall_cm": 0.0,
       "weather_code": 63
+    },
+    {
+      "date": "2026-08-24",
+      "ventes_bel": 4162.95,
+      "ventes_boutique": 0.0,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 4162.95,
+      "commandes_bel": 41.0,
+      "commandes_boutique": 0.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 41.0,
+      "panier_moyen_bel": 101.54,
+      "panier_moyen_boutique": 0.0,
+      "temp_max": 20.0,
+      "temp_min": 15.4,
+      "precipitation_mm": 7.9,
+      "snowfall_cm": 0.0,
+      "weather_code": 63
     }
   ],
   "infolettres": [
@@ -28294,6 +28312,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-08-25",
+      "plateforme": "facebook",
+      "description_courte": "C’est ça, c’est de retour!",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1623237515856620"
+    },
     {
       "date": "2026-08-24",
       "plateforme": "facebook",
@@ -28947,6 +28971,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-08-25",
+      "plateforme": "instagram",
+      "description_courte": "C’est ça, c’est de retour!",
+      "lien_post": "https://www.instagram.com/p/DceKsyRM8jO/"
     },
     {
       "date": "2026-08-24",
@@ -38168,15 +38198,22 @@
       "description": "20 au 23: vente-trottoir",
       "note": "",
       "event_id": ""
+    },
+    {
+      "date": "2026-08-25",
+      "type": "",
+      "description": "Baume à lèvres teinté",
+      "note": "",
+      "event_id": ""
     }
   ],
   "stats": {
-    "total_ventes": 10317268.37,
-    "total_ventes_bel": 7161215.68,
+    "total_ventes": 10321431.32,
+    "total_ventes_bel": 7165378.63,
     "total_ventes_boutique": 2610099.02,
     "total_ventes_wholesale": 545953.67,
-    "panier_moyen_bel": 95.57103846153846,
+    "panier_moyen_bel": 95.57486226777706,
     "date_min": "2021-11-01",
-    "date_max": "2026-08-23"
+    "date_max": "2026-08-24"
   }
 }
