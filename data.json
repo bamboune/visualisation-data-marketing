@@ -27590,9 +27590,9 @@
       "panier_moyen_boutique": 43.82,
       "temp_max": 24.4,
       "temp_min": 18.2,
-      "precipitation_mm": 3.9,
+      "precipitation_mm": 6.7,
       "snowfall_cm": 0.0,
-      "weather_code": 53
+      "weather_code": 61
     },
     {
       "date": "2026-07-30",
@@ -28097,6 +28097,24 @@
       "precipitation_mm": 7.9,
       "snowfall_cm": 0.0,
       "weather_code": 63
+    },
+    {
+      "date": "2026-08-25",
+      "ventes_bel": 2908.17,
+      "ventes_boutique": 1439.28,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 4347.45,
+      "commandes_bel": 29.0,
+      "commandes_boutique": 37.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 66.0,
+      "panier_moyen_bel": 100.28,
+      "panier_moyen_boutique": 38.9,
+      "temp_max": 21.7,
+      "temp_min": 15.0,
+      "precipitation_mm": 2.3,
+      "snowfall_cm": 0.0,
+      "weather_code": 53
     }
   ],
   "infolettres": [
@@ -28312,6 +28330,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-08-26",
+      "plateforme": "facebook",
+      "description_courte": "[contenu long : pas game de lire jusqu'au bout] \n\nCe qui a commencé par un blogue en 2014 avec Les Trappeuses, la confection de boucles d'oreilles zéro déchet et l'exploration sans fond des soins capi",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1624199822427056"
+    },
     {
       "date": "2026-08-25",
       "plateforme": "facebook",
@@ -28971,6 +28995,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-08-26",
+      "plateforme": "instagram",
+      "description_courte": "[contenu long : pas game de lire jusqu’au bout] \n\nCe qui a commencé par un blogue en 2014 avec Les Trappeuses, la confection de boucles d’oreilles zéro déchet et l’exploration sans fond des soins capi",
+      "lien_post": "https://www.instagram.com/p/DchCgj_MkY9/"
     },
     {
       "date": "2026-08-25",
@@ -38205,15 +38235,22 @@
       "description": "Baume à lèvres teinté",
       "note": "",
       "event_id": ""
+    },
+    {
+      "date": "2026-08-27",
+      "type": "",
+      "description": "Promo sérum Fleur 27 au 30",
+      "note": "",
+      "event_id": ""
     }
   ],
   "stats": {
-    "total_ventes": 10321431.32,
-    "total_ventes_bel": 7165378.63,
-    "total_ventes_boutique": 2610099.02,
+    "total_ventes": 10325778.770000001,
+    "total_ventes_bel": 7168286.800000001,
+    "total_ventes_boutique": 2611538.3,
     "total_ventes_wholesale": 545953.67,
-    "panier_moyen_bel": 95.57486226777706,
+    "panier_moyen_bel": 95.57787451984636,
     "date_min": "2021-11-01",
-    "date_max": "2026-08-24"
+    "date_max": "2026-08-25"
   }
 }
