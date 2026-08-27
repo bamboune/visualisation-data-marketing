@@ -28115,6 +28115,24 @@
       "precipitation_mm": 2.3,
       "snowfall_cm": 0.0,
       "weather_code": 53
+    },
+    {
+      "date": "2026-08-26",
+      "ventes_bel": 3972.14,
+      "ventes_boutique": 1744.89,
+      "ventes_wholesale": 3190.14,
+      "ventes_total": 8907.17,
+      "commandes_bel": 38.0,
+      "commandes_boutique": 31.0,
+      "commandes_wholesale": 2.0,
+      "commandes_total": 71.0,
+      "panier_moyen_bel": 104.53,
+      "panier_moyen_boutique": 56.29,
+      "temp_max": 24.2,
+      "temp_min": 15.4,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 2
     }
   ],
   "infolettres": [
@@ -28327,9 +28345,26 @@
       "date": "2026-08-22",
       "date_envoi": "2026-08-22",
       "sujet": "Auto resend of Vente-trottoir 27 au 30 août 2026 | mercredi soir + resend samedi matin"
+    },
+    {
+      "date": "2026-08-26",
+      "date_envoi": "2026-08-26",
+      "sujet": "Promo sérum fleur août 2026 | jeudi midi + resend pas ouverts jeudi soir"
     }
   ],
   "publications": [
+    {
+      "date": "2026-08-27",
+      "plateforme": "facebook",
+      "description_courte": "On veut vos recettes avec le pourpier en commentaire!\n\nOn vous partage nos idées :\n\n- Ajouter dans un pesto\n- Ajouter dans une sauce chimichurri\n- Ajouter à une omelette\n- Ajouter à une salade\n- Saute",
+      "lien_post": "https://www.facebook.com/reel/1985208498861964/"
+    },
+    {
+      "date": "2026-08-27",
+      "plateforme": "facebook",
+      "description_courte": "OUI. On pense que ça vaut une annonce de style bande-annonce de film d'action.\n\nParce que la promo est commencé! De là là, aujourd'hui ce 27 août au 30 août : on t'offre notre fameux sérum Fleur, d'un",
+      "lien_post": "https://www.facebook.com/reel/2250067699089928/"
+    },
     {
       "date": "2026-08-26",
       "plateforme": "facebook",
@@ -28995,6 +29030,18 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-08-27",
+      "plateforme": "instagram",
+      "description_courte": "On veut vos recettes avec le pourpier en commentaire!\n\nOn vous partage nos idées :\n\n- Ajouter dans un pesto\n- Ajouter dans une sauce chimichurri\n- Ajouter à une omelette\n- Ajouter à une salade\n- Saute",
+      "lien_post": "https://www.instagram.com/reel/DcjK8V9CHfK/"
+    },
+    {
+      "date": "2026-08-27",
+      "plateforme": "instagram",
+      "description_courte": "OUI. On pense que ça vaut une annonce de style bande-annonce de film d'action.\n\nParce que la promo est commencé! De là là, aujourd'hui ce 27 août au 30 août : on t'offre notre fameux sérum Fleur, d'un",
+      "lien_post": "https://www.instagram.com/reel/DcivnFPFHCS/"
     },
     {
       "date": "2026-08-26",
@@ -38245,12 +38292,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10325778.770000001,
-    "total_ventes_bel": 7168286.800000001,
-    "total_ventes_boutique": 2611538.3,
-    "total_ventes_wholesale": 545953.67,
-    "panier_moyen_bel": 95.57787451984636,
+    "total_ventes": 10334685.94,
+    "total_ventes_bel": 7172258.9399999995,
+    "total_ventes_boutique": 2613283.1900000004,
+    "total_ventes_wholesale": 549143.81,
+    "panier_moyen_bel": 95.58360204734484,
     "date_min": "2021-11-01",
-    "date_max": "2026-08-25"
+    "date_max": "2026-08-26"
   }
 }
