@@ -28133,6 +28133,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 2
+    },
+    {
+      "date": "2026-08-27",
+      "ventes_bel": 11886.38,
+      "ventes_boutique": 1163.8,
+      "ventes_wholesale": 1167.84,
+      "ventes_total": 14218.02,
+      "commandes_bel": 112.0,
+      "commandes_boutique": 29.0,
+      "commandes_wholesale": 2.0,
+      "commandes_total": 143.0,
+      "panier_moyen_bel": 106.13,
+      "panier_moyen_boutique": 40.13,
+      "temp_max": 24.7,
+      "temp_min": 16.1,
+      "precipitation_mm": 3.4,
+      "snowfall_cm": 0.0,
+      "weather_code": 53
     }
   ],
   "infolettres": [
@@ -28353,6 +28371,18 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-08-28",
+      "plateforme": "facebook",
+      "description_courte": "La promo continue! \n\nObtient notre fameux sérum Fleur GRATUIT. Tu as jusqu'au 30 août pour en profiter. \n\nTu dois :\n\n1. Mettre 80$ d'achat dans ton panier\n2. Ajouter le sérum Fleur aussi dans ton pani",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1625671278946577"
+    },
+    {
+      "date": "2026-08-27",
+      "plateforme": "facebook",
+      "description_courte": "Trump vient de décider que le lac Ontario s’appelle désormais « Lake America ».\n\nOn a donc presque envie de faire pareil et de renommer notre Sérum 5 huiles anti-âge :\n\n**Sérum 5 huiles anti-Trump.** ",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1625023295678042"
+    },
     {
       "date": "2026-08-27",
       "plateforme": "facebook",
@@ -29030,6 +29060,18 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-08-28",
+      "plateforme": "instagram",
+      "description_courte": "La promo continue! \n\nObtient notre fameux sérum Fleur GRATUIT. Tu as jusqu'au 30 août pour en profiter. \n\nTu dois :\n\n1. Mettre 80$ d'achat dans ton panier\n2. Ajouter le sérum Fleur aussi dans ton pani",
+      "lien_post": "https://www.instagram.com/p/Dclh0fkitOA/"
+    },
+    {
+      "date": "2026-08-27",
+      "plateforme": "instagram",
+      "description_courte": "Trump vient de décider que le lac Ontario s’appelle désormais « Lake America ».\n\nOn a donc presque envie de faire pareil et de renommer notre Sérum 5 huiles anti-âge :\n\n**Sérum 5 huiles anti-Trump.** ",
+      "lien_post": "https://www.instagram.com/p/Dcjhse_swmD/"
     },
     {
       "date": "2026-08-27",
@@ -38296,15 +38338,22 @@
       "description": "LESÉRUMORIGINEL - 18h",
       "note": "",
       "event_id": ""
+    },
+    {
+      "date": "2026-08-28",
+      "type": "",
+      "description": "Coffrets visage grand format (camo et gui)",
+      "note": "",
+      "event_id": ""
     }
   ],
   "stats": {
-    "total_ventes": 10334685.94,
-    "total_ventes_bel": 7172258.9399999995,
-    "total_ventes_boutique": 2613283.1900000004,
-    "total_ventes_wholesale": 549143.81,
-    "panier_moyen_bel": 95.58360204734484,
+    "total_ventes": 10348903.96,
+    "total_ventes_bel": 7184145.32,
+    "total_ventes_boutique": 2614446.99,
+    "total_ventes_wholesale": 550311.65,
+    "panier_moyen_bel": 95.5903452685422,
     "date_min": "2021-11-01",
-    "date_max": "2026-08-26"
+    "date_max": "2026-08-27"
   }
 }
