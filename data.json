@@ -28151,6 +28151,24 @@
       "precipitation_mm": 3.4,
       "snowfall_cm": 0.0,
       "weather_code": 53
+    },
+    {
+      "date": "2026-08-28",
+      "ventes_bel": 6982.2,
+      "ventes_boutique": 1049.62,
+      "ventes_wholesale": 367.36,
+      "ventes_total": 8399.18,
+      "commandes_bel": 66.0,
+      "commandes_boutique": 27.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 94.0,
+      "panier_moyen_bel": 105.79,
+      "panier_moyen_boutique": 38.87,
+      "temp_max": 20.4,
+      "temp_min": 15.1,
+      "precipitation_mm": 0.9,
+      "snowfall_cm": 0.0,
+      "weather_code": 51
     }
   ],
   "infolettres": [
@@ -28322,12 +28340,12 @@
     {
       "date": "2026-07-31",
       "date_envoi": "2026-07-31",
-      "sujet": "Routine de Gen contour des yeux - 5 huiles + crème contour + abyssinie / offre d'emploi | samedi 8 août 9h + resend dimanche soir 19h"
+      "sujet": "Gatorade maison et savon camping (recettes!) + lecture de vacances (baku 10 produits) | samedi 1er août 9h + resend dimanche 19h"
     },
     {
       "date": "2026-07-31",
       "date_envoi": "2026-07-31",
-      "sujet": "Gatorade maison et savon camping (recettes!) + lecture de vacances (baku 10 produits) | samedi 1er août 9h + resend dimanche 19h"
+      "sujet": "Routine de Gen contour des yeux - 5 huiles + crème contour + abyssinie / offre d'emploi | samedi 8 août 9h + resend dimanche soir 19h"
     },
     {
       "date": "2026-08-02",
@@ -28368,6 +28386,11 @@
       "date": "2026-08-26",
       "date_envoi": "2026-08-26",
       "sujet": "Promo sérum fleur août 2026 | jeudi midi + resend pas ouverts jeudi soir"
+    },
+    {
+      "date": "2026-08-29",
+      "date_envoi": "2026-08-29",
+      "sujet": "Auto resend of Promo sérum fleur août 2026 | jeudi midi + resend pas ouverts jeudi soir"
     }
   ],
   "publications": [
@@ -38368,12 +38391,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10348903.96,
-    "total_ventes_bel": 7184145.32,
-    "total_ventes_boutique": 2614446.99,
-    "total_ventes_wholesale": 550311.65,
-    "panier_moyen_bel": 95.5903452685422,
+    "total_ventes": 10357303.139999999,
+    "total_ventes_bel": 7191127.52,
+    "total_ventes_boutique": 2615496.6100000003,
+    "total_ventes_wholesale": 550679.01,
+    "panier_moyen_bel": 95.59686261980832,
     "date_min": "2021-11-01",
-    "date_max": "2026-08-27"
+    "date_max": "2026-08-28"
   }
 }
