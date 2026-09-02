@@ -28223,6 +28223,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 3
+    },
+    {
+      "date": "2026-09-01",
+      "ventes_bel": 2033.34,
+      "ventes_boutique": 816.07,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 2849.41,
+      "commandes_bel": 24.0,
+      "commandes_boutique": 25.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 49.0,
+      "panier_moyen_bel": 84.72,
+      "panier_moyen_boutique": 32.64,
+      "temp_max": 23.5,
+      "temp_min": 15.0,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -28458,6 +28476,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-09-01",
+      "plateforme": "facebook",
+      "description_courte": "On commence à voir des petits patterns dans vos paniers. 👀\n\nDu contour des yeux, du sommeil, du masque de nuit, des huiles, un peu de rose sur les lèvres (et les joues).\n\nBref, septembre est arrivé et",
+      "lien_post": "https://www.facebook.com/reel/1058347383770646/"
+    },
     {
       "date": "2026-08-31",
       "plateforme": "facebook",
@@ -29165,6 +29189,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-09-01",
+      "plateforme": "instagram",
+      "description_courte": "On commence à voir des petits patterns dans vos paniers. 👀\n\nDu contour des yeux, du sommeil, du masque de nuit, des huiles, un peu de rose sur les lèvres (et les joues).\n\nBref, septembre est arrivé et",
+      "lien_post": "https://www.instagram.com/reel/DcwQlgAM3-_/"
     },
     {
       "date": "2026-08-31",
@@ -38488,15 +38518,29 @@
       "description": "Coffrets visage grand format (camo et gui)",
       "note": "",
       "event_id": ""
+    },
+    {
+      "date": "2026-09-02",
+      "type": "contexte",
+      "description": "olympiques",
+      "note": "",
+      "event_id": "1786632836677_716_11"
+    },
+    {
+      "date": "2026-09-02",
+      "type": "autre",
+      "description": "Rédaction conformité Santé Canada sur la BEL: fiches produits et SEO pour gamme des Lunes, gamme Respire, tisanes, mélange à sirop, mélanges à diffuser, roll-on aux huiles essentielles",
+      "note": "",
+      "event_id": "1786632836677_716"
     }
   ],
   "stats": {
-    "total_ventes": 10386943.599999998,
-    "total_ventes_bel": 7215393.779999999,
-    "total_ventes_boutique": 2620102.71,
+    "total_ventes": 10389793.009999998,
+    "total_ventes_bel": 7217427.119999999,
+    "total_ventes_boutique": 2620918.78,
     "total_ventes_wholesale": 551447.1100000001,
-    "panier_moyen_bel": 95.61590561224492,
+    "panier_moyen_bel": 95.6089611217336,
     "date_min": "2021-11-01",
-    "date_max": "2026-08-31"
+    "date_max": "2026-09-01"
   }
 }
