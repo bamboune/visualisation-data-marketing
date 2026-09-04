@@ -28241,6 +28241,42 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 3
+    },
+    {
+      "date": "2026-09-02",
+      "ventes_bel": 2913.08,
+      "ventes_boutique": 816.19,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 3729.27,
+      "commandes_bel": 34.0,
+      "commandes_boutique": 21.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 55.0,
+      "panier_moyen_bel": 85.68,
+      "panier_moyen_boutique": 38.87,
+      "temp_max": 23.3,
+      "temp_min": 15.1,
+      "precipitation_mm": 17.1,
+      "snowfall_cm": 0.0,
+      "weather_code": 63
+    },
+    {
+      "date": "2026-09-03",
+      "ventes_bel": 3146.25,
+      "ventes_boutique": 1813.81,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 4960.06,
+      "commandes_bel": 33.0,
+      "commandes_boutique": 36.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 69.0,
+      "panier_moyen_bel": 95.34,
+      "panier_moyen_boutique": 50.38,
+      "temp_max": 25.0,
+      "temp_min": 17.2,
+      "precipitation_mm": 1.8,
+      "snowfall_cm": 0.0,
+      "weather_code": 55
     }
   ],
   "infolettres": [
@@ -28412,12 +28448,12 @@
     {
       "date": "2026-07-31",
       "date_envoi": "2026-07-31",
-      "sujet": "Routine de Gen contour des yeux - 5 huiles + crème contour + abyssinie / offre d'emploi | samedi 8 août 9h + resend dimanche soir 19h"
+      "sujet": "Gatorade maison et savon camping (recettes!) + lecture de vacances (baku 10 produits) | samedi 1er août 9h + resend dimanche 19h"
     },
     {
       "date": "2026-07-31",
       "date_envoi": "2026-07-31",
-      "sujet": "Gatorade maison et savon camping (recettes!) + lecture de vacances (baku 10 produits) | samedi 1er août 9h + resend dimanche 19h"
+      "sujet": "Routine de Gen contour des yeux - 5 huiles + crème contour + abyssinie / offre d'emploi | samedi 8 août 9h + resend dimanche soir 19h"
     },
     {
       "date": "2026-08-02",
@@ -28437,12 +28473,17 @@
     {
       "date": "2026-08-17",
       "date_envoi": "2026-08-17",
+      "sujet": "Bis atelier shampoing automne 1016"
+    },
+    {
+      "date": "2026-08-17",
+      "date_envoi": "2026-08-17",
       "sujet": "Bis sérum automne 2026"
     },
     {
       "date": "2026-08-17",
       "date_envoi": "2026-08-17",
-      "sujet": "Bis atelier shampoing automne 1016"
+      "sujet": "BIS atelier cycle automne 2026"
     },
     {
       "date": "2026-08-19",
@@ -28476,6 +28517,18 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-09-03",
+      "plateforme": "facebook",
+      "description_courte": "Reste jusqu’à la fin : y’a un chevreuil qui vient littéralement manger le sujet de la capsule. 🦌\n\nY’a des plantes qu’on remarque. Pis y’en a d’autres qu’on piétine depuis notre enfance sans jamais se ",
+      "lien_post": "https://www.facebook.com/reel/2536594353528097/"
+    },
+    {
+      "date": "2026-09-02",
+      "plateforme": "facebook",
+      "description_courte": "On va oser dire de quoi qui risque de faire un choc pour certain·es : y'a pas d'ordre magique pour l'application de ton sérum pis ta crème. 😳\n\nLa règle qu'on entend tout le temps, c'est d'appliquer le",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1630130558500649"
+    },
     {
       "date": "2026-09-01",
       "plateforme": "facebook",
@@ -29189,6 +29242,18 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-09-03",
+      "plateforme": "instagram",
+      "description_courte": "Reste jusqu’à la fin : y’a un chevreuil qui vient littéralement manger le sujet de la capsule. 🦌\n\nY’a des plantes qu’on remarque. Pis y’en a d’autres qu’on piétine depuis notre enfance sans jamais se ",
+      "lien_post": "https://www.instagram.com/reel/Dc1MfytjvOW/"
+    },
+    {
+      "date": "2026-09-02",
+      "plateforme": "instagram",
+      "description_courte": "On va oser dire de quoi qui risque de faire un choc pour certain·es : y'a pas d'ordre magique pour l'application de ton sérum pis ta crème. 😳\n\nLa règle qu'on entend tout le temps, c'est d'appliquer le",
+      "lien_post": "https://www.instagram.com/p/DczF6HGmx7d/"
     },
     {
       "date": "2026-09-01",
@@ -38535,12 +38600,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10389793.009999998,
-    "total_ventes_bel": 7217427.119999999,
-    "total_ventes_boutique": 2620918.78,
+    "total_ventes": 10398482.339999998,
+    "total_ventes_bel": 7223486.449999999,
+    "total_ventes_boutique": 2623548.78,
     "total_ventes_wholesale": 551447.1100000001,
-    "panier_moyen_bel": 95.6089611217336,
+    "panier_moyen_bel": 95.60246976448123,
     "date_min": "2021-11-01",
-    "date_max": "2026-09-01"
+    "date_max": "2026-09-03"
   }
 }
