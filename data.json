@@ -28295,6 +28295,24 @@
       "precipitation_mm": 1.0,
       "snowfall_cm": 0.0,
       "weather_code": 53
+    },
+    {
+      "date": "2026-09-05",
+      "ventes_bel": 3184.33,
+      "ventes_boutique": 2051.68,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 5236.01,
+      "commandes_bel": 28.0,
+      "commandes_boutique": 39.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 67.0,
+      "panier_moyen_bel": 113.73,
+      "panier_moyen_boutique": 52.61,
+      "temp_max": 19.9,
+      "temp_min": 14.5,
+      "precipitation_mm": 1.4,
+      "snowfall_cm": 0.0,
+      "weather_code": 53
     }
   ],
   "infolettres": [
@@ -28491,7 +28509,7 @@
     {
       "date": "2026-08-17",
       "date_envoi": "2026-08-17",
-      "sujet": "Bis atelier shampoing automne 1016"
+      "sujet": "BIS atelier cycle automne 2026"
     },
     {
       "date": "2026-08-17",
@@ -28501,7 +28519,7 @@
     {
       "date": "2026-08-17",
       "date_envoi": "2026-08-17",
-      "sujet": "BIS atelier cycle automne 2026"
+      "sujet": "Bis atelier shampoing automne 1016"
     },
     {
       "date": "2026-08-19",
@@ -28532,9 +28550,20 @@
       "date": "2026-08-30",
       "date_envoi": "2026-08-30",
       "sujet": "Resend to non openers Last call promo LESÉRUMORIGINEL | dimanche 30 août"
+    },
+    {
+      "date": "2026-09-04",
+      "date_envoi": "2026-09-04",
+      "sujet": "Soldes septembre | samedi matin + resend dimanche soir"
     }
   ],
   "publications": [
+    {
+      "date": "2026-09-05",
+      "plateforme": "facebook",
+      "description_courte": "On n'est pas en train de te dire de brûler ton Charmin au complet ni de bannir tout ce qui vient d'ailleurs. Ça sert à rien pis en plus c'est pas vrai que tout ce qui est importé c'est mauvais.\n\nFaut ",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1632426224937749"
+    },
     {
       "date": "2026-09-03",
       "plateforme": "facebook",
@@ -29260,6 +29289,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-09-05",
+      "plateforme": "instagram",
+      "description_courte": "On n'est pas en train de te dire de brûler ton Charmin au complet ni de bannir tout ce qui vient d'ailleurs. Ça sert à rien pis en plus c'est pas vrai que tout ce qui est importé c'est mauvais.\n\nFaut ",
+      "lien_post": "https://www.instagram.com/p/Dc6BVmsjHTO/"
     },
     {
       "date": "2026-09-03",
@@ -38618,12 +38653,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10402478.16,
-    "total_ventes_bel": 7226508.82,
-    "total_ventes_boutique": 2624522.23,
+    "total_ventes": 10407714.17,
+    "total_ventes_bel": 7229693.15,
+    "total_ventes_boutique": 2626573.91,
     "total_ventes_wholesale": 551447.1100000001,
-    "panier_moyen_bel": 95.61855597964376,
+    "panier_moyen_bel": 95.63006993006994,
     "date_min": "2021-11-01",
-    "date_max": "2026-09-04"
+    "date_max": "2026-09-05"
   }
 }
