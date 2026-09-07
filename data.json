@@ -28313,6 +28313,24 @@
       "precipitation_mm": 1.4,
       "snowfall_cm": 0.0,
       "weather_code": 53
+    },
+    {
+      "date": "2026-09-06",
+      "ventes_bel": 3579.43,
+      "ventes_boutique": 1282.43,
+      "ventes_wholesale": 416.16,
+      "ventes_total": 5278.02,
+      "commandes_bel": 34.0,
+      "commandes_boutique": 25.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 60.0,
+      "panier_moyen_bel": 105.28,
+      "panier_moyen_boutique": 51.3,
+      "temp_max": 21.4,
+      "temp_min": 12.3,
+      "precipitation_mm": 0.4,
+      "snowfall_cm": 0.0,
+      "weather_code": 51
     }
   ],
   "infolettres": [
@@ -28555,9 +28573,20 @@
       "date": "2026-09-04",
       "date_envoi": "2026-09-04",
       "sujet": "Soldes septembre | samedi matin + resend dimanche soir"
+    },
+    {
+      "date": "2026-09-07",
+      "date_envoi": "2026-09-07",
+      "sujet": "Auto resend of Soldes septembre | samedi matin + resend dimanche soir"
     }
   ],
   "publications": [
+    {
+      "date": "2026-09-06",
+      "plateforme": "facebook",
+      "description_courte": "Petit rappel : la chaudière d'eau chaude savonneuse est encore ben adéquate pour nettoyer. Oui, oui. Ça prend pas un vaporisateur pour que ça compte comme nettoyant, on te le jure!\n\nTu peux utiliser d",
+      "lien_post": "https://www.facebook.com/reel/3376283699337908/"
+    },
     {
       "date": "2026-09-05",
       "plateforme": "facebook",
@@ -29289,6 +29318,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-09-06",
+      "plateforme": "instagram",
+      "description_courte": "Petit rappel : la chaudière d'eau chaude savonneuse est encore ben adéquate pour nettoyer. Oui, oui. Ça prend pas un vaporisateur pour que ça compte comme nettoyant, on te le jure!\n\nTu peux utiliser d",
+      "lien_post": "https://www.instagram.com/reel/Dc8tAS8iMZC/"
     },
     {
       "date": "2026-09-05",
@@ -38650,15 +38685,29 @@
       "description": "Rédaction conformité Santé Canada sur la BEL: fiches produits et SEO pour gamme des Lunes, gamme Respire, tisanes, mélange à sirop, mélanges à diffuser, roll-on aux huiles essentielles",
       "note": "",
       "event_id": "1786632836677_716"
+    },
+    {
+      "date": "2026-09-07",
+      "type": "lancement_produits_ateliers",
+      "description": "vente-trottoir pignon - 9 au 12 juillet",
+      "note": "en boutique seulement - 20% sur vraiment tout, même le bar à sérum!",
+      "event_id": "1786632836684_806_2"
+    },
+    {
+      "date": "2026-09-07",
+      "type": "lancement_produits_ateliers",
+      "description": "vente-trottoir pignon - 9 au 12 juillet",
+      "note": "",
+      "event_id": "1786632836684_811_2"
     }
   ],
   "stats": {
-    "total_ventes": 10407714.17,
-    "total_ventes_bel": 7229693.15,
-    "total_ventes_boutique": 2626573.91,
-    "total_ventes_wholesale": 551447.1100000001,
-    "panier_moyen_bel": 95.63006993006994,
+    "total_ventes": 10412992.19,
+    "total_ventes_bel": 7233272.58,
+    "total_ventes_boutique": 2627856.34,
+    "total_ventes_wholesale": 551863.27,
+    "panier_moyen_bel": 95.63620076238882,
     "date_min": "2021-11-01",
-    "date_max": "2026-09-05"
+    "date_max": "2026-09-06"
   }
 }
