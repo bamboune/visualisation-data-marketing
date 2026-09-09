@@ -28349,6 +28349,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 3
+    },
+    {
+      "date": "2026-09-08",
+      "ventes_bel": 2558.94,
+      "ventes_boutique": 914.19,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 3473.13,
+      "commandes_bel": 31.0,
+      "commandes_boutique": 24.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 55.0,
+      "panier_moyen_bel": 82.55,
+      "panier_moyen_boutique": 38.09,
+      "temp_max": 21.2,
+      "temp_min": 15.4,
+      "precipitation_mm": 6.4,
+      "snowfall_cm": 0.0,
+      "weather_code": 61
     }
   ],
   "infolettres": [
@@ -28599,6 +28617,18 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-09-08",
+      "plateforme": "facebook",
+      "description_courte": "Vous êtes plusieurs petits nouveaux/nouvelles ici  (allo, bienvenue, installe-toi confortablement), faque on s'est dit que vous étiez probablement pas tous.tes au courant qu'on offre des ateliers et d",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1635155414664830"
+    },
+    {
+      "date": "2026-09-08",
+      "plateforme": "facebook",
+      "description_courte": "On vient d’ajouter des produits dans notre section soldes! Jusqu’à 20%.",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1634985848015120"
+    },
     {
       "date": "2026-09-06",
       "plateforme": "facebook",
@@ -29336,6 +29366,18 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-09-08",
+      "plateforme": "instagram",
+      "description_courte": "Vous êtes plusieurs petits nouveaux/nouvelles ici (allo, bienvenue, installe-toi confortablement), faque on s'est dit que vous étiez probablement pas tous.tes au courant qu'on offre des ateliers et de",
+      "lien_post": "https://www.instagram.com/p/DdCTEIIm_Wx/"
+    },
+    {
+      "date": "2026-09-08",
+      "plateforme": "instagram",
+      "description_courte": "On vient d’ajouter des produits dans notre section soldes! Jusqu’à 20%.",
+      "lien_post": "https://www.instagram.com/p/DdB2UKLsnlA/"
     },
     {
       "date": "2026-09-06",
@@ -38720,12 +38762,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10416542.79,
-    "total_ventes_bel": 7236823.18,
-    "total_ventes_boutique": 2627856.34,
+    "total_ventes": 10420015.92,
+    "total_ventes_bel": 7239382.12,
+    "total_ventes_boutique": 2628770.5300000003,
     "total_ventes_wholesale": 551863.27,
-    "panier_moyen_bel": 95.63989206349207,
+    "panier_moyen_bel": 95.63158629441625,
     "date_min": "2021-11-01",
-    "date_max": "2026-09-07"
+    "date_max": "2026-09-08"
   }
 }
