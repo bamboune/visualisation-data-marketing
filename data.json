@@ -28421,6 +28421,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 0
+    },
+    {
+      "date": "2026-09-12",
+      "ventes_bel": 4772.85,
+      "ventes_boutique": 2014.45,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 6787.3,
+      "commandes_bel": 47.0,
+      "commandes_boutique": 55.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 102.0,
+      "panier_moyen_bel": 101.55,
+      "panier_moyen_boutique": 36.63,
+      "temp_max": 21.5,
+      "temp_min": 10.8,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -28617,12 +28635,12 @@
     {
       "date": "2026-08-17",
       "date_envoi": "2026-08-17",
-      "sujet": "Bis atelier shampoing automne 1016"
+      "sujet": "BIS atelier cycle automne 2026"
     },
     {
       "date": "2026-08-17",
       "date_envoi": "2026-08-17",
-      "sujet": "BIS atelier cycle automne 2026"
+      "sujet": "Bis atelier shampoing automne 1016"
     },
     {
       "date": "2026-08-17",
@@ -28673,9 +28691,20 @@
       "date": "2026-09-09",
       "date_envoi": "2026-09-09",
       "sujet": "Ateliers au pignon + soldes | mercredi 9 septembre + resend aux pas ouverts samedi matin"
+    },
+    {
+      "date": "2026-09-10",
+      "date_envoi": "2026-09-10",
+      "sujet": "Winback baume des lune sept 2026"
     }
   ],
   "publications": [
+    {
+      "date": "2026-09-12",
+      "plateforme": "facebook",
+      "description_courte": "",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1638345001012538"
+    },
     {
       "date": "2026-09-11",
       "plateforme": "facebook",
@@ -29443,6 +29472,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-09-12",
+      "plateforme": "instagram",
+      "description_courte": "",
+      "lien_post": "https://www.instagram.com/p/DdMCwuukRTd/"
     },
     {
       "date": "2026-09-11",
@@ -38857,12 +38892,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10439332.01,
-    "total_ventes_bel": 7255162.5,
-    "total_ventes_boutique": 2632306.24,
+    "total_ventes": 10446119.309999999,
+    "total_ventes_bel": 7259935.35,
+    "total_ventes_boutique": 2634320.69,
     "total_ventes_wholesale": 551863.27,
-    "panier_moyen_bel": 95.64976567447752,
+    "panier_moyen_bel": 95.6535,
     "date_min": "2021-11-01",
-    "date_max": "2026-09-11"
+    "date_max": "2026-09-12"
   }
 }
