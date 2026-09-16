@@ -28475,6 +28475,24 @@
       "precipitation_mm": 0.1,
       "snowfall_cm": 0.0,
       "weather_code": 51
+    },
+    {
+      "date": "2026-09-15",
+      "ventes_bel": 4010.19,
+      "ventes_boutique": 1402.71,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 5412.9,
+      "commandes_bel": 44.0,
+      "commandes_boutique": 27.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 71.0,
+      "panier_moyen_bel": 91.14,
+      "panier_moyen_boutique": 51.95,
+      "temp_max": 17.0,
+      "temp_min": 8.4,
+      "precipitation_mm": 0.3,
+      "snowfall_cm": 0.0,
+      "weather_code": 51
     }
   ],
   "infolettres": [
@@ -28745,6 +28763,18 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-09-15",
+      "plateforme": "facebook",
+      "description_courte": "Un superbe événement de la Guilde des herboristes!",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1641105777403127"
+    },
+    {
+      "date": "2026-09-15",
+      "plateforme": "facebook",
+      "description_courte": "Bienvenue dans le bar à sérum le plus hot de Montréal (on s’autoproclame, oui). 👀\n\nElle ici, c’est Mariane, une des trois cofondatrices de Les Mauvaises Herbes. Elle a pris une mini pause de son congé",
+      "lien_post": "https://www.facebook.com/reel/958120933288285/"
+    },
     {
       "date": "2026-09-13",
       "plateforme": "facebook",
@@ -29524,6 +29554,18 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-09-15",
+      "plateforme": "instagram",
+      "description_courte": "👋 ceci est un reel d’essai, donc si tu nous vois pour la première fois... allô, enchanté!\n\nOn jase achillée aujourd’hui. C’est une plante qu’on utilise depuis longtemps, traditionnellement, pour les p",
+      "lien_post": "https://www.instagram.com/reel/DdT73qlMCdw/"
+    },
+    {
+      "date": "2026-09-15",
+      "plateforme": "instagram",
+      "description_courte": "Bienvenue dans le bar à sérum le plus hot de Montréal (on s’autoproclame, oui). 👀\n\nElle ici, c’est Mariane, une des trois cofondatrices de Les Mauvaises Herbes. Elle a pris une mini pause de son congé",
+      "lien_post": "https://www.instagram.com/reel/DdTtxbQjdH-/"
     },
     {
       "date": "2026-09-13",
@@ -38950,12 +38992,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10455119.05,
-    "total_ventes_bel": 7267246.630000001,
-    "total_ventes_boutique": 2636009.1500000004,
+    "total_ventes": 10460531.95,
+    "total_ventes_bel": 7271256.82,
+    "total_ventes_boutique": 2637411.8600000003,
     "total_ventes_wholesale": 551863.27,
-    "panier_moyen_bel": 95.65579646017699,
+    "panier_moyen_bel": 95.6529437776374,
     "date_min": "2021-11-01",
-    "date_max": "2026-09-14"
+    "date_max": "2026-09-15"
   }
 }
