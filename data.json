@@ -28493,6 +28493,24 @@
       "precipitation_mm": 0.3,
       "snowfall_cm": 0.0,
       "weather_code": 51
+    },
+    {
+      "date": "2026-09-16",
+      "ventes_bel": 4917.94,
+      "ventes_boutique": 1609.66,
+      "ventes_wholesale": 1076.66,
+      "ventes_total": 7604.26,
+      "commandes_bel": 43.0,
+      "commandes_boutique": 38.0,
+      "commandes_wholesale": 2.0,
+      "commandes_total": 83.0,
+      "panier_moyen_bel": 114.37,
+      "panier_moyen_boutique": 42.36,
+      "temp_max": 23.2,
+      "temp_min": 15.1,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -28554,12 +28572,12 @@
     {
       "date": "2026-05-28",
       "date_envoi": "2026-05-28",
-      "sujet": "Baume des lunes mai 2026 - resend aux pas ouverts jeudi 28 mai 20h"
+      "sujet": "Last call code promo exclusif baume des lunes / 31 mai 2026 8h45"
     },
     {
       "date": "2026-05-28",
       "date_envoi": "2026-05-28",
-      "sujet": "Last call code promo exclusif baume des lunes / 31 mai 2026 8h45"
+      "sujet": "Baume des lunes mai 2026 - resend aux pas ouverts jeudi 28 mai 20h"
     },
     {
       "date": "2026-06-03",
@@ -28629,12 +28647,12 @@
     {
       "date": "2026-07-03",
       "date_envoi": "2026-07-03",
-      "sujet": "Resend aux pas ouverts - canicule à la lmh: limonade + thé glacé + tonique express + vidéo baume teinté + promo tampons | jeudi 2 juillet 20h"
+      "sujet": "Vente-trottoir 9 au 12 juillet | mercredi 8 juillet 19h30"
     },
     {
       "date": "2026-07-03",
       "date_envoi": "2026-07-03",
-      "sujet": "Vente-trottoir 9 au 12 juillet | mercredi 8 juillet 19h30"
+      "sujet": "Resend aux pas ouverts - canicule à la lmh: limonade + thé glacé + tonique express + vidéo baume teinté + promo tampons | jeudi 2 juillet 20h"
     },
     {
       "date": "2026-07-11",
@@ -28757,12 +28775,33 @@
       "sujet": "Resend aux pas ouverts - Ateliers au pignon + soldes | samedi matin"
     },
     {
+      "date": "2026-09-11",
+      "date_envoi": "2026-09-11",
+      "sujet": "Infolettre ciblée sérum contour pour 1er achat | septembre 2026"
+    },
+    {
       "date": "2026-09-13",
       "date_envoi": "2026-09-13",
       "sujet": "Auto resend of Winback baume des lune sept 2026"
+    },
+    {
+      "date": "2026-09-14",
+      "date_envoi": "2026-09-14",
+      "sujet": "Infolettre wholesale sérum visage 5 huiles anti-âge | septembre 2026"
+    },
+    {
+      "date": "2026-09-16",
+      "date_envoi": "2026-09-16",
+      "sujet": "Étape 2 Winback baume des lune sept 2026"
     }
   ],
   "publications": [
+    {
+      "date": "2026-09-16",
+      "plateforme": "facebook",
+      "description_courte": "WOW, il y a 7 ans, on lançait notre campagne de sociofinancement pour ouvrir notre boutique. C'est fouuuuuuuuuu!!! Quel chemin on a fait depuis!",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1641985413981830"
+    },
     {
       "date": "2026-09-15",
       "plateforme": "facebook",
@@ -28910,7 +28949,7 @@
     {
       "date": "2026-08-24",
       "plateforme": "facebook",
-      "description_courte": "Ben non, c'est pas du trèfle! C'est de l'oxalis (ou de la surette)\n\nPis tu peux t'en faire une limonade 👇☘️🍹\n\nIngrédients :\n\n1 tasse de feuilles d’Oxalis fraîches (bien lavées)\n1 litre d’eau\n1/2 tasse",
+      "description_courte": "Ben non, c'est pas du trèfle! C'est de l'oxalide dressée (aussi appelée \"surette\", de son vrai nom scientifique Oxalis stricta)!\n\nPis tu peux t'en faire une limonade 👇☘️🍹\n\nIngrédients :\n\n1 tasse de fe",
       "lien_post": "https://www.facebook.com/reel/28667741909477158/"
     },
     {
@@ -38992,12 +39031,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10460531.95,
-    "total_ventes_bel": 7271256.82,
-    "total_ventes_boutique": 2637411.8600000003,
-    "total_ventes_wholesale": 551863.27,
-    "panier_moyen_bel": 95.6529437776374,
+    "total_ventes": 10468136.209999999,
+    "total_ventes_bel": 7276174.76,
+    "total_ventes_boutique": 2639021.52,
+    "total_ventes_wholesale": 552939.9299999999,
+    "panier_moyen_bel": 95.66476010101009,
     "date_min": "2021-11-01",
-    "date_max": "2026-09-15"
+    "date_max": "2026-09-16"
   }
 }
