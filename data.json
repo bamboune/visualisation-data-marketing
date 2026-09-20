@@ -28547,6 +28547,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 3
+    },
+    {
+      "date": "2026-09-19",
+      "ventes_bel": 3071.01,
+      "ventes_boutique": 3194.23,
+      "ventes_wholesale": 918.5,
+      "ventes_total": 7183.74,
+      "commandes_bel": 31.0,
+      "commandes_boutique": 47.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 79.0,
+      "panier_moyen_bel": 99.06,
+      "panier_moyen_boutique": 67.96,
+      "temp_max": 14.8,
+      "temp_min": 6.5,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -28839,6 +28857,11 @@
       "date": "2026-09-17",
       "date_envoi": "2026-09-17",
       "sujet": "Sérum 5 huiles - fling d'été vs longue durée | jeudi 17 septembre, resend samedi matin 9h"
+    },
+    {
+      "date": "2026-09-17",
+      "date_envoi": "2026-09-17",
+      "sujet": "Resend aux pas ouverts - sérum contour gratuit 1er achat | 19 septembre 2026 20h"
     }
   ],
   "publications": [
@@ -39092,15 +39115,22 @@
       "description": "vente-trottoir pignon - 9 au 12 juillet",
       "note": "",
       "event_id": "1786632836684_811_2"
+    },
+    {
+      "date": "2026-09-20",
+      "type": "",
+      "description": "20 au 27/09 Grands prix cyclistes MONTRÉAL",
+      "note": "",
+      "event_id": ""
     }
   ],
   "stats": {
-    "total_ventes": 10483810.62,
-    "total_ventes_bel": 7287646.140000001,
-    "total_ventes_boutique": 2641593.6100000003,
-    "total_ventes_wholesale": 554570.87,
-    "panier_moyen_bel": 95.68328499369483,
+    "total_ventes": 10490994.36,
+    "total_ventes_bel": 7290717.15,
+    "total_ventes_boutique": 2644787.84,
+    "total_ventes_wholesale": 555489.37,
+    "panier_moyen_bel": 95.6854127284184,
     "date_min": "2021-11-01",
-    "date_max": "2026-09-18"
+    "date_max": "2026-09-19"
   }
 }
