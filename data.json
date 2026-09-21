@@ -28565,6 +28565,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 3
+    },
+    {
+      "date": "2026-09-20",
+      "ventes_bel": 6584.46,
+      "ventes_boutique": 869.58,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 7454.04,
+      "commandes_bel": 62.0,
+      "commandes_boutique": 35.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 97.0,
+      "panier_moyen_bel": 106.2,
+      "panier_moyen_boutique": 24.85,
+      "temp_max": 15.6,
+      "temp_min": 8.6,
+      "precipitation_mm": 0.3,
+      "snowfall_cm": 0.0,
+      "weather_code": 51
     }
   ],
   "infolettres": [
@@ -28721,12 +28739,12 @@
     {
       "date": "2026-07-17",
       "date_envoi": "2026-07-17",
-      "sujet": "BF des campeurs routine Marie (Juliette) | 18 juillet 2026 9h"
+      "sujet": "BF des campeurs resend aux pas ouverts | 17 juillet 2026 10h"
     },
     {
       "date": "2026-07-17",
       "date_envoi": "2026-07-17",
-      "sujet": "BF des campeurs resend aux pas ouverts | 17 juillet 2026 10h"
+      "sujet": "BF des campeurs routine Marie (Juliette) | 18 juillet 2026 9h"
     },
     {
       "date": "2026-07-24",
@@ -28761,17 +28779,17 @@
     {
       "date": "2026-08-17",
       "date_envoi": "2026-08-17",
+      "sujet": "BIS atelier cycle automne 2026"
+    },
+    {
+      "date": "2026-08-17",
+      "date_envoi": "2026-08-17",
       "sujet": "Bis sérum automne 2026"
     },
     {
       "date": "2026-08-17",
       "date_envoi": "2026-08-17",
       "sujet": "Bis atelier shampoing automne 1016"
-    },
-    {
-      "date": "2026-08-17",
-      "date_envoi": "2026-08-17",
-      "sujet": "BIS atelier cycle automne 2026"
     },
     {
       "date": "2026-08-19",
@@ -28826,12 +28844,12 @@
     {
       "date": "2026-09-11",
       "date_envoi": "2026-09-11",
-      "sujet": "Resend aux pas ouverts - Ateliers au pignon + soldes | samedi matin"
+      "sujet": "Infolettre ciblée sérum contour pour 1er achat | septembre 2026"
     },
     {
       "date": "2026-09-11",
       "date_envoi": "2026-09-11",
-      "sujet": "Infolettre ciblée sérum contour pour 1er achat | septembre 2026"
+      "sujet": "Resend aux pas ouverts - Ateliers au pignon + soldes | samedi matin"
     },
     {
       "date": "2026-09-13",
@@ -28862,6 +28880,11 @@
       "date": "2026-09-17",
       "date_envoi": "2026-09-17",
       "sujet": "Resend aux pas ouverts - sérum contour gratuit 1er achat | 19 septembre 2026 20h"
+    },
+    {
+      "date": "2026-09-20",
+      "date_envoi": "2026-09-20",
+      "sujet": "Auto resend of Sérum 5 huiles - fling d'été vs longue durée | jeudi 17 septembre, resend samedi matin 9h"
     }
   ],
   "publications": [
@@ -39125,12 +39148,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10490994.36,
-    "total_ventes_bel": 7290717.15,
-    "total_ventes_boutique": 2644787.84,
+    "total_ventes": 10498448.399999999,
+    "total_ventes_bel": 7297301.609999999,
+    "total_ventes_boutique": 2645657.42,
     "total_ventes_wholesale": 555489.37,
-    "panier_moyen_bel": 95.6854127284184,
+    "panier_moyen_bel": 95.6920340050378,
     "date_min": "2021-11-01",
-    "date_max": "2026-09-19"
+    "date_max": "2026-09-20"
   }
 }
