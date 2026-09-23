@@ -28601,6 +28601,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 3
+    },
+    {
+      "date": "2026-09-22",
+      "ventes_bel": 4506.2,
+      "ventes_boutique": 1012.4,
+      "ventes_wholesale": 457.84,
+      "ventes_total": 5976.44,
+      "commandes_bel": 43.0,
+      "commandes_boutique": 26.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 70.0,
+      "panier_moyen_bel": 104.8,
+      "panier_moyen_boutique": 38.94,
+      "temp_max": 15.8,
+      "temp_min": 6.4,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -28797,17 +28815,17 @@
     {
       "date": "2026-08-17",
       "date_envoi": "2026-08-17",
-      "sujet": "BIS atelier cycle automne 2026"
-    },
-    {
-      "date": "2026-08-17",
-      "date_envoi": "2026-08-17",
       "sujet": "Bis sérum automne 2026"
     },
     {
       "date": "2026-08-17",
       "date_envoi": "2026-08-17",
       "sujet": "Bis atelier shampoing automne 1016"
+    },
+    {
+      "date": "2026-08-17",
+      "date_envoi": "2026-08-17",
+      "sujet": "BIS atelier cycle automne 2026"
     },
     {
       "date": "2026-08-19",
@@ -28862,12 +28880,12 @@
     {
       "date": "2026-09-11",
       "date_envoi": "2026-09-11",
-      "sujet": "Infolettre ciblée sérum contour pour 1er achat | septembre 2026"
+      "sujet": "Resend aux pas ouverts - Ateliers au pignon + soldes | samedi matin"
     },
     {
       "date": "2026-09-11",
       "date_envoi": "2026-09-11",
-      "sujet": "Resend aux pas ouverts - Ateliers au pignon + soldes | samedi matin"
+      "sujet": "Infolettre ciblée sérum contour pour 1er achat | septembre 2026"
     },
     {
       "date": "2026-09-13",
@@ -28908,6 +28926,11 @@
       "date": "2026-09-21",
       "date_envoi": "2026-09-21",
       "sujet": "Auto resend of Infolettre wholesale sérum visage 5 huiles anti-âge | septembre 2026"
+    },
+    {
+      "date": "2026-09-21",
+      "date_envoi": "2026-09-21",
+      "sujet": "RAPPEL ATELIER SÉRUM 23 SEPT 2026"
     }
   ],
   "publications": [
@@ -39171,12 +39194,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10503044.499999998,
-    "total_ventes_bel": 7301897.709999999,
-    "total_ventes_boutique": 2645657.42,
-    "total_ventes_wholesale": 555489.37,
-    "panier_moyen_bel": 95.70067967275016,
+    "total_ventes": 10509020.940000001,
+    "total_ventes_bel": 7306403.91,
+    "total_ventes_boutique": 2646669.8200000003,
+    "total_ventes_wholesale": 555947.21,
+    "panier_moyen_bel": 95.70640251572327,
     "date_min": "2021-11-01",
-    "date_max": "2026-09-21"
+    "date_max": "2026-09-22"
   }
 }
