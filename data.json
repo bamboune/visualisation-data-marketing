@@ -28655,6 +28655,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 0
+    },
+    {
+      "date": "2026-09-25",
+      "ventes_bel": 4138.32,
+      "ventes_boutique": 1402.9,
+      "ventes_wholesale": 492.88,
+      "ventes_total": 6034.1,
+      "commandes_bel": 39.0,
+      "commandes_boutique": 28.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 68.0,
+      "panier_moyen_bel": 106.11,
+      "panier_moyen_boutique": 50.1,
+      "temp_max": 21.9,
+      "temp_min": 8.4,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -28975,6 +28993,18 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-09-25",
+      "plateforme": "facebook",
+      "description_courte": "Les feuilles d’automne… pourquoi elles changent de couleur? Ont-elles des propriétés médicinales? Pis surtout… on laisse-tu ça su’l gazon ou on ramasse?\n\nOn t'explique tout dans la vidéo, pis on te do",
+      "lien_post": "https://www.facebook.com/reel/1772515886958913/"
+    },
+    {
+      "date": "2026-09-25",
+      "plateforme": "facebook",
+      "description_courte": "Notre site web va changer lundi! Pis on avait envie de vous raconter un peu pourquoi.\n\nDepuis 2022, tu naviguais probablement sans jamais t'en rendre compte sur deux plateformes différentes cousues en",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1649593186554386"
+    },
     {
       "date": "2026-09-18",
       "plateforme": "facebook",
@@ -29784,6 +29814,18 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-09-25",
+      "plateforme": "instagram",
+      "description_courte": "Les feuilles d’automne… pourquoi elles changent de couleur? Ont-elles des propriétés médicinales? Pis surtout… on laisse-tu ça su’l gazon ou on ramasse?\n\nOn t'explique tout dans la vidéo, pis on te do",
+      "lien_post": "https://www.instagram.com/reel/Ddt18VJDDPQ/"
+    },
+    {
+      "date": "2026-09-25",
+      "plateforme": "instagram",
+      "description_courte": "Notre site web va changer lundi! Pis on avait envie de vous raconter un peu pourquoi.\n\nDepuis 2022, tu naviguais probablement sans jamais t'en rendre compte sur deux plateformes différentes cousues en",
+      "lien_post": "https://www.instagram.com/p/DdtjZIVjFfy/"
     },
     {
       "date": "2026-09-18",
@@ -39235,12 +39277,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10520491.149999999,
-    "total_ventes_bel": 7314481.83,
-    "total_ventes_boutique": 2650062.11,
-    "total_ventes_wholesale": 555947.21,
-    "panier_moyen_bel": 95.71640075376885,
+    "total_ventes": 10526525.25,
+    "total_ventes_bel": 7318620.15,
+    "total_ventes_boutique": 2651465.01,
+    "total_ventes_wholesale": 556440.0900000001,
+    "panier_moyen_bel": 95.72292529817953,
     "date_min": "2021-11-01",
-    "date_max": "2026-09-24"
+    "date_max": "2026-09-25"
   }
 }
