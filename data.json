@@ -27590,9 +27590,9 @@
       "panier_moyen_boutique": 43.82,
       "temp_max": 24.4,
       "temp_min": 18.2,
-      "precipitation_mm": 6.7,
+      "precipitation_mm": 3.9,
       "snowfall_cm": 0.0,
-      "weather_code": 61
+      "weather_code": 53
     },
     {
       "date": "2026-07-30",
@@ -28709,6 +28709,24 @@
       "precipitation_mm": 0.6,
       "snowfall_cm": 0.0,
       "weather_code": 51
+    },
+    {
+      "date": "2026-09-28",
+      "ventes_bel": 3446.67,
+      "ventes_boutique": 0.0,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 3446.67,
+      "commandes_bel": 33.0,
+      "commandes_boutique": 0.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 33.0,
+      "panier_moyen_bel": 104.44,
+      "panier_moyen_boutique": 0.0,
+      "temp_max": 15.3,
+      "temp_min": 11.2,
+      "precipitation_mm": 6.2,
+      "snowfall_cm": 0.0,
+      "weather_code": 63
     }
   ],
   "infolettres": [
@@ -39317,15 +39335,22 @@
       "description": "NOUVEAU SITE WEB - MISE EN LIGNE",
       "note": "",
       "event_id": ""
+    },
+    {
+      "date": "2026-09-29",
+      "type": "",
+      "description": "Sérum visage 5 huiles anti-âge",
+      "note": "",
+      "event_id": ""
     }
   ],
   "stats": {
-    "total_ventes": 10537334.569999998,
-    "total_ventes_bel": 7326249.789999999,
+    "total_ventes": 10540781.239999998,
+    "total_ventes_bel": 7329696.459999999,
     "total_ventes_boutique": 2654644.69,
     "total_ventes_wholesale": 556440.0900000001,
-    "panier_moyen_bel": 95.7396802507837,
+    "panier_moyen_bel": 95.74513157894738,
     "date_min": "2021-11-01",
-    "date_max": "2026-09-27"
+    "date_max": "2026-09-28"
   }
 }
