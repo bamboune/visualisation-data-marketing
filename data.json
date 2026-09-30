@@ -28727,6 +28727,24 @@
       "precipitation_mm": 6.2,
       "snowfall_cm": 0.0,
       "weather_code": 63
+    },
+    {
+      "date": "2026-09-29",
+      "ventes_bel": 4783.42,
+      "ventes_boutique": 967.17,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 5750.59,
+      "commandes_bel": 46.0,
+      "commandes_boutique": 25.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 71.0,
+      "panier_moyen_bel": 103.99,
+      "panier_moyen_boutique": 38.69,
+      "temp_max": 15.7,
+      "temp_min": 10.7,
+      "precipitation_mm": 0.2,
+      "snowfall_cm": 0.0,
+      "weather_code": 51
     }
   ],
   "infolettres": [
@@ -29047,6 +29065,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-09-29",
+      "plateforme": "facebook",
+      "description_courte": "On engage! Le lien pour les détails et postuler est dans les commentaires.",
+      "lien_post": "https://www.facebook.com/reel/1606805760903792/"
+    },
     {
       "date": "2026-09-25",
       "plateforme": "facebook",
@@ -29868,6 +29892,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-09-29",
+      "plateforme": "instagram",
+      "description_courte": "On engage! Tous les détails sur notre site web.",
+      "lien_post": "https://www.instagram.com/reel/Dd4HpHVMdzL/"
     },
     {
       "date": "2026-09-25",
@@ -39345,12 +39375,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10540781.239999998,
-    "total_ventes_bel": 7329696.459999999,
-    "total_ventes_boutique": 2654644.69,
+    "total_ventes": 10546531.829999998,
+    "total_ventes_bel": 7334479.879999999,
+    "total_ventes_boutique": 2655611.8600000003,
     "total_ventes_wholesale": 556440.0900000001,
-    "panier_moyen_bel": 95.74513157894738,
+    "panier_moyen_bel": 95.7502943018159,
     "date_min": "2021-11-01",
-    "date_max": "2026-09-28"
+    "date_max": "2026-09-29"
   }
 }
