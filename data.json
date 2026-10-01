@@ -28745,6 +28745,24 @@
       "precipitation_mm": 0.2,
       "snowfall_cm": 0.0,
       "weather_code": 51
+    },
+    {
+      "date": "2026-09-30",
+      "ventes_bel": 3523.81,
+      "ventes_boutique": 1886.9,
+      "ventes_wholesale": 548.86,
+      "ventes_total": 5959.57,
+      "commandes_bel": 36.0,
+      "commandes_boutique": 43.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 80.0,
+      "panier_moyen_bel": 97.88,
+      "panier_moyen_boutique": 43.88,
+      "temp_max": 16.7,
+      "temp_min": 9.8,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -28916,12 +28934,12 @@
     {
       "date": "2026-07-31",
       "date_envoi": "2026-07-31",
-      "sujet": "Gatorade maison et savon camping (recettes!) + lecture de vacances (baku 10 produits) | samedi 1er août 9h + resend dimanche 19h"
+      "sujet": "Routine de Gen contour des yeux - 5 huiles + crème contour + abyssinie / offre d'emploi | samedi 8 août 9h + resend dimanche soir 19h"
     },
     {
       "date": "2026-07-31",
       "date_envoi": "2026-07-31",
-      "sujet": "Routine de Gen contour des yeux - 5 huiles + crème contour + abyssinie / offre d'emploi | samedi 8 août 9h + resend dimanche soir 19h"
+      "sujet": "Gatorade maison et savon camping (recettes!) + lecture de vacances (baku 10 produits) | samedi 1er août 9h + resend dimanche 19h"
     },
     {
       "date": "2026-08-02",
@@ -28982,6 +29000,11 @@
       "date": "2026-08-30",
       "date_envoi": "2026-08-30",
       "sujet": "Resend to non openers Last call promo LESÉRUMORIGINEL | dimanche 30 août"
+    },
+    {
+      "date": "2026-09-01",
+      "date_envoi": "2026-09-01",
+      "sujet": "BIS HIVER automne 2026"
     },
     {
       "date": "2026-09-04",
@@ -39375,12 +39398,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10546531.829999998,
-    "total_ventes_bel": 7334479.879999999,
-    "total_ventes_boutique": 2655611.8600000003,
-    "total_ventes_wholesale": 556440.0900000001,
-    "panier_moyen_bel": 95.7502943018159,
+    "total_ventes": 10552491.399999999,
+    "total_ventes_bel": 7338003.6899999995,
+    "total_ventes_boutique": 2657498.76,
+    "total_ventes_wholesale": 556988.95,
+    "panier_moyen_bel": 95.75162703379225,
     "date_min": "2021-11-01",
-    "date_max": "2026-09-29"
+    "date_max": "2026-09-30"
   }
 }
