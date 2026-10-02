@@ -28763,6 +28763,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 3
+    },
+    {
+      "date": "2026-10-01",
+      "ventes_bel": 3214.89,
+      "ventes_boutique": 1248.8,
+      "ventes_wholesale": 1357.72,
+      "ventes_total": 5821.41,
+      "commandes_bel": 33.0,
+      "commandes_boutique": 27.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 61.0,
+      "panier_moyen_bel": 97.42,
+      "panier_moyen_boutique": 46.25,
+      "temp_max": 20.0,
+      "temp_min": 14.0,
+      "precipitation_mm": 2.3,
+      "snowfall_cm": 0.0,
+      "weather_code": 53
     }
   ],
   "infolettres": [
@@ -29088,6 +29106,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-10-01",
+      "plateforme": "facebook",
+      "description_courte": "Trouvez les deux intrus. 👀",
+      "lien_post": "https://www.facebook.com/reel/1799121884841093/"
+    },
     {
       "date": "2026-09-29",
       "plateforme": "facebook",
@@ -29915,6 +29939,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-10-01",
+      "plateforme": "instagram",
+      "description_courte": "Trouvez les 2 intrus. 👀",
+      "lien_post": "https://www.instagram.com/reel/Dd9g3pJsZ2o/"
     },
     {
       "date": "2026-09-29",
@@ -39395,15 +39425,29 @@
       "description": "Sérum visage 5 huiles anti-âge",
       "note": "",
       "event_id": ""
+    },
+    {
+      "date": "2026-10-02",
+      "type": "bis_alertes_back_in_stock",
+      "description": "savon castille nature",
+      "note": "",
+      "event_id": "1786632836677_717_3"
+    },
+    {
+      "date": "2026-10-02",
+      "type": "contexte",
+      "description": "olympiques",
+      "note": "",
+      "event_id": "1786632836677_717_11"
     }
   ],
   "stats": {
-    "total_ventes": 10552491.399999999,
-    "total_ventes_bel": 7338003.6899999995,
-    "total_ventes_boutique": 2657498.76,
-    "total_ventes_wholesale": 556988.95,
-    "panier_moyen_bel": 95.75162703379225,
+    "total_ventes": 10558312.81,
+    "total_ventes_bel": 7341218.58,
+    "total_ventes_boutique": 2658747.56,
+    "total_ventes_wholesale": 558346.6699999999,
+    "panier_moyen_bel": 95.75267041901188,
     "date_min": "2021-11-01",
-    "date_max": "2026-09-30"
+    "date_max": "2026-10-01"
   }
 }
