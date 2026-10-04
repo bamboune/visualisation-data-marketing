@@ -28799,6 +28799,24 @@
       "precipitation_mm": 11.1,
       "snowfall_cm": 0.0,
       "weather_code": 61
+    },
+    {
+      "date": "2026-10-03",
+      "ventes_bel": 3776.36,
+      "ventes_boutique": 2485.89,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 6262.25,
+      "commandes_bel": 37.0,
+      "commandes_boutique": 47.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 84.0,
+      "panier_moyen_bel": 102.06,
+      "panier_moyen_boutique": 52.89,
+      "temp_max": 14.5,
+      "temp_min": 6.8,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -29065,12 +29083,12 @@
     {
       "date": "2026-09-11",
       "date_envoi": "2026-09-11",
-      "sujet": "Resend aux pas ouverts - Ateliers au pignon + soldes | samedi matin"
+      "sujet": "Infolettre ciblée sérum contour pour 1er achat | septembre 2026"
     },
     {
       "date": "2026-09-11",
       "date_envoi": "2026-09-11",
-      "sujet": "Infolettre ciblée sérum contour pour 1er achat | septembre 2026"
+      "sujet": "Resend aux pas ouverts - Ateliers au pignon + soldes | samedi matin"
     },
     {
       "date": "2026-09-13",
@@ -29121,6 +29139,11 @@
       "date": "2026-09-22",
       "date_envoi": "2026-09-22",
       "sujet": "RAPPEL ATELIER CYCLE 24 SEPT 2026"
+    },
+    {
+      "date": "2026-10-02",
+      "date_envoi": "2026-10-02",
+      "sujet": "Nouveau site web + offre d'emploi commandes | samedi 3 octobre 2026 + resend aux pas ouverts dimanche 4 octobre 19h30"
     }
   ],
   "publications": [
@@ -39460,12 +39483,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10562812.690000001,
-    "total_ventes_bel": 7343655.04,
-    "total_ventes_boutique": 2660342.42,
+    "total_ventes": 10569074.940000001,
+    "total_ventes_bel": 7347431.4,
+    "total_ventes_boutique": 2662828.31,
     "total_ventes_wholesale": 558815.23,
-    "panier_moyen_bel": 95.75139375,
+    "panier_moyen_bel": 95.75533416614617,
     "date_min": "2021-11-01",
-    "date_max": "2026-10-02"
+    "date_max": "2026-10-03"
   }
 }
