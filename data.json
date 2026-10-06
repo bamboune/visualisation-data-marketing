@@ -28835,6 +28835,24 @@
       "precipitation_mm": 2.3,
       "snowfall_cm": 0.0,
       "weather_code": 55
+    },
+    {
+      "date": "2026-10-05",
+      "ventes_bel": 4112.76,
+      "ventes_boutique": 0.0,
+      "ventes_wholesale": 561.36,
+      "ventes_total": 4674.12,
+      "commandes_bel": 36.0,
+      "commandes_boutique": 0.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 37.0,
+      "panier_moyen_bel": 114.24,
+      "panier_moyen_boutique": 0.0,
+      "temp_max": 12.1,
+      "temp_min": 6.9,
+      "precipitation_mm": 6.5,
+      "snowfall_cm": 0.0,
+      "weather_code": 61
     }
   ],
   "infolettres": [
@@ -39510,15 +39528,22 @@
       "description": "Séries Hockey Canadien",
       "note": "Contre Sabres de Buffalo à Montréal - 19h-22h / 6-2 pour Canadien",
       "event_id": "1786632836683_767_2"
+    },
+    {
+      "date": "2026-10-06",
+      "type": "lancement_produits_ateliers",
+      "description": "Retour en stock masque de nuit",
+      "note": "",
+      "event_id": "1786632836684_789_2"
     }
   ],
   "stats": {
-    "total_ventes": 10574194.780000001,
-    "total_ventes_bel": 7350604.840000001,
+    "total_ventes": 10578868.9,
+    "total_ventes_bel": 7354717.600000001,
     "total_ventes_boutique": 2664774.71,
-    "total_ventes_wholesale": 558815.23,
-    "panier_moyen_bel": 95.75558676654182,
+    "total_ventes_wholesale": 559376.5900000001,
+    "panier_moyen_bel": 95.76711790393013,
     "date_min": "2021-11-01",
-    "date_max": "2026-10-04"
+    "date_max": "2026-10-05"
   }
 }
