@@ -28871,6 +28871,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 2
+    },
+    {
+      "date": "2026-10-07",
+      "ventes_bel": 2868.79,
+      "ventes_boutique": 1462.49,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 4331.28,
+      "commandes_bel": 39.0,
+      "commandes_boutique": 26.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 65.0,
+      "panier_moyen_bel": 73.56,
+      "panier_moyen_boutique": 56.25,
+      "temp_max": 14.3,
+      "temp_min": 5.3,
+      "precipitation_mm": 1.7,
+      "snowfall_cm": 0.0,
+      "weather_code": 55
     }
   ],
   "infolettres": [
@@ -29206,6 +29224,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-10-07",
+      "plateforme": "facebook",
+      "description_courte": "Oui oui, on parle bien de la bouteille bleue dans la section anti-acides/laxatifs. Sous tes bras. Oui.",
+      "lien_post": "https://www.facebook.com/reel/1861180061910616/"
+    },
     {
       "date": "2026-10-06",
       "plateforme": "facebook",
@@ -30045,6 +30069,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-10-07",
+      "plateforme": "instagram",
+      "description_courte": "Oui oui, on parle bien de la bouteille bleue dans la section anti-acides/laxatifs.  Sous tes bras. Oui.",
+      "lien_post": "https://www.instagram.com/reel/DeND1IWlIgZ/"
     },
     {
       "date": "2026-10-06",
@@ -39568,12 +39598,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10584883.080000002,
-    "total_ventes_bel": 7359022.71,
-    "total_ventes_boutique": 2665741.66,
+    "total_ventes": 10589214.36,
+    "total_ventes_bel": 7361891.5,
+    "total_ventes_boutique": 2667204.15,
     "total_ventes_wholesale": 560118.71,
-    "panier_moyen_bel": 95.7762344139651,
+    "panier_moyen_bel": 95.7623925233645,
     "date_min": "2021-11-01",
-    "date_max": "2026-10-06"
+    "date_max": "2026-10-07"
   }
 }
