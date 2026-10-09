@@ -39492,20 +39492,6 @@
       "event_id": ""
     },
     {
-      "date": "2026-08-14",
-      "type": "",
-      "description": "Test final",
-      "note": "",
-      "event_id": ""
-    },
-    {
-      "date": "2026-08-14",
-      "type": "",
-      "description": "test push notif",
-      "note": "",
-      "event_id": ""
-    },
-    {
       "date": "2026-08-20",
       "type": "",
       "description": "20 au 23: vente-trottoir",
@@ -39555,34 +39541,6 @@
       "event_id": ""
     },
     {
-      "date": "2026-09-02",
-      "type": "contexte",
-      "description": "olympiques",
-      "note": "",
-      "event_id": "1786632836677_716_11"
-    },
-    {
-      "date": "2026-09-02",
-      "type": "autre",
-      "description": "Rédaction conformité Santé Canada sur la BEL: fiches produits et SEO pour gamme des Lunes, gamme Respire, tisanes, mélange à sirop, mélanges à diffuser, roll-on aux huiles essentielles",
-      "note": "",
-      "event_id": "1786632836677_716"
-    },
-    {
-      "date": "2026-09-07",
-      "type": "lancement_produits_ateliers",
-      "description": "vente-trottoir pignon - 9 au 12 juillet",
-      "note": "en boutique seulement - 20% sur vraiment tout, même le bar à sérum!",
-      "event_id": "1786632836684_806_2"
-    },
-    {
-      "date": "2026-09-07",
-      "type": "lancement_produits_ateliers",
-      "description": "vente-trottoir pignon - 9 au 12 juillet",
-      "note": "",
-      "event_id": "1786632836684_811_2"
-    },
-    {
       "date": "2026-09-20",
       "type": "",
       "description": "20 au 27/09 Grands prix cyclistes MONTRÉAL",
@@ -39602,34 +39560,6 @@
       "description": "Sérum visage 5 huiles anti-âge",
       "note": "",
       "event_id": ""
-    },
-    {
-      "date": "2026-10-02",
-      "type": "bis_alertes_back_in_stock",
-      "description": "savon castille nature",
-      "note": "",
-      "event_id": "1786632836677_717_3"
-    },
-    {
-      "date": "2026-10-02",
-      "type": "contexte",
-      "description": "olympiques",
-      "note": "",
-      "event_id": "1786632836677_717_11"
-    },
-    {
-      "date": "2026-10-05",
-      "type": "lancement_produits_ateliers",
-      "description": "Séries Hockey Canadien",
-      "note": "Contre Sabres de Buffalo à Montréal - 19h-22h / 6-2 pour Canadien",
-      "event_id": "1786632836683_767_2"
-    },
-    {
-      "date": "2026-10-06",
-      "type": "lancement_produits_ateliers",
-      "description": "Retour en stock masque de nuit",
-      "note": "",
-      "event_id": "1786632836684_789_2"
     }
   ],
   "stats": {
