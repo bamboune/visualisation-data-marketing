@@ -1,1681 +1,537 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LMH Dashboard — ventes & marketing</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.10/dayjs.min.js"></script>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background: #f4f1ec;
-            color: #1e2330;
-            font-family: system-ui, -apple-system, sans-serif;
-            font-size: 14px;
-            line-height: 1.5;
-            padding: 28px;
-            min-height: 100vh;
-        }
-        .container { max-width: 1400px; margin: 0 auto; }
-
-        /* HEADER */
-        .header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
-        .header-left h1 { font-size: 1.35rem; font-weight: 700; color: #1e2330; }
-        .header-left p { font-size: 0.78rem; color: #8a8f9e; margin-top: 2px; }
-        .header-right { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
-
-        select {
-            background: #ffffff;
-            color: #1e2330;
-            border: 1px solid #ddd8d0;
-            border-radius: 8px;
-            padding: 8px 14px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-        }
-        select:focus { outline: none; border-color: #7c6fa0; }
-
-        .btn-reset {
-            background: #ffffff;
-            color: #5a5f72;
-            border: 1px solid #ddd8d0;
-            border-radius: 8px;
-            padding: 8px 16px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-        }
-        .btn-reset:hover { background: #f0ece6; }
-
-        .btn-add {
-            background: #7c6fa0;
-            color: #ffffff;
-            border: none;
-            border-radius: 8px;
-            padding: 8px 18px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-        .btn-add:hover { background: #6a5e8c; }
-
-        /* TOOLBAR + TOGGLES */
-        .toolbar { display: flex; align-items: center; margin-bottom: 22px; }
-        .view-toggles { display: flex; gap: 6px; }
-        .btn-view {
-            background: #ffffff;
-            color: #5a5f72;
-            border: 1px solid #ddd8d0;
-            border-radius: 8px;
-            padding: 7px 18px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 500;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-        }
-        .btn-view.active {
-            background: #1e2330;
-            color: #ffffff;
-            border-color: #1e2330;
-        }
-        .btn-view:not(.active):hover { background: #f0ece6; }
-
-        /* KPI GRID */
-        .kpi-grid { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; gap: 14px; margin-bottom: 22px; }
-        @media (max-width: 900px) { .kpi-grid { grid-template-columns: 1fr 1fr; } }
-
-        .kpi-card {
-            background: #ffffff;
-            border: 1px solid #e8e3db;
-            border-radius: 14px;
-            padding: 20px 22px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-        .kpi-label {
-            font-size: 0.68rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: #8a8f9e;
-            margin-bottom: 10px;
-        }
-        .kpi-value {
-            font-size: 1.95rem;
-            font-weight: 700;
-            color: #1e2330;
-            line-height: 1.1;
-        }
-        .kpi-sub {
-            font-size: 0.75rem;
-            color: #8a8f9e;
-            margin-top: 6px;
-        }
-        /* WEATHER */
-        .weather-bar {
-            background: #ffffff;
-            border: 1px solid #e8e3db;
-            border-radius: 12px;
-            padding: 13px 22px;
-            margin-bottom: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 28px;
-            font-size: 0.85rem;
-            color: #5a5f72;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-        }
-        .weather-bar strong { color: #1e2330; }
-
-        /* CHART CARD */
-        .chart-card {
-            background: #ffffff;
-            border: 1px solid #e8e3db;
-            border-radius: 14px;
-            padding: 22px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-        .card-title-sm {
-            font-size: 0.68rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: #8a8f9e;
-            margin-bottom: 18px;
-        }
-
-        /* ANNUAL */
-        .annual-message {
-            background: #ffffff;
-            border: 1px solid #e8e3db;
-            border-radius: 12px;
-            padding: 18px 22px;
-            text-align: center;
-            color: #8a8f9e;
-            font-size: 0.88rem;
-            margin-top: 14px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-        }
-
-        /* MONTHLY GRID */
-        .monthly-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
-        @media (max-width: 820px) { .monthly-grid { grid-template-columns: 1fr; } }
-        .monthly-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 14px; }
-        @media (max-width: 900px) { .monthly-grid-3 { grid-template-columns: 1fr; } }
-
-        /* DATA CARDS */
-        .data-card {
-            background: #ffffff;
-            border: 1px solid #e8e3db;
-            border-radius: 14px;
-            padding: 20px 22px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            overflow: hidden;
-        }
-        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
-        .card-title {
-            font-size: 0.68rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: #8a8f9e;
-        }
-        .badge-count {
-            background: #f4f1ec;
-            border: 1px solid #e0dbd2;
-            border-radius: 20px;
-            padding: 2px 10px;
-            font-size: 0.72rem;
-            color: #5a5f72;
-            font-weight: 500;
-        }
-
-        /* MINI TABLES */
-        .mini-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
-        .mini-table th {
-            color: #8a8f9e;
-            font-weight: 600;
-            text-align: left;
-            padding: 0 8px 9px 0;
-            font-size: 0.68rem;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            border-bottom: 1px solid #ede9e2;
-        }
-        .mini-table td {
-            padding: 9px 8px 9px 0;
-            border-bottom: 1px solid #f0ece6;
-            color: #1e2330;
-            vertical-align: top;
-        }
-        .mini-table tr:last-child td { border-bottom: none; }
-        .date-cell { color: #8a8f9e; font-size: 0.78rem; white-space: nowrap; }
-        .action-cell { color: #1e2330; font-weight: 600; }
-        .note-cell { color: #5a5f72; font-size: 0.78rem; }
-
-        .canal-badge {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 5px;
-            font-size: 0.68rem;
-            font-weight: 700;
-        }
-        .canal-ig { background: #f3e8ff; color: #7c3aed; }
-        .canal-fb { background: #dbeafe; color: #1d4ed8; }
-
-        .link-voir { color: #7c6fa0; text-decoration: none; font-size: 0.78rem; font-weight: 500; }
-        .link-voir:hover { color: #5e5280; text-decoration: underline; }
-
-        .voir-plus {
-            display: block;
-            text-align: center;
-            color: #7c6fa0;
-            font-size: 0.82rem;
-            font-weight: 500;
-            margin-top: 12px;
-            cursor: pointer;
-            padding-top: 12px;
-            border-top: 1px solid #f0ece6;
-        }
-        .voir-plus:hover { color: #5e5280; }
-
-        .warning-msg { color: #8a8f9e; font-size: 0.82rem; text-align: center; padding: 14px 0; }
-
-        /* GLOBAL SEARCH */
-        .search-input {
-            background: #ffffff;
-            color: #1e2330;
-            border: 1px solid #ddd8d0;
-            border-radius: 8px;
-            padding: 8px 14px;
-            font-size: 0.85rem;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-            width: 210px;
-        }
-        .search-input:focus { outline: none; border-color: #7c6fa0; }
-        .search-results-card {
-            background: #ffffff;
-            border: 1px solid #e8e3db;
-            border-radius: 14px;
-            padding: 20px 22px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-
-        /* MODAL */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(30,35,48,0.45); justify-content: center; align-items: center; z-index: 1000; }
-        .modal-content {
-            background: #ffffff;
-            border: 1px solid #e8e3db;
-            border-radius: 20px;
-            padding: 30px;
-            max-width: 480px;
-            width: 90%;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
-        }
-        .modal-content h2 { color: #1e2330; margin-bottom: 20px; font-size: 1.1rem; }
-        .modal-content label {
-            display: block;
-            margin-top: 16px;
-            font-weight: 600;
-            color: #5a5f72;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        .modal-content input, .modal-content textarea {
-            width: 100%;
-            padding: 10px 14px;
-            margin-top: 6px;
-            border-radius: 10px;
-            border: 1px solid #ddd8d0;
-            background: #faf8f5;
-            color: #1e2330;
-            font-size: 0.9rem;
-        }
-        .modal-content input:focus, .modal-content textarea:focus { outline: none; border-color: #7c6fa0; }
-        .btn-submit {
-            width: 100%;
-            margin-top: 20px;
-            padding: 12px;
-            background: #7c6fa0;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-        .btn-submit:hover { background: #6a5e8c; }
-
-        /* Hint bouton + rappel modale */
-        .add-hint {
-            display: flex; align-items: center; gap: 7px;
-            background: #faf7ff; border: 1px solid #ddd6f5;
-            border-radius: 8px; padding: 7px 14px;
-            font-size: 0.75rem; color: #5b21b6; line-height: 1.4;
-            margin-bottom: 16px;
-        }
-        .add-hint-icon {
-            width: 16px; height: 16px; border-radius: 50%;
-            background: #5b21b6; color: #fff;
-            font-size: 0.65rem; font-weight: 700; flex-shrink: 0;
-            display: inline-flex; align-items: center; justify-content: center;
-        }
-        .modal-reminder {
-            background: #faf7ff; border: 1px solid #ede9ff; border-radius: 10px;
-            padding: 10px 14px; margin-bottom: 18px;
-            font-size: 0.78rem; color: #5a5f72; line-height: 1.6;
-        }
-        .modal-reminder strong { color: #5b21b6; }
-        .modal-close { float: right; font-size: 1.3rem; cursor: pointer; color: #8a8f9e; line-height: 1; }
-        .modal-close:hover { color: #1e2330; }
-
-        /* CATEGORY TAGS */
-        .tag-marketing { background: #ede9ff; color: #5b21b6; padding: 2px 8px; border-radius: 5px; font-size: 0.68rem; font-weight: 700; display: inline-block; }
-        .tag-contexte { background: #fef3c7; color: #92400e; padding: 2px 8px; border-radius: 5px; font-size: 0.68rem; font-weight: 700; display: inline-block; }
-        /* ACTION TYPE TAGS */
-        .tag-type { padding: 2px 7px; border-radius: 5px; font-size: 0.65rem; font-weight: 800; display: inline-block; letter-spacing: 0.03em; margin-right: 2px; }
-        .tag-promo       { background: #fce7f3; color: #9d174d; }
-        .tag-lancement   { background: #dcfce7; color: #166534; }
-        .tag-bis         { background: #dbeafe; color: #1e40af; }
-        .tag-infolettre  { background: #f3e8ff; color: #6b21a8; }
-        .tag-push        { background: #ffedd5; color: #9a3412; }
-        .tag-blogue      { background: #e0f2fe; color: #075985; }
-        .tag-reseaux     { background: #fdf4ff; color: #86198f; }
-        .tag-autre       { background: #f1f5f9; color: #475569; }
-        .event-actions { display: inline-flex; gap: 2px; opacity: 0; transition: opacity 0.15s; vertical-align: middle; margin-left: 6px; }
-        tr:hover .event-actions { opacity: 1; }
-        .btn-ev { background: none; border: none; cursor: pointer; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; line-height: 1; color: #8a8f9e; }
-        .btn-ev:hover { background: #f0ece6; }
-        .btn-ev.del:hover { background: #fee2e2; color: #ef4444; }
-
-        /* HOLIDAYS BAR */
-        .holidays-bar {
-            margin: 14px -22px -22px -22px;
-            padding: 8px 22px;
-            background: #f7f4ef;
-            border-top: 1px solid #e8e3db;
-            border-radius: 0 0 14px 14px;
-            font-size: 0.72rem;
-            color: #8a8f9e;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-        .holiday-item { display: flex; align-items: center; gap: 5px; }
-        .holiday-dot { width: 7px; height: 7px; background: #dc2626; transform: rotate(45deg); border-radius: 1px; display: inline-block; flex-shrink: 0; }
-    </style>
-</head>
-<body>
-
-<div id="dashboardError" style="display:none;position:fixed;top:0;left:0;right:0;background:#fef2f2;color:#ef4444;padding:12px 20px;font-size:0.82rem;z-index:10000;border-bottom:1px solid #fecaca;"></div>
-
-<div id="loginOverlay" style="display:none;position:fixed;inset:0;background:rgba(17,24,39,0.97);z-index:9999;align-items:center;justify-content:center;">
-  <div style="background:#1f2937;border-radius:12px;padding:2.5rem;width:320px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.5);">
-    <div style="font-size:2rem;margin-bottom:0.5rem;">🔒</div>
-    <h2 style="color:#f9fafb;margin:0 0 0.25rem;font-size:1.25rem;">LMH Dashboard</h2>
-    <p style="color:#9ca3af;margin:0 0 1.5rem;font-size:0.875rem;">Accès sécurisé</p>
-    <input type="password" id="loginInput" placeholder="Mot de passe"
-      style="width:100%;box-sizing:border-box;padding:0.75rem 1rem;border-radius:8px;border:1px solid #374151;background:#111827;color:#f9fafb;font-size:1rem;margin-bottom:0.75rem;outline:none;"
-      autocomplete="current-password">
-    <button onclick="checkLogin()"
-      style="width:100%;padding:0.75rem;background:#7c6fad;color:#fff;border:none;border-radius:8px;font-size:1rem;cursor:pointer;font-weight:600;">
-      Connexion
-    </button>
-    <p id="loginError" style="color:#f87171;margin:0.75rem 0 0;font-size:0.875rem;display:none;">Mot de passe incorrect.</p>
-  </div>
-</div>
-<script>
-  (function() {
-    if (sessionStorage.getItem('lmh_auth') !== 'LMH2026') {
-      const overlay = document.getElementById('loginOverlay');
-      overlay.style.display = 'flex';
-      document.getElementById('loginInput').addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') checkLogin();
-      });
-    }
-  })();
-  function checkLogin() {
-    const pw = document.getElementById('loginInput').value;
-    if (pw === 'LMH2026') {
-      sessionStorage.setItem('lmh_auth', 'LMH2026');
-      document.getElementById('loginOverlay').style.display = 'none';
-    } else {
-      document.getElementById('loginError').style.display = 'block';
-      document.getElementById('loginInput').value = '';
-      document.getElementById('loginInput').focus();
-    }
-  }
-</script>
-
-<div class="container">
-
-    <div class="header">
-        <div class="header-left">
-            <h1>LMH Dashboard</h1>
-            <p>Ventes, météo, infolettres & réseaux sociaux — mise à jour automatique</p>
-        </div>
-        <div class="header-right">
-            <select id="yearFilter"></select>
-            <select id="monthFilter"></select>
-            <select id="channelFilter">
-                <option value="total">Tous canaux</option>
-                <option value="bel">BEL (online)</option>
-                <option value="boutique">Boutique</option>
-            </select>
-            <input type="text" id="globalSearch" class="search-input" placeholder="🔍 Rechercher un événement…">
-            <button class="btn-reset" id="resetBtn">Réinitialiser</button>
-            <button class="btn-add" id="openModalBtn">+ Événement</button>
-        </div>
-    </div>
-
-    <div class="add-hint">
-        <span class="add-hint-icon">i</span>
-        Saisir manuellement dans les événements&nbsp;: Actualité &amp; contexte &nbsp;·&nbsp; Back in stock (BIS) &nbsp;·&nbsp; Push notif
-    </div>
-
-    <div class="toolbar">
-        <div class="view-toggles" id="viewToggles">
-            <button class="btn-view active" id="viewAnnualBtn">Vue annuelle</button>
-            <button class="btn-view" id="viewMonthlyBtn">Vue mensuelle</button>
-        </div>
-    </div>
-
-    <div class="kpi-grid">
-        <div class="kpi-card">
-            <div class="kpi-label" id="kpi1Label">Ventes totales</div>
-            <div class="kpi-value" id="kpi1Value">—</div>
-            <div class="kpi-sub" id="kpi1Sub"></div>
-        </div>
-        <div class="kpi-card">
-            <div class="kpi-label" id="kpi2Label">—</div>
-            <div class="kpi-value" id="kpi2Value">—</div>
-            <div class="kpi-sub" id="kpi2Sub"></div>
-        </div>
-        <div class="kpi-card">
-            <div class="kpi-label" id="kpi3Label">—</div>
-            <div class="kpi-value" id="kpi3Value">—</div>
-            <div class="kpi-sub" id="kpi3Sub"></div>
-        </div>
-        <div class="kpi-card">
-            <div class="kpi-label" id="kpi4Label">—</div>
-            <div class="kpi-value" id="kpi4Value">—</div>
-            <div class="kpi-sub" id="kpi4Sub"></div>
-        </div>
-    </div>
-
-    <div id="channelBreakdown" class="weather-bar" style="display:none;"></div>
-    <div id="weatherBar" class="weather-bar" style="display:none;"></div>
-
-    <!-- VUE ANNUELLE -->
-    <div id="annualView">
-        <div class="chart-card">
-            <div class="card-title-sm" id="annualChartTitle">Ventes mensuelles vs activité marketing</div>
-            <canvas id="annualChart" height="320" style="max-height:380px;"></canvas>
-        </div>
-        <div class="annual-message">Sélectionne un mois pour voir le détail journalier, les événements marketing et les tableaux complets.</div>
-    </div>
-
-    <!-- VUE MENSUELLE -->
-    <div id="monthlyView" style="display:none;">
-        <div class="chart-card" style="margin-bottom:14px;">
-            <div class="card-title-sm" id="dailyChartTitle">Ventes journalières</div>
-            <canvas id="dailyChart" height="280" style="max-height:320px;"></canvas>
-            <div id="markerLegend" style="display:flex;gap:16px;margin-top:10px;font-size:0.7rem;color:#8a8f9e;flex-wrap:wrap;">
-                <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#5b21b6;margin-right:5px;vertical-align:middle;"></span>Événement marketing</span>
-                <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#5a9e7a;margin-right:5px;vertical-align:middle;"></span>Infolettre</span>
-                <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#c87f4a;margin-right:5px;vertical-align:middle;"></span>Publication sociale</span>
-                <span><span style="display:inline-block;width:8px;height:8px;background:#dc2626;transform:rotate(45deg);border-radius:1px;margin-right:5px;vertical-align:middle;"></span>Jour férié</span>
-            </div>
-            <div id="holidaysBar" class="holidays-bar" style="display:none;"></div>
-        </div>
-        <div class="monthly-grid-3">
-            <div class="data-card">
-                <div class="card-header">
-                    <div class="card-title">⚡ Événements marketing et contexte</div>
-                    <span class="badge-count" id="eventsCount">0</span>
-                </div>
-                <div id="eventsBody"></div>
-            </div>
-            <div class="data-card">
-                <div class="card-header">
-                    <div class="card-title">📧 Infolettres</div>
-                    <span class="badge-count" id="emailCount">0 envois</span>
-                </div>
-                <div id="emailBody"></div>
-            </div>
-            <div class="data-card">
-                <div class="card-header">
-                    <div class="card-title">📱 Réseaux sociaux</div>
-                    <span class="badge-count" id="socialCount">0 posts</span>
-                </div>
-                <div id="socialBody"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- VUE RECHERCHE -->
-    <div id="searchView" style="display:none;">
-        <div class="search-results-card">
-            <div class="card-title-sm" id="searchResultsHeader">Résultats</div>
-            <div id="searchResultsBody"></div>
-        </div>
-    </div>
-
-</div>
-
-<!-- MODAL -->
-<div id="eventModal" class="modal">
-    <div class="modal-content">
-        <span class="modal-close" id="modalClose">&times;</span>
-        <h2 id="eventModalTitle">+ Ajouter un événement marketing et contexte</h2>
-        <div class="modal-reminder" id="modalReminder">
-            <strong>À saisir manuellement ici</strong>
-            Actualité &amp; contexte externe &nbsp;·&nbsp; Back in stock (BIS) &nbsp;·&nbsp; Push notif<br>
-            <span style="color:#9ca3af;">Les infolettres et posts IG/FB sont automatisés — pas besoin de les ajouter.</span>
-        </div>
-        <form id="eventForm">
-            <input type="hidden" id="eventMode" value="add">
-            <input type="hidden" id="eventId" value="">
-            <input type="hidden" id="eventDateOriginal" value="">
-            <input type="hidden" id="eventActionOriginal" value="">
-            <label>Date</label>
-            <input type="date" id="eventDate" required>
-            <label>Type</label>
-            <select id="eventCategorie" style="width:100%;padding:10px 14px;margin-top:6px;border-radius:10px;border:1px solid #ddd8d0;background:#faf8f5;color:#1e2330;font-size:0.9rem;"></select>
-            <label>Description</label>
-            <p style="font-size:0.75rem;color:#8a8f9e;margin-top:6px;margin-bottom:4px;line-height:1.5;">Sois précise — plus c'est clair, plus c'est facile à retrouver plus tard.</p>
-            <input type="text" id="eventAction" placeholder="Ex: Lancement crème visage camomille, Promo -20% soins, Atelier savon…" required>
-            <label>Note</label>
-            <textarea id="eventNote" rows="3" placeholder="Détails supplémentaires..."></textarea>
-            <button type="submit" class="btn-submit">Envoyer</button>
-        </form>
-        <div id="formMessage" style="margin-top:10px;font-size:0.8rem;"></div>
-    </div>
-</div>
-
-<script>
-    const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzfag6UzQWchuxY9DU1rn3u9JY7jj3ZA9krltDAsGkVHYU0c8MyVUBApDrU4mUZvCZeLQ/exec';
-    const MONTHS_SHORT = ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
-    const MONTHS_LONG  = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
-    const DAYS_FR = ['dim','lun','mar','mer','jeu','ven','sam'];
-    const ACTION_TAGS = {
-        rabais_promos:               { label: 'PROMO',      css: 'tag-promo' },
-        lancement_produits_ateliers: { label: 'LANCEMENT',  css: 'tag-lancement' },
-        bis_alertes_back_in_stock:   { label: 'BIS',        css: 'tag-bis' },
-        bis:                         { label: 'BIS',        css: 'tag-bis' },
-        infolettre:                  { label: 'INFOLETTRE', css: 'tag-infolettre' },
-        push_notif:                  { label: 'PUSH',       css: 'tag-push' },
-        billet_blogue:               { label: 'BLOGUE',     css: 'tag-blogue' },
-        reseaux_sociaux:             { label: 'RÉSEAUX',    css: 'tag-reseaux' },
-        webmestre_funnels:           { label: 'WEB',        css: 'tag-blogue' },
-        commentaires:                { label: 'NOTE',       css: 'tag-autre' },
-        commentaires_notes:          { label: 'NOTE',       css: 'tag-autre' },
-        autre:                       { label: 'AUTRE',      css: 'tag-autre' },
-    };
-    const TYPE_OPTIONS = [
-        { value: 'rabais_promos',               label: '🏷️ Promo / Rabais' },
-        { value: 'lancement_produits_ateliers', label: '🚀 Lancement / Atelier' },
-        { value: 'bis_alertes_back_in_stock',   label: '🔔 BIS (Back in stock)' },
-        { value: 'infolettre',                  label: '📧 Infolettre' },
-        { value: 'push_notif',                  label: '📲 Push notification' },
-        { value: 'billet_blogue',               label: '✍️ Billet de blogue' },
-        { value: 'reseaux_sociaux',             label: '📱 Réseaux sociaux' },
-        { value: 'webmestre_funnels',           label: '🌐 Web / Funnels' },
-        { value: 'autre',                       label: '📌 Autre (marketing)' },
-        { value: 'contexte',                    label: '🌤️ Contexte (météo, fête, actu…)' },
-    ];
-
-    let fullData = null;
-    let annualChart = null;
-    let dailyChart = null;
-    let currentView = 'annual';
-    let eventRegistry = new Map();
-
-    // ── PERSISTANCE LOCALE (localStorage) ──
-    // Les ajouts et suppressions faits dans le dashboard sont mémorisés localement.
-    // Ils s'effacent automatiquement une fois synchronisés dans data.json par GitHub Actions.
-
-    function evKey(ev) {
-        const d = ev.date ? dayjs(ev.date).format('YYYY-MM-DD') : '';
-        const desc = (ev.description || '').toString().trim().toLowerCase().slice(0, 80);
-        return `${d}|${desc}`;
-    }
-    function getLocalDeleted() {
-        try { return new Set(JSON.parse(localStorage.getItem('lmh_events_deleted') || '[]')); }
-        catch { return new Set(); }
-    }
-    function saveLocalDeleted(s) {
-        localStorage.setItem('lmh_events_deleted', JSON.stringify([...s]));
-    }
-    function getLocalAdded() {
-        try { return JSON.parse(localStorage.getItem('lmh_events_added') || '[]'); }
-        catch { return []; }
-    }
-    function saveLocalAdded(arr) {
-        localStorage.setItem('lmh_events_added', JSON.stringify(arr));
-    }
-    function applyLocalChanges() {
-        if (!fullData.evenements) return;
-        const deleted = getLocalDeleted();
-        // Filtrer les suppressions locales
-        fullData.evenements = fullData.evenements.filter(ev => !deleted.has(evKey(ev)));
-        // Ajouter les créations locales pas encore dans data.json
-        const existingKeys = new Set(fullData.evenements.map(evKey));
-        const stillPending = [];
-        for (const ev of getLocalAdded()) {
-            if (existingKeys.has(evKey(ev))) continue; // déjà synchronisé → ignorer
-            stillPending.push(ev);
-            fullData.evenements.push(ev);
-        }
-        saveLocalAdded(stillPending);
-    }
-
-    // ── LOAD ──
-    async function loadData() {
-        try {
-            const r = await fetch('./data.json?v=' + Date.now());
-            if (!r.ok) throw new Error('data.json introuvable (' + r.status + ')');
-            fullData = await r.json();
-            // Normalise evenements: col_N → named fields si en-têtes manquants dans le Sheet
-            if (fullData.evenements) {
-                fullData.evenements = fullData.evenements.map(ev => {
-                    if ('description' in ev) return ev;
-                    const out = Object.assign({}, ev);
-                    if (out.col_2 !== undefined) { out.description = out.col_2; delete out.col_2; }
-                    if (out.col_3 !== undefined) { out.note      = out.col_3; delete out.col_3; }
-                    if (out.col_4 !== undefined) { out.event_id  = out.col_4; delete out.col_4; }
-                    return out;
-                });
-            }
-            applyLocalChanges();
-            initFilters();
-            applyFiltersAndRender();
-        } catch(err) {
-            console.error('Dashboard error:', err.name, err.message, err.stack);
-            const errEl = document.getElementById('dashboardError');
-            const detail = '[' + err.name + '] ' + err.message + ' — ' + (err.stack||'').split('\n').slice(1,3).join(' | ');
-            if (errEl) {
-                errEl.style.display = 'block';
-                errEl.textContent = '❌ ' + detail;
-            } else {
-                document.body.innerHTML = '<div style="padding:2rem;text-align:center;color:#ef4444;">❌ ' + detail + '</div>';
-            }
-        }
-    }
-
-    // ── FILTERS ──
-    function initFilters() {
-        const years = [...new Set(fullData.ventes.map(v => dayjs(v.date).year()))].sort((a,b)=>b-a);
-        const yEl = document.getElementById('yearFilter');
-        yEl.innerHTML = years.map(y => `<option value="${y}">${y}</option>`).join('');
-        yEl.value = years[0];
-        updateMonthFilter();
-    }
-
-    function updateMonthFilter() {
-        const year = document.getElementById('yearFilter').value;
-        let opts = '<option value="all">Tous les mois</option>';
-        for (let i = 1; i <= 12; i++) {
-            const key = `${year}-${String(i).padStart(2,'0')}`;
-            opts += `<option value="${key}">${MONTHS_LONG[i-1]}</option>`;
-        }
-        document.getElementById('monthFilter').innerHTML = opts;
-        document.getElementById('monthFilter').value = 'all';
-    }
-
-    // ── HELPERS ──
-    function getSalesValue(v, channel) {
-        if (channel === 'bel') return parseFloat(v.ventes_bel)||0;
-        if (channel === 'boutique') return parseFloat(v.ventes_boutique)||0;
-        return (parseFloat(v.ventes_bel)||0) + (parseFloat(v.ventes_boutique)||0) + (parseFloat(v.ventes_wholesale)||0);
-    }
-
-    // ── MAIN RENDER ──
-    function applyFiltersAndRender() {
-        const year    = parseInt(document.getElementById('yearFilter').value);
-        const month   = document.getElementById('monthFilter').value;
-        const channel = document.getElementById('channelFilter').value;
-        const isAnnual = (month === 'all');
-
-        // Toggle visibility
-        document.getElementById('viewToggles').style.display = isAnnual ? 'flex' : 'none';
-        if (!isAnnual) currentView = 'monthly';
-
-        document.getElementById('annualView').style.display  = isAnnual ? 'block' : 'none';
-        document.getElementById('monthlyView').style.display = isAnnual ? 'none'  : 'block';
-
-        if (isAnnual) {
-            renderAnnualView(year, channel);
-        } else {
-            renderMonthlyView(year, month, channel);
-        }
-    }
-
-    // ── ANNUAL VIEW ──
-    function renderAnnualView(year, channel) {
-        const today = dayjs();
-        const isCurrentYear = (year === today.year());
-
-        // Pour l'année en cours : seulement les données jusqu'à aujourd'hui (vrai YTD)
-        const ventes = fullData.ventes.filter(v => {
-            const d = dayjs(v.date);
-            if (d.year() !== year) return false;
-            if (isCurrentYear && d.isAfter(today, 'day')) return false;
-            return true;
-        });
-
-        const monthlyVentes = Array(12).fill(0);
-        ventes.forEach(v => { monthlyVentes[dayjs(v.date).month()] += getSalesValue(v, channel); });
-
-        const monthlyPubs = Array(12).fill(0);
-        (fullData.publications || []).filter(p => dayjs(p.date).year() === year)
-            .forEach(p => { monthlyPubs[dayjs(p.date).month()]++; });
-
-        const monthlyEmails = Array(12).fill(0);
-        (fullData.infolettres || []).filter(e => {
-            const d = e.date_envoi || e.date;
-            return dayjs(d).year() === year;
-        }).forEach(e => {
-            const d = e.date_envoi || e.date;
-            monthlyEmails[dayjs(d).month()]++;
-        });
-
-        const totalVentes = monthlyVentes.reduce((a,b)=>a+b,0);
-        const totalPubs   = monthlyPubs.reduce((a,b)=>a+b,0);
-        const totalEmails = monthlyEmails.reduce((a,b)=>a+b,0);
-        const totalEvents = (fullData.evenements || []).filter(ev => {
-            if (!ev.date || !dayjs(ev.date).isValid()) return false;
-            if (dayjs(ev.date).year() !== year) return false;
-            return ev.description?.toString().trim() || ev.note?.toString().trim();
-        }).length;
-
-        // Period label
-        const firstM = monthlyVentes.findIndex(v=>v>0);
-        const lastM  = monthlyVentes.reduce((l,v,i)=>v>0?i:l, -1);
-        let periodLabel = '';
-        if (firstM >= 0 && lastM >= 0) {
-            periodLabel = firstM === lastM
-                ? MONTHS_LONG[firstM]
-                : `${MONTHS_LONG[firstM]} – ${MONTHS_LONG[lastM]}${(!isCurrentYear && lastM < 11) ? ' (partiel)' : ''}`;
-        }
-
-        // Comparaison YTD avec l'année précédente à pareille date
-        let prevYTDTotal = 0;
-        let prevMonthlyVentes = Array(12).fill(0);
-        let pctYTD = null;
-        let prevYTDSub = '';
-
-        if (isCurrentYear) {
-            const prevYear = year - 1;
-            const prevCutoffStr = `${prevYear}-${today.format('MM-DD')}`;
-            const prevVentesYTD = fullData.ventes.filter(v =>
-                dayjs(v.date).year() === prevYear && v.date <= prevCutoffStr
-            );
-            prevVentesYTD.forEach(v => { prevMonthlyVentes[dayjs(v.date).month()] += getSalesValue(v, channel); });
-            prevYTDTotal = prevMonthlyVentes.reduce((a,b)=>a+b,0);
-
-            if (prevVentesYTD.length > 0 && prevYTDTotal > 0) {
-                pctYTD = (totalVentes - prevYTDTotal) / prevYTDTotal * 100;
-                prevYTDSub = `${prevYear} à pareille date : ${prevYTDTotal.toLocaleString('fr-CA')} $`;
-            }
-        }
-
-        // KPIs
-        const ytdSuffix = isCurrentYear ? ` — YTD au ${today.date()} ${MONTHS_LONG[today.month()]}` : '';
-        setKPI(1, `Ventes totales nettes — ${year}${ytdSuffix}`, totalVentes.toLocaleString('fr-CA') + ' $', prevYTDSub || periodLabel);
-
-        if (pctYTD !== null) {
-            const pctStr   = (pctYTD >= 0 ? '+' : '') + pctYTD.toFixed(1).replace('.', ',') + ' %';
-            const pctColor = pctYTD >= 0 ? '#6ab04c' : '#ef4444';
-            document.getElementById('kpi1Value').innerHTML =
-                `${totalVentes.toLocaleString('fr-CA')} $ <span style="font-size:1rem;font-weight:600;color:${pctColor};">${pctStr}</span>`;
-        }
-
-        setKPI(2, 'Publications totales', totalPubs, 'IG + FB combinés');
-        setKPI(3, 'Infolettres envoyées', totalEmails, isCurrentYear ? `YTD ${year}` : `${year}`);
-        setKPI(4, 'Événements marketing', totalEvents, 'Promos & campagnes');
-
-        document.getElementById('weatherBar').style.display = 'none';
-        renderChannelBreakdown(ventes);
-        document.getElementById('annualChartTitle').textContent = `VENTES MENSUELLES VS ACTIVITÉ MARKETING — ${year}`;
-
-        // Datasets du graphique — ajout de la ligne N-1 pour l'année en cours
-        const annualDatasets = [
-            {
-                type: 'bar', label: `Ventes ${year} ($)`, data: monthlyVentes,
-                backgroundColor: '#a89cc8', borderRadius: 5, borderSkipped: false,
-                yAxisID: 'y', order: 2,
-            },
-            {
-                type: 'line', label: 'Publications IG+FB', data: monthlyPubs,
-                borderColor: '#c87f4a', backgroundColor: 'transparent',
-                borderWidth: 2.5, tension: 0.3,
-                pointRadius: 4, pointBackgroundColor: '#c87f4a', pointBorderColor: '#fff', pointBorderWidth: 2,
-                yAxisID: 'y2', order: 0,
-            },
-            {
-                type: 'line', label: 'Infolettres', data: monthlyEmails,
-                borderColor: '#5a9e7a', backgroundColor: 'transparent',
-                borderWidth: 2, borderDash: [5,4], tension: 0.3,
-                pointRadius: 3, pointBackgroundColor: '#5a9e7a', pointBorderColor: '#fff', pointBorderWidth: 1,
-                yAxisID: 'y2', order: 1,
-            }
-        ];
-
-        if (isCurrentYear && prevYTDTotal > 0) {
-            annualDatasets.push({
-                type: 'line', label: `Ventes ${year - 1} (N-1)`, data: prevMonthlyVentes,
-                borderColor: '#94a3b8', backgroundColor: 'transparent',
-                borderWidth: 2, borderDash: [4,4], tension: 0.3,
-                pointRadius: 3, pointBackgroundColor: '#94a3b8', pointBorderColor: '#fff', pointBorderWidth: 1,
-                yAxisID: 'y', order: 3,
-            });
-        }
-
-        if (annualChart) annualChart.destroy();
-        annualChart = new Chart(document.getElementById('annualChart').getContext('2d'), {
-            data: {
-                labels: MONTHS_SHORT,
-                datasets: annualDatasets
-            },
-            options: {
-                responsive: true, maintainAspectRatio: true,
-                interaction: { mode: 'index', intersect: false },
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: { color: '#9ca3af', padding: 20, usePointStyle: true, pointStyleWidth: 14 }
-                    },
-                    tooltip: {
-                        backgroundColor: '#ffffff', titleColor: '#1e2330', bodyColor: '#5a5f72',
-                        borderColor: '#e8e3db', borderWidth: 1,
-                        callbacks: {
-                            label: ctx => ctx.dataset.yAxisID === 'y'
-                                ? ` ${ctx.raw.toLocaleString('fr-CA')} $`
-                                : ` ${ctx.raw} ${ctx.dataset.label === 'Infolettres' ? 'infolettre(s)' : 'publication(s)'}`
-                        }
-                    }
-                },
-                scales: {
-                    x: { ticks: { color: '#8a8f9e' }, grid: { color: '#f0ece6' } },
-                    y: {
-                        position: 'left',
-                        ticks: { color: '#8a8f9e', callback: v => v >= 1000 ? Math.round(v/1000)+'k $' : v+' $' },
-                        grid: { color: '#f0ece6' }
-                    },
-                    y2: {
-                        position: 'right',
-                        ticks: { color: '#8a8f9e', precision: 0, stepSize: 2 },
-                        grid: { drawOnChartArea: false },
-                        title: { display: true, text: 'Publications / infolettres', color: '#8a8f9e', font: { size: 10 } }
-                    }
-                }
-            }
-        });
-    }
-
-    // ── MONTHLY VIEW ──
-    function renderMonthlyView(year, monthKey, channel) {
-        const ventes = fullData.ventes
-            .filter(v => dayjs(v.date).format('YYYY-MM') === monthKey)
-            .sort((a,b) => dayjs(a.date).diff(dayjs(b.date)));
-
-        const monthIdx  = parseInt(monthKey.split('-')[1]) - 1;
-        const monthName = MONTHS_LONG[monthIdx] + ' ' + year;
-
-        // KPIs
-        let totalVentes = 0, totalOrders = 0, cartSum = 0, cartCount = 0;
-        ventes.forEach(v => {
-            totalVentes  += getSalesValue(v, channel);
-            totalOrders  += parseInt(v.commandes_total)||0;
-            const panierField = channel === 'boutique' ? 'panier_moyen_boutique' : 'panier_moyen_bel';
-            const p = parseFloat(v[panierField])||0;
-            if (p > 0) { cartSum += p; cartCount++; }
-        });
-        const avgDaily = ventes.length ? totalVentes / ventes.length : 0;
-        const avgCart  = cartCount ? cartSum / cartCount : 0;
-        const panierLabel = channel === 'boutique' ? 'Boutique' : 'BEL (online)';
-
-        const prevYearMTD     = year - 1;
-        const prevMonthKeyMTD = `${prevYearMTD}-${monthKey.split('-')[1]}`;
-        const today           = dayjs();
-        const isCurrentMonth  = (monthKey === today.format('YYYY-MM'));
-        const rawLastDay      = ventes.length ? dayjs(ventes[ventes.length - 1].date).date() : 0;
-        // Pour le mois en cours : exclure la journée d'aujourd'hui (données incomplètes)
-        const lastDay         = isCurrentMonth ? Math.min(rawLastDay, today.subtract(1, 'day').date()) : rawLastDay;
-        const prevVentesMTD   = fullData.ventes.filter(v =>
-            dayjs(v.date).format('YYYY-MM') === prevMonthKeyMTD &&
-            dayjs(v.date).date() <= lastDay
-        );
-        const prevTotalMTD    = prevVentesMTD.reduce((s, v) => s + getSalesValue(v, channel), 0);
-
-        // Métriques N-1 pour panier moyen, moy/jour et commandes
-        let prevOrders = 0, prevCartSum = 0, prevCartCount = 0;
-        prevVentesMTD.forEach(v => {
-            prevOrders += parseInt(v.commandes_total)||0;
-            const panierField = channel === 'boutique' ? 'panier_moyen_boutique' : 'panier_moyen_bel';
-            const p = parseFloat(v[panierField])||0;
-            if (p > 0) { prevCartSum += p; prevCartCount++; }
-        });
-        const prevAvgDaily = prevVentesMTD.length ? prevTotalMTD / prevVentesMTD.length : 0;
-        const prevAvgCart  = prevCartCount ? prevCartSum / prevCartCount : 0;
-
-        const hasPrev = prevVentesMTD.length > 0;
-        const cutoffNote = isCurrentMonth && lastDay > 0
-            ? ` — au ${lastDay} ${MONTHS_LONG[monthIdx].toLowerCase()} (j-1 exclu)`
-            : '';
-        const prevMTDLabel = hasPrev
-            ? `${MONTHS_LONG[monthIdx].toUpperCase()} ${prevYearMTD} (MTD) : ${prevTotalMTD.toLocaleString('fr-CA')} $${cutoffNote}`
-            : 'Données année précédente non disponibles';
-
-        function applyPct(kpiN, currentVal, prevVal) {
-            if (!hasPrev || prevVal <= 0) return;
-            const pct = (currentVal - prevVal) / prevVal * 100;
-            const pctStr   = (pct >= 0 ? '+' : '') + pct.toFixed(1).replace('.', ',') + ' %';
-            const pctColor = pct >= 0 ? '#6ab04c' : '#ef4444';
-            const el = document.getElementById(`kpi${kpiN}Value`);
-            el.innerHTML = el.textContent + ` <span style="font-size:1rem;font-weight:600;color:${pctColor};">${pctStr}</span>`;
-        }
-
-        const pctVsN1 = hasPrev && prevTotalMTD > 0
-            ? (totalVentes - prevTotalMTD) / prevTotalMTD * 100 : null;
-        setKPI(1, `Ventes totales nettes — ${monthName.toUpperCase()}`, totalVentes.toLocaleString('fr-CA') + ' $', prevMTDLabel);
-        if (pctVsN1 !== null) {
-            const pctStr   = (pctVsN1 >= 0 ? '+' : '') + pctVsN1.toFixed(1).replace('.', ',') + ' %';
-            const pctColor = pctVsN1 >= 0 ? '#6ab04c' : '#ef4444';
-            document.getElementById('kpi1Value').innerHTML =
-                `${totalVentes.toLocaleString('fr-CA')} $ <span style="font-size:1rem;font-weight:600;color:${pctColor};">${pctStr}</span>`;
-        }
-
-        setKPI(2, 'Panier moyen', avgCart.toLocaleString('fr-CA', {minimumFractionDigits:2,maximumFractionDigits:2}) + ' $',
-            hasPrev && prevAvgCart > 0 ? `N-1 : ${prevAvgCart.toLocaleString('fr-CA', {minimumFractionDigits:2,maximumFractionDigits:2})} $` : panierLabel);
-        applyPct(2, avgCart, prevAvgCart);
-
-        setKPI(3, 'Moy. / jour', avgDaily.toLocaleString('fr-CA', {maximumFractionDigits:0}) + ' $',
-            hasPrev && prevAvgDaily > 0 ? `N-1 : ${prevAvgDaily.toLocaleString('fr-CA', {maximumFractionDigits:0})} $` : '');
-        applyPct(3, avgDaily, prevAvgDaily);
-
-        setKPI(4, 'Commandes', totalOrders.toLocaleString('fr-CA'),
-            hasPrev && prevOrders > 0 ? `N-1 : ${prevOrders.toLocaleString('fr-CA')}` : '');
-        applyPct(4, totalOrders, prevOrders);
-
-        // Weather
-        const SUNNY_CODES  = new Set([0, 1, 2]);
-        const CLOUDY_CODES = new Set([3, 45, 48]);
-        // codes >= 51 = précipitations (pluie, neige, orage…)
-
-        const sunnyDays  = ventes.filter(v => SUNNY_CODES.has(parseInt(v.weather_code)));
-        const cloudyDays = ventes.filter(v => CLOUDY_CODES.has(parseInt(v.weather_code)));
-        const precipDays = ventes.filter(v => parseInt(v.weather_code) >= 51);
-        const snowDays   = ventes.filter(v => { const c = parseInt(v.weather_code); return (c >= 71 && c <= 77) || c === 85 || c === 86; });
-
-        const avgSunny  = sunnyDays.length  ? sunnyDays.reduce((a,v)=>a+getSalesValue(v,channel),0)/sunnyDays.length   : null;
-        const avgCloudy = cloudyDays.length ? cloudyDays.reduce((a,v)=>a+getSalesValue(v,channel),0)/cloudyDays.length : null;
-        const avgPrecip = precipDays.length ? precipDays.reduce((a,v)=>a+getSalesValue(v,channel),0)/precipDays.length : null;
-
-        const precipLabel = snowDays.length > precipDays.length / 2 ? '❄️ Neige/verglas' : '🌧️ Précipitations';
-
-        const pctSunnyVsPrecip = avgSunny && avgPrecip
-            ? ((avgSunny - avgPrecip) / avgPrecip * 100) : null;
-        const pctStr = pctSunnyVsPrecip !== null
-            ? (pctSunnyVsPrecip >= 0 ? '+' : '') + pctSunnyVsPrecip.toFixed(1) + ' %' : null;
-        const pctCol = pctSunnyVsPrecip >= 0 ? '#6ab04c' : '#ef4444';
-
-        const daysWithTemp = ventes.filter(v => v.temp_max != null && v.temp_min != null);
-        const avgTemp = daysWithTemp.length
-            ? daysWithTemp.reduce((a,v) => a + (parseFloat(v.temp_max) + parseFloat(v.temp_min)) / 2, 0) / daysWithTemp.length
-            : null;
-        const tempStr  = avgTemp !== null ? avgTemp.toFixed(1).replace('.', ',') + ' °C' : null;
-        const tempEmoji = avgTemp === null ? '' : avgTemp >= 20 ? '🌡️' : avgTemp >= 10 ? '🌤️' : avgTemp >= 0 ? '🧥' : '❄️';
-
-        const wb = document.getElementById('weatherBar');
-        wb.style.display = 'flex';
-        wb.innerHTML = `
-            ${sunnyDays.length  ? `<span><strong>☀️ Beau (${sunnyDays.length}j)</strong> → ${avgSunny.toLocaleString('fr-CA',{maximumFractionDigits:0})} $ moy.</span>` : ''}
-            ${cloudyDays.length ? `<span><strong>☁️ Nuageux (${cloudyDays.length}j)</strong> → ${avgCloudy.toLocaleString('fr-CA',{maximumFractionDigits:0})} $ moy.</span>` : ''}
-            ${precipDays.length ? `<span><strong>${precipLabel} (${precipDays.length}j)</strong> → ${avgPrecip.toLocaleString('fr-CA',{maximumFractionDigits:0})} $ moy.</span>` : ''}
-            ${pctStr ? `<span style="color:${pctCol};font-weight:600;">Beau vs précip. : ${pctStr}</span>` : ''}
-            ${tempStr ? `<span><strong>${tempEmoji} Temp. moy.</strong> ${tempStr}</span>` : ''}
-        `;
-
-        // Daily chart — barres empilées par canal
-        document.getElementById('dailyChartTitle').textContent = `VENTES JOURNALIÈRES — ${monthName.toUpperCase()}`;
-        if (dailyChart) dailyChart.destroy();
-
-        const chartLabels   = ventes.map(v => dayjs(v.date).date() + ' ' + MONTHS_SHORT[dayjs(v.date).month()]);
-        const dataBEL       = ventes.map(v => parseFloat(v.ventes_bel)||0);
-        const dataBoutique  = ventes.map(v => parseFloat(v.ventes_boutique)||0);
-        const dataWholesale = ventes.map(v => parseFloat(v.ventes_wholesale)||0);
-        const dataTotal     = dataBEL.map((v,i) => v + dataBoutique[i] + dataWholesale[i]);
-
-        let chartDatasets;
-        if (channel === 'bel') {
-            chartDatasets = [{
-                label: `BEL — ${year}`, data: dataBEL,
-                borderColor: '#a89cc8', backgroundColor: 'transparent',
-                borderWidth: 2.5, tension: 0.3, pointRadius: 3, pointHoverRadius: 6,
-                pointBackgroundColor: '#a89cc8', pointBorderColor: '#fff', pointBorderWidth: 2,
-            }];
-        } else if (channel === 'boutique') {
-            chartDatasets = [{
-                label: `Boutique — ${year}`, data: dataBoutique,
-                borderColor: '#c87f4a', backgroundColor: 'transparent',
-                borderWidth: 2.5, tension: 0.3, pointRadius: 3, pointHoverRadius: 6,
-                pointBackgroundColor: '#c87f4a', pointBorderColor: '#fff', pointBorderWidth: 2,
-            }];
-        } else {
-            chartDatasets = [{
-                label: `Ventes ${year}`, data: dataTotal,
-                borderColor: '#a89cc8', backgroundColor: 'rgba(168,156,200,0.08)',
-                borderWidth: 2.5, fill: true, tension: 0.3, pointRadius: 3, pointHoverRadius: 6,
-                pointBackgroundColor: '#a89cc8', pointBorderColor: '#fff', pointBorderWidth: 2,
-            }];
-        }
-
-        // Ligne pointillée — même mois, année précédente
-        const prevYear     = year - 1;
-        const prevMonthKey = `${prevYear}-${monthKey.split('-')[1]}`;
-        const prevVentes   = fullData.ventes.filter(v => dayjs(v.date).format('YYYY-MM') === prevMonthKey);
-        const prevRowByDay = {};
-        if (prevVentes.length) {
-            const prevByDay = {};
-            prevVentes.forEach(v => {
-                const d = dayjs(v.date).date();
-                prevByDay[d] = getSalesValue(v, channel);
-                prevRowByDay[d] = v;
-            });
-            const prevLineData = ventes.map(v => prevByDay[dayjs(v.date).date()] ?? null);
-            chartDatasets.push({
-                type: 'line',
-                label: `N-1 — ${prevYear}`,
-                data: prevLineData,
-                borderColor: '#9ca3af', backgroundColor: 'transparent',
-                borderWidth: 2, borderDash: [6, 4], tension: 0.3,
-                pointRadius: 2, pointBackgroundColor: '#9ca3af',
-                yAxisID: 'y', order: 0,
-            });
-        }
-
-        // Maps jour→labels pour les marqueurs + hover tooltip
-        const monthEvts = (fullData.evenements || []).filter(ev => dayjs(ev.date).format('YYYY-MM') === monthKey);
-        const marketingMap = new Map();
-        monthEvts.filter(ev => ev.type !== 'contexte').forEach(ev => {
-            const d = dayjs(ev.date).date();
-            const lbl = ev.description?.toString().trim() || ev.type || '';
-            if (lbl) marketingMap.set(d, (marketingMap.get(d) || []).concat([lbl]));
-        });
-        const infolettreMap = new Map();
-        (fullData.infolettres || []).filter(e => dayjs(e.date_envoi || e.date).format('YYYY-MM') === monthKey).forEach(e => {
-            const d = dayjs(e.date_envoi || e.date).date();
-            infolettreMap.set(d, (infolettreMap.get(d) || []).concat([e.sujet || '—']));
-        });
-        const socialMap = new Map();
-        (fullData.publications || []).filter(p => dayjs(p.date).format('YYYY-MM') === monthKey).forEach(p => {
-            const d = dayjs(p.date).date();
-            const pl = (p.plateforme || '').toLowerCase();
-            const lbl = (pl === 'instagram' ? 'IG' : 'FB') + ' — ' + (p.description_courte || p.title || '').substring(0, 50);
-            socialMap.set(d, (socialMap.get(d) || []).concat([lbl]));
-        });
-        const holidayMap = new Map(
-            getQuebecHolidays(parseInt(monthKey.split('-')[0]))
-                .filter(h => h.date.startsWith(monthKey))
-                .map(h => [dayjs(h.date).date(), [h.name]])
-        );
-
-        const markerPlugin = {
-            id: 'marketingMarkers',
-            afterDraw(chart) {
-                const ctx = chart.ctx;
-                const xScale = chart.scales.x;
-                const DOT_R = 3;
-                const DOT_GAP = 8;
-                const baseY = chart.chartArea.bottom + 30;
-                const ROWS = [
-                    { map: marketingMap,  color: '#5b21b6', shape: 'circle' },
-                    { map: infolettreMap, color: '#5a9e7a', shape: 'circle' },
-                    { map: socialMap,     color: '#c87f4a', shape: 'circle' },
-                    { map: holidayMap,    color: '#dc2626', shape: 'diamond' },
-                ];
-                chart._markerHits = [];
-                ventes.forEach((v, i) => {
-                    const dayNum = dayjs(v.date).date();
-                    const x = xScale.getPixelForTick(i);
-                    ROWS.forEach(({ map, color, shape }, row) => {
-                        if (!map.has(dayNum)) return;
-                        const y = baseY + row * DOT_GAP;
-                        ctx.fillStyle = color;
-                        if (shape === 'diamond') {
-                            const s = DOT_R + 1;
-                            ctx.beginPath();
-                            ctx.moveTo(x,     y - s);
-                            ctx.lineTo(x + s, y    );
-                            ctx.lineTo(x,     y + s);
-                            ctx.lineTo(x - s, y    );
-                            ctx.closePath();
-                        } else {
-                            ctx.beginPath();
-                            ctx.arc(x, y, DOT_R, 0, Math.PI * 2);
-                        }
-                        ctx.fill();
-                        chart._markerHits.push({ x, y, r: DOT_R + 4, labels: map.get(dayNum), color });
-                    });
-                });
-            }
-        };
-
-        dailyChart = new Chart(document.getElementById('dailyChart').getContext('2d'), {
-            type: 'line',
-            data: { labels: chartLabels, datasets: chartDatasets },
-            plugins: [markerPlugin],
-            options: {
-                responsive: true, maintainAspectRatio: true,
-                layout: { padding: { bottom: 60 } },
-                interaction: { mode: 'index', intersect: false },
-                plugins: {
-                    legend: {
-                        display: prevVentes.length > 0,
-                        position: 'top',
-                        align: 'start',
-                        labels: { color: '#9ca3af', padding: 16, usePointStyle: true, pointStyleWidth: 12, font: { size: 11 } }
-                    },
-                    tooltip: {
-                        backgroundColor: '#ffffff', titleColor: '#1e2330', bodyColor: '#5a5f72',
-                        borderColor: '#e8e3db', borderWidth: 1,
-                        callbacks: {
-                            label: ctx => ` ${ctx.dataset.label} : ${(ctx.raw ?? 0).toLocaleString('fr-CA')} $`,
-                            afterLabel: ctx => {
-                                if (channel !== 'total') return [];
-                                const idx = ctx.dataIndex;
-                                let bel, bou, who;
-                                if (ctx.datasetIndex === 0) {
-                                    const v = ventes[idx];
-                                    if (!v) return [];
-                                    bel = parseFloat(v.ventes_bel)||0;
-                                    bou = parseFloat(v.ventes_boutique)||0;
-                                    who = parseFloat(v.ventes_wholesale)||0;
-                                } else if (ctx.datasetIndex === 1) {
-                                    const dayNum = dayjs(ventes[idx]?.date).date();
-                                    const pv = prevRowByDay[dayNum];
-                                    if (!pv) return [];
-                                    bel = parseFloat(pv.ventes_bel)||0;
-                                    bou = parseFloat(pv.ventes_boutique)||0;
-                                    who = parseFloat(pv.ventes_wholesale)||0;
-                                } else { return []; }
-                                const lines = [];
-                                lines.push(`   ↳ BEL (online)  : ${bel.toLocaleString('fr-CA')} $`);
-                                lines.push(`   ↳ Boutique      : ${bou.toLocaleString('fr-CA')} $`);
-                                if (who > 0) lines.push(`   ↳ Wholesale     : ${who.toLocaleString('fr-CA')} $`);
-                                return lines;
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    x: { ticks: { color: '#8a8f9e', font: { size: 11 } }, grid: { color: '#f0ece6' } },
-                    y: { ticks: { color: '#8a8f9e', callback: v => v>=1000?Math.round(v/1000)+'k $':v+' $' }, grid: { color: '#f0ece6' } }
-                }
-            }
-        });
-
-        // Tooltip hover sur les marqueurs
-        let markerTooltip = document.getElementById('markerTooltip');
-        if (!markerTooltip) {
-            markerTooltip = document.createElement('div');
-            markerTooltip.id = 'markerTooltip';
-            markerTooltip.style.cssText = 'position:fixed;background:#1e2330;color:#fff;padding:7px 11px;border-radius:8px;font-size:0.75rem;line-height:1.5;pointer-events:none;z-index:9999;max-width:260px;display:none;box-shadow:0 4px 12px rgba(0,0,0,0.2);';
-            document.body.appendChild(markerTooltip);
-        }
-        const canvas = document.getElementById('dailyChart');
-        canvas.onmousemove = (e) => {
-            const rect = canvas.getBoundingClientRect();
-            const mx = e.clientX - rect.left;
-            const my = e.clientY - rect.top;
-            const hit = (dailyChart._markerHits || []).find(m => Math.hypot(mx - m.x, my - m.y) <= m.r);
-            if (hit) {
-                canvas.style.cursor = 'pointer';
-                markerTooltip.innerHTML = hit.labels.map(l => `<span style="display:block">${l}</span>`).join('');
-                markerTooltip.style.borderLeft = `3px solid ${hit.color}`;
-                markerTooltip.style.display = 'block';
-                markerTooltip.style.left = (e.clientX + 12) + 'px';
-                markerTooltip.style.top  = (e.clientY - 10) + 'px';
-            } else {
-                canvas.style.cursor = '';
-                markerTooltip.style.display = 'none';
-            }
-        };
-        canvas.onmouseleave = () => {
-            canvas.style.cursor = '';
-            markerTooltip.style.display = 'none';
-        };
-
-        renderChannelBreakdown(ventes);
-        renderEventsTable(monthKey);
-        renderEmailTable(monthKey);
-        renderSocialTable(monthKey);
-        renderHolidaysBar(monthKey);
-    }
-
-    // ── EVENTS TABLE ──
-    function buildEventRow(ev, showFullDate, regKey) {
-        const d = dayjs(ev.date);
-        const dateStr = showFullDate
-            ? d.date() + ' ' + MONTHS_SHORT[d.month()] + ' ' + d.year() + ' · ' + DAYS_FR[d.day()]
-            : d.format('DD/MM') + ' ' + DAYS_FR[d.day()];
-        const actions = ev.description?.toString().trim() || '—';
-        const notes   = ev.note?.toString().trim() || '';
-        const evTag   = ACTION_TAGS[ev.type];
-        const tagHtml = evTag
-            ? `<span class="tag-type ${evTag.css}">${evTag.label}</span>`
-            : (ev.type === 'contexte' ? ' <span class="tag-contexte">contexte</span>' : '');
-        const btnHtml = regKey
-            ? `<span class="event-actions">
-                   <button type="button" class="btn-ev" data-key="${regKey}" title="Modifier">✏️</button>
-                   <button type="button" class="btn-ev del" data-key="${regKey}" title="Supprimer">🗑️</button>
-               </span>`
-            : '';
-        return `<tr>
-            <td class="date-cell">${dateStr}</td>
-            <td class="action-cell">${actions}${tagHtml}${btnHtml}</td>
-            <td class="note-cell">${notes}</td>
-        </tr>`;
-    }
-
-    function renderEventsTable(monthKey) {
-        const [y, m] = monthKey.split('-').map(Number);
-        const start = `${monthKey}-01`;
-        const end   = dayjs(new Date(y, m, 0)).format('YYYY-MM-DD');
-
-        const events = (fullData.evenements || [])
-            .filter(ev => ev.date && dayjs(ev.date).isValid())
-            .filter(ev => { const d = dayjs(ev.date).format('YYYY-MM-DD'); return d >= start && d <= end; })
-            .filter(ev => ev.description?.toString().trim() || ev.note?.toString().trim())
-            .sort((a,b) => dayjs(a.date).diff(dayjs(b.date)));
-
-        document.getElementById('eventsCount').textContent = events.length;
-
-        if (!events.length) {
-            document.getElementById('eventsBody').innerHTML = '<p class="warning-msg">Aucun événement ce mois</p>';
-            return;
-        }
-        const EVENTS_LIMIT = 10;
-        eventRegistry.clear();
-        function buildEventRows(list, startIdx) {
-            return list.map((ev, i) => {
-                const key = `ev_${startIdx + i}`;
-                eventRegistry.set(key, ev);
-                return buildEventRow(ev, false, key);
-            }).join('');
-        }
-        const remaining = events.length - EVENTS_LIMIT;
-        let html = '<table class="mini-table"><thead><tr><th>Date</th><th>Action</th><th>Note</th></tr></thead><tbody id="eventsTbody">';
-        html += buildEventRows(events.slice(0, EVENTS_LIMIT), 0);
-        html += '</tbody></table>';
-        if (remaining > 0) {
-            html += `<span class="voir-plus" id="voirPlusEventsBtn">Voir ${remaining} de plus →</span>`;
-        }
-        document.getElementById('eventsBody').innerHTML = html;
-        if (remaining > 0) {
-            document.getElementById('voirPlusEventsBtn').addEventListener('click', function() {
-                this.style.display = 'none';
-                document.getElementById('eventsTbody').insertAdjacentHTML(
-                    'beforeend', buildEventRows(events.slice(EVENTS_LIMIT), EVENTS_LIMIT)
-                );
-            });
-        }
-    }
-
-    // ── GLOBAL SEARCH ──
-    function renderSearchResults(query) {
-        const q = query.toLowerCase().trim();
-        document.getElementById('annualView').style.display  = 'none';
-        document.getElementById('monthlyView').style.display = 'none';
-        document.getElementById('weatherBar').style.display  = 'none';
-        document.getElementById('viewToggles').style.display = 'none';
-        document.getElementById('searchView').style.display  = 'block';
-
-        const filtered = (fullData.evenements || [])
-            .filter(ev => ev.date && dayjs(ev.date).isValid())
-            .filter(ev => ev.description?.toString().trim() || ev.note?.toString().trim())
-            .filter(ev => {
-                const d = dayjs(ev.date);
-                const dateStr = d.date() + ' ' + MONTHS_SHORT[d.month()] + ' ' + d.year();
-                const text = (ev.description?.toString() || '') + ' ' + (ev.note?.toString() || '') + ' ' + (ev.type || '');
-                return (dateStr + ' ' + text).toLowerCase().includes(q);
-            })
-            .sort((a,b) => dayjs(b.date).diff(dayjs(a.date)));
-
-        document.getElementById('searchResultsHeader').textContent =
-            `${filtered.length} résultat${filtered.length !== 1 ? 's' : ''} pour "${query}"`;
-
-        if (!filtered.length) {
-            document.getElementById('searchResultsBody').innerHTML = '<p class="warning-msg">Aucun événement trouvé.</p>';
-            return;
-        }
-        eventRegistry.clear();
-        let html = '<table class="mini-table"><thead><tr><th>Date</th><th>Action</th><th>Note</th></tr></thead><tbody>';
-        filtered.forEach((ev, i) => {
-            const key = `ev_${i}`;
-            eventRegistry.set(key, ev);
-            html += buildEventRow(ev, true, key);
-        });
-        html += '</tbody></table>';
-        document.getElementById('searchResultsBody').innerHTML = html;
-    }
-
-    // ── EMAIL TABLE ──
-    function renderEmailTable(monthKey) {
-        const emails = (fullData.infolettres || []).filter(e => {
-            const d = e.date_envoi || e.date;
-            return dayjs(d).format('YYYY-MM') === monthKey;
-        });
-
-        document.getElementById('emailCount').textContent = `${emails.length} envois`;
-
-        if (!emails.length) {
-            document.getElementById('emailBody').innerHTML = '<p class="warning-msg">Aucune infolettre ce mois</p>';
-            return;
-        }
-
-        const EMAIL_LIMIT = 10;
-        const remaining = emails.length - EMAIL_LIMIT;
-        let html = '<table class="mini-table"><thead><tr><th>Date</th><th>Sujet</th></tr></thead><tbody id="emailTbody">';
-        emails.slice(0, EMAIL_LIMIT).forEach(e => {
-            const d = e.date_envoi || e.date;
-            const sujet = (e.sujet||'').substring(0,60) + ((e.sujet||'').length>60?'…':'');
-            html += `<tr><td class="date-cell">${dayjs(d).format('DD/MM')}</td><td>${sujet}</td></tr>`;
-        });
-        html += '</tbody></table>';
-        if (remaining > 0) html += `<span class="voir-plus" id="voirPlusEmailBtn">Voir ${remaining} de plus →</span>`;
-        document.getElementById('emailBody').innerHTML = html;
-        if (remaining > 0) {
-            document.getElementById('voirPlusEmailBtn').addEventListener('click', function() {
-                this.style.display = 'none';
-                const extra = emails.slice(EMAIL_LIMIT).map(e => {
-                    const d = e.date_envoi || e.date;
-                    const sujet = (e.sujet||'').substring(0,60) + ((e.sujet||'').length>60?'…':'');
-                    return `<tr><td class="date-cell">${dayjs(d).format('DD/MM')}</td><td>${sujet}</td></tr>`;
-                }).join('');
-                document.getElementById('emailTbody').insertAdjacentHTML('beforeend', extra);
-            });
-        }
-    }
-
-    // ── SOCIAL TABLE ──
-    function renderSocialTable(monthKey) {
-        const LIMIT = 10;
-        const posts = (fullData.publications || [])
-            .filter(p => dayjs(p.date).format('YYYY-MM') === monthKey)
-            .sort((a,b) => dayjs(a.date).diff(dayjs(b.date)));
-
-        document.getElementById('socialCount').textContent = `${posts.length} posts`;
-
-        if (!posts.length) {
-            document.getElementById('socialBody').innerHTML = '<p class="warning-msg">Aucune publication ce mois</p>';
-            return;
-        }
-
-        function buildRows(list) {
-            return list.map(p => {
-                const pl  = (p.plateforme||'').toLowerCase();
-                const cls = pl === 'instagram' ? 'canal-ig' : 'canal-fb';
-                const lbl = pl === 'instagram' ? 'IG' : 'FB';
-                const txt = (p.description_courte || p.title || '').substring(0,28);
-                const url = p.lien_post || p.link || p.url || '';
-                return `<tr>
-                    <td class="date-cell">${dayjs(p.date).format('DD/MM')}</td>
-                    <td><span class="canal-badge ${cls}">${lbl}</span></td>
-                    <td class="note-cell">${txt}${txt.length===28?'…':''}</td>
-                    <td>${url?`<a href="${url}" target="_blank" class="link-voir">Voir</a>`:'—'}</td>
-                </tr>`;
-            }).join('');
-        }
-
-        const shown     = posts.slice(0, LIMIT);
-        const remaining = posts.length - LIMIT;
-
-        let html = '<table class="mini-table"><thead><tr><th>Date</th><th>Canal</th><th>Contenu</th><th></th></tr></thead><tbody id="socialTbody">';
-        html += buildRows(shown);
-        html += '</tbody></table>';
-        if (remaining > 0) html += `<span class="voir-plus" id="voirPlusBtn">Voir les ${remaining} autre${remaining>1?'s':''} post${remaining>1?'s':''} →</span>`;
-
-        document.getElementById('socialBody').innerHTML = html;
-
-        if (remaining > 0) {
-            document.getElementById('voirPlusBtn').addEventListener('click', function() {
-                this.style.display = 'none';
-                document.getElementById('socialTbody').insertAdjacentHTML('beforeend', buildRows(posts.slice(LIMIT)));
-            });
-        }
-    }
-
-    // ── QUÉBEC HOLIDAYS ──
-    function calcEaster(year) {
-        const a = year%19, b = Math.floor(year/100), c = year%100;
-        const d = Math.floor(b/4), e = b%4, f = Math.floor((b+8)/25);
-        const g = Math.floor((b-f+1)/3), h = (19*a+b-d-g+15)%30;
-        const i = Math.floor(c/4), k = c%4;
-        const l = (32+2*e+2*i-h-k)%7;
-        const m = Math.floor((a+11*h+22*l)/451);
-        const mo = Math.floor((h+l-7*m+114)/31);
-        const dy = ((h+l-7*m+114)%31)+1;
-        return new Date(year, mo-1, dy);
-    }
-
-    function getQuebecHolidays(year) {
-        const easter = calcEaster(year);
-        const addDays = (d, n) => { const r = new Date(d); r.setDate(r.getDate()+n); return r; };
-        const fmt = d => d.toISOString().split('T')[0];
-
-        const may25 = new Date(year, 4, 25);
-        const patriotes = new Date(year, 4, 25 - (may25.getDay()===0 ? 6 : may25.getDay()-1));
-
-        const sep1 = new Date(year, 8, 1);
-        const travail = new Date(year, 8, 1 + (sep1.getDay()===1 ? 0 : (8-sep1.getDay())%7));
-
-        const oct1 = new Date(year, 9, 1);
-        const actionGraces = new Date(year, 9, 1 + (oct1.getDay()===1 ? 0 : (8-oct1.getDay())%7) + 7);
-
-        const july1 = new Date(year, 6, 1);
-        const canada = july1.getDay()===0 ? new Date(year,6,2) : july1;
-
-        return [
-            { date: fmt(new Date(year,0,1)),  name: "Jour de l'An" },
-            { date: fmt(addDays(easter,-2)),  name: 'Vendredi saint' },
-            { date: fmt(addDays(easter,1)),   name: 'Lundi de Pâques' },
-            { date: fmt(patriotes),           name: 'Journée des Patriotes' },
-            { date: fmt(new Date(year,5,24)), name: 'Fête nationale (QC)' },
-            { date: fmt(canada),              name: 'Fête du Canada' },
-            { date: fmt(travail),             name: 'Fête du Travail' },
-            { date: fmt(actionGraces),        name: 'Action de grâces' },
-            { date: fmt(new Date(year,11,25)),name: 'Noël' },
-            { date: fmt(new Date(year,11,26)),name: 'Lendemain de Noël' },
-        ];
-    }
-
-    function renderHolidaysBar(monthKey) {
-        const year = parseInt(monthKey.split('-')[0]);
-        const holidays = getQuebecHolidays(year).filter(h => h.date.startsWith(monthKey));
-        const bar = document.getElementById('holidaysBar');
-        if (!holidays.length) { bar.style.display = 'none'; return; }
-        bar.style.display = 'flex';
-        bar.innerHTML = holidays.map(h => {
-            const d = dayjs(h.date);
-            const label = d.date() + ' ' + MONTHS_SHORT[d.month()];
-            return `<span class="holiday-item"><span class="holiday-dot"></span>${label} — ${h.name}</span>`;
-        }).join('');
-    }
-
-    // ── CHANNEL BREAKDOWN ──
-    function renderChannelBreakdown(ventes) {
-        const el = document.getElementById('channelBreakdown');
-        const belTotal  = ventes.reduce((a,v) => a + (parseFloat(v.ventes_bel)||0), 0);
-        const bouTotal  = ventes.reduce((a,v) => a + (parseFloat(v.ventes_boutique)||0), 0);
-        const whoTotal  = ventes.reduce((a,v) => a + (parseFloat(v.ventes_wholesale)||0), 0);
-        const grand     = belTotal + bouTotal + whoTotal;
-        if (grand === 0) { el.style.display = 'none'; return; }
-
-        const pBEL = belTotal / grand * 100;
-        const pBou = bouTotal / grand * 100;
-        const pWho = whoTotal / grand * 100;
-
-        el.style.display = 'flex';
-        el.style.alignItems = 'center';
-        el.innerHTML = `
-            <span style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#8a8f9e;white-space:nowrap;">Répartition canaux</span>
-            <div style="flex:1;min-width:140px;height:8px;border-radius:4px;overflow:hidden;display:flex;margin:0 4px;">
-                <div style="width:${pBEL}%;background:#a89cc8;" title="BEL ${pBEL.toFixed(1)}%"></div>
-                <div style="width:${pBou}%;background:#c87f4a;" title="Boutique ${pBou.toFixed(1)}%"></div>
-                <div style="width:${pWho}%;background:#5a9e7a;" title="Wholesale ${pWho.toFixed(1)}%"></div>
-            </div>
-            <span style="color:#a89cc8;font-weight:600;">BEL&nbsp;${pBEL.toFixed(0)}&thinsp;%</span>
-            <span style="color:#c87f4a;font-weight:600;">Boutique&nbsp;${pBou.toFixed(0)}&thinsp;%</span>
-            ${pWho > 0 ? `<span style="color:#5a9e7a;font-weight:600;">Wholesale&nbsp;${pWho.toFixed(0)}&thinsp;%</span>` : ''}
-        `;
-    }
-
-    // ── KPI HELPER ──
-    function setKPI(n, label, value, sub) {
-        document.getElementById(`kpi${n}Label`).textContent = label;
-        document.getElementById(`kpi${n}Value`).textContent = value;
-        document.getElementById(`kpi${n}Sub`).textContent   = sub;
-    }
-
-    // ── LISTENERS ──
-    document.getElementById('yearFilter').addEventListener('change', () => { updateMonthFilter(); applyFiltersAndRender(); });
-    document.getElementById('monthFilter').addEventListener('change', applyFiltersAndRender);
-    document.getElementById('channelFilter').addEventListener('change', applyFiltersAndRender);
-
-    document.getElementById('globalSearch').addEventListener('input', function() {
-        const q = this.value.trim();
-        if (q.length === 0) {
-            document.getElementById('searchView').style.display = 'none';
-            applyFiltersAndRender();
-        } else if (q.length >= 2) {
-            renderSearchResults(q);
-        }
-    });
-
-    document.getElementById('resetBtn').addEventListener('click', () => {
-        document.getElementById('globalSearch').value = '';
-        document.getElementById('searchView').style.display = 'none';
-        document.getElementById('yearFilter').value = document.getElementById('yearFilter').options[0]?.value;
-        updateMonthFilter();
-        document.getElementById('monthFilter').value = 'all';
-        document.getElementById('channelFilter').value = 'total';
-        currentView = 'annual';
-        applyFiltersAndRender();
-    });
-
-    document.getElementById('viewAnnualBtn').addEventListener('click', () => {
-        currentView = 'annual';
-        document.getElementById('viewAnnualBtn').classList.add('active');
-        document.getElementById('viewMonthlyBtn').classList.remove('active');
-    });
-    document.getElementById('viewMonthlyBtn').addEventListener('click', () => {
-        currentView = 'monthly';
-        document.getElementById('viewMonthlyBtn').classList.add('active');
-        document.getElementById('viewAnnualBtn').classList.remove('active');
-    });
-
-    // Modal
-    const modal = document.getElementById('eventModal');
-
-    function openAddModal() {
-        document.getElementById('eventModalTitle').textContent = '+ Ajouter un événement marketing et contexte';
-        document.getElementById('eventMode').value = 'add';
-        document.getElementById('eventId').value = '';
-        document.getElementById('eventDateOriginal').value = '';
-        document.getElementById('eventActionOriginal').value = '';
-        document.getElementById('eventForm').reset();
-        document.getElementById('formMessage').innerHTML = '';
-        document.getElementById('modalReminder').style.display = 'block';
-        modal.style.display = 'flex';
-    }
-
-    function openEditModal(ev) {
-        const actionVal = ev.description?.toString().trim() || '';
-        const noteVal   = ev.note?.toString().trim() || '';
-        document.getElementById('eventModalTitle').textContent = 'Modifier l\'événement';
-        document.getElementById('modalReminder').style.display = 'none';
-        document.getElementById('eventMode').value = 'edit';
-        document.getElementById('eventId').value = ev.event_id || '';
-        document.getElementById('eventDate').value = dayjs(ev.date).format('YYYY-MM-DD');
-        document.getElementById('eventDateOriginal').value = dayjs(ev.date).format('YYYY-MM-DD');
-        document.getElementById('eventCategorie').value = ev.type || 'autre';
-        document.getElementById('eventAction').value = actionVal;
-        document.getElementById('eventActionOriginal').value = actionVal;
-        document.getElementById('eventNote').value = noteVal;
-        document.getElementById('formMessage').innerHTML = '';
-        modal.style.display = 'flex';
-    }
-
-    async function handleDeleteEvent(ev) {
-        const actionVal = ev.description?.toString().trim() || '';
-        if (!confirm(`Supprimer cet événement ?\n\n${dayjs(ev.date).format('DD/MM/YYYY')} — ${actionVal}`)) return;
-        // Persistance locale immédiate
-        const deleted = getLocalDeleted();
-        deleted.add(evKey(ev));
-        saveLocalDeleted(deleted);
-        // Retirer de la mémoire et re-rendre
-        const idx = fullData.evenements.indexOf(ev);
-        if (idx !== -1) fullData.evenements.splice(idx, 1);
-        applyFiltersAndRender();
-        // Envoyer au webhook (fire and forget)
-        fetch(WEBHOOK_URL, {
-            method: 'POST', mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                type: 'delete',
-                event_id: ev.event_id || '',
-                date: dayjs(ev.date).format('YYYY-MM-DD'),
-                action: actionVal
-            })
-        }).catch(() => {});
-    }
-
-    // Peupler le dropdown de types
-    document.getElementById('eventCategorie').innerHTML =
-        TYPE_OPTIONS.map(o => `<option value="${o.value}">${o.label}</option>`).join('');
-
-    document.getElementById('openModalBtn').onclick = openAddModal;
-    document.getElementById('modalClose').onclick   = () => modal.style.display = 'none';
-    window.onclick = e => { if (e.target === modal) modal.style.display = 'none'; };
-
-    // Délégation de clics pour les boutons modifier/supprimer dans le tableau
-    document.addEventListener('click', e => {
-        const btn = e.target.closest('.btn-ev');
-        if (!btn) return;
-        const ev = eventRegistry.get(btn.dataset.key);
-        if (!ev) return;
-        if (btn.classList.contains('del')) {
-            handleDeleteEvent(ev);
-        } else {
-            openEditModal(ev);
-        }
-    });
-
-    document.getElementById('eventForm').onsubmit = async (e) => {
-        e.preventDefault();
-        const mode        = document.getElementById('eventMode').value;
-        const date        = document.getElementById('eventDate').value;
-        const type_action = document.getElementById('eventCategorie').value;
-        const action      = document.getElementById('eventAction').value.trim();
-        const note        = document.getElementById('eventNote').value.trim();
-        if (!date || !action) return;
-        document.getElementById('formMessage').innerHTML = 'Envoi en cours…';
-        try {
-            if (mode === 'edit') {
-                const event_id    = document.getElementById('eventId').value;
-                const date_orig   = document.getElementById('eventDateOriginal').value;
-                const action_orig = document.getElementById('eventActionOriginal').value;
-                await fetch(WEBHOOK_URL, {
-                    method: 'POST', mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ type: 'update', event_id, date: date_orig, action: action_orig, date_new: date, action_new: action, note_new: note, type_action })
-                });
-                // Mise à jour optimiste
-                const target = fullData.evenements.find(v =>
-                    dayjs(v.date).format('YYYY-MM-DD') === date_orig &&
-                    (v.description?.toString().trim() || '') === action_orig
-                );
-                if (target) {
-                    target.date        = date;
-                    target.type        = type_action;
-                    target.description = action;
-                    target.note        = note;
-                }
-                document.getElementById('formMessage').innerHTML = '<span style="color:#6ab04c;">✅ Événement modifié ! Mise à jour dans quelques minutes.</span>';
-            } else {
-                const event_id = String(Date.now());
-                const newEv = { date, type: type_action, description: action, note, event_id };
-                // Persistance locale + mise à jour immédiate
-                const added = getLocalAdded();
-                added.push(newEv);
-                saveLocalAdded(added);
-                fullData.evenements.push(newEv);
-                // Envoyer au webhook
-                await fetch(WEBHOOK_URL, {
-                    method: 'POST', mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ type: 'create', date, type_action, action, note, event_id })
-                });
-                document.getElementById('formMessage').innerHTML = '<span style="color:#6ab04c;">✅ Événement ajouté !</span>';
-            }
-            document.getElementById('eventForm').reset();
-            document.getElementById('eventMode').value = 'add';
-            setTimeout(() => {
-                modal.style.display = 'none';
-                document.getElementById('formMessage').innerHTML = '';
-                applyFiltersAndRender();
-            }, 2000);
-        } catch(err) {
-            document.getElementById('formMessage').innerHTML = '<span style="color:#ef4444;">Erreur réseau. Réessayez.</span>';
-        }
-    };
-
-    loadData();
-</script>
-</body>
-</html>
+--- index_main.html	2026-10-09 17:17:42.526986571 +0000
++++ index_new.html	2026-10-09 17:20:37.025547945 +0000
+@@ -365,6 +365,44 @@
+         }
+         .holiday-item { display: flex; align-items: center; gap: 5px; }
+         .holiday-dot { width: 7px; height: 7px; background: #dc2626; transform: rotate(45deg); border-radius: 1px; display: inline-block; flex-shrink: 0; }
++
++        /* ── AJOUTS : vue du mois par semaine ── */
++        .kpi-extra { display: grid; grid-template-columns: 1fr 1fr 1.8fr; gap: 14px; margin-bottom: 22px; }
++        @media (max-width: 900px) { .kpi-extra { grid-template-columns: 1fr; } }
++        .btn-toggle { background: #ffffff; color: #1e2330; border: 1px solid #ddd8d0; border-radius: 8px; padding: 7px 14px; cursor: pointer; font-size: 0.78rem; font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
++        .btn-toggle:hover { background: #f0ece6; }
++        .btn-toggle[aria-pressed="true"] { background: #1e2330; color: #ffffff; border-color: #1e2330; }
++        .card-head-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 4px; }
++        .card-sub { font-size: 0.75rem; color: #8a8f9e; margin: 2px 0 12px; line-height: 1.5; }
++        .gauge-wrap { position: relative; height: 46px; margin-top: 12px; }
++        .gauge-track { position: absolute; left: 0; right: 0; top: 22px; height: 12px; border-radius: 6px; background: #ece8e1; }
++        .gauge-fill { position: absolute; left: 0; top: 22px; height: 12px; border-radius: 6px; background: #a89cc8; }
++        .gauge-tick { position: absolute; top: 12px; width: 3px; height: 32px; border-radius: 2px; }
++        .gauge-lbl { position: absolute; top: -2px; font-size: 0.68rem; white-space: nowrap; }
++        .gauge-legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 10px; font-size: 0.78rem; color: #1e2330; }
++        .week-scroll { overflow-x: auto; }
++        .week-table { width: 100%; min-width: 940px; border-collapse: collapse; }
++        .week-table th { text-align: left; padding: 9px 12px; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #8a8f9e; border-bottom: 1px solid #e8e3db; white-space: nowrap; }
++        .week-table td { padding: 11px 12px; vertical-align: top; border-bottom: 1px solid #f0ece6; font-size: 0.82rem; color: #1e2330; }
++        .week-table .num { text-align: right; white-space: nowrap; }
++        .week-table .sub { font-size: 0.7rem; color: #8a8f9e; font-weight: 400; }
++        .wk-status { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 0.72rem; font-weight: 700; white-space: nowrap; }
++        .wk-late { background: #fde8e0; color: #9a2a10; }
++        .wk-adv  { background: #dcf0e2; color: #1f5a35; }
++        .wk-flat { background: #ece8e1; color: #5a5f72; }
++        .wk-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; border: 2px solid; box-sizing: border-box; margin-right: 5px; vertical-align: middle; }
++        .wk-actions { font-size: 0.76rem; line-height: 1.7; }
++        .wk-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; min-width: 980px; align-items: start; }
++        .wk-col { display: flex; flex-direction: column; gap: 10px; padding: 12px; background: #faf8f4; border: 1px solid #eee9e1; border-radius: 10px; min-width: 0; }
++        .wk-col-title { font-weight: 700; font-size: 0.85rem; }
++        .wk-col-sub { font-size: 0.7rem; color: #8a8f9e; }
++        .wk-block { display: flex; flex-direction: column; gap: 3px; font-size: 0.76rem; }
++        .wk-block + .wk-block { border-top: 1px dashed #ddd8d0; padding-top: 8px; }
++        .wk-block-label { font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #8a8f9e; }
++        .wk-detail { display: flex; flex-direction: column; gap: 6px; border-top: 1px solid #ddd8d0; padding-top: 8px; }
++        .wk-item { font-size: 0.72rem; line-height: 1.4; color: #1e2330; }
++        .wk-empty { font-size: 0.72rem; color: #8a8f9e; font-style: italic; }
++        .wk-note { font-size: 0.72rem; color: #8a8f9e; margin-top: 10px; }
+     </style>
+ </head>
+ <body>
+@@ -465,6 +503,8 @@
+         </div>
+     </div>
+ 
++    <div id="kpiExtra" class="kpi-extra" style="display:none;"></div>
++
+     <div id="channelBreakdown" class="weather-bar" style="display:none;"></div>
+     <div id="weatherBar" class="weather-bar" style="display:none;"></div>
+ 
+@@ -479,17 +519,23 @@
+ 
+     <!-- VUE MENSUELLE -->
+     <div id="monthlyView" style="display:none;">
++        <div id="weekTableCard" class="chart-card" style="margin-bottom:14px;"></div>
+         <div class="chart-card" style="margin-bottom:14px;">
+-            <div class="card-title-sm" id="dailyChartTitle">Ventes journalières</div>
++            <div class="card-head-row">
++                <div class="card-title-sm" id="dailyChartTitle" style="margin-bottom:0;">Ventes journalières</div>
++                <button type="button" class="btn-toggle" id="btnPrevContext" aria-pressed="false">Contexte N-1 : masqué</button>
++            </div>
+             <canvas id="dailyChart" height="280" style="max-height:320px;"></canvas>
+             <div id="markerLegend" style="display:flex;gap:16px;margin-top:10px;font-size:0.7rem;color:#8a8f9e;flex-wrap:wrap;">
+                 <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#5b21b6;margin-right:5px;vertical-align:middle;"></span>Événement marketing</span>
+                 <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#5a9e7a;margin-right:5px;vertical-align:middle;"></span>Infolettre</span>
+                 <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#c87f4a;margin-right:5px;vertical-align:middle;"></span>Publication sociale</span>
+                 <span><span style="display:inline-block;width:8px;height:8px;background:#dc2626;transform:rotate(45deg);border-radius:1px;margin-right:5px;vertical-align:middle;"></span>Jour férié</span>
++                <span id="prevLegendNote" style="display:none;">○ Points creux : année précédente</span>
+             </div>
+             <div id="holidaysBar" class="holidays-bar" style="display:none;"></div>
+         </div>
++        <div id="weekCalendarCard" class="chart-card" style="margin-bottom:14px;"></div>
+         <div class="monthly-grid-3">
+             <div class="data-card">
+                 <div class="card-header">
+@@ -591,6 +637,8 @@
+     let annualChart = null;
+     let dailyChart = null;
+     let currentView = 'annual';
++    let showPrevContext = false;
++    let showWeekDetail = false;
+     let eventRegistry = new Map();
+ 
+     // ── PERSISTANCE LOCALE (localStorage) ──
+@@ -705,6 +753,7 @@
+ 
+         document.getElementById('annualView').style.display  = isAnnual ? 'block' : 'none';
+         document.getElementById('monthlyView').style.display = isAnnual ? 'none'  : 'block';
++        if (isAnnual) document.getElementById('kpiExtra').style.display = 'none';
+ 
+         if (isAnnual) {
+             renderAnnualView(year, channel);
+@@ -1004,11 +1053,16 @@
+         document.getElementById('dailyChartTitle').textContent = `VENTES JOURNALIÈRES — ${monthName.toUpperCase()}`;
+         if (dailyChart) dailyChart.destroy();
+ 
+-        const chartLabels   = ventes.map(v => dayjs(v.date).date() + ' ' + MONTHS_SHORT[dayjs(v.date).month()]);
+-        const dataBEL       = ventes.map(v => parseFloat(v.ventes_bel)||0);
+-        const dataBoutique  = ventes.map(v => parseFloat(v.ventes_boutique)||0);
+-        const dataWholesale = ventes.map(v => parseFloat(v.ventes_wholesale)||0);
+-        const dataTotal     = dataBEL.map((v,i) => v + dataBoutique[i] + dataWholesale[i]);
++        // Axe sur le mois complet : permet de voir toute la ligne N-1, même pour le mois en cours
++        const daysInMonth   = dayjs(monthKey + '-01').daysInMonth();
++        const monthDays     = Array.from({ length: daysInMonth }, (_, i) => i + 1);
++        const ventesByDay   = {};
++        ventes.forEach(v => { ventesByDay[dayjs(v.date).date()] = v; });
++        const chartLabels   = monthDays.map(d => d + ' ' + MONTHS_SHORT[monthIdx]);
++        const dataBEL       = monthDays.map(d => ventesByDay[d] ? (parseFloat(ventesByDay[d].ventes_bel)||0) : null);
++        const dataBoutique  = monthDays.map(d => ventesByDay[d] ? (parseFloat(ventesByDay[d].ventes_boutique)||0) : null);
++        const dataWholesale = monthDays.map(d => ventesByDay[d] ? (parseFloat(ventesByDay[d].ventes_wholesale)||0) : null);
++        const dataTotal     = monthDays.map((d, i) => ventesByDay[d] ? (dataBEL[i]||0) + (dataBoutique[i]||0) + (dataWholesale[i]||0) : null);
+ 
+         let chartDatasets;
+         if (channel === 'bel') {
+@@ -1046,7 +1100,7 @@
+                 prevByDay[d] = getSalesValue(v, channel);
+                 prevRowByDay[d] = v;
+             });
+-            const prevLineData = ventes.map(v => prevByDay[dayjs(v.date).date()] ?? null);
++            const prevLineData = monthDays.map(d => prevByDay[d] ?? null);
+             chartDatasets.push({
+                 type: 'line',
+                 label: `N-1 — ${prevYear}`,
+@@ -1084,6 +1138,58 @@
+                 .map(h => [dayjs(h.date).date(), [h.name]])
+         );
+ 
++        // Contexte N-1 (optionnel) : mêmes catégories, points creux
++        const prevEvts = (fullData.evenements || []).filter(ev => dayjs(ev.date).format('YYYY-MM') === prevMonthKey);
++        const prevMarketingMap = new Map();
++        const prevInfolettreMap = new Map();
++        prevEvts.filter(ev => ev.type !== 'contexte').forEach(ev => {
++            const d = dayjs(ev.date).date();
++            const lbl = (ev.description || ev.type || '').toString().trim();
++            if (!lbl) return;
++            const target = ev.type === 'infolettre' ? prevInfolettreMap : prevMarketingMap;
++            target.set(d, (target.get(d) || []).concat([lbl]));
++        });
++        const prevHolidayMap = new Map(
++            getQuebecHolidays(year - 1)
++                .filter(h => h.date.startsWith(prevMonthKey))
++                .map(h => [dayjs(h.date).date(), [h.name]])
++        );
++        // Bandes : un même contexte répété sur 3 jours ou plus (ex. grève) devient une bande
++        const ctxGroups = {};
++        prevEvts.filter(ev => ev.type === 'contexte').forEach(ev => {
++            const txt = (ev.description || '').toString().trim();
++            const key = txt.toLowerCase().slice(0, 14);
++            (ctxGroups[key] = ctxGroups[key] || { label: txt, days: [] }).days.push(dayjs(ev.date).date());
++        });
++        const prevBands = Object.values(ctxGroups)
++            .filter(g => g.days.length >= 3)
++            .map(g => ({ from: Math.min(...g.days), to: Math.max(...g.days), label: g.label }));
++
++        const bandsPlugin = {
++            id: 'prevContextBands',
++            beforeDatasetsDraw(chart) {
++                if (!showPrevContext || !prevBands.length) return;
++                const ctx = chart.ctx, xScale = chart.scales.x, area = chart.chartArea;
++                const step = daysInMonth > 1 ? (xScale.getPixelForTick(daysInMonth - 1) - xScale.getPixelForTick(0)) / (daysInMonth - 1) : 20;
++                ctx.save();
++                prevBands.forEach(band => {
++                    const x0 = xScale.getPixelForTick(band.from - 1) - step / 2;
++                    const x1 = xScale.getPixelForTick(band.to - 1) + step / 2;
++                    ctx.fillStyle = 'rgba(239,230,212,0.75)';
++                    ctx.fillRect(x0, area.top, x1 - x0, area.bottom - area.top);
++                    ctx.fillStyle = '#6a5a35';
++                    ctx.font = '11px system-ui, sans-serif';
++                    ctx.textBaseline = 'top';
++                    const maxW = x1 - x0 - 10;
++                    let t = band.label;
++                    while (t.length > 3 && ctx.measureText(t).width > maxW) t = t.slice(0, -2);
++                    if (t !== band.label) t = t.trimEnd() + '…';
++                    ctx.fillText(t, x0 + 6, area.top + 6);
++                });
++                ctx.restore();
++            }
++        };
++
+         const markerPlugin = {
+             id: 'marketingMarkers',
+             afterDraw(chart) {
+@@ -1098,28 +1204,35 @@
+                     { map: socialMap,     color: '#c87f4a', shape: 'circle' },
+                     { map: holidayMap,    color: '#dc2626', shape: 'diamond' },
+                 ];
++                const PREV_ROWS = showPrevContext ? [
++                    { map: prevMarketingMap,  color: '#5b21b6', shape: 'circle',  hollow: true },
++                    { map: prevInfolettreMap, color: '#5a9e7a', shape: 'circle',  hollow: true },
++                    { map: prevHolidayMap,    color: '#dc2626', shape: 'diamond', hollow: true },
++                ] : [];
++                const prevBase = baseY + ROWS.length * DOT_GAP + 8;
+                 chart._markerHits = [];
+-                ventes.forEach((v, i) => {
+-                    const dayNum = dayjs(v.date).date();
++                const drawRow = (x, y, def, labels) => {
++                    const { color, shape, hollow } = def;
++                    ctx.beginPath();
++                    if (shape === 'diamond') {
++                        const s = DOT_R + 1;
++                        ctx.moveTo(x, y - s); ctx.lineTo(x + s, y); ctx.lineTo(x, y + s); ctx.lineTo(x - s, y); ctx.closePath();
++                    } else {
++                        ctx.arc(x, y, DOT_R, 0, Math.PI * 2);
++                    }
++                    if (hollow) { ctx.fillStyle = '#ffffff'; ctx.fill(); ctx.strokeStyle = color; ctx.lineWidth = 1.6; ctx.stroke(); }
++                    else { ctx.fillStyle = color; ctx.fill(); }
++                    chart._markerHits.push({ x, y, r: DOT_R + 4, labels, color });
++                };
++                monthDays.forEach((dayNum, i) => {
+                     const x = xScale.getPixelForTick(i);
+-                    ROWS.forEach(({ map, color, shape }, row) => {
+-                        if (!map.has(dayNum)) return;
+-                        const y = baseY + row * DOT_GAP;
+-                        ctx.fillStyle = color;
+-                        if (shape === 'diamond') {
+-                            const s = DOT_R + 1;
+-                            ctx.beginPath();
+-                            ctx.moveTo(x,     y - s);
+-                            ctx.lineTo(x + s, y    );
+-                            ctx.lineTo(x,     y + s);
+-                            ctx.lineTo(x - s, y    );
+-                            ctx.closePath();
+-                        } else {
+-                            ctx.beginPath();
+-                            ctx.arc(x, y, DOT_R, 0, Math.PI * 2);
+-                        }
+-                        ctx.fill();
+-                        chart._markerHits.push({ x, y, r: DOT_R + 4, labels: map.get(dayNum), color });
++                    ROWS.forEach((def, row) => {
++                        if (!def.map.has(dayNum)) return;
++                        drawRow(x, baseY + row * DOT_GAP, def, def.map.get(dayNum));
++                    });
++                    PREV_ROWS.forEach((def, row) => {
++                        if (!def.map.has(dayNum)) return;
++                        drawRow(x, prevBase + row * DOT_GAP, def, def.map.get(dayNum).map(l => (year - 1) + ' — ' + l));
+                     });
+                 });
+             }
+@@ -1128,10 +1241,10 @@
+         dailyChart = new Chart(document.getElementById('dailyChart').getContext('2d'), {
+             type: 'line',
+             data: { labels: chartLabels, datasets: chartDatasets },
+-            plugins: [markerPlugin],
++            plugins: [bandsPlugin, markerPlugin],
+             options: {
+                 responsive: true, maintainAspectRatio: true,
+-                layout: { padding: { bottom: 60 } },
++                layout: { padding: { bottom: showPrevContext ? 104 : 60 } },
+                 interaction: { mode: 'index', intersect: false },
+                 plugins: {
+                     legend: {
+@@ -1150,13 +1263,13 @@
+                                 const idx = ctx.dataIndex;
+                                 let bel, bou, who;
+                                 if (ctx.datasetIndex === 0) {
+-                                    const v = ventes[idx];
++                                    const v = ventesByDay[idx + 1];
+                                     if (!v) return [];
+                                     bel = parseFloat(v.ventes_bel)||0;
+                                     bou = parseFloat(v.ventes_boutique)||0;
+                                     who = parseFloat(v.ventes_wholesale)||0;
+                                 } else if (ctx.datasetIndex === 1) {
+-                                    const dayNum = dayjs(ventes[idx]?.date).date();
++                                    const dayNum = idx + 1;
+                                     const pv = prevRowByDay[dayNum];
+                                     if (!pv) return [];
+                                     bel = parseFloat(pv.ventes_bel)||0;
+@@ -1215,7 +1328,263 @@
+         renderEmailTable(monthKey);
+         renderSocialTable(monthKey);
+         renderHolidaysBar(monthKey);
++
++        // Ajouts : vue par semaine
++        const wkCtx = { year, monthIdx, monthKey, channel, ventes, ventesByDay, lastDay, isCurrentMonth,
++                        prevMonthKey, prevVentes, hasPrev, daysInMonth, monthName };
++        renderKpiExtra(wkCtx);
++        renderWeekTable(wkCtx);
++        renderWeekCalendar(wkCtx);
++        updateContextButtons();
++    }
++
++    // ══════════════════════════════════════════════════════════
++    // AJOUTS : vue du mois par semaine (blocs de 7 jours)
++    // ══════════════════════════════════════════════════════════
++    const C_EV = '#5b21b6', C_INF = '#5a9e7a', C_POST = '#c87f4a';
++    function escHtml(s) { return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
++    function fmtMoney(n) { return Math.round(n).toLocaleString('fr-CA') + ' $'; }
++    function fmtPct(p) { return (p > 0 ? '+' : p < 0 ? '−' : '') + Math.abs(p).toFixed(0) + ' %'; }
++    function weekOf(day) { return Math.min(Math.floor((day - 1) / 7) + 1, 5); }
++    function shortTxt(s, n) { const t = String(s || '').replace(/\s+/g, ' ').trim(); return t.length <= n ? t : t.slice(0, n - 1) + '…'; }
++    function dotHtml(color, hollow) {
++        return `<span class="wk-dot" style="border-color:${color};background:${hollow ? '#fff' : color};"></span>`;
++    }
++    function plural(n, s, p) { return `${n} ${n > 1 ? (p || s + 's') : s}`; }
++
++    // Texte presque identique entre FB et IG (ex. « deux » vs « 2 »)
++    function textsMatch(a, b) {
++        const norm = t => String(t || '').toLowerCase().replace(/[^a-z0-9àâäéèêëîïôöùûüç]+/g, ' ').trim();
++        const x = norm(a), y = norm(b);
++        if (x === y) return true;
++        if (x.length >= 8 && x.slice(0, 8) === y.slice(0, 8)) return true;
++        const bi = t => { const s = new Map(); for (let i = 0; i < t.length - 1; i++) { const g = t.slice(i, i + 2); s.set(g, (s.get(g) || 0) + 1); } return s; };
++        const A = bi(x), B = bi(y);
++        if (!A.size || !B.size) return false;
++        let inter = 0; A.forEach((n, g) => { inter += Math.min(n, B.get(g) || 0); });
++        return (2 * inter) / ((x.length - 1) + (y.length - 1)) > 0.7;
++    }
++    // Regroupe une publication FB + IG identique (ou presque) en une seule
++    function mergePubs(posts) {
++        const byDate = {};
++        posts.forEach(p => { const k = dayjs(p.date).format('YYYY-MM-DD'); (byDate[k] = byDate[k] || []).push(p); });
++        const out = [];
++        Object.keys(byDate).sort().forEach(date => {
++            const L = byDate[date];
++            const fb = L.filter(p => (p.plateforme || '').toLowerCase() !== 'instagram');
++            const ig = L.filter(p => (p.plateforme || '').toLowerCase() === 'instagram');
++            const used = new Set();
++            const mk = p => ({ label: ((p.plateforme || '').toLowerCase() === 'instagram' ? 'IG' : 'FB'), url: p.lien_post || p.link || p.url || '' });
++            fb.forEach(a => {
++                const m = ig.find(b => !used.has(b) && textsMatch(a.description_courte || a.title, b.description_courte || b.title));
++                if (m) used.add(m);
++                out.push({ date, day: dayjs(date).date(), text: a.description_courte || a.title || '', parts: m ? [mk(a), mk(m)] : [mk(a)] });
++            });
++            ig.forEach(b => { if (!used.has(b)) out.push({ date, day: dayjs(date).date(), text: b.description_courte || b.title || '', parts: [mk(b)] }); });
++        });
++        return out;
++    }
++
++    // Actions marketing du mois (2026) et du même mois N-1
++    function getMonthActions(c) {
++        const inMonth = (d, key) => dayjs(d).format('YYYY-MM') === key;
++        const sheet = (fullData.evenements || []);
++        const mailer = (fullData.infolettres || []).filter(e => inMonth(e.date_envoi || e.date, c.monthKey));
++        const infos = mailer.length
++            ? mailer.map(e => ({ day: dayjs(e.date_envoi || e.date).date(), date: dayjs(e.date_envoi || e.date).format('YYYY-MM-DD'), text: e.sujet || '—' }))
++            : sheet.filter(ev => ev.type === 'infolettre' && inMonth(ev.date, c.monthKey)).map(ev => ({ day: dayjs(ev.date).date(), date: dayjs(ev.date).format('YYYY-MM-DD'), text: ev.description || '—' }));
++        const evs = sheet.filter(ev => ev.type !== 'contexte' && ev.type !== 'infolettre' && inMonth(ev.date, c.monthKey))
++            .map(ev => ({ day: dayjs(ev.date).date(), date: dayjs(ev.date).format('YYYY-MM-DD'), text: ev.description || ev.type || '—' }));
++        const pubs = mergePubs((fullData.publications || []).filter(p => inMonth(p.date, c.monthKey)));
++        const prevInfos = sheet.filter(ev => ev.type === 'infolettre' && inMonth(ev.date, c.prevMonthKey))
++            .map(ev => ({ day: dayjs(ev.date).date(), date: dayjs(ev.date).format('YYYY-MM-DD'), text: ev.description || '—' }));
++        const prevEvs = sheet.filter(ev => ev.type !== 'contexte' && ev.type !== 'infolettre' && inMonth(ev.date, c.prevMonthKey))
++            .map(ev => ({ day: dayjs(ev.date).date(), date: dayjs(ev.date).format('YYYY-MM-DD'), text: ev.description || ev.type || '—' }));
++        const prevHasPosts = (fullData.publications || []).some(p => inMonth(p.date, c.prevMonthKey));
++        return { infos, evs, pubs, prevInfos, prevEvs, prevHasPosts };
++    }
++
++    // ── Cartes en plus (mois en cours seulement) ──
++    function renderKpiExtra(c) {
++        const el = document.getElementById('kpiExtra');
++        el.style.display = 'none';
++        if (!c.isCurrentMonth || !c.hasPrev || c.lastDay <= 0 || c.lastDay >= c.daysInMonth) return;
++        const val = v => getSalesValue(v, c.channel);
++        const full25 = c.prevVentes.reduce((s, v) => s + val(v), 0);
++        const mtd26  = c.ventes.filter(v => dayjs(v.date).date() <= c.lastDay).reduce((s, v) => s + val(v), 0);
++        const mtd25  = c.prevVentes.filter(v => dayjs(v.date).date() <= c.lastDay).reduce((s, v) => s + val(v), 0);
++        if (full25 <= 0) return;
++        const restDays = c.daysInMonth - c.lastDay;
++        const rest = full25 - mtd26;
++        const need = rest / restDays;
++        const ref  = (full25 - mtd25) / restDays;
++        const g26 = mtd26 / full25 * 100, g25 = mtd25 / full25 * 100;
++        const pc = n => n.toFixed(1).replace('.', ',') + ' %';
++        const prevName = `${MONTHS_LONG[c.monthIdx]} ${c.year - 1}`;
++        const chBEL = c.prevVentes.reduce((s, v) => s + (parseFloat(v.ventes_bel)||0), 0);
++        const chBOU = c.prevVentes.reduce((s, v) => s + (parseFloat(v.ventes_boutique)||0), 0);
++        const chWHO = c.prevVentes.reduce((s, v) => s + (parseFloat(v.ventes_wholesale)||0), 0);
++        el.innerHTML = `
++            <div class="kpi-card">
++                <div class="kpi-label">${escHtml(prevName)} au complet</div>
++                <div class="kpi-value">${fmtMoney(full25)}</div>
++                <div class="kpi-sub">${c.channel === 'total' ? `BEL ${fmtMoney(chBEL)} · boutique ${fmtMoney(chBOU)} · wholesale ${fmtMoney(chWHO)}` : 'Total du mois'}</div>
++            </div>
++            <div class="kpi-card">
++                <div class="kpi-label">Pour égaler ${c.year - 1}</div>
++                <div class="kpi-value">${fmtMoney(Math.max(need, 0))} / jour</div>
++                <div class="kpi-sub">${rest > 0 ? `${fmtMoney(rest)} à faire en ${plural(restDays, 'jour')}.` : 'Déjà dépassé.'} Les jours ${c.lastDay + 1} à ${c.daysInMonth} de ${c.year - 1} ont fait ${fmtMoney(ref)} / jour en moyenne.</div>
++            </div>
++            <div class="kpi-card">
++                <div class="kpi-label">Où tu es dans le mois ${c.year - 1}</div>
++                <div class="gauge-wrap">
++                    <div class="gauge-track"></div>
++                    <div class="gauge-fill" style="width:${Math.min(g26, 100).toFixed(1)}%;"></div>
++                    <div class="gauge-tick" style="left:${Math.min(g25, 100).toFixed(1)}%;background:#1e2330;"></div>
++                    <div class="gauge-tick" style="right:0;background:#9ca3af;"></div>
++                    <div class="gauge-lbl" style="left:${Math.min(g25, 100).toFixed(1)}%;color:#1e2330;font-weight:600;">&nbsp;${c.year - 1}, même date</div>
++                    <div class="gauge-lbl" style="right:0;color:#8a8f9e;">Fin ${c.year - 1}</div>
++                </div>
++                <div class="gauge-legend">
++                    <span><strong style="color:#7c6fa0;">${c.year} : ${pc(g26)}</strong> · ${fmtMoney(mtd26)}</span>
++                    <span>${c.year - 1} même date : ${pc(g25)} · ${fmtMoney(mtd25)}</span>
++                    <span style="color:#8a8f9e;">Fini à ${fmtMoney(full25)}</span>
++                </div>
++            </div>`;
++        el.style.display = 'grid';
++    }
++
++    // ── Tableau semaine par semaine ──
++    function renderWeekTable(c) {
++        const card = document.getElementById('weekTableCard');
++        const acts = getMonthActions(c);
++        const weeks = [];
++        for (let b = 1; b <= 5; b++) {
++            const from = (b - 1) * 7 + 1;
++            if (from > c.daysInMonth) break;
++            const to = Math.min(b * 7, c.daysInMonth);
++            weeks.push({ b, from, to, nDays: to - from + 1, done: 0, v26: 0, v25: 0, full25: 0,
++                         ch: { bel: [0, 0], boutique: [0, 0], wholesale: [0, 0] } });
++        }
++        const chField = { bel: 'ventes_bel', boutique: 'ventes_boutique', wholesale: 'ventes_wholesale' };
++        c.ventes.forEach(v => {
++            const d = dayjs(v.date).date();
++            if (d > c.lastDay) return;
++            const w = weeks[weekOf(d) - 1]; if (!w) return;
++            w.done++; w.v26 += getSalesValue(v, c.channel);
++            Object.keys(chField).forEach(k => { w.ch[k][0] += parseFloat(v[chField[k]]) || 0; });
++        });
++        c.prevVentes.forEach(v => {
++            const d = dayjs(v.date).date();
++            const w = weeks[weekOf(d) - 1]; if (!w) return;
++            w.full25 += getSalesValue(v, c.channel);
++            if (d <= c.lastDay && c.ventesByDay[d]) {
++                w.v25 += getSalesValue(v, c.channel);
++                Object.keys(chField).forEach(k => { w.ch[k][1] += parseFloat(v[chField[k]]) || 0; });
++            }
++        });
++        const inWeek = (list, w) => list.filter(x => x.day >= w.from && x.day <= w.to);
++        const showFull = c.isCurrentMonth && c.hasPrev;
++        const showCh   = c.channel === 'total' && c.hasPrev;
++        const pctOf = (a, b) => b > 0 ? (a / b - 1) * 100 : null;
++        const rows = weeks.map(w => {
++            const fut = w.done === 0;
++            const early = !fut && w.done < 3 && w.done < w.nDays;
++            let status, ec = '—', ecColor = '#8a8f9e';
++            const ecv = c.hasPrev ? pctOf(w.v26, w.v25) : null;
++            if (fut) status = '<span class="wk-status wk-flat">À venir</span>';
++            else if (early || ecv === null) { status = `<span class="wk-status wk-flat">${early ? 'Trop tôt (' + plural(w.done, 'jour') + ')' : '—'}</span>`; if (ecv !== null) ec = fmtPct(ecv); }
++            else {
++                ec = fmtPct(ecv);
++                if (ecv < -5) { status = '<span class="wk-status wk-late">▼ En retard</span>'; ecColor = '#9a2a10'; }
++                else if (ecv > 5) { status = '<span class="wk-status wk-adv">▲ En avance</span>'; ecColor = '#1f5a35'; }
++                else status = '<span class="wk-status wk-flat">≈ Stable</span>';
++            }
++            const sub = `${w.from} au ${w.to} ${MONTHS_SHORT[c.monthIdx].toLowerCase()}.` +
++                (w.nDays < 7 ? ` · ${plural(w.nDays, 'jour')} seulement` : '') +
++                (w.done > 0 && w.done < w.nDays ? ` · ${plural(w.done, 'jour')} fait${w.done > 1 ? 's' : ''}` : '');
++            const a26 = `<div class="wk-actions">${dotHtml(C_INF)}${plural(inWeek(acts.infos, w).length, 'infolettre')}<br>${dotHtml(C_POST)}${plural(inWeek(acts.pubs, w).length, 'publication')}<br>${dotHtml(C_EV)}${plural(inWeek(acts.evs, w).length, 'événement')}</div>`;
++            const a25 = c.hasPrev ? `<div class="wk-actions" style="color:#5a5f72;">${dotHtml(C_INF, true)}${plural(inWeek(acts.prevInfos, w).length, 'infolettre')}<br>${dotHtml(C_EV, true)}${plural(inWeek(acts.prevEvs, w).length, 'événement')}</div>` : '—';
++            let chTxt = '';
++            if (showCh) {
++                const names = { bel: 'BEL', boutique: 'Boutique', wholesale: 'Wholesale' };
++                chTxt = fut
++                    ? '<span style="color:#8a8f9e;">' + (c.year - 1) + ' : ' + ['BEL','Boutique','Wholesale'].map((n, i) => n + ' ' + fmtMoney(c.prevVentes.filter(v => weekOf(dayjs(v.date).date()) === w.b).reduce((s, v) => s + (parseFloat(v[['ventes_bel','ventes_boutique','ventes_wholesale'][i]]) || 0), 0))).join(' · ') + '</span>'
++                    : Object.keys(names).map(k => { const p = pctOf(w.ch[k][0], w.ch[k][1]); return `${names[k]} ${p === null ? '—' : fmtPct(p)}`; }).join(' · ');
++            }
++            return `<tr>
++                <td><strong>Semaine ${w.b}</strong><div class="sub">${sub}</div></td>
++                <td class="num">${fut ? '—' : '<strong>' + fmtMoney(w.v26) + '</strong>'}</td>
++                <td class="num" style="color:#8a8f9e;">${fut || !c.hasPrev ? '—' : fmtMoney(w.v25)}</td>
++                <td class="num" style="color:${ecColor};"><strong>${ec}</strong></td>
++                <td>${status}</td>
++                ${showFull ? `<td class="num"><strong>${fmtMoney(w.full25)}</strong><div class="sub">${Math.round(w.full25 / (weeks.reduce((s, x) => s + x.full25, 0) || 1) * 100)} % du mois</div></td>` : ''}
++                <td>${a26}</td>
++                <td>${a25}</td>
++                ${showCh ? `<td style="font-size:0.74rem;">${chTxt}</td>` : ''}
++            </tr>`;
++        }).join('');
++        const prevYear = c.year - 1;
++        card.innerHTML = `
++            <div class="card-title-sm" style="margin-bottom:0;">Semaine par semaine — ${escHtml(c.monthName.toUpperCase())}</div>
++            <p class="card-sub">Blocs de 7 jours : chaque bloc contient les 7 jours de la semaine une fois, donc la comparaison tient sans aligner les jours. Une semaine en cours est comparée aux mêmes jours de ${prevYear}.</p>
++            <div class="week-scroll"><table class="week-table"><thead><tr>
++                <th>Semaine</th><th class="num">${c.year}</th><th class="num">${prevYear}, même période</th><th class="num">Écart</th><th>Statut</th>
++                ${showFull ? `<th class="num">${prevYear}, semaine complète</th>` : ''}
++                <th>Actions ${c.year}</th><th>Actions ${prevYear}</th>${showCh ? '<th>Écart par canal</th>' : ''}
++            </tr></thead><tbody>${rows}</tbody></table></div>`;
++    }
++
++    // ── Calendrier d'actions par semaine ──
++    function renderWeekCalendar(c) {
++        const card = document.getElementById('weekCalendarCard');
++        const acts = getMonthActions(c);
++        const fmtDay = d => `${d} ${MONTHS_SHORT[c.monthIdx].toLowerCase()}.`;
++        const weeks = [];
++        for (let b = 1; b <= 5; b++) { const from = (b - 1) * 7 + 1; if (from > c.daysInMonth) break; weeks.push({ b, from, to: Math.min(b * 7, c.daysInMonth) }); }
++        const inWeek = (list, w) => list.filter(x => x.day >= w.from && x.day <= w.to);
++        const chip = (color, n, s, hollow) => `<span>${dotHtml(color, hollow)}<strong>${n}</strong>&nbsp;${s}${n > 1 ? 's' : ''}</span>`;
++        const linkOf = p => p.url ? ` <a href="${escHtml(p.url)}" target="_blank" class="link-voir">${p.label}</a>` : ` ${p.label}`;
++        const cols = weeks.map(w => {
++            const ni = inWeek(acts.infos, w), ne = inWeek(acts.evs, w), np = inWeek(acts.pubs, w);
++            const pi = inWeek(acts.prevInfos, w), pe = inWeek(acts.prevEvs, w);
++            let h = `<div class="wk-col"><div><div class="wk-col-title">Semaine ${w.b}</div><div class="wk-col-sub">${w.from} au ${w.to} ${MONTHS_SHORT[c.monthIdx].toLowerCase()}.</div></div>`;
++            h += `<div class="wk-block"><span class="wk-block-label" style="color:#7c6fa0;">${c.year}</span>${chip(C_INF, ni.length, 'infolettre')}${chip(C_POST, np.length, 'publication')}${chip(C_EV, ne.length, 'événement')}</div>`;
++            if (showPrevContext) h += `<div class="wk-block"><span class="wk-block-label">${c.year - 1}</span>${chip(C_INF, pi.length, 'infolettre', true)}${chip(C_EV, pe.length, 'événement', true)}</div>`;
++            if (showWeekDetail) {
++                const L = [];
++                ne.forEach(x => L.push(`<div class="wk-item">${dotHtml(C_EV)}<strong>${fmtDay(x.day)}</strong> · ${escHtml(shortTxt(x.text, 62))}</div>`));
++                ni.forEach(x => L.push(`<div class="wk-item">${dotHtml(C_INF)}<strong>${fmtDay(x.day)}</strong> · ${escHtml(shortTxt(x.text, 62))}</div>`));
++                np.forEach(x => L.push(`<div class="wk-item">${dotHtml(C_POST)}<strong>${fmtDay(x.day)}</strong> · ${x.parts.map(p => p.label).join(' + ')} · ${escHtml(shortTxt(x.text || '(sans texte)', 48))}${x.parts.map(linkOf).join('')}</div>`));
++                h += `<div class="wk-detail">${L.join('') || '<div class="wk-empty">Rien de logué</div>'}</div>`;
++                if (showPrevContext) {
++                    const P = [];
++                    pe.forEach(x => P.push(`<div class="wk-item">${dotHtml(C_EV, true)}<strong>${fmtDay(x.day)}</strong> · ${escHtml(shortTxt(x.text, 58))}</div>`));
++                    pi.forEach(x => P.push(`<div class="wk-item">${dotHtml(C_INF, true)}<strong>${fmtDay(x.day)}</strong> · ${escHtml(shortTxt(x.text, 58))}</div>`));
++                    h += `<div class="wk-detail" style="border-top-style:dashed;"><span class="wk-block-label">Détail ${c.year - 1}</span>${P.join('') || '<div class="wk-empty">Rien</div>'}</div>`;
++                }
++            }
++            return h + '</div>';
++        }).join('');
++        const note = showPrevContext && !acts.prevHasPosts
++            ? `<p class="wk-note">Publications ${c.year - 1} non disponibles : le suivi des publications FB/IG commence en 2026.</p>` : '';
++        card.innerHTML = `
++            <div class="card-head-row">
++                <div class="card-title-sm" style="margin-bottom:0;">Ce qui a été fait, semaine par semaine</div>
++                <button type="button" class="btn-toggle" id="btnWeekDetail" aria-pressed="${showWeekDetail}">${showWeekDetail ? 'Détail : affiché' : 'Détail : masqué'}</button>
++            </div>
++            <p class="card-sub">Une publication Facebook + Instagram identique (ou presque) compte pour une seule. Le contexte ${c.year - 1} s'affiche avec le bouton du graphique.</p>
++            <div class="week-scroll"><div class="wk-grid">${cols}</div></div>${note}`;
++        document.getElementById('btnWeekDetail').addEventListener('click', () => { showWeekDetail = !showWeekDetail; applyFiltersAndRender(); });
++    }
++
++    function updateContextButtons() {
++        const b = document.getElementById('btnPrevContext');
++        if (b) { b.setAttribute('aria-pressed', String(showPrevContext)); b.textContent = showPrevContext ? 'Contexte N-1 : affiché' : 'Contexte N-1 : masqué'; }
++        const n = document.getElementById('prevLegendNote');
++        if (n) n.style.display = showPrevContext ? 'inline' : 'none';
+     }
++    document.getElementById('btnPrevContext').addEventListener('click', () => { showPrevContext = !showPrevContext; applyFiltersAndRender(); });
+ 
+     // ── EVENTS TABLE ──
+     function buildEventRow(ev, showFullDate, regKey) {
