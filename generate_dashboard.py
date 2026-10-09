@@ -31,6 +31,22 @@ _MIGRATION_PREFIX_RE = re.compile(
     re.IGNORECASE
 )
 
+# Lignes issues de la migration du sheet (event_id = timestamp 1786632836xxx_ligne_col).
+# Ce sont des événements historiques déjà présents dans events_reference.json,
+# mais leurs dates sont inversées jour/mois dans le sheet : on ne les relit jamais.
+_MIGRATION_ID_RE = re.compile(r'^178663283\d*_')
+_TEST_EVENT_RE = re.compile(r'^\s*test\b', re.IGNORECASE)
+
+def _swap_day_month(dt_str):
+    """'2026-09-07' -> '2026-07-09' (None si le swap est impossible)."""
+    try:
+        y, m, d = dt_str.split('-')
+        if int(d) > 12:
+            return None
+        return f"{y}-{d}-{m}"
+    except Exception:
+        return None
+
 def _strip_event_prefix(text):
     m = _MIGRATION_PREFIX_RE.match(str(text or ''))
     return text[m.end():] if m else text
@@ -356,7 +372,11 @@ def get_evenements_corrected(sheet_df):
         print(f"   ⚠️  {EVENTS_REFERENCE_FILE} introuvable — données du sheet utilisées directement")
         return sheet_df
 
+    ref_keys = {(str(e.get('date') or ''), str(e.get('description') or '').strip().lower())
+                for e in reference}
+
     new_events = []
+    skipped = 0
     if not sheet_df.empty and 'date' in sheet_df.columns:
         for _, row in sheet_df.iterrows():
             dt = row['date']
@@ -369,14 +389,25 @@ def get_evenements_corrected(sheet_df):
             desc = _strip_event_prefix(desc_raw).strip()
             if not desc or len(desc) < 2:
                 continue
+            event_id = str(row.get('event_id') or row.get('col_4') or '')
+            # Ignorer : lignes de migration, événements de test, et doublons
+            # inversés jour/mois d'un événement déjà présent dans la référence.
+            swapped = _swap_day_month(dt_str)
+            if (_MIGRATION_ID_RE.match(event_id)
+                    or _TEST_EVENT_RE.match(desc)
+                    or (swapped and (swapped, desc.lower()) in ref_keys)):
+                skipped += 1
+                continue
             new_events.append({
                 'date': dt_str,
                 'type': _normalize_event_type(row.get('type') or ''),
                 'description': desc,
                 'note': str(row.get('note') or row.get('col_3') or ''),
-                'event_id': str(row.get('event_id') or row.get('col_4') or ''),
+                'event_id': event_id,
             })
 
+    if skipped:
+        print(f"   🧹 {skipped} lignes du sheet ignorées (migration / test / date inversée)")
     all_events = reference + new_events
     all_events.sort(key=lambda e: str(e.get('date') or ''))
     print(f"   ✅ {len(reference)} historiques + {len(new_events)} nouveaux = {len(all_events)} événements")
