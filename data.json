@@ -28889,6 +28889,24 @@
       "precipitation_mm": 1.7,
       "snowfall_cm": 0.0,
       "weather_code": 55
+    },
+    {
+      "date": "2026-10-08",
+      "ventes_bel": 5920.02,
+      "ventes_boutique": 1193.63,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 7113.65,
+      "commandes_bel": 54.0,
+      "commandes_boutique": 30.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 84.0,
+      "panier_moyen_bel": 109.63,
+      "panier_moyen_boutique": 39.79,
+      "temp_max": 14.9,
+      "temp_min": 9.0,
+      "precipitation_mm": 6.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 61
     }
   ],
   "infolettres": [
@@ -29221,9 +29239,20 @@
       "date": "2026-10-04",
       "date_envoi": "2026-10-04",
       "sujet": "Auto resend of Nouveau site web + offre d'emploi commandes | samedi 3 octobre 2026 + resend aux pas ouverts dimanche 4 octobre 19h30"
+    },
+    {
+      "date": "2026-10-07",
+      "date_envoi": "2026-10-07",
+      "sujet": "RAPPEL ATELIER SHAMPOING 10 OCTOBRE 2026"
     }
   ],
   "publications": [
+    {
+      "date": "2026-10-08",
+      "plateforme": "facebook",
+      "description_courte": "On vous laisse dans l'ombre, mais plus pour longtemps. 👀\n\nPréavis officiel : vous avez jusqu'à mercredi minuit pour libérer deux places dans votre armoire de salle de bain. 🫣🤭😍",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1662228801957491"
+    },
     {
       "date": "2026-10-07",
       "plateforme": "facebook",
@@ -30069,6 +30098,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-10-08",
+      "plateforme": "instagram",
+      "description_courte": "On vous laisse dans l'ombre, mais plus pour longtemps. 👀\n\nPréavis officiel : vous avez jusqu'à mercredi minuit pour libérer deux places dans votre armoire de salle de bain. 🫣🤭😍",
+      "lien_post": "https://www.instagram.com/p/DeP9kXQFCbD/"
     },
     {
       "date": "2026-10-07",
@@ -39598,12 +39633,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10589214.36,
-    "total_ventes_bel": 7361891.5,
-    "total_ventes_boutique": 2667204.15,
+    "total_ventes": 10596328.010000002,
+    "total_ventes_bel": 7367811.5200000005,
+    "total_ventes_boutique": 2668397.78,
     "total_ventes_wholesale": 560118.71,
-    "panier_moyen_bel": 95.7623925233645,
+    "panier_moyen_bel": 95.77102739726028,
     "date_min": "2021-11-01",
-    "date_max": "2026-10-07"
+    "date_max": "2026-10-08"
   }
 }
