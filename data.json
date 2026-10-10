@@ -28907,6 +28907,24 @@
       "precipitation_mm": 6.0,
       "snowfall_cm": 0.0,
       "weather_code": 61
+    },
+    {
+      "date": "2026-10-09",
+      "ventes_bel": 2921.45,
+      "ventes_boutique": 2585.7,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 5507.15,
+      "commandes_bel": 34.0,
+      "commandes_boutique": 42.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 76.0,
+      "panier_moyen_bel": 85.92,
+      "panier_moyen_boutique": 61.56,
+      "temp_max": 11.8,
+      "temp_min": 7.0,
+      "precipitation_mm": 0.4,
+      "snowfall_cm": 0.0,
+      "weather_code": 51
     }
   ],
   "infolettres": [
@@ -29078,12 +29096,12 @@
     {
       "date": "2026-07-31",
       "date_envoi": "2026-07-31",
-      "sujet": "Gatorade maison et savon camping (recettes!) + lecture de vacances (baku 10 produits) | samedi 1er août 9h + resend dimanche 19h"
+      "sujet": "Routine de Gen contour des yeux - 5 huiles + crème contour + abyssinie / offre d'emploi | samedi 8 août 9h + resend dimanche soir 19h"
     },
     {
       "date": "2026-07-31",
       "date_envoi": "2026-07-31",
-      "sujet": "Routine de Gen contour des yeux - 5 huiles + crème contour + abyssinie / offre d'emploi | samedi 8 août 9h + resend dimanche soir 19h"
+      "sujet": "Gatorade maison et savon camping (recettes!) + lecture de vacances (baku 10 produits) | samedi 1er août 9h + resend dimanche 19h"
     },
     {
       "date": "2026-08-02",
@@ -29173,12 +29191,12 @@
     {
       "date": "2026-09-11",
       "date_envoi": "2026-09-11",
-      "sujet": "Infolettre ciblée sérum contour pour 1er achat | septembre 2026"
+      "sujet": "Resend aux pas ouverts - Ateliers au pignon + soldes | samedi matin"
     },
     {
       "date": "2026-09-11",
       "date_envoi": "2026-09-11",
-      "sujet": "Resend aux pas ouverts - Ateliers au pignon + soldes | samedi matin"
+      "sujet": "Infolettre ciblée sérum contour pour 1er achat | septembre 2026"
     },
     {
       "date": "2026-09-13",
@@ -29244,6 +29262,11 @@
       "date": "2026-10-07",
       "date_envoi": "2026-10-07",
       "sujet": "RAPPEL ATELIER SHAMPOING 10 OCTOBRE 2026"
+    },
+    {
+      "date": "2026-10-09",
+      "date_envoi": "2026-10-09",
+      "sujet": "Copy of RAPPEL ATELIER SHAMPOING 10 OCTOBRE 2026"
     }
   ],
   "publications": [
@@ -30098,6 +30121,18 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-10-09",
+      "plateforme": "instagram",
+      "description_courte": "Le gel de lin, c’est MAGIQUE.",
+      "lien_post": "https://www.instagram.com/reel/DeSDxgrsK34/"
+    },
+    {
+      "date": "2026-10-09",
+      "plateforme": "instagram",
+      "description_courte": "Oui, un anti-acide/laxatif pour tes aisselles.",
+      "lien_post": "https://www.instagram.com/reel/DeSCWBGsAXF/"
     },
     {
       "date": "2026-10-08",
@@ -39563,12 +39598,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10596328.010000002,
-    "total_ventes_bel": 7367811.5200000005,
-    "total_ventes_boutique": 2668397.78,
+    "total_ventes": 10601835.16,
+    "total_ventes_bel": 7370732.970000001,
+    "total_ventes_boutique": 2670983.48,
     "total_ventes_wholesale": 560118.71,
-    "panier_moyen_bel": 95.77102739726028,
+    "panier_moyen_bel": 95.7648973242066,
     "date_min": "2021-11-01",
-    "date_max": "2026-10-08"
+    "date_max": "2026-10-09"
   }
 }
