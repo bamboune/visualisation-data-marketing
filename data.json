@@ -28943,6 +28943,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 3
+    },
+    {
+      "date": "2026-10-11",
+      "ventes_bel": 4670.35,
+      "ventes_boutique": 900.48,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 5570.83,
+      "commandes_bel": 43.0,
+      "commandes_boutique": 20.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 63.0,
+      "panier_moyen_bel": 108.61,
+      "panier_moyen_boutique": 45.02,
+      "temp_max": 16.3,
+      "temp_min": 6.1,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -29114,12 +29132,12 @@
     {
       "date": "2026-07-31",
       "date_envoi": "2026-07-31",
-      "sujet": "Routine de Gen contour des yeux - 5 huiles + crème contour + abyssinie / offre d'emploi | samedi 8 août 9h + resend dimanche soir 19h"
+      "sujet": "Gatorade maison et savon camping (recettes!) + lecture de vacances (baku 10 produits) | samedi 1er août 9h + resend dimanche 19h"
     },
     {
       "date": "2026-07-31",
       "date_envoi": "2026-07-31",
-      "sujet": "Gatorade maison et savon camping (recettes!) + lecture de vacances (baku 10 produits) | samedi 1er août 9h + resend dimanche 19h"
+      "sujet": "Routine de Gen contour des yeux - 5 huiles + crème contour + abyssinie / offre d'emploi | samedi 8 août 9h + resend dimanche soir 19h"
     },
     {
       "date": "2026-08-02",
@@ -29144,12 +29162,12 @@
     {
       "date": "2026-08-17",
       "date_envoi": "2026-08-17",
-      "sujet": "Bis atelier shampoing automne 1016"
+      "sujet": "BIS atelier cycle automne 2026"
     },
     {
       "date": "2026-08-17",
       "date_envoi": "2026-08-17",
-      "sujet": "BIS atelier cycle automne 2026"
+      "sujet": "Bis atelier shampoing automne 1016"
     },
     {
       "date": "2026-08-19",
@@ -29234,17 +29252,17 @@
     {
       "date": "2026-09-17",
       "date_envoi": "2026-09-17",
-      "sujet": "Auto resend of Étape 2 Winback baume des lune sept 2026"
-    },
-    {
-      "date": "2026-09-17",
-      "date_envoi": "2026-09-17",
       "sujet": "Sérum 5 huiles - fling d'été vs longue durée | jeudi 17 septembre, resend samedi matin 9h"
     },
     {
       "date": "2026-09-17",
       "date_envoi": "2026-09-17",
       "sujet": "Resend aux pas ouverts - sérum contour gratuit 1er achat | 19 septembre 2026 20h"
+    },
+    {
+      "date": "2026-09-17",
+      "date_envoi": "2026-09-17",
+      "sujet": "Auto resend of Étape 2 Winback baume des lune sept 2026"
     },
     {
       "date": "2026-09-20",
@@ -29285,6 +29303,11 @@
       "date": "2026-10-09",
       "date_envoi": "2026-10-09",
       "sujet": "Copy of RAPPEL ATELIER SHAMPOING 10 OCTOBRE 2026"
+    },
+    {
+      "date": "2026-10-12",
+      "date_envoi": "2026-10-12",
+      "sujet": "Coming soon sérums aqueux | lundi 12 octobre 9h30"
     }
   ],
   "publications": [
@@ -39628,12 +39651,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10608467.420000002,
-    "total_ventes_bel": 7374376.08,
-    "total_ventes_boutique": 2673972.63,
+    "total_ventes": 10614038.25,
+    "total_ventes_bel": 7379046.430000001,
+    "total_ventes_boutique": 2674873.11,
     "total_ventes_wholesale": 560118.71,
-    "panier_moyen_bel": 95.76198383084578,
+    "panier_moyen_bel": 95.76996892479801,
     "date_min": "2021-11-01",
-    "date_max": "2026-10-10"
+    "date_max": "2026-10-11"
   }
 }
