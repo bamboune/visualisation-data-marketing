@@ -28997,6 +28997,24 @@
       "precipitation_mm": 26.0,
       "snowfall_cm": 0.0,
       "weather_code": 63
+    },
+    {
+      "date": "2026-10-14",
+      "ventes_bel": 10791.02,
+      "ventes_boutique": 1156.26,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 11947.28,
+      "commandes_bel": 88.0,
+      "commandes_boutique": 22.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 110.0,
+      "panier_moyen_bel": 122.63,
+      "panier_moyen_boutique": 52.56,
+      "temp_max": 11.1,
+      "temp_min": 5.5,
+      "precipitation_mm": 2.2,
+      "snowfall_cm": 0.0,
+      "weather_code": 63
     }
   ],
   "infolettres": [
@@ -29168,12 +29186,12 @@
     {
       "date": "2026-07-31",
       "date_envoi": "2026-07-31",
-      "sujet": "Gatorade maison et savon camping (recettes!) + lecture de vacances (baku 10 produits) | samedi 1er août 9h + resend dimanche 19h"
+      "sujet": "Routine de Gen contour des yeux - 5 huiles + crème contour + abyssinie / offre d'emploi | samedi 8 août 9h + resend dimanche soir 19h"
     },
     {
       "date": "2026-07-31",
       "date_envoi": "2026-07-31",
-      "sujet": "Routine de Gen contour des yeux - 5 huiles + crème contour + abyssinie / offre d'emploi | samedi 8 août 9h + resend dimanche soir 19h"
+      "sujet": "Gatorade maison et savon camping (recettes!) + lecture de vacances (baku 10 produits) | samedi 1er août 9h + resend dimanche 19h"
     },
     {
       "date": "2026-08-02",
@@ -29193,17 +29211,17 @@
     {
       "date": "2026-08-17",
       "date_envoi": "2026-08-17",
-      "sujet": "Bis sérum automne 2026"
-    },
-    {
-      "date": "2026-08-17",
-      "date_envoi": "2026-08-17",
       "sujet": "Bis atelier shampoing automne 1016"
     },
     {
       "date": "2026-08-17",
       "date_envoi": "2026-08-17",
       "sujet": "BIS atelier cycle automne 2026"
+    },
+    {
+      "date": "2026-08-17",
+      "date_envoi": "2026-08-17",
+      "sujet": "Bis sérum automne 2026"
     },
     {
       "date": "2026-08-19",
@@ -29263,12 +29281,12 @@
     {
       "date": "2026-09-11",
       "date_envoi": "2026-09-11",
-      "sujet": "Resend aux pas ouverts - Ateliers au pignon + soldes | samedi matin"
+      "sujet": "Infolettre ciblée sérum contour pour 1er achat | septembre 2026"
     },
     {
       "date": "2026-09-11",
       "date_envoi": "2026-09-11",
-      "sujet": "Infolettre ciblée sérum contour pour 1er achat | septembre 2026"
+      "sujet": "Resend aux pas ouverts - Ateliers au pignon + soldes | samedi matin"
     },
     {
       "date": "2026-09-13",
@@ -29288,17 +29306,17 @@
     {
       "date": "2026-09-17",
       "date_envoi": "2026-09-17",
-      "sujet": "Sérum 5 huiles - fling d'été vs longue durée | jeudi 17 septembre, resend samedi matin 9h"
-    },
-    {
-      "date": "2026-09-17",
-      "date_envoi": "2026-09-17",
       "sujet": "Resend aux pas ouverts - sérum contour gratuit 1er achat | 19 septembre 2026 20h"
     },
     {
       "date": "2026-09-17",
       "date_envoi": "2026-09-17",
       "sujet": "Auto resend of Étape 2 Winback baume des lune sept 2026"
+    },
+    {
+      "date": "2026-09-17",
+      "date_envoi": "2026-09-17",
+      "sujet": "Sérum 5 huiles - fling d'été vs longue durée | jeudi 17 septembre, resend samedi matin 9h"
     },
     {
       "date": "2026-09-20",
@@ -29354,9 +29372,20 @@
       "date": "2026-10-13",
       "date_envoi": "2026-10-13",
       "sujet": "Coming soon avec détails - nouveaux sérums hydratants sortie 14 octobre | mardi 13 octobre 19h + resend mercredi midi"
+    },
+    {
+      "date": "2026-10-14",
+      "date_envoi": "2026-10-14",
+      "sujet": "Resend aux pas ouverts - Nouveaux sérums hydratants sortie 14 octobre | mercredi 14 octobre midi"
     }
   ],
   "publications": [
+    {
+      "date": "2026-10-14",
+      "plateforme": "facebook",
+      "description_courte": "Deux nouveaux sérums, deux façons de donner un boost à votre routine de soins! Lequel choisir? On vous aide à faire le bon choix. 👇\n\n→ SÉRUM LISSANT & RÉGÉNÉRANT | BAKUCHIOL + NIACINAMIDES\n\nVotre peau",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1667731594740545"
+    },
     {
       "date": "2026-10-13",
       "plateforme": "facebook",
@@ -30226,6 +30255,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-10-14",
+      "plateforme": "instagram",
+      "description_courte": "Deux nouveaux sérums, deux façons de donner un boost à votre routine de soins! Lequel choisir? On vous aide à faire le bon choix. 👇\n\n→ SÉRUM LISSANT & RÉGÉNÉRANT | BAKUCHIOL + NIACINAMIDES\n\nVotre peau",
+      "lien_post": "https://www.instagram.com/p/Deer4M8iH21/"
     },
     {
       "date": "2026-10-13",
@@ -39721,12 +39756,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10625720.61,
-    "total_ventes_bel": 7388630.78,
-    "total_ventes_boutique": 2676268.24,
+    "total_ventes": 10637667.89,
+    "total_ventes_bel": 7399421.800000001,
+    "total_ventes_boutique": 2677424.5,
     "total_ventes_wholesale": 560821.5900000001,
-    "panier_moyen_bel": 95.7776536312849,
+    "panier_moyen_bel": 95.79431141439206,
     "date_min": "2021-11-01",
-    "date_max": "2026-10-13"
+    "date_max": "2026-10-14"
   }
 }
