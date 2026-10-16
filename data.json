@@ -29015,6 +29015,24 @@
       "precipitation_mm": 2.2,
       "snowfall_cm": 0.0,
       "weather_code": 63
+    },
+    {
+      "date": "2026-10-15",
+      "ventes_bel": 5449.24,
+      "ventes_boutique": 715.97,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 6165.21,
+      "commandes_bel": 48.0,
+      "commandes_boutique": 22.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 70.0,
+      "panier_moyen_bel": 113.53,
+      "panier_moyen_boutique": 32.54,
+      "temp_max": 10.4,
+      "temp_min": 4.0,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -29380,6 +29398,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-10-15",
+      "plateforme": "facebook",
+      "description_courte": "On sait que vous aimez comprendre ce que vous mettez sur votre peau. Et ça tombe bien, parce que nous, on adore en parler. 😆",
+      "lien_post": "https://www.facebook.com/reel/2087340938559983/"
+    },
     {
       "date": "2026-10-14",
       "plateforme": "facebook",
@@ -30255,6 +30279,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-10-15",
+      "plateforme": "instagram",
+      "description_courte": "On sait que vous aimez comprendre ce que vous mettez sur votre peau. Et ça tombe bien, parce que nous, on adore en parler. 😆",
+      "lien_post": "https://www.instagram.com/reel/DehQhu2gdhc/"
     },
     {
       "date": "2026-10-14",
@@ -39756,12 +39786,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10637667.89,
-    "total_ventes_bel": 7399421.800000001,
-    "total_ventes_boutique": 2677424.5,
+    "total_ventes": 10643833.1,
+    "total_ventes_bel": 7404871.04,
+    "total_ventes_boutique": 2678140.4699999997,
     "total_ventes_wholesale": 560821.5900000001,
-    "panier_moyen_bel": 95.79431141439206,
+    "panier_moyen_bel": 95.80530688158711,
     "date_min": "2021-11-01",
-    "date_max": "2026-10-14"
+    "date_max": "2026-10-15"
   }
 }
