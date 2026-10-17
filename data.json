@@ -29033,6 +29033,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 3
+    },
+    {
+      "date": "2026-10-16",
+      "ventes_bel": 4073.12,
+      "ventes_boutique": 1270.11,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 5343.23,
+      "commandes_bel": 39.0,
+      "commandes_boutique": 28.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 67.0,
+      "panier_moyen_bel": 104.44,
+      "panier_moyen_boutique": 45.36,
+      "temp_max": 11.5,
+      "temp_min": 5.6,
+      "precipitation_mm": 21.3,
+      "snowfall_cm": 0.0,
+      "weather_code": 63
     }
   ],
   "infolettres": [
@@ -29395,9 +29413,26 @@
       "date": "2026-10-14",
       "date_envoi": "2026-10-14",
       "sujet": "Resend aux pas ouverts - Nouveaux sérums hydratants sortie 14 octobre | mercredi 14 octobre midi"
+    },
+    {
+      "date": "2026-10-15",
+      "date_envoi": "2026-10-15",
+      "sujet": "Rappel atelier sérum 17 octobre 2026"
     }
   ],
   "publications": [
+    {
+      "date": "2026-10-16",
+      "plateforme": "facebook",
+      "description_courte": "Tu te cherches une activité l’fun qui va te rapprocher de la nature? On a une journée complète d’atelier de fabrication de bombes de semences à notre boutique le 24 octobre prochain. Tu peux te pointe",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1669725951207776"
+    },
+    {
+      "date": "2026-10-16",
+      "plateforme": "facebook",
+      "description_courte": "On a vraiment piqué votre curiosité avec notre déo au lait de magnésie la semaine passée (on va vous mettre le lien en commentaire). Voici donc les réponses à vos questions!",
+      "lien_post": "https://www.facebook.com/reel/1659948815581166/"
+    },
     {
       "date": "2026-10-15",
       "plateforme": "facebook",
@@ -30279,6 +30314,18 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-10-16",
+      "plateforme": "instagram",
+      "description_courte": "Tu te cherches une activité l’fun qui va te rapprocher de la nature? On a une journée complète d’atelier de fabrication de bombes de semences à notre boutique le 24 octobre prochain. Tu peux te pointe",
+      "lien_post": "https://www.instagram.com/p/Dej6ZgBgRli/"
+    },
+    {
+      "date": "2026-10-16",
+      "plateforme": "instagram",
+      "description_courte": "On a vraiment piqué votre curiosité avec notre déo au lait de magnésie la semaine passée (on va vous mettre la vidéo en question en story). Voici donc les réponses à vos questions!",
+      "lien_post": "https://www.instagram.com/reel/DejljHXCBiO/"
     },
     {
       "date": "2026-10-15",
@@ -39786,12 +39833,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10643833.1,
-    "total_ventes_bel": 7404871.04,
-    "total_ventes_boutique": 2678140.4699999997,
+    "total_ventes": 10649176.33,
+    "total_ventes_bel": 7408944.16,
+    "total_ventes_boutique": 2679410.58,
     "total_ventes_wholesale": 560821.5900000001,
-    "panier_moyen_bel": 95.80530688158711,
+    "panier_moyen_bel": 95.8106567534077,
     "date_min": "2021-11-01",
-    "date_max": "2026-10-15"
+    "date_max": "2026-10-16"
   }
 }
