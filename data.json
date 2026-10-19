@@ -29069,6 +29069,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 3
+    },
+    {
+      "date": "2026-10-18",
+      "ventes_bel": 4780.1,
+      "ventes_boutique": 2517.04,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 7297.14,
+      "commandes_bel": 45.0,
+      "commandes_boutique": 40.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 85.0,
+      "panier_moyen_bel": 106.22,
+      "panier_moyen_boutique": 62.93,
+      "temp_max": 13.7,
+      "temp_min": 2.0,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -29270,12 +29288,12 @@
     {
       "date": "2026-08-17",
       "date_envoi": "2026-08-17",
-      "sujet": "Bis atelier shampoing automne 1016"
+      "sujet": "BIS atelier cycle automne 2026"
     },
     {
       "date": "2026-08-17",
       "date_envoi": "2026-08-17",
-      "sujet": "BIS atelier cycle automne 2026"
+      "sujet": "Bis atelier shampoing automne 1016"
     },
     {
       "date": "2026-08-19",
@@ -29446,6 +29464,11 @@
       "date": "2026-10-16",
       "date_envoi": "2026-10-16",
       "sujet": "Nouveaux sérums + atelier bombes de semences | samedi 17 octobre 11h30 + resend pas ouverts dimanche 18 octobre 20h"
+    },
+    {
+      "date": "2026-10-17",
+      "date_envoi": "2026-10-17",
+      "sujet": "Resend aux pas ouverts - Nouveaux sérums + atelier bombes de semences | dimanche 18 octobre 9h"
     }
   ],
   "publications": [
@@ -39873,12 +39896,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10657682.02,
-    "total_ventes_bel": 7413738.46,
-    "total_ventes_boutique": 2682217.12,
-    "total_ventes_wholesale": 561726.4400000001,
-    "panier_moyen_bel": 95.81449535603717,
+    "total_ventes": 10664979.159999998,
+    "total_ventes_bel": 7418518.56,
+    "total_ventes_boutique": 2684734.16,
+    "total_ventes_wholesale": 561726.44,
+    "panier_moyen_bel": 95.82093440594059,
     "date_min": "2021-11-01",
-    "date_max": "2026-10-17"
+    "date_max": "2026-10-18"
   }
 }
