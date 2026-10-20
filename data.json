@@ -29087,6 +29087,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 3
+    },
+    {
+      "date": "2026-10-19",
+      "ventes_bel": 4936.78,
+      "ventes_boutique": 0.0,
+      "ventes_wholesale": 639.84,
+      "ventes_total": 5576.62,
+      "commandes_bel": 47.0,
+      "commandes_boutique": 0.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 48.0,
+      "panier_moyen_bel": 105.04,
+      "panier_moyen_boutique": 0.0,
+      "temp_max": 16.4,
+      "temp_min": 7.1,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 0
     }
   ],
   "infolettres": [
@@ -30371,6 +30389,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-10-19",
+      "plateforme": "instagram",
+      "description_courte": "On sait que vous aimez comprendre ce que vous mettez sur votre peau. Et ça tombe bien, parce que nous, on adore en parler. 😆",
+      "lien_post": "https://www.instagram.com/reel/DerzlEQMon2/"
     },
     {
       "date": "2026-10-17",
@@ -39896,12 +39920,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10664979.159999998,
-    "total_ventes_bel": 7418518.56,
+    "total_ventes": 10670555.78,
+    "total_ventes_bel": 7423455.34,
     "total_ventes_boutique": 2684734.16,
-    "total_ventes_wholesale": 561726.44,
-    "panier_moyen_bel": 95.82093440594059,
+    "total_ventes_wholesale": 562366.28,
+    "panier_moyen_bel": 95.82663574520717,
     "date_min": "2021-11-01",
-    "date_max": "2026-10-18"
+    "date_max": "2026-10-19"
   }
 }
