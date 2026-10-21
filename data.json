@@ -29105,6 +29105,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 0
+    },
+    {
+      "date": "2026-10-20",
+      "ventes_bel": 3766.95,
+      "ventes_boutique": 1598.68,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 5365.63,
+      "commandes_bel": 36.0,
+      "commandes_boutique": 33.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 69.0,
+      "panier_moyen_bel": 104.64,
+      "panier_moyen_boutique": 48.44,
+      "temp_max": 13.4,
+      "temp_min": 5.2,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 1
     }
   ],
   "infolettres": [
@@ -29490,6 +29508,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-10-20",
+      "plateforme": "facebook",
+      "description_courte": "Les deux questions qu’on reçoit le plus sur nos nouveaux sérums 👇\n\n1. Est-ce que je peux utiliser le sérum niacinamide & bakuchiol et le sérum tremella & acide hyaluronique ensemble?\n\nOui! Nous autres",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1673639044149800"
+    },
     {
       "date": "2026-10-17",
       "plateforme": "facebook",
@@ -30389,6 +30413,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-10-20",
+      "plateforme": "instagram",
+      "description_courte": "Les deux questions qu’on reçoit le plus sur nos nouveaux sérums 👇\n\n1. Est-ce que je peux utiliser le sérum niacinamide & bakuchiol et le sérum tremella & acide hyaluronique ensemble?\n\nOui! Nous autres",
+      "lien_post": "https://www.instagram.com/p/DeumlToHZAS/"
     },
     {
       "date": "2026-10-19",
@@ -39920,12 +39950,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10670555.78,
-    "total_ventes_bel": 7423455.34,
-    "total_ventes_boutique": 2684734.16,
+    "total_ventes": 10675921.409999998,
+    "total_ventes_bel": 7427222.29,
+    "total_ventes_boutique": 2686332.84,
     "total_ventes_wholesale": 562366.28,
-    "panier_moyen_bel": 95.82663574520717,
+    "panier_moyen_bel": 95.83208281829418,
     "date_min": "2021-11-01",
-    "date_max": "2026-10-19"
+    "date_max": "2026-10-20"
   }
 }
