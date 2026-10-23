@@ -29141,6 +29141,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 0
+    },
+    {
+      "date": "2026-10-22",
+      "ventes_bel": 3436.08,
+      "ventes_boutique": 1953.77,
+      "ventes_wholesale": 502.72,
+      "ventes_total": 5892.57,
+      "commandes_bel": 35.0,
+      "commandes_boutique": 42.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 78.0,
+      "panier_moyen_bel": 98.17,
+      "panier_moyen_boutique": 46.52,
+      "temp_max": 13.0,
+      "temp_min": 2.1,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -29297,12 +29315,12 @@
     {
       "date": "2026-07-17",
       "date_envoi": "2026-07-17",
-      "sujet": "BF des campeurs resend aux pas ouverts | 17 juillet 2026 10h"
+      "sujet": "BF des campeurs routine Marie (Juliette) | 18 juillet 2026 9h"
     },
     {
       "date": "2026-07-17",
       "date_envoi": "2026-07-17",
-      "sujet": "BF des campeurs routine Marie (Juliette) | 18 juillet 2026 9h"
+      "sujet": "BF des campeurs resend aux pas ouverts | 17 juillet 2026 10h"
     },
     {
       "date": "2026-07-24",
@@ -29337,12 +29355,12 @@
     {
       "date": "2026-08-17",
       "date_envoi": "2026-08-17",
-      "sujet": "Bis atelier shampoing automne 1016"
+      "sujet": "Bis sérum automne 2026"
     },
     {
       "date": "2026-08-17",
       "date_envoi": "2026-08-17",
-      "sujet": "Bis sérum automne 2026"
+      "sujet": "Bis atelier shampoing automne 1016"
     },
     {
       "date": "2026-08-17",
@@ -29432,17 +29450,17 @@
     {
       "date": "2026-09-17",
       "date_envoi": "2026-09-17",
-      "sujet": "Resend aux pas ouverts - sérum contour gratuit 1er achat | 19 septembre 2026 20h"
-    },
-    {
-      "date": "2026-09-17",
-      "date_envoi": "2026-09-17",
       "sujet": "Auto resend of Étape 2 Winback baume des lune sept 2026"
     },
     {
       "date": "2026-09-17",
       "date_envoi": "2026-09-17",
       "sujet": "Sérum 5 huiles - fling d'été vs longue durée | jeudi 17 septembre, resend samedi matin 9h"
+    },
+    {
+      "date": "2026-09-17",
+      "date_envoi": "2026-09-17",
+      "sujet": "Resend aux pas ouverts - sérum contour gratuit 1er achat | 19 septembre 2026 20h"
     },
     {
       "date": "2026-09-20",
@@ -29528,9 +29546,20 @@
       "date": "2026-10-21",
       "date_envoi": "2026-10-21",
       "sujet": "RAPPEL ATELIERS - 2026-10-21"
+    },
+    {
+      "date": "2026-10-22",
+      "date_envoi": "2026-10-22",
+      "sujet": "Promo cartes-cadeau + atelier bombes semences | jeudi 22 oct soir + resend samedi 24 octobre 9h"
     }
   ],
   "publications": [
+    {
+      "date": "2026-10-22",
+      "plateforme": "facebook",
+      "description_courte": "On t’explique comment ça marche :\n\nTu magasines sur notre site, relax. Tu ajoutes tes produits favoris à ton panier. Pis là, POUF : tu atteins 110 $ d’achat.\n\n🪄 MAGIE [insère ici un bruit de carillon ",
+      "lien_post": "https://www.facebook.com/reel/1386570403252726/"
+    },
     {
       "date": "2026-10-20",
       "plateforme": "facebook",
@@ -30436,6 +30465,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-10-22",
+      "plateforme": "instagram",
+      "description_courte": "On t’explique comment ça marche :\n\nTu magasines sur notre site, relax. Tu ajoutes tes produits favoris à ton panier. Pis là, POUF : tu atteins 110 $ d’achat.\n\n🪄 MAGIE [insère ici un bruit de petit car",
+      "lien_post": "https://www.instagram.com/reel/DezQHt0gQ73/"
     },
     {
       "date": "2026-10-21",
@@ -39979,12 +40014,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10680656.969999999,
-    "total_ventes_bel": 7430946.56,
-    "total_ventes_boutique": 2687344.13,
-    "total_ventes_wholesale": 562366.28,
-    "panier_moyen_bel": 95.83040148239652,
+    "total_ventes": 10686549.54,
+    "total_ventes_bel": 7434382.64,
+    "total_ventes_boutique": 2689297.9,
+    "total_ventes_wholesale": 562869.0,
+    "panier_moyen_bel": 95.83184567901235,
     "date_min": "2021-11-01",
-    "date_max": "2026-10-21"
+    "date_max": "2026-10-22"
   }
 }
