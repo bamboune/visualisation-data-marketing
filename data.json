@@ -29231,6 +29231,24 @@
       "precipitation_mm": 1.5,
       "snowfall_cm": 0.0,
       "weather_code": 53
+    },
+    {
+      "date": "2026-10-27",
+      "ventes_bel": 5042.29,
+      "ventes_boutique": 957.12,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 5999.41,
+      "commandes_bel": 48.0,
+      "commandes_boutique": 25.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 73.0,
+      "panier_moyen_bel": 105.05,
+      "panier_moyen_boutique": 38.28,
+      "temp_max": 5.7,
+      "temp_min": -0.4,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 2
     }
   ],
   "infolettres": [
@@ -29636,6 +29654,18 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-10-27",
+      "plateforme": "facebook",
+      "description_courte": "Abyssinie versus squalane végétal : on utilise lequel, quand, pourquoi?",
+      "lien_post": "https://www.facebook.com/reel/1819924489322064/"
+    },
+    {
+      "date": "2026-10-27",
+      "plateforme": "facebook",
+      "description_courte": "Jusqu’au 31 octobre, tu reçois une carte-cadeau virtuelle gratuite avec tes achats, selon ce que tu mets dans ton panier :\n\n110 $ d’achats : carte-cadeau de 15 $\n140 $ d’achats : carte-cadeau de 20 $\n",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1679927310187640"
+    },
     {
       "date": "2026-10-23",
       "plateforme": "facebook",
@@ -30553,6 +30583,18 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-10-27",
+      "plateforme": "instagram",
+      "description_courte": "Abyssinie versus squalane végétal : on utilise lequel, quand, pourquoi?",
+      "lien_post": "https://www.instagram.com/reel/DfAPS7VFGLR/"
+    },
+    {
+      "date": "2026-10-27",
+      "plateforme": "instagram",
+      "description_courte": "Jusqu’au 31 octobre, tu reçois une carte-cadeau virtuelle gratuite avec tes achats, selon ce que tu mets dans ton panier :\n\n110 $ d’achats : carte-cadeau de 15 $\n140 $ d’achats : carte-cadeau de 20 $\n",
+      "lien_post": "https://www.instagram.com/p/De_3P-cIK5p/"
     },
     {
       "date": "2026-10-23",
@@ -40108,12 +40150,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10715483.44,
-    "total_ventes_bel": 7455267.499999999,
-    "total_ventes_boutique": 2696676.1799999997,
+    "total_ventes": 10721482.85,
+    "total_ventes_bel": 7460309.789999999,
+    "total_ventes_boutique": 2697633.3,
     "total_ventes_wholesale": 563539.76,
-    "panier_moyen_bel": 95.87790024630542,
+    "panier_moyen_bel": 95.88354461538462,
     "date_min": "2021-11-01",
-    "date_max": "2026-10-26"
+    "date_max": "2026-10-27"
   }
 }
