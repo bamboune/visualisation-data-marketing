@@ -29655,6 +29655,12 @@
   ],
   "publications": [
     {
+      "date": "2026-10-28",
+      "plateforme": "facebook",
+      "description_courte": "Ici, y’a du monde pour vrai derrière chaque recette, chaque formulation, chaque sérum, chaque colis, chaque infolettre, chaque texte, chaque étiquette, chaque illustration, chaque design, chaque vidéo",
+      "lien_post": "https://www.facebook.com/reel/1361427462554319/"
+    },
+    {
       "date": "2026-10-27",
       "plateforme": "facebook",
       "description_courte": "Abyssinie versus squalane végétal : on utilise lequel, quand, pourquoi?",
@@ -30583,6 +30589,18 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-10-28",
+      "plateforme": "instagram",
+      "description_courte": "Enchantée! Tout d’abord : non, on est pas une entreprise de pesticides.🥲\n\nDepuis 2018, on formule des soins botaniques à Montréal, pis on t’explique ce qu’il y a dedans. On t’apprend aussi à les fabri",
+      "lien_post": "https://www.instagram.com/reel/DfCpVdcs6p-/"
+    },
+    {
+      "date": "2026-10-28",
+      "plateforme": "instagram",
+      "description_courte": "Ici, y’a du monde pour vrai derrière chaque recette, chaque formulation, chaque sérum, chaque colis, chaque infolettre, chaque texte, chaque étiquette, chaque illustration, chaque design, chaque vidéo",
+      "lien_post": "https://www.instagram.com/reel/DfCYgdJD8cF/"
     },
     {
       "date": "2026-10-27",
@@ -40145,6 +40163,13 @@
       "date": "2026-09-29",
       "type": "",
       "description": "Sérum visage 5 huiles anti-âge",
+      "note": "",
+      "event_id": ""
+    },
+    {
+      "date": "2026-10-15",
+      "type": "",
+      "description": "nouveaux sérums aqueux",
       "note": "",
       "event_id": ""
     }
