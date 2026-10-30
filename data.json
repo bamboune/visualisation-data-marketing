@@ -29267,6 +29267,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 3
+    },
+    {
+      "date": "2026-10-29",
+      "ventes_bel": 5241.5,
+      "ventes_boutique": 1061.39,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 6302.89,
+      "commandes_bel": 54.0,
+      "commandes_boutique": 24.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 78.0,
+      "panier_moyen_bel": 97.06,
+      "panier_moyen_boutique": 44.22,
+      "temp_max": 17.3,
+      "temp_min": 1.8,
+      "precipitation_mm": 0.5,
+      "snowfall_cm": 0.0,
+      "weather_code": 51
     }
   ],
   "infolettres": [
@@ -29323,7 +29341,7 @@
     {
       "date": "2026-05-28",
       "date_envoi": "2026-05-28",
-      "sujet": "Infolettre WS - meilleurs vendeurs du moment"
+      "sujet": "Baume des lunes mai 2026 - resend aux pas ouverts jeudi 28 mai 20h"
     },
     {
       "date": "2026-05-28",
@@ -29333,7 +29351,7 @@
     {
       "date": "2026-05-28",
       "date_envoi": "2026-05-28",
-      "sujet": "Baume des lunes mai 2026 - resend aux pas ouverts jeudi 28 mai 20h"
+      "sujet": "Infolettre WS - meilleurs vendeurs du moment"
     },
     {
       "date": "2026-06-03",
@@ -29423,12 +29441,12 @@
     {
       "date": "2026-07-17",
       "date_envoi": "2026-07-17",
-      "sujet": "BF des campeurs resend aux pas ouverts | 17 juillet 2026 10h"
+      "sujet": "BF des campeurs routine Marie (Juliette) | 18 juillet 2026 9h"
     },
     {
       "date": "2026-07-17",
       "date_envoi": "2026-07-17",
-      "sujet": "BF des campeurs routine Marie (Juliette) | 18 juillet 2026 9h"
+      "sujet": "BF des campeurs resend aux pas ouverts | 17 juillet 2026 10h"
     },
     {
       "date": "2026-07-24",
@@ -29438,12 +29456,12 @@
     {
       "date": "2026-07-31",
       "date_envoi": "2026-07-31",
-      "sujet": "Routine de Gen contour des yeux - 5 huiles + crème contour + abyssinie / offre d'emploi | samedi 8 août 9h + resend dimanche soir 19h"
+      "sujet": "Gatorade maison et savon camping (recettes!) + lecture de vacances (baku 10 produits) | samedi 1er août 9h + resend dimanche 19h"
     },
     {
       "date": "2026-07-31",
       "date_envoi": "2026-07-31",
-      "sujet": "Gatorade maison et savon camping (recettes!) + lecture de vacances (baku 10 produits) | samedi 1er août 9h + resend dimanche 19h"
+      "sujet": "Routine de Gen contour des yeux - 5 huiles + crème contour + abyssinie / offre d'emploi | samedi 8 août 9h + resend dimanche soir 19h"
     },
     {
       "date": "2026-08-02",
@@ -29669,9 +29687,20 @@
       "date": "2026-10-24",
       "date_envoi": "2026-10-24",
       "sujet": "Auto resend of Promo cartes-cadeau + atelier bombes semences | jeudi 22 oct soir + resend samedi 24 octobre 9h"
+    },
+    {
+      "date": "2026-10-29",
+      "date_envoi": "2026-10-29",
+      "sujet": "Sérums aqueux | jeudi 29 octobre + resend aux pas ouverts lundi 2 novembre"
     }
   ],
   "publications": [
+    {
+      "date": "2026-10-29",
+      "plateforme": "facebook",
+      "description_courte": "Une petite recette super facile de pains de massage!",
+      "lien_post": "https://www.facebook.com/reel/1664690761915120/"
+    },
     {
       "date": "2026-10-28",
       "plateforme": "facebook",
@@ -30613,6 +30642,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-10-29",
+      "plateforme": "instagram",
+      "description_courte": "Une petite recette super facile de pains de massage!",
+      "lien_post": "https://www.instagram.com/reel/DfFERZ1ijcL/"
     },
     {
       "date": "2026-10-28",
@@ -40219,12 +40254,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10729187.67,
-    "total_ventes_bel": 7466347.449999999,
-    "total_ventes_boutique": 2699300.46,
+    "total_ventes": 10735490.559999999,
+    "total_ventes_bel": 7471588.949999999,
+    "total_ventes_boutique": 2700361.8499999996,
     "total_ventes_wholesale": 563539.76,
-    "panier_moyen_bel": 95.8908856088561,
+    "panier_moyen_bel": 95.89160417947143,
     "date_min": "2021-11-01",
-    "date_max": "2026-10-28"
+    "date_max": "2026-10-29"
   }
 }
