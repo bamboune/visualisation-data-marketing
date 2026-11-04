@@ -29357,6 +29357,24 @@
       "precipitation_mm": 0.2,
       "snowfall_cm": 0.0,
       "weather_code": 51
+    },
+    {
+      "date": "2026-11-03",
+      "ventes_bel": 5056.18,
+      "ventes_boutique": 1104.74,
+      "ventes_wholesale": 875.7,
+      "ventes_total": 7036.62,
+      "commandes_bel": 52.0,
+      "commandes_boutique": 25.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 78.0,
+      "panier_moyen_bel": 97.23,
+      "panier_moyen_boutique": 44.19,
+      "temp_max": 12.3,
+      "temp_min": 9.2,
+      "precipitation_mm": 4.7,
+      "snowfall_cm": 0.0,
+      "weather_code": 53
     }
   ],
   "infolettres": [
@@ -29628,12 +29646,12 @@
     {
       "date": "2026-09-11",
       "date_envoi": "2026-09-11",
-      "sujet": "Resend aux pas ouverts - Ateliers au pignon + soldes | samedi matin"
+      "sujet": "Infolettre ciblée sérum contour pour 1er achat | septembre 2026"
     },
     {
       "date": "2026-09-11",
       "date_envoi": "2026-09-11",
-      "sujet": "Infolettre ciblée sérum contour pour 1er achat | septembre 2026"
+      "sujet": "Resend aux pas ouverts - Ateliers au pignon + soldes | samedi matin"
     },
     {
       "date": "2026-09-13",
@@ -29728,12 +29746,12 @@
     {
       "date": "2026-10-15",
       "date_envoi": "2026-10-15",
-      "sujet": "RAPPEL ATELIER CYCLE 18 OCTOBRE 2026"
+      "sujet": "Rappel atelier sérum 17 octobre 2026"
     },
     {
       "date": "2026-10-15",
       "date_envoi": "2026-10-15",
-      "sujet": "Rappel atelier sérum 17 octobre 2026"
+      "sujet": "RAPPEL ATELIER CYCLE 18 OCTOBRE 2026"
     },
     {
       "date": "2026-10-16",
@@ -29769,6 +29787,16 @@
       "date": "2026-11-01",
       "date_envoi": "2026-11-01",
       "sujet": "Auto resend of Sérums aqueux | jeudi 29 octobre + resend aux pas ouverts lundi 2 novembre"
+    },
+    {
+      "date": "2026-11-03",
+      "date_envoi": "2026-11-03",
+      "sujet": "erratum"
+    },
+    {
+      "date": "2026-11-03",
+      "date_envoi": "2026-11-03",
+      "sujet": "RAPPEL ATELIERS - 2026-11-03"
     }
   ],
   "publications": [
@@ -40337,12 +40365,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10763528.69,
-    "total_ventes_bel": 7491290.14,
-    "total_ventes_boutique": 2705885.6399999997,
-    "total_ventes_wholesale": 566352.91,
-    "panier_moyen_bel": 95.93011036174127,
+    "total_ventes": 10770565.309999999,
+    "total_ventes_bel": 7496346.32,
+    "total_ventes_boutique": 2706990.38,
+    "total_ventes_wholesale": 567228.61,
+    "panier_moyen_bel": 95.93090686274509,
     "date_min": "2021-11-01",
-    "date_max": "2026-11-02"
+    "date_max": "2026-11-03"
   }
 }
