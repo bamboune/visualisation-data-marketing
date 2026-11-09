@@ -29447,6 +29447,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 3
+    },
+    {
+      "date": "2026-11-08",
+      "ventes_bel": 5287.31,
+      "ventes_boutique": 1884.6,
+      "ventes_wholesale": 736.14,
+      "ventes_total": 7908.05,
+      "commandes_bel": 43.0,
+      "commandes_boutique": 40.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 84.0,
+      "panier_moyen_bel": 122.96,
+      "panier_moyen_boutique": 47.12,
+      "temp_max": 7.0,
+      "temp_min": 3.3,
+      "precipitation_mm": 1.3,
+      "snowfall_cm": 0.0,
+      "weather_code": 53
     }
   ],
   "infolettres": [
@@ -29618,12 +29636,12 @@
     {
       "date": "2026-07-31",
       "date_envoi": "2026-07-31",
-      "sujet": "Gatorade maison et savon camping (recettes!) + lecture de vacances (baku 10 produits) | samedi 1er août 9h + resend dimanche 19h"
+      "sujet": "Routine de Gen contour des yeux - 5 huiles + crème contour + abyssinie / offre d'emploi | samedi 8 août 9h + resend dimanche soir 19h"
     },
     {
       "date": "2026-07-31",
       "date_envoi": "2026-07-31",
-      "sujet": "Routine de Gen contour des yeux - 5 huiles + crème contour + abyssinie / offre d'emploi | samedi 8 août 9h + resend dimanche soir 19h"
+      "sujet": "Gatorade maison et savon camping (recettes!) + lecture de vacances (baku 10 produits) | samedi 1er août 9h + resend dimanche 19h"
     },
     {
       "date": "2026-08-02",
@@ -29743,12 +29761,12 @@
     {
       "date": "2026-09-17",
       "date_envoi": "2026-09-17",
-      "sujet": "Resend aux pas ouverts - sérum contour gratuit 1er achat | 19 septembre 2026 20h"
+      "sujet": "Sérum 5 huiles - fling d'été vs longue durée | jeudi 17 septembre, resend samedi matin 9h"
     },
     {
       "date": "2026-09-17",
       "date_envoi": "2026-09-17",
-      "sujet": "Sérum 5 huiles - fling d'été vs longue durée | jeudi 17 septembre, resend samedi matin 9h"
+      "sujet": "Resend aux pas ouverts - sérum contour gratuit 1er achat | 19 septembre 2026 20h"
     },
     {
       "date": "2026-09-17",
@@ -29884,9 +29902,20 @@
       "date": "2026-11-07",
       "date_envoi": "2026-11-07",
       "sujet": "Erratum"
+    },
+    {
+      "date": "2026-11-07",
+      "date_envoi": "2026-11-07",
+      "sujet": "Resend (avec correction lien quiz) - dimanche 20h"
     }
   ],
   "publications": [
+    {
+      "date": "2026-11-09",
+      "plateforme": "facebook",
+      "description_courte": "On aimerait tellement pouvoir vous faire sentir cette publication à travers votre écran. 😍🌲\n\nUn peu de forêt, une touche de douceur sucrée et beaucoup de souvenirs qui remontent à la surface... est-ce",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1693139052199799"
+    },
     {
       "date": "2026-11-07",
       "plateforme": "facebook",
@@ -30852,6 +30881,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-11-09",
+      "plateforme": "instagram",
+      "description_courte": "On aimerait tellement pouvoir vous faire sentir cette publication à travers votre écran. 😍🌲\n\nUn peu de forêt, une touche de douceur sucrée et beaucoup de souvenirs qui remontent à la surface... est-ce",
+      "lien_post": "https://www.instagram.com/p/DfhgImgCGhJ/"
     },
     {
       "date": "2026-11-07",
@@ -40473,15 +40508,29 @@
       "description": "promo cartes-cadeaux par palliers",
       "note": "",
       "event_id": ""
+    },
+    {
+      "date": "2026-11-09",
+      "type": "",
+      "description": "LUNEVIP20 jusqu'au 27/09",
+      "note": "",
+      "event_id": ""
+    },
+    {
+      "date": "2026-11-09",
+      "type": "",
+      "description": "LUNEVIP20 jusqu'au 27/09",
+      "note": "",
+      "event_id": ""
     }
   ],
   "stats": {
-    "total_ventes": 10796430.62,
-    "total_ventes_bel": 7509132.91,
-    "total_ventes_boutique": 2715786.2600000002,
-    "total_ventes_wholesale": 571511.45,
-    "panier_moyen_bel": 95.9256173594132,
+    "total_ventes": 10804338.670000002,
+    "total_ventes_bel": 7514420.220000001,
+    "total_ventes_boutique": 2717670.8600000003,
+    "total_ventes_wholesale": 572247.59,
+    "panier_moyen_bel": 95.94213194868664,
     "date_min": "2021-11-01",
-    "date_max": "2026-11-07"
+    "date_max": "2026-11-08"
   }
 }
