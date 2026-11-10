@@ -29465,6 +29465,24 @@
       "precipitation_mm": 1.3,
       "snowfall_cm": 0.0,
       "weather_code": 53
+    },
+    {
+      "date": "2026-11-09",
+      "ventes_bel": 3178.64,
+      "ventes_boutique": 0.0,
+      "ventes_wholesale": 1015.2,
+      "ventes_total": 4193.84,
+      "commandes_bel": 37.0,
+      "commandes_boutique": 0.0,
+      "commandes_wholesale": 2.0,
+      "commandes_total": 39.0,
+      "panier_moyen_bel": 85.91,
+      "panier_moyen_boutique": 0.0,
+      "temp_max": 9.2,
+      "temp_min": 4.6,
+      "precipitation_mm": 1.1,
+      "snowfall_cm": 0.0,
+      "weather_code": 51
     }
   ],
   "infolettres": [
@@ -29911,6 +29929,12 @@
   ],
   "publications": [
     {
+      "date": "2026-11-10",
+      "plateforme": "facebook",
+      "description_courte": "Deux anciens chouchous. Une nouvelle surprise pour le Black Friday. 👀✨\n\nRendez-vous le 12 novembre pour le grand dévoilement!\n\nD'ici là, inscrivez-vous à notre liste VIP pour avoir accès à la promo av",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/4161185540846154?substory_index=4161185540846154"
+    },
+    {
       "date": "2026-11-09",
       "plateforme": "facebook",
       "description_courte": "On aimerait tellement pouvoir vous faire sentir cette publication à travers votre écran. 😍🌲\n\nUn peu de forêt, une touche de douceur sucrée et beaucoup de souvenirs qui remontent à la surface... est-ce",
@@ -29927,12 +29951,6 @@
       "plateforme": "facebook",
       "description_courte": "ON A UN QUIZ 🚨🚨🚨🚨🚨🚨",
       "lien_post": "https://www.facebook.com/reel/1444597274514348/"
-    },
-    {
-      "date": "2026-10-30",
-      "plateforme": "facebook",
-      "description_courte": "Faque il te reste jusqu'à demain, samedi 31 octobre, 23h59 . Après ça : finito.",
-      "lien_post": "https://www.facebook.com/1540669704113402/posts/1683079293205775"
     },
     {
       "date": "2026-10-29",
@@ -40525,12 +40543,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10804338.670000002,
-    "total_ventes_bel": 7514420.220000001,
+    "total_ventes": 10808532.509999998,
+    "total_ventes_bel": 7517598.859999999,
     "total_ventes_boutique": 2717670.8600000003,
-    "total_ventes_wholesale": 572247.59,
-    "panier_moyen_bel": 95.94213194868664,
+    "total_ventes_wholesale": 573262.79,
+    "panier_moyen_bel": 95.93600732600733,
     "date_min": "2021-11-01",
-    "date_max": "2026-11-08"
+    "date_max": "2026-11-09"
   }
 }
