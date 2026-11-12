@@ -29501,6 +29501,24 @@
       "precipitation_mm": 1.7,
       "snowfall_cm": 0.0,
       "weather_code": 53
+    },
+    {
+      "date": "2026-11-11",
+      "ventes_bel": 3446.64,
+      "ventes_boutique": 1563.22,
+      "ventes_wholesale": 3009.7,
+      "ventes_total": 8019.56,
+      "commandes_bel": 37.0,
+      "commandes_boutique": 29.0,
+      "commandes_wholesale": 4.0,
+      "commandes_total": 70.0,
+      "panier_moyen_bel": 93.15,
+      "panier_moyen_boutique": 53.9,
+      "temp_max": 5.3,
+      "temp_min": 2.7,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -29527,12 +29545,12 @@
     {
       "date": "2026-05-14",
       "date_envoi": "2026-05-14",
-      "sujet": "Promo baku + petite crème / retour baume des Lunes - jeudi 14 mai 19h"
+      "sujet": "Rappel participantes produits ménagers 16 mai 2026"
     },
     {
       "date": "2026-05-14",
       "date_envoi": "2026-05-14",
-      "sujet": "Rappel participantes produits ménagers 16 mai 2026"
+      "sujet": "Promo baku + petite crème / retour baume des Lunes - jeudi 14 mai 19h"
     },
     {
       "date": "2026-05-18",
@@ -29557,12 +29575,12 @@
     {
       "date": "2026-05-28",
       "date_envoi": "2026-05-28",
-      "sujet": "Infolettre WS - meilleurs vendeurs du moment"
+      "sujet": "Baume des lunes mai 2026 - resend aux pas ouverts jeudi 28 mai 20h"
     },
     {
       "date": "2026-05-28",
       "date_envoi": "2026-05-28",
-      "sujet": "Baume des lunes mai 2026 - resend aux pas ouverts jeudi 28 mai 20h"
+      "sujet": "Infolettre WS - meilleurs vendeurs du moment"
     },
     {
       "date": "2026-05-28",
@@ -29657,12 +29675,12 @@
     {
       "date": "2026-07-17",
       "date_envoi": "2026-07-17",
-      "sujet": "BF des campeurs resend aux pas ouverts | 17 juillet 2026 10h"
+      "sujet": "BF des campeurs routine Marie (Juliette) | 18 juillet 2026 9h"
     },
     {
       "date": "2026-07-17",
       "date_envoi": "2026-07-17",
-      "sujet": "BF des campeurs routine Marie (Juliette) | 18 juillet 2026 9h"
+      "sujet": "BF des campeurs resend aux pas ouverts | 17 juillet 2026 10h"
     },
     {
       "date": "2026-07-24",
@@ -29672,12 +29690,12 @@
     {
       "date": "2026-07-31",
       "date_envoi": "2026-07-31",
-      "sujet": "Routine de Gen contour des yeux - 5 huiles + crème contour + abyssinie / offre d'emploi | samedi 8 août 9h + resend dimanche soir 19h"
+      "sujet": "Gatorade maison et savon camping (recettes!) + lecture de vacances (baku 10 produits) | samedi 1er août 9h + resend dimanche 19h"
     },
     {
       "date": "2026-07-31",
       "date_envoi": "2026-07-31",
-      "sujet": "Gatorade maison et savon camping (recettes!) + lecture de vacances (baku 10 produits) | samedi 1er août 9h + resend dimanche 19h"
+      "sujet": "Routine de Gen contour des yeux - 5 huiles + crème contour + abyssinie / offre d'emploi | samedi 8 août 9h + resend dimanche soir 19h"
     },
     {
       "date": "2026-08-02",
@@ -29797,17 +29815,17 @@
     {
       "date": "2026-09-17",
       "date_envoi": "2026-09-17",
+      "sujet": "Auto resend of Étape 2 Winback baume des lune sept 2026"
+    },
+    {
+      "date": "2026-09-17",
+      "date_envoi": "2026-09-17",
       "sujet": "Sérum 5 huiles - fling d'été vs longue durée | jeudi 17 septembre, resend samedi matin 9h"
     },
     {
       "date": "2026-09-17",
       "date_envoi": "2026-09-17",
       "sujet": "Resend aux pas ouverts - sérum contour gratuit 1er achat | 19 septembre 2026 20h"
-    },
-    {
-      "date": "2026-09-17",
-      "date_envoi": "2026-09-17",
-      "sujet": "Auto resend of Étape 2 Winback baume des lune sept 2026"
     },
     {
       "date": "2026-09-20",
@@ -29917,12 +29935,12 @@
     {
       "date": "2026-11-03",
       "date_envoi": "2026-11-03",
-      "sujet": "erratum"
+      "sujet": "RAPPEL ATELIERS - 2026-11-03"
     },
     {
       "date": "2026-11-03",
       "date_envoi": "2026-11-03",
-      "sujet": "RAPPEL ATELIERS - 2026-11-03"
+      "sujet": "erratum"
     },
     {
       "date": "2026-11-05",
@@ -29943,9 +29961,35 @@
       "date": "2026-11-07",
       "date_envoi": "2026-11-07",
       "sujet": "Resend (avec correction lien quiz) - dimanche 20h"
+    },
+    {
+      "date": "2026-11-11",
+      "date_envoi": "2026-11-11",
+      "sujet": "TEST TEST TEST Copy of Black Friday - reveal + inscription VIP pour abonnés réguliers | mercredi 11 novembre 19h00 - resend jeudi"
+    },
+    {
+      "date": "2026-11-11",
+      "date_envoi": "2026-11-11",
+      "sujet": "TEST 2 TEST 2 Copy of Black Friday - reveal + inscription VIP pour abonnés réguliers | mercredi 11 novembre 19h00 - resend jeudi"
+    },
+    {
+      "date": "2026-11-11",
+      "date_envoi": "2026-11-11",
+      "sujet": "TEST 3 TEST 3 Copy of Black Friday - reveal + inscription VIP pour abonnés réguliers | mercredi 11 novembre 19h00 - resend jeudi"
+    },
+    {
+      "date": "2026-11-11",
+      "date_envoi": "2026-11-11",
+      "sujet": "Black Friday - reveal + inscription VIP pour abonnés réguliers | mercredi 11 novembre 19h00 - resend jeudi"
     }
   ],
   "publications": [
+    {
+      "date": "2026-11-11",
+      "plateforme": "facebook",
+      "description_courte": "Même Edward aurait approuvé notre nouveauté du Black Friday. 😏 À ce stade-ci, on vous a donné TOUS les indices. Avez-vous deviné ce qu'on vous prépare? 👀\n\nOn confirme vos théories demain, le 12 novemb",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1695379568642414"
+    },
     {
       "date": "2026-11-10",
       "plateforme": "facebook",
@@ -30917,6 +30961,18 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-11-11",
+      "plateforme": "instagram",
+      "description_courte": "Pour le Black Friday cette année, on a marié deux de vos anciens chouchous. 👀✨ Rendez-vous demain pour le grand dévoilement! 🤭\n\nTu peux déjà t’inscrire à notre liste VIP pour avoir accès à la promo av",
+      "lien_post": "https://www.instagram.com/p/DfnOYBwM4Yw/"
+    },
+    {
+      "date": "2026-11-11",
+      "plateforme": "instagram",
+      "description_courte": "This is the skin of a killer, Bella. ✨ Edward aurait approuvé notre nouveauté du Black Friday. 😏\n\nÀ ce stade-ci, on vous a donné TOUS les indices. Avez-vous deviné ce qu'on vous prépare? 👀\n\nOn confirm",
+      "lien_post": "https://www.instagram.com/p/DfmwMVIj47M/"
     },
     {
       "date": "2026-11-09",
@@ -40561,12 +40617,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10814210.940000001,
-    "total_ventes_bel": 7521552.09,
-    "total_ventes_boutique": 2718942.7800000003,
-    "total_ventes_wholesale": 573716.07,
-    "panier_moyen_bel": 95.93931665649787,
+    "total_ventes": 10822230.5,
+    "total_ventes_bel": 7524998.73,
+    "total_ventes_boutique": 2720506.0,
+    "total_ventes_wholesale": 576725.77,
+    "panier_moyen_bel": 95.93761585365854,
     "date_min": "2021-11-01",
-    "date_max": "2026-11-10"
+    "date_max": "2026-11-11"
   }
 }
