@@ -29519,6 +29519,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 3
+    },
+    {
+      "date": "2026-11-12",
+      "ventes_bel": 4620.58,
+      "ventes_boutique": 1532.62,
+      "ventes_wholesale": 596.39,
+      "ventes_total": 6749.59,
+      "commandes_bel": 49.0,
+      "commandes_boutique": 33.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 83.0,
+      "panier_moyen_bel": 94.3,
+      "panier_moyen_boutique": 46.44,
+      "temp_max": 4.1,
+      "temp_min": -0.4,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -29545,12 +29563,12 @@
     {
       "date": "2026-05-14",
       "date_envoi": "2026-05-14",
-      "sujet": "Rappel participantes produits ménagers 16 mai 2026"
+      "sujet": "Promo baku + petite crème / retour baume des Lunes - jeudi 14 mai 19h"
     },
     {
       "date": "2026-05-14",
       "date_envoi": "2026-05-14",
-      "sujet": "Promo baku + petite crème / retour baume des Lunes - jeudi 14 mai 19h"
+      "sujet": "Rappel participantes produits ménagers 16 mai 2026"
     },
     {
       "date": "2026-05-18",
@@ -29575,17 +29593,17 @@
     {
       "date": "2026-05-28",
       "date_envoi": "2026-05-28",
-      "sujet": "Baume des lunes mai 2026 - resend aux pas ouverts jeudi 28 mai 20h"
-    },
-    {
-      "date": "2026-05-28",
-      "date_envoi": "2026-05-28",
       "sujet": "Infolettre WS - meilleurs vendeurs du moment"
     },
     {
       "date": "2026-05-28",
       "date_envoi": "2026-05-28",
       "sujet": "Last call code promo exclusif baume des lunes / 31 mai 2026 8h45"
+    },
+    {
+      "date": "2026-05-28",
+      "date_envoi": "2026-05-28",
+      "sujet": "Baume des lunes mai 2026 - resend aux pas ouverts jeudi 28 mai 20h"
     },
     {
       "date": "2026-06-03",
@@ -29675,12 +29693,12 @@
     {
       "date": "2026-07-17",
       "date_envoi": "2026-07-17",
-      "sujet": "BF des campeurs routine Marie (Juliette) | 18 juillet 2026 9h"
+      "sujet": "BF des campeurs resend aux pas ouverts | 17 juillet 2026 10h"
     },
     {
       "date": "2026-07-17",
       "date_envoi": "2026-07-17",
-      "sujet": "BF des campeurs resend aux pas ouverts | 17 juillet 2026 10h"
+      "sujet": "BF des campeurs routine Marie (Juliette) | 18 juillet 2026 9h"
     },
     {
       "date": "2026-07-24",
@@ -29690,12 +29708,12 @@
     {
       "date": "2026-07-31",
       "date_envoi": "2026-07-31",
-      "sujet": "Gatorade maison et savon camping (recettes!) + lecture de vacances (baku 10 produits) | samedi 1er août 9h + resend dimanche 19h"
+      "sujet": "Routine de Gen contour des yeux - 5 huiles + crème contour + abyssinie / offre d'emploi | samedi 8 août 9h + resend dimanche soir 19h"
     },
     {
       "date": "2026-07-31",
       "date_envoi": "2026-07-31",
-      "sujet": "Routine de Gen contour des yeux - 5 huiles + crème contour + abyssinie / offre d'emploi | samedi 8 août 9h + resend dimanche soir 19h"
+      "sujet": "Gatorade maison et savon camping (recettes!) + lecture de vacances (baku 10 produits) | samedi 1er août 9h + resend dimanche 19h"
     },
     {
       "date": "2026-08-02",
@@ -29815,7 +29833,7 @@
     {
       "date": "2026-09-17",
       "date_envoi": "2026-09-17",
-      "sujet": "Auto resend of Étape 2 Winback baume des lune sept 2026"
+      "sujet": "Resend aux pas ouverts - sérum contour gratuit 1er achat | 19 septembre 2026 20h"
     },
     {
       "date": "2026-09-17",
@@ -29825,7 +29843,7 @@
     {
       "date": "2026-09-17",
       "date_envoi": "2026-09-17",
-      "sujet": "Resend aux pas ouverts - sérum contour gratuit 1er achat | 19 septembre 2026 20h"
+      "sujet": "Auto resend of Étape 2 Winback baume des lune sept 2026"
     },
     {
       "date": "2026-09-20",
@@ -29935,12 +29953,12 @@
     {
       "date": "2026-11-03",
       "date_envoi": "2026-11-03",
-      "sujet": "RAPPEL ATELIERS - 2026-11-03"
+      "sujet": "erratum"
     },
     {
       "date": "2026-11-03",
       "date_envoi": "2026-11-03",
-      "sujet": "erratum"
+      "sujet": "RAPPEL ATELIERS - 2026-11-03"
     },
     {
       "date": "2026-11-05",
@@ -29965,25 +29983,27 @@
     {
       "date": "2026-11-11",
       "date_envoi": "2026-11-11",
-      "sujet": "TEST TEST TEST Copy of Black Friday - reveal + inscription VIP pour abonnés réguliers | mercredi 11 novembre 19h00 - resend jeudi"
-    },
-    {
-      "date": "2026-11-11",
-      "date_envoi": "2026-11-11",
-      "sujet": "TEST 2 TEST 2 Copy of Black Friday - reveal + inscription VIP pour abonnés réguliers | mercredi 11 novembre 19h00 - resend jeudi"
-    },
-    {
-      "date": "2026-11-11",
-      "date_envoi": "2026-11-11",
-      "sujet": "TEST 3 TEST 3 Copy of Black Friday - reveal + inscription VIP pour abonnés réguliers | mercredi 11 novembre 19h00 - resend jeudi"
-    },
-    {
-      "date": "2026-11-11",
-      "date_envoi": "2026-11-11",
       "sujet": "Black Friday - reveal + inscription VIP pour abonnés réguliers | mercredi 11 novembre 19h00 - resend jeudi"
+    },
+    {
+      "date": "2026-11-13",
+      "date_envoi": "2026-11-13",
+      "sujet": "Auto resend of Black Friday - reveal + inscription VIP pour abonnés réguliers | mercredi 11 novembre 19h00 - resend jeudi"
     }
   ],
   "publications": [
+    {
+      "date": "2026-11-12",
+      "plateforme": "facebook",
+      "description_courte": "Vous les avez aimés. Vous les avez réclamés. Alors, on a décidé de réunir deux de vos anciens chouchous dans un seul produit. 👀✨\n\nDécouvrez la Crème Éclat! Une crème corporelle hydratante et réconfort",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1110646481607728?substory_index=1110646481607728"
+    },
+    {
+      "date": "2026-11-12",
+      "plateforme": "facebook",
+      "description_courte": "SURPRISE! Deux de vos anciens chouchous font leur grand retour, sous une formule encore mieux que vous pouvez l'imaginez! 👀\n\nOn vous présente notre toute nouvelle Crème Éclat! Une crème corporelle hyd",
+      "lien_post": "https://www.facebook.com/reel/1654254046150466/"
+    },
     {
       "date": "2026-11-11",
       "plateforme": "facebook",
@@ -30961,6 +30981,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-11-12",
+      "plateforme": "instagram",
+      "description_courte": "SURPRISE! Deux de vos anciens chouchous font leur grand retour, sous une formule encore mieux que vous pouvez l'imaginez! 👀\n\nOn vous présente notre toute nouvelle Crème Éclat! Une crème corporelle hyd",
+      "lien_post": "https://www.instagram.com/reel/DfqFINeCABw/"
     },
     {
       "date": "2026-11-11",
@@ -40617,12 +40643,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10822230.5,
-    "total_ventes_bel": 7524998.73,
-    "total_ventes_boutique": 2720506.0,
-    "total_ventes_wholesale": 576725.77,
-    "panier_moyen_bel": 95.93761585365854,
+    "total_ventes": 10828980.09,
+    "total_ventes_bel": 7529619.3100000005,
+    "total_ventes_boutique": 2722038.62,
+    "total_ventes_wholesale": 577322.16,
+    "panier_moyen_bel": 95.93661791590493,
     "date_min": "2021-11-01",
-    "date_max": "2026-11-11"
+    "date_max": "2026-11-12"
   }
 }
