@@ -29555,6 +29555,24 @@
       "precipitation_mm": 0.1,
       "snowfall_cm": 0.0,
       "weather_code": 51
+    },
+    {
+      "date": "2026-11-14",
+      "ventes_bel": 4592.31,
+      "ventes_boutique": 3144.29,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 7736.6,
+      "commandes_bel": 53.0,
+      "commandes_boutique": 69.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 122.0,
+      "panier_moyen_bel": 86.65,
+      "panier_moyen_boutique": 45.57,
+      "temp_max": 4.8,
+      "temp_min": 0.2,
+      "precipitation_mm": 4.7,
+      "snowfall_cm": 0.0,
+      "weather_code": 61
     }
   ],
   "infolettres": [
@@ -29611,7 +29629,7 @@
     {
       "date": "2026-05-28",
       "date_envoi": "2026-05-28",
-      "sujet": "Infolettre WS - meilleurs vendeurs du moment"
+      "sujet": "Baume des lunes mai 2026 - resend aux pas ouverts jeudi 28 mai 20h"
     },
     {
       "date": "2026-05-28",
@@ -29621,7 +29639,7 @@
     {
       "date": "2026-05-28",
       "date_envoi": "2026-05-28",
-      "sujet": "Baume des lunes mai 2026 - resend aux pas ouverts jeudi 28 mai 20h"
+      "sujet": "Infolettre WS - meilleurs vendeurs du moment"
     },
     {
       "date": "2026-06-03",
@@ -29906,12 +29924,12 @@
     {
       "date": "2026-10-12",
       "date_envoi": "2026-10-12",
-      "sujet": "Coming soon sérums aqueux | lundi 12 octobre 9h30"
+      "sujet": "Resend aux pas ouverts - Coming soon sérums aqueux | lundi 12 octobre 19h30"
     },
     {
       "date": "2026-10-12",
       "date_envoi": "2026-10-12",
-      "sujet": "Resend aux pas ouverts - Coming soon sérums aqueux | lundi 12 octobre 19h30"
+      "sujet": "Coming soon sérums aqueux | lundi 12 octobre 9h30"
     },
     {
       "date": "2026-10-13",
@@ -29971,12 +29989,12 @@
     {
       "date": "2026-11-03",
       "date_envoi": "2026-11-03",
-      "sujet": "erratum"
+      "sujet": "RAPPEL ATELIERS - 2026-11-03"
     },
     {
       "date": "2026-11-03",
       "date_envoi": "2026-11-03",
-      "sujet": "RAPPEL ATELIERS - 2026-11-03"
+      "sujet": "erratum"
     },
     {
       "date": "2026-11-05",
@@ -30007,9 +30025,20 @@
       "date": "2026-11-13",
       "date_envoi": "2026-11-13",
       "sujet": "Auto resend of Black Friday - reveal + inscription VIP pour abonnés réguliers | mercredi 11 novembre 19h00 - resend jeudi"
+    },
+    {
+      "date": "2026-11-13",
+      "date_envoi": "2026-11-13",
+      "sujet": "RAPPEL ATELIERS - 2026-11-13"
     }
   ],
   "publications": [
+    {
+      "date": "2026-11-14",
+      "plateforme": "facebook",
+      "description_courte": "Des paillettes dans des cosmétiques? On adore, mais pas à n'importe quel prix. ✨\n\nPour notre nouvelle Crème Éclat, on a choisi des micro-paillettes dorées produites en laboratoire plutôt qu'issues de ",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1698577184989319"
+    },
     {
       "date": "2026-11-12",
       "plateforme": "facebook",
@@ -30999,6 +31028,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-11-14",
+      "plateforme": "instagram",
+      "description_courte": "Des paillettes dans des cosmétiques? On adore, mais pas à n'importe quel prix. ✨\n\nPour notre nouvelle Crème Éclat, on a choisi des micro-paillettes dorées produites en laboratoire plutôt qu'issues de ",
+      "lien_post": "https://www.instagram.com/p/DfuXwQGgVyu/"
     },
     {
       "date": "2026-11-12",
@@ -40661,12 +40696,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10833341.79,
-    "total_ventes_bel": 7531476.92,
-    "total_ventes_boutique": 2724017.37,
+    "total_ventes": 10841078.39,
+    "total_ventes_bel": 7536069.23,
+    "total_ventes_boutique": 2727161.66,
     "total_ventes_wholesale": 577847.5,
-    "panier_moyen_bel": 95.93773447015835,
+    "panier_moyen_bel": 95.93208155812539,
     "date_min": "2021-11-01",
-    "date_max": "2026-11-13"
+    "date_max": "2026-11-14"
   }
 }
