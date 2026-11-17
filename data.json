@@ -29591,6 +29591,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 3
+    },
+    {
+      "date": "2026-11-16",
+      "ventes_bel": 3389.61,
+      "ventes_boutique": 0.0,
+      "ventes_wholesale": 118.74,
+      "ventes_total": 3508.35,
+      "commandes_bel": 34.0,
+      "commandes_boutique": 0.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 35.0,
+      "panier_moyen_bel": 99.69,
+      "panier_moyen_boutique": 0.0,
+      "temp_max": 4.4,
+      "temp_min": -0.4,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -29617,12 +29635,12 @@
     {
       "date": "2026-05-14",
       "date_envoi": "2026-05-14",
-      "sujet": "Promo baku + petite crème / retour baume des Lunes - jeudi 14 mai 19h"
+      "sujet": "Rappel participantes produits ménagers 16 mai 2026"
     },
     {
       "date": "2026-05-14",
       "date_envoi": "2026-05-14",
-      "sujet": "Rappel participantes produits ménagers 16 mai 2026"
+      "sujet": "Promo baku + petite crème / retour baume des Lunes - jeudi 14 mai 19h"
     },
     {
       "date": "2026-05-18",
@@ -29652,12 +29670,12 @@
     {
       "date": "2026-05-28",
       "date_envoi": "2026-05-28",
-      "sujet": "Last call code promo exclusif baume des lunes / 31 mai 2026 8h45"
+      "sujet": "Infolettre WS - meilleurs vendeurs du moment"
     },
     {
       "date": "2026-05-28",
       "date_envoi": "2026-05-28",
-      "sujet": "Infolettre WS - meilleurs vendeurs du moment"
+      "sujet": "Last call code promo exclusif baume des lunes / 31 mai 2026 8h45"
     },
     {
       "date": "2026-06-03",
@@ -29747,12 +29765,12 @@
     {
       "date": "2026-07-17",
       "date_envoi": "2026-07-17",
-      "sujet": "BF des campeurs resend aux pas ouverts | 17 juillet 2026 10h"
+      "sujet": "BF des campeurs routine Marie (Juliette) | 18 juillet 2026 9h"
     },
     {
       "date": "2026-07-17",
       "date_envoi": "2026-07-17",
-      "sujet": "BF des campeurs routine Marie (Juliette) | 18 juillet 2026 9h"
+      "sujet": "BF des campeurs resend aux pas ouverts | 17 juillet 2026 10h"
     },
     {
       "date": "2026-07-24",
@@ -29762,12 +29780,12 @@
     {
       "date": "2026-07-31",
       "date_envoi": "2026-07-31",
-      "sujet": "Routine de Gen contour des yeux - 5 huiles + crème contour + abyssinie / offre d'emploi | samedi 8 août 9h + resend dimanche soir 19h"
+      "sujet": "Gatorade maison et savon camping (recettes!) + lecture de vacances (baku 10 produits) | samedi 1er août 9h + resend dimanche 19h"
     },
     {
       "date": "2026-07-31",
       "date_envoi": "2026-07-31",
-      "sujet": "Gatorade maison et savon camping (recettes!) + lecture de vacances (baku 10 produits) | samedi 1er août 9h + resend dimanche 19h"
+      "sujet": "Routine de Gen contour des yeux - 5 huiles + crème contour + abyssinie / offre d'emploi | samedi 8 août 9h + resend dimanche soir 19h"
     },
     {
       "date": "2026-08-02",
@@ -29887,7 +29905,7 @@
     {
       "date": "2026-09-17",
       "date_envoi": "2026-09-17",
-      "sujet": "Resend aux pas ouverts - sérum contour gratuit 1er achat | 19 septembre 2026 20h"
+      "sujet": "Auto resend of Étape 2 Winback baume des lune sept 2026"
     },
     {
       "date": "2026-09-17",
@@ -29897,7 +29915,7 @@
     {
       "date": "2026-09-17",
       "date_envoi": "2026-09-17",
-      "sujet": "Auto resend of Étape 2 Winback baume des lune sept 2026"
+      "sujet": "Resend aux pas ouverts - sérum contour gratuit 1er achat | 19 septembre 2026 20h"
     },
     {
       "date": "2026-09-20",
@@ -29942,12 +29960,12 @@
     {
       "date": "2026-10-12",
       "date_envoi": "2026-10-12",
-      "sujet": "Resend aux pas ouverts - Coming soon sérums aqueux | lundi 12 octobre 19h30"
+      "sujet": "Coming soon sérums aqueux | lundi 12 octobre 9h30"
     },
     {
       "date": "2026-10-12",
       "date_envoi": "2026-10-12",
-      "sujet": "Coming soon sérums aqueux | lundi 12 octobre 9h30"
+      "sujet": "Resend aux pas ouverts - Coming soon sérums aqueux | lundi 12 octobre 19h30"
     },
     {
       "date": "2026-10-13",
@@ -30005,6 +30023,16 @@
       "sujet": "Auto resend of Sérums aqueux | jeudi 29 octobre + resend aux pas ouverts lundi 2 novembre"
     },
     {
+      "date": "2026-11-02",
+      "date_envoi": "2026-11-02",
+      "sujet": "BF - SÉRIE LANDING FR - COURRIEL PANIERS"
+    },
+    {
+      "date": "2026-11-02",
+      "date_envoi": "2026-11-02",
+      "sujet": "BF - SÉRIE LANDING EN - COURRIEL PANIERS"
+    },
+    {
       "date": "2026-11-03",
       "date_envoi": "2026-11-03",
       "sujet": "RAPPEL ATELIERS - 2026-11-03"
@@ -30051,6 +30079,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-11-17",
+      "plateforme": "facebook",
+      "description_courte": "Les effets secondaires possibles de notre Crème Éclat :\n\n✨ Une envie soudaine de montrer vos bras.\n✨ Des gens qui vous demandent ce qui sent aussi bon.\n✨ Une augmentation potentielle des compliments.\n",
+      "lien_post": "https://www.facebook.com/reel/2411720989629884/"
+    },
     {
       "date": "2026-11-14",
       "plateforme": "facebook",
@@ -31046,6 +31080,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-11-17",
+      "plateforme": "instagram",
+      "description_courte": "Les effets secondaires possibles de notre Crème Éclat :\n\n✨ Une envie soudaine de montrer vos bras.\n✨ Des gens qui vous demandent ce qui sent aussi bon.\n✨ Une augmentation potentielle des compliments.\n",
+      "lien_post": "https://www.instagram.com/reel/Df2GF4OjIDd/"
     },
     {
       "date": "2026-11-14",
@@ -40714,12 +40754,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10847908.58,
-    "total_ventes_bel": 7539692.26,
+    "total_ventes": 10851416.93,
+    "total_ventes_bel": 7543081.869999999,
     "total_ventes_boutique": 2729937.14,
-    "total_ventes_wholesale": 578279.18,
-    "panier_moyen_bel": 95.92748175182483,
+    "total_ventes_wholesale": 578397.92,
+    "panier_moyen_bel": 95.92976899696049,
     "date_min": "2021-11-01",
-    "date_max": "2026-11-15"
+    "date_max": "2026-11-16"
   }
 }
