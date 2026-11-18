@@ -29609,6 +29609,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 3
+    },
+    {
+      "date": "2026-11-17",
+      "ventes_bel": 3431.15,
+      "ventes_boutique": 1293.33,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 4724.48,
+      "commandes_bel": 39.0,
+      "commandes_boutique": 29.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 68.0,
+      "panier_moyen_bel": 87.98,
+      "panier_moyen_boutique": 44.6,
+      "temp_max": 9.0,
+      "temp_min": -0.3,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -29635,12 +29653,12 @@
     {
       "date": "2026-05-14",
       "date_envoi": "2026-05-14",
-      "sujet": "Rappel participantes produits ménagers 16 mai 2026"
+      "sujet": "Promo baku + petite crème / retour baume des Lunes - jeudi 14 mai 19h"
     },
     {
       "date": "2026-05-14",
       "date_envoi": "2026-05-14",
-      "sujet": "Promo baku + petite crème / retour baume des Lunes - jeudi 14 mai 19h"
+      "sujet": "Rappel participantes produits ménagers 16 mai 2026"
     },
     {
       "date": "2026-05-18",
@@ -29670,12 +29688,12 @@
     {
       "date": "2026-05-28",
       "date_envoi": "2026-05-28",
-      "sujet": "Infolettre WS - meilleurs vendeurs du moment"
+      "sujet": "Last call code promo exclusif baume des lunes / 31 mai 2026 8h45"
     },
     {
       "date": "2026-05-28",
       "date_envoi": "2026-05-28",
-      "sujet": "Last call code promo exclusif baume des lunes / 31 mai 2026 8h45"
+      "sujet": "Infolettre WS - meilleurs vendeurs du moment"
     },
     {
       "date": "2026-06-03",
@@ -29765,12 +29783,12 @@
     {
       "date": "2026-07-17",
       "date_envoi": "2026-07-17",
-      "sujet": "BF des campeurs routine Marie (Juliette) | 18 juillet 2026 9h"
+      "sujet": "BF des campeurs resend aux pas ouverts | 17 juillet 2026 10h"
     },
     {
       "date": "2026-07-17",
       "date_envoi": "2026-07-17",
-      "sujet": "BF des campeurs resend aux pas ouverts | 17 juillet 2026 10h"
+      "sujet": "BF des campeurs routine Marie (Juliette) | 18 juillet 2026 9h"
     },
     {
       "date": "2026-07-24",
@@ -29780,12 +29798,12 @@
     {
       "date": "2026-07-31",
       "date_envoi": "2026-07-31",
-      "sujet": "Gatorade maison et savon camping (recettes!) + lecture de vacances (baku 10 produits) | samedi 1er août 9h + resend dimanche 19h"
+      "sujet": "Routine de Gen contour des yeux - 5 huiles + crème contour + abyssinie / offre d'emploi | samedi 8 août 9h + resend dimanche soir 19h"
     },
     {
       "date": "2026-07-31",
       "date_envoi": "2026-07-31",
-      "sujet": "Routine de Gen contour des yeux - 5 huiles + crème contour + abyssinie / offre d'emploi | samedi 8 août 9h + resend dimanche soir 19h"
+      "sujet": "Gatorade maison et savon camping (recettes!) + lecture de vacances (baku 10 produits) | samedi 1er août 9h + resend dimanche 19h"
     },
     {
       "date": "2026-08-02",
@@ -29880,12 +29898,12 @@
     {
       "date": "2026-09-11",
       "date_envoi": "2026-09-11",
-      "sujet": "Resend aux pas ouverts - Ateliers au pignon + soldes | samedi matin"
+      "sujet": "Infolettre ciblée sérum contour pour 1er achat | septembre 2026"
     },
     {
       "date": "2026-09-11",
       "date_envoi": "2026-09-11",
-      "sujet": "Infolettre ciblée sérum contour pour 1er achat | septembre 2026"
+      "sujet": "Resend aux pas ouverts - Ateliers au pignon + soldes | samedi matin"
     },
     {
       "date": "2026-09-13",
@@ -29925,12 +29943,12 @@
     {
       "date": "2026-09-21",
       "date_envoi": "2026-09-21",
-      "sujet": "Auto resend of Infolettre wholesale sérum visage 5 huiles anti-âge | septembre 2026"
+      "sujet": "RAPPEL ATELIER SÉRUM 23 SEPT 2026"
     },
     {
       "date": "2026-09-21",
       "date_envoi": "2026-09-21",
-      "sujet": "RAPPEL ATELIER SÉRUM 23 SEPT 2026"
+      "sujet": "Auto resend of Infolettre wholesale sérum visage 5 huiles anti-âge | septembre 2026"
     },
     {
       "date": "2026-09-22",
@@ -29980,12 +29998,12 @@
     {
       "date": "2026-10-15",
       "date_envoi": "2026-10-15",
-      "sujet": "Rappel atelier sérum 17 octobre 2026"
+      "sujet": "RAPPEL ATELIER CYCLE 18 OCTOBRE 2026"
     },
     {
       "date": "2026-10-15",
       "date_envoi": "2026-10-15",
-      "sujet": "RAPPEL ATELIER CYCLE 18 OCTOBRE 2026"
+      "sujet": "Rappel atelier sérum 17 octobre 2026"
     },
     {
       "date": "2026-10-16",
@@ -30035,12 +30053,12 @@
     {
       "date": "2026-11-03",
       "date_envoi": "2026-11-03",
-      "sujet": "RAPPEL ATELIERS - 2026-11-03"
+      "sujet": "erratum"
     },
     {
       "date": "2026-11-03",
       "date_envoi": "2026-11-03",
-      "sujet": "erratum"
+      "sujet": "RAPPEL ATELIERS - 2026-11-03"
     },
     {
       "date": "2026-11-05",
@@ -30076,6 +30094,21 @@
       "date": "2026-11-13",
       "date_envoi": "2026-11-13",
       "sujet": "RAPPEL ATELIERS - 2026-11-13"
+    },
+    {
+      "date": "2026-11-16",
+      "date_envoi": "2026-11-16",
+      "sujet": "RAPPEL ATELIERS - 2026-11-16"
+    },
+    {
+      "date": "2026-11-18",
+      "date_envoi": "2026-11-18",
+      "sujet": "Auto resend of BF - SÉRIE LANDING EN - COURRIEL PANIERS"
+    },
+    {
+      "date": "2026-11-18",
+      "date_envoi": "2026-11-18",
+      "sujet": "Auto resend of BF - SÉRIE LANDING FR - COURRIEL PANIERS"
     }
   ],
   "publications": [
@@ -40754,12 +40787,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10851416.93,
-    "total_ventes_bel": 7543081.869999999,
-    "total_ventes_boutique": 2729937.14,
+    "total_ventes": 10856141.41,
+    "total_ventes_bel": 7546513.02,
+    "total_ventes_boutique": 2731230.47,
     "total_ventes_wholesale": 578397.92,
-    "panier_moyen_bel": 95.92976899696049,
+    "panier_moyen_bel": 95.92493924665857,
     "date_min": "2021-11-01",
-    "date_max": "2026-11-16"
+    "date_max": "2026-11-17"
   }
 }
