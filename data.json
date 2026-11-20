@@ -29645,6 +29645,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 3
+    },
+    {
+      "date": "2026-11-19",
+      "ventes_bel": 2351.54,
+      "ventes_boutique": 1485.13,
+      "ventes_wholesale": 741.32,
+      "ventes_total": 4577.99,
+      "commandes_bel": 28.0,
+      "commandes_boutique": 35.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 64.0,
+      "panier_moyen_bel": 83.98,
+      "panier_moyen_boutique": 42.43,
+      "temp_max": 12.8,
+      "temp_min": 4.0,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -30061,12 +30079,12 @@
     {
       "date": "2026-11-02",
       "date_envoi": "2026-11-02",
-      "sujet": "BF - SÉRIE LANDING FR - COURRIEL PANIERS"
+      "sujet": "BF - SÉRIE LANDING EN - COURRIEL PANIERS"
     },
     {
       "date": "2026-11-02",
       "date_envoi": "2026-11-02",
-      "sujet": "BF - SÉRIE LANDING EN - COURRIEL PANIERS"
+      "sujet": "BF - SÉRIE LANDING FR - COURRIEL PANIERS"
     },
     {
       "date": "2026-11-03",
@@ -30106,12 +30124,12 @@
     {
       "date": "2026-11-13",
       "date_envoi": "2026-11-13",
-      "sujet": "Auto resend of Black Friday - reveal + inscription VIP pour abonnés réguliers | mercredi 11 novembre 19h00 - resend jeudi"
+      "sujet": "RAPPEL ATELIERS - 2026-11-13"
     },
     {
       "date": "2026-11-13",
       "date_envoi": "2026-11-13",
-      "sujet": "RAPPEL ATELIERS - 2026-11-13"
+      "sujet": "Auto resend of Black Friday - reveal + inscription VIP pour abonnés réguliers | mercredi 11 novembre 19h00 - resend jeudi"
     },
     {
       "date": "2026-11-16",
@@ -30127,9 +30145,32 @@
       "date": "2026-11-18",
       "date_envoi": "2026-11-18",
       "sujet": "Auto resend of BF - SÉRIE LANDING FR - COURRIEL PANIERS"
+    },
+    {
+      "date": "2026-11-19",
+      "date_envoi": "2026-11-19",
+      "sujet": "Black Friday sous peu + idées cadeaux + dernière chance VIP | jeudi 19 novembre 20h + resend pas ouverts dimanche"
     }
   ],
   "publications": [
+    {
+      "date": "2026-11-19",
+      "plateforme": "facebook",
+      "description_courte": "Notification “ne pas déranger” activée (pour nous deux) 😎🎮🍿",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1703573381156366"
+    },
+    {
+      "date": "2026-11-19",
+      "plateforme": "facebook",
+      "description_courte": "",
+      "lien_post": "https://www.facebook.com/events/3715355508817049/"
+    },
+    {
+      "date": "2026-11-19",
+      "plateforme": "facebook",
+      "description_courte": "On aime les paillettes dans les produits cosmétiques, mais on aime encore plus savoir d'où elles viennent. 👀\n\nCelles de notre Crème Éclat sont produites en laboratoire, sans avoir recours à l'extracti",
+      "lien_post": "https://www.facebook.com/reel/1764363904862650/"
+    },
     {
       "date": "2026-11-17",
       "plateforme": "facebook",
@@ -31131,6 +31172,18 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-11-19",
+      "plateforme": "instagram",
+      "description_courte": "Notification “ne pas déranger” activée (pour nous deux) 😎🎮🍿",
+      "lien_post": "https://www.instagram.com/p/Df7jWyHCKkV/"
+    },
+    {
+      "date": "2026-11-19",
+      "plateforme": "instagram",
+      "description_courte": "On aime les paillettes dans les produits cosmétiques, mais on aime encore plus savoir d'où elles viennent. 👀\n\nCelles de notre Crème Éclat sont produites en laboratoire, sans avoir recours à l'extracti",
+      "lien_post": "https://www.instagram.com/reel/Df7WoacDMDl/"
     },
     {
       "date": "2026-11-17",
@@ -40805,12 +40858,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10864823.19,
-    "total_ventes_bel": 7549045.34,
-    "total_ventes_boutique": 2733150.0700000003,
-    "total_ventes_wholesale": 582627.78,
-    "panier_moyen_bel": 95.91794778384941,
+    "total_ventes": 10869401.18,
+    "total_ventes_bel": 7551396.88,
+    "total_ventes_boutique": 2734635.2,
+    "total_ventes_wholesale": 583369.1000000001,
+    "panier_moyen_bel": 95.91070388349515,
     "date_min": "2021-11-01",
-    "date_max": "2026-11-18"
+    "date_max": "2026-11-19"
   }
 }
