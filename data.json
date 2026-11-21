@@ -29663,6 +29663,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 3
+    },
+    {
+      "date": "2026-11-20",
+      "ventes_bel": 2668.82,
+      "ventes_boutique": 1574.35,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 4243.17,
+      "commandes_bel": 30.0,
+      "commandes_boutique": 36.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 66.0,
+      "panier_moyen_bel": 88.96,
+      "panier_moyen_boutique": 43.73,
+      "temp_max": 12.6,
+      "temp_min": 4.4,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 1
     }
   ],
   "infolettres": [
@@ -29834,12 +29852,12 @@
     {
       "date": "2026-07-31",
       "date_envoi": "2026-07-31",
-      "sujet": "Routine de Gen contour des yeux - 5 huiles + crème contour + abyssinie / offre d'emploi | samedi 8 août 9h + resend dimanche soir 19h"
+      "sujet": "Gatorade maison et savon camping (recettes!) + lecture de vacances (baku 10 produits) | samedi 1er août 9h + resend dimanche 19h"
     },
     {
       "date": "2026-07-31",
       "date_envoi": "2026-07-31",
-      "sujet": "Gatorade maison et savon camping (recettes!) + lecture de vacances (baku 10 produits) | samedi 1er août 9h + resend dimanche 19h"
+      "sujet": "Routine de Gen contour des yeux - 5 huiles + crème contour + abyssinie / offre d'emploi | samedi 8 août 9h + resend dimanche soir 19h"
     },
     {
       "date": "2026-08-02",
@@ -29859,7 +29877,7 @@
     {
       "date": "2026-08-17",
       "date_envoi": "2026-08-17",
-      "sujet": "Bis sérum automne 2026"
+      "sujet": "BIS atelier cycle automne 2026"
     },
     {
       "date": "2026-08-17",
@@ -29869,7 +29887,7 @@
     {
       "date": "2026-08-17",
       "date_envoi": "2026-08-17",
-      "sujet": "BIS atelier cycle automne 2026"
+      "sujet": "Bis sérum automne 2026"
     },
     {
       "date": "2026-08-18",
@@ -29979,12 +29997,12 @@
     {
       "date": "2026-09-21",
       "date_envoi": "2026-09-21",
-      "sujet": "RAPPEL ATELIER SÉRUM 23 SEPT 2026"
+      "sujet": "Auto resend of Infolettre wholesale sérum visage 5 huiles anti-âge | septembre 2026"
     },
     {
       "date": "2026-09-21",
       "date_envoi": "2026-09-21",
-      "sujet": "Auto resend of Infolettre wholesale sérum visage 5 huiles anti-âge | septembre 2026"
+      "sujet": "RAPPEL ATELIER SÉRUM 23 SEPT 2026"
     },
     {
       "date": "2026-09-22",
@@ -30034,12 +30052,12 @@
     {
       "date": "2026-10-15",
       "date_envoi": "2026-10-15",
-      "sujet": "RAPPEL ATELIER CYCLE 18 OCTOBRE 2026"
+      "sujet": "Rappel atelier sérum 17 octobre 2026"
     },
     {
       "date": "2026-10-15",
       "date_envoi": "2026-10-15",
-      "sujet": "Rappel atelier sérum 17 octobre 2026"
+      "sujet": "RAPPEL ATELIER CYCLE 18 OCTOBRE 2026"
     },
     {
       "date": "2026-10-16",
@@ -30109,12 +30127,12 @@
     {
       "date": "2026-11-07",
       "date_envoi": "2026-11-07",
-      "sujet": "Erratum"
+      "sujet": "Resend (avec correction lien quiz) - dimanche 20h"
     },
     {
       "date": "2026-11-07",
       "date_envoi": "2026-11-07",
-      "sujet": "Resend (avec correction lien quiz) - dimanche 20h"
+      "sujet": "Erratum"
     },
     {
       "date": "2026-11-11",
@@ -30139,17 +30157,22 @@
     {
       "date": "2026-11-18",
       "date_envoi": "2026-11-18",
-      "sujet": "Auto resend of BF - SÉRIE LANDING EN - COURRIEL PANIERS"
+      "sujet": "Auto resend of BF - SÉRIE LANDING FR - COURRIEL PANIERS"
     },
     {
       "date": "2026-11-18",
       "date_envoi": "2026-11-18",
-      "sujet": "Auto resend of BF - SÉRIE LANDING FR - COURRIEL PANIERS"
+      "sujet": "Auto resend of BF - SÉRIE LANDING EN - COURRIEL PANIERS"
     },
     {
       "date": "2026-11-19",
       "date_envoi": "2026-11-19",
       "sujet": "Black Friday sous peu + idées cadeaux + dernière chance VIP | jeudi 19 novembre 20h + resend pas ouverts dimanche"
+    },
+    {
+      "date": "2026-11-20",
+      "date_envoi": "2026-11-20",
+      "sujet": "RAPPEL ATELIERS - 2026-11-20"
     }
   ],
   "publications": [
@@ -40858,12 +40881,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10869401.18,
-    "total_ventes_bel": 7551396.88,
-    "total_ventes_boutique": 2734635.2,
+    "total_ventes": 10873644.35,
+    "total_ventes_bel": 7554065.7,
+    "total_ventes_boutique": 2736209.55,
     "total_ventes_wholesale": 583369.1000000001,
-    "panier_moyen_bel": 95.91070388349515,
+    "panier_moyen_bel": 95.90648878107943,
     "date_min": "2021-11-01",
-    "date_max": "2026-11-19"
+    "date_max": "2026-11-20"
   }
 }
