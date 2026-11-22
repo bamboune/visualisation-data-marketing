@@ -29681,6 +29681,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 1
+    },
+    {
+      "date": "2026-11-21",
+      "ventes_bel": 2284.45,
+      "ventes_boutique": 2919.75,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 5204.2,
+      "commandes_bel": 30.0,
+      "commandes_boutique": 58.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 88.0,
+      "panier_moyen_bel": 76.15,
+      "panier_moyen_boutique": 50.34,
+      "temp_max": 13.1,
+      "temp_min": 2.3,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 2
     }
   ],
   "infolettres": [
@@ -30097,12 +30115,12 @@
     {
       "date": "2026-11-02",
       "date_envoi": "2026-11-02",
-      "sujet": "BF - SÉRIE LANDING EN - COURRIEL PANIERS"
+      "sujet": "BF - SÉRIE LANDING FR - COURRIEL PANIERS"
     },
     {
       "date": "2026-11-02",
       "date_envoi": "2026-11-02",
-      "sujet": "BF - SÉRIE LANDING FR - COURRIEL PANIERS"
+      "sujet": "BF - SÉRIE LANDING EN - COURRIEL PANIERS"
     },
     {
       "date": "2026-11-03",
@@ -30127,12 +30145,12 @@
     {
       "date": "2026-11-07",
       "date_envoi": "2026-11-07",
-      "sujet": "Resend (avec correction lien quiz) - dimanche 20h"
+      "sujet": "Erratum"
     },
     {
       "date": "2026-11-07",
       "date_envoi": "2026-11-07",
-      "sujet": "Erratum"
+      "sujet": "Resend (avec correction lien quiz) - dimanche 20h"
     },
     {
       "date": "2026-11-11",
@@ -30142,12 +30160,12 @@
     {
       "date": "2026-11-13",
       "date_envoi": "2026-11-13",
-      "sujet": "RAPPEL ATELIERS - 2026-11-13"
+      "sujet": "Auto resend of Black Friday - reveal + inscription VIP pour abonnés réguliers | mercredi 11 novembre 19h00 - resend jeudi"
     },
     {
       "date": "2026-11-13",
       "date_envoi": "2026-11-13",
-      "sujet": "Auto resend of Black Friday - reveal + inscription VIP pour abonnés réguliers | mercredi 11 novembre 19h00 - resend jeudi"
+      "sujet": "RAPPEL ATELIERS - 2026-11-13"
     },
     {
       "date": "2026-11-16",
@@ -30173,9 +30191,20 @@
       "date": "2026-11-20",
       "date_envoi": "2026-11-20",
       "sujet": "RAPPEL ATELIERS - 2026-11-20"
+    },
+    {
+      "date": "2026-11-20",
+      "date_envoi": "2026-11-20",
+      "sujet": "Resend - Black Friday sous peu + idées cadeaux + dernière chance VIP | jeudi 19 novembre 20h + resend pas ouverts dimanche"
     }
   ],
   "publications": [
+    {
+      "date": "2026-11-21",
+      "plateforme": "facebook",
+      "description_courte": "Ça c’était nous, l'an dernier, trois minutes après le début de la promo du Black Friday. On ne s'en remet toujours pas. 🥹\n\nEt tout ça, c'est grâce à vous et à votre support. 💜 Merci de nous encourager",
+      "lien_post": "https://www.facebook.com/reel/1513173635207372/"
+    },
     {
       "date": "2026-11-19",
       "plateforme": "facebook",
@@ -31195,6 +31224,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-11-21",
+      "plateforme": "instagram",
+      "description_courte": "Ça c’était nous, l'an dernier, trois minutes après le début de la promo du Black Friday. On ne s'en remet toujours pas. 🥹\n\nEt tout ça, c'est grâce à vous et à votre support. 💜 Merci de nous encourager",
+      "lien_post": "https://www.instagram.com/reel/DgAgM_vAb5q/"
     },
     {
       "date": "2026-11-19",
@@ -40881,12 +40916,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10873644.35,
-    "total_ventes_bel": 7554065.7,
-    "total_ventes_boutique": 2736209.55,
+    "total_ventes": 10878848.549999999,
+    "total_ventes_bel": 7556350.149999999,
+    "total_ventes_boutique": 2739129.3,
     "total_ventes_wholesale": 583369.1000000001,
-    "panier_moyen_bel": 95.90648878107943,
+    "panier_moyen_bel": 95.89451515151517,
     "date_min": "2021-11-01",
-    "date_max": "2026-11-20"
+    "date_max": "2026-11-21"
   }
 }
