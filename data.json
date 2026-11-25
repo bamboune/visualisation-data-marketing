@@ -29735,6 +29735,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 3
+    },
+    {
+      "date": "2026-11-24",
+      "ventes_bel": 80176.06,
+      "ventes_boutique": 1371.51,
+      "ventes_wholesale": 1022.29,
+      "ventes_total": 82569.86,
+      "commandes_bel": 643.0,
+      "commandes_boutique": 26.0,
+      "commandes_wholesale": 2.0,
+      "commandes_total": 671.0,
+      "panier_moyen_bel": 124.69,
+      "panier_moyen_boutique": 52.75,
+      "temp_max": 0.7,
+      "temp_min": -2.7,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 2
     }
   ],
   "infolettres": [
@@ -29931,17 +29949,17 @@
     {
       "date": "2026-08-17",
       "date_envoi": "2026-08-17",
-      "sujet": "BIS atelier cycle automne 2026"
-    },
-    {
-      "date": "2026-08-17",
-      "date_envoi": "2026-08-17",
       "sujet": "Bis atelier shampoing automne 1016"
     },
     {
       "date": "2026-08-17",
       "date_envoi": "2026-08-17",
       "sujet": "Bis sérum automne 2026"
+    },
+    {
+      "date": "2026-08-17",
+      "date_envoi": "2026-08-17",
+      "sujet": "BIS atelier cycle automne 2026"
     },
     {
       "date": "2026-08-18",
@@ -30006,12 +30024,12 @@
     {
       "date": "2026-09-11",
       "date_envoi": "2026-09-11",
-      "sujet": "Resend aux pas ouverts - Ateliers au pignon + soldes | samedi matin"
+      "sujet": "Infolettre ciblée sérum contour pour 1er achat | septembre 2026"
     },
     {
       "date": "2026-09-11",
       "date_envoi": "2026-09-11",
-      "sujet": "Infolettre ciblée sérum contour pour 1er achat | septembre 2026"
+      "sujet": "Resend aux pas ouverts - Ateliers au pignon + soldes | samedi matin"
     },
     {
       "date": "2026-09-13",
@@ -30031,17 +30049,17 @@
     {
       "date": "2026-09-17",
       "date_envoi": "2026-09-17",
-      "sujet": "Auto resend of Étape 2 Winback baume des lune sept 2026"
-    },
-    {
-      "date": "2026-09-17",
-      "date_envoi": "2026-09-17",
       "sujet": "Sérum 5 huiles - fling d'été vs longue durée | jeudi 17 septembre, resend samedi matin 9h"
     },
     {
       "date": "2026-09-17",
       "date_envoi": "2026-09-17",
       "sujet": "Resend aux pas ouverts - sérum contour gratuit 1er achat | 19 septembre 2026 20h"
+    },
+    {
+      "date": "2026-09-17",
+      "date_envoi": "2026-09-17",
+      "sujet": "Auto resend of Étape 2 Winback baume des lune sept 2026"
     },
     {
       "date": "2026-09-20",
@@ -30086,12 +30104,12 @@
     {
       "date": "2026-10-12",
       "date_envoi": "2026-10-12",
-      "sujet": "Coming soon sérums aqueux | lundi 12 octobre 9h30"
+      "sujet": "Resend aux pas ouverts - Coming soon sérums aqueux | lundi 12 octobre 19h30"
     },
     {
       "date": "2026-10-12",
       "date_envoi": "2026-10-12",
-      "sujet": "Resend aux pas ouverts - Coming soon sérums aqueux | lundi 12 octobre 19h30"
+      "sujet": "Coming soon sérums aqueux | lundi 12 octobre 9h30"
     },
     {
       "date": "2026-10-13",
@@ -30151,12 +30169,12 @@
     {
       "date": "2026-11-02",
       "date_envoi": "2026-11-02",
-      "sujet": "BF - SÉRIE LANDING FR - COURRIEL PANIERS"
+      "sujet": "BF - SÉRIE LANDING EN - COURRIEL PANIERS"
     },
     {
       "date": "2026-11-02",
       "date_envoi": "2026-11-02",
-      "sujet": "BF - SÉRIE LANDING EN - COURRIEL PANIERS"
+      "sujet": "BF - SÉRIE LANDING FR - COURRIEL PANIERS"
     },
     {
       "date": "2026-11-03",
@@ -30176,12 +30194,12 @@
     {
       "date": "2026-11-05",
       "date_envoi": "2026-11-05",
-      "sujet": "DÉBUT VIP FR"
+      "sujet": "DEBUT VIP EN"
     },
     {
       "date": "2026-11-05",
       "date_envoi": "2026-11-05",
-      "sujet": "DEBUT VIP EN"
+      "sujet": "DÉBUT VIP FR"
     },
     {
       "date": "2026-11-06",
@@ -30247,6 +30265,21 @@
       "date": "2026-11-23",
       "date_envoi": "2026-11-23",
       "sujet": "Copy of Renvoi lien magique post 18h"
+    },
+    {
+      "date": "2026-11-24",
+      "date_envoi": "2026-11-24",
+      "sujet": "Resend VIP"
+    },
+    {
+      "date": "2026-11-24",
+      "date_envoi": "2026-11-24",
+      "sujet": "Black Friday clients réguliers prépare ton panier | 24 novembre 2026 20h"
+    },
+    {
+      "date": "2026-11-25",
+      "date_envoi": "2026-11-25",
+      "sujet": "Copy of Resend VIP"
     }
   ],
   "publications": [
@@ -40979,12 +41012,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10888490.94,
-    "total_ventes_bel": 7564376.899999999,
-    "total_ventes_boutique": 2740744.94,
-    "total_ventes_wholesale": 583369.1000000001,
-    "panier_moyen_bel": 95.87483050847457,
+    "total_ventes": 10971060.8,
+    "total_ventes_bel": 7644552.96,
+    "total_ventes_boutique": 2742116.45,
+    "total_ventes_wholesale": 584391.3900000001,
+    "panier_moyen_bel": 95.89226255293406,
     "date_min": "2021-11-01",
-    "date_max": "2026-11-23"
+    "date_max": "2026-11-24"
   }
 }
