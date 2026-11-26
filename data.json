@@ -29753,6 +29753,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 2
+    },
+    {
+      "date": "2026-11-25",
+      "ventes_bel": 47814.07,
+      "ventes_boutique": 2088.83,
+      "ventes_wholesale": 944.0,
+      "ventes_total": 50846.9,
+      "commandes_bel": 390.0,
+      "commandes_boutique": 39.0,
+      "commandes_wholesale": 2.0,
+      "commandes_total": 431.0,
+      "panier_moyen_bel": 122.6,
+      "panier_moyen_boutique": 53.56,
+      "temp_max": -0.2,
+      "temp_min": -6.2,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -30049,17 +30067,17 @@
     {
       "date": "2026-09-17",
       "date_envoi": "2026-09-17",
+      "sujet": "Auto resend of Étape 2 Winback baume des lune sept 2026"
+    },
+    {
+      "date": "2026-09-17",
+      "date_envoi": "2026-09-17",
       "sujet": "Sérum 5 huiles - fling d'été vs longue durée | jeudi 17 septembre, resend samedi matin 9h"
     },
     {
       "date": "2026-09-17",
       "date_envoi": "2026-09-17",
       "sujet": "Resend aux pas ouverts - sérum contour gratuit 1er achat | 19 septembre 2026 20h"
-    },
-    {
-      "date": "2026-09-17",
-      "date_envoi": "2026-09-17",
-      "sujet": "Auto resend of Étape 2 Winback baume des lune sept 2026"
     },
     {
       "date": "2026-09-20",
@@ -30104,12 +30122,12 @@
     {
       "date": "2026-10-12",
       "date_envoi": "2026-10-12",
-      "sujet": "Resend aux pas ouverts - Coming soon sérums aqueux | lundi 12 octobre 19h30"
+      "sujet": "Coming soon sérums aqueux | lundi 12 octobre 9h30"
     },
     {
       "date": "2026-10-12",
       "date_envoi": "2026-10-12",
-      "sujet": "Coming soon sérums aqueux | lundi 12 octobre 9h30"
+      "sujet": "Resend aux pas ouverts - Coming soon sérums aqueux | lundi 12 octobre 19h30"
     },
     {
       "date": "2026-10-13",
@@ -30179,12 +30197,12 @@
     {
       "date": "2026-11-03",
       "date_envoi": "2026-11-03",
-      "sujet": "RAPPEL ATELIERS - 2026-11-03"
+      "sujet": "erratum"
     },
     {
       "date": "2026-11-03",
       "date_envoi": "2026-11-03",
-      "sujet": "erratum"
+      "sujet": "RAPPEL ATELIERS - 2026-11-03"
     },
     {
       "date": "2026-11-05",
@@ -30194,12 +30212,12 @@
     {
       "date": "2026-11-05",
       "date_envoi": "2026-11-05",
-      "sujet": "DEBUT VIP EN"
+      "sujet": "DÉBUT VIP FR"
     },
     {
       "date": "2026-11-05",
       "date_envoi": "2026-11-05",
-      "sujet": "DÉBUT VIP FR"
+      "sujet": "DEBUT VIP EN"
     },
     {
       "date": "2026-11-06",
@@ -30239,12 +30257,12 @@
     {
       "date": "2026-11-18",
       "date_envoi": "2026-11-18",
-      "sujet": "Auto resend of BF - SÉRIE LANDING EN - COURRIEL PANIERS"
+      "sujet": "Auto resend of BF - SÉRIE LANDING FR - COURRIEL PANIERS"
     },
     {
       "date": "2026-11-18",
       "date_envoi": "2026-11-18",
-      "sujet": "Auto resend of BF - SÉRIE LANDING FR - COURRIEL PANIERS"
+      "sujet": "Auto resend of BF - SÉRIE LANDING EN - COURRIEL PANIERS"
     },
     {
       "date": "2026-11-19",
@@ -30254,12 +30272,12 @@
     {
       "date": "2026-11-20",
       "date_envoi": "2026-11-20",
-      "sujet": "Resend - Black Friday sous peu + idées cadeaux + dernière chance VIP | jeudi 19 novembre 20h + resend pas ouverts dimanche"
+      "sujet": "RAPPEL ATELIERS - 2026-11-20"
     },
     {
       "date": "2026-11-20",
       "date_envoi": "2026-11-20",
-      "sujet": "RAPPEL ATELIERS - 2026-11-20"
+      "sujet": "Resend - Black Friday sous peu + idées cadeaux + dernière chance VIP | jeudi 19 novembre 20h + resend pas ouverts dimanche"
     },
     {
       "date": "2026-11-23",
@@ -30280,9 +30298,20 @@
       "date": "2026-11-25",
       "date_envoi": "2026-11-25",
       "sujet": "Copy of Resend VIP"
+    },
+    {
+      "date": "2026-11-25",
+      "date_envoi": "2026-11-25",
+      "sujet": "Resend - Black Friday clients réguliers prépare ton panier | 25 novembre 2026 12h"
     }
   ],
   "publications": [
+    {
+      "date": "2026-11-25",
+      "plateforme": "facebook",
+      "description_courte": "Visiblement, en 2026, on n'est toujours pas tannés des paillettes. 😂 C'est d'ailleurs ce qui nous a inspiré notre Crème Éclat, avec ses fines paillettes dorées produites en laboratoire. 🔬\n\nNotre Crème",
+      "lien_post": "https://www.facebook.com/reel/1654776526329281/"
+    },
     {
       "date": "2026-11-23",
       "plateforme": "facebook",
@@ -31314,6 +31343,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-11-25",
+      "plateforme": "instagram",
+      "description_courte": "Visiblement, en 2026, on n'est toujours pas tannés des paillettes. 😂 C'est d'ailleurs ce qui nous a inspiré notre Crème Éclat, avec ses fines paillettes dorées produites en laboratoire. 🔬\n\nNotre Crème",
+      "lien_post": "https://www.instagram.com/reel/DgLjjFighZa/"
     },
     {
       "date": "2026-11-23",
@@ -41012,12 +41047,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 10971060.8,
-    "total_ventes_bel": 7644552.96,
-    "total_ventes_boutique": 2742116.45,
-    "total_ventes_wholesale": 584391.3900000001,
-    "panier_moyen_bel": 95.89226255293406,
+    "total_ventes": 11021907.700000001,
+    "total_ventes_bel": 7692367.03,
+    "total_ventes_boutique": 2744205.2800000003,
+    "total_ventes_wholesale": 585335.3900000001,
+    "panier_moyen_bel": 95.90840991535671,
     "date_min": "2021-11-01",
-    "date_max": "2026-11-24"
+    "date_max": "2026-11-25"
   }
 }
