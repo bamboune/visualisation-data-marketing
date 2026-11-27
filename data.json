@@ -29771,6 +29771,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 3
+    },
+    {
+      "date": "2026-11-26",
+      "ventes_bel": 20336.29,
+      "ventes_boutique": 1608.14,
+      "ventes_wholesale": 1000.32,
+      "ventes_total": 22944.75,
+      "commandes_bel": 171.0,
+      "commandes_boutique": 29.0,
+      "commandes_wholesale": 1.0,
+      "commandes_total": 201.0,
+      "panier_moyen_bel": 118.93,
+      "panier_moyen_boutique": 55.45,
+      "temp_max": 1.4,
+      "temp_min": -6.5,
+      "precipitation_mm": 0.0,
+      "snowfall_cm": 0.0,
+      "weather_code": 3
     }
   ],
   "infolettres": [
@@ -30306,6 +30324,12 @@
     }
   ],
   "publications": [
+    {
+      "date": "2026-11-26",
+      "plateforme": "facebook",
+      "description_courte": "En pleine frénésie du Black Friday, on se rappelle qu'on n'a pas besoin de tout avoir, mais qu'on a aussi le droit de se gâter avec des choses qui nous font plaisir, sans avoir à se justifier. 🫂\n\nMoin",
+      "lien_post": "https://www.facebook.com/1540669704113402/posts/1711180843728953"
+    },
     {
       "date": "2026-11-25",
       "plateforme": "facebook",
@@ -31343,6 +31367,12 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-11-26",
+      "plateforme": "instagram",
+      "description_courte": "En pleine frénésie du Black Friday, on se rappelle qu'on n'a pas besoin de tout avoir, mais qu'on a aussi le droit de se gâter avec des choses qui nous font plaisir, sans avoir à se justifier. 🫂\n\nMoin",
+      "lien_post": "https://www.instagram.com/p/DgOPCvFBikL/"
     },
     {
       "date": "2026-11-25",
@@ -41047,12 +41077,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 11021907.700000001,
-    "total_ventes_bel": 7692367.03,
-    "total_ventes_boutique": 2744205.2800000003,
-    "total_ventes_wholesale": 585335.3900000001,
-    "panier_moyen_bel": 95.90840991535671,
+    "total_ventes": 11044852.45,
+    "total_ventes_bel": 7712703.319999999,
+    "total_ventes_boutique": 2745813.42,
+    "total_ventes_wholesale": 586335.71,
+    "panier_moyen_bel": 95.92232024169185,
     "date_min": "2021-11-01",
-    "date_max": "2026-11-25"
+    "date_max": "2026-11-26"
   }
 }
