@@ -29789,6 +29789,24 @@
       "precipitation_mm": 0.0,
       "snowfall_cm": 0.0,
       "weather_code": 3
+    },
+    {
+      "date": "2026-11-27",
+      "ventes_bel": 20416.09,
+      "ventes_boutique": 2264.21,
+      "ventes_wholesale": 0.0,
+      "ventes_total": 22680.3,
+      "commandes_bel": 169.0,
+      "commandes_boutique": 35.0,
+      "commandes_wholesale": 0.0,
+      "commandes_total": 204.0,
+      "panier_moyen_bel": 120.81,
+      "panier_moyen_boutique": 64.69,
+      "temp_max": 2.6,
+      "temp_min": -0.5,
+      "precipitation_mm": 23.1,
+      "snowfall_cm": 0.0,
+      "weather_code": 63
     }
   ],
   "infolettres": [
@@ -29850,12 +29868,12 @@
     {
       "date": "2026-05-28",
       "date_envoi": "2026-05-28",
-      "sujet": "Baume des lunes mai 2026 - resend aux pas ouverts jeudi 28 mai 20h"
+      "sujet": "Last call code promo exclusif baume des lunes / 31 mai 2026 8h45"
     },
     {
       "date": "2026-05-28",
       "date_envoi": "2026-05-28",
-      "sujet": "Last call code promo exclusif baume des lunes / 31 mai 2026 8h45"
+      "sujet": "Baume des lunes mai 2026 - resend aux pas ouverts jeudi 28 mai 20h"
     },
     {
       "date": "2026-06-03",
@@ -29925,12 +29943,12 @@
     {
       "date": "2026-07-03",
       "date_envoi": "2026-07-03",
-      "sujet": "Vente-trottoir 9 au 12 juillet | mercredi 8 juillet 19h30"
+      "sujet": "Resend aux pas ouverts - canicule à la lmh: limonade + thé glacé + tonique express + vidéo baume teinté + promo tampons | jeudi 2 juillet 20h"
     },
     {
       "date": "2026-07-03",
       "date_envoi": "2026-07-03",
-      "sujet": "Resend aux pas ouverts - canicule à la lmh: limonade + thé glacé + tonique express + vidéo baume teinté + promo tampons | jeudi 2 juillet 20h"
+      "sujet": "Vente-trottoir 9 au 12 juillet | mercredi 8 juillet 19h30"
     },
     {
       "date": "2026-07-11",
@@ -29945,12 +29963,12 @@
     {
       "date": "2026-07-17",
       "date_envoi": "2026-07-17",
-      "sujet": "BF des campeurs resend aux pas ouverts | 17 juillet 2026 10h"
+      "sujet": "BF des campeurs routine Marie (Juliette) | 18 juillet 2026 9h"
     },
     {
       "date": "2026-07-17",
       "date_envoi": "2026-07-17",
-      "sujet": "BF des campeurs routine Marie (Juliette) | 18 juillet 2026 9h"
+      "sujet": "BF des campeurs resend aux pas ouverts | 17 juillet 2026 10h"
     },
     {
       "date": "2026-07-24",
@@ -30321,9 +30339,32 @@
       "date": "2026-11-25",
       "date_envoi": "2026-11-25",
       "sujet": "Resend - Black Friday clients réguliers prépare ton panier | 25 novembre 2026 12h"
+    },
+    {
+      "date": "2026-11-27",
+      "date_envoi": "2026-11-27",
+      "sujet": "LAST CALL Black Friday | samedi 28 novembre 8h45, resend dimanche 19h"
     }
   ],
   "publications": [
+    {
+      "date": "2026-11-28",
+      "plateforme": "facebook",
+      "description_courte": "On essaie comme on peut. 😆 Identifiez vos marques locales préférées dans les commentaires. 👇 \n\nNotre Crème Éclat, d'une valeur de 40 $, est toujours offerte gratuitement dès 85 $ d'achat. ✨\n\nVous avez",
+      "lien_post": "https://www.facebook.com/reel/1141261018897910/"
+    },
+    {
+      "date": "2026-11-28",
+      "plateforme": "facebook",
+      "description_courte": "Tout ce qui brille n'est pas nécessairement reluisant, hein. 😬 On adore les paillettes, mais on aime encore plus savoir d'où elles viennent.\n\nOn est pas mal certaines que nos ancêtres auraient adoré n",
+      "lien_post": "https://www.facebook.com/reel/2199964910726247/"
+    },
+    {
+      "date": "2026-11-27",
+      "plateforme": "facebook",
+      "description_courte": "Semblerait-il que le Black Friday, c'est aujourd'hui, right? 😆\n\nOn en profite pour vous rappeler que c'est la dernière fin de semaine pour mettre la main sur notre Crème Éclat, offerte gratuitement dè",
+      "lien_post": "https://www.facebook.com/reel/1038526592589754/"
+    },
     {
       "date": "2026-11-26",
       "plateforme": "facebook",
@@ -31367,6 +31408,18 @@
       "plateforme": "facebook",
       "description_courte": "Hello there 👋\n\nT’as choisi lequel?\n\nMay the 4th be with you 🤖",
       "lien_post": "https://www.facebook.com/1540669704113402/posts/1527621648751541"
+    },
+    {
+      "date": "2026-11-27",
+      "plateforme": "instagram",
+      "description_courte": "Tout ce qui brille n'est pas nécessairement reluisant, hein. 😬 On adore les paillettes, mais on aime encore plus savoir d'où elles viennent.\n\nOn est pas mal certaines que nos ancêtres auraient adoré n",
+      "lien_post": "https://www.instagram.com/reel/DgQfTzmhJqP/"
+    },
+    {
+      "date": "2026-11-27",
+      "plateforme": "instagram",
+      "description_courte": "Semblerait-il que le Black Friday, c’est aujourd’hui, right? 😆\n\nOn en profite pour vous rappeler que c’est la dernière fin de semaine pour mettre la main sur notre Crème Éclat, offerte gratuitement dè",
+      "lien_post": "https://www.instagram.com/reel/DgQXsnshM28/"
     },
     {
       "date": "2026-11-26",
@@ -41077,12 +41130,12 @@
     }
   ],
   "stats": {
-    "total_ventes": 11044852.45,
-    "total_ventes_bel": 7712703.319999999,
-    "total_ventes_boutique": 2745813.42,
+    "total_ventes": 11067532.75,
+    "total_ventes_bel": 7733119.409999999,
+    "total_ventes_boutique": 2748077.63,
     "total_ventes_wholesale": 586335.71,
-    "panier_moyen_bel": 95.92232024169185,
+    "panier_moyen_bel": 95.93734903381643,
     "date_min": "2021-11-01",
-    "date_max": "2026-11-26"
+    "date_max": "2026-11-27"
   }
 }
